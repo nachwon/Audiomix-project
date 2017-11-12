@@ -22,7 +22,7 @@ from mixer.views import mixer
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', mixer, name='mixer')
+    url(r'^$', mixer, name='mixer'),
 ]
 
 urlpatterns += static(
