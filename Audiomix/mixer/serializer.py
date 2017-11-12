@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from mixer.models import Post
+from mixer.models import Post, Commit
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -11,4 +11,16 @@ class PostSerializer(serializers.ModelSerializer):
             'author',
             'title',
             'track',
+        )
+
+
+class CommitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Commit
+        fields = (
+            'id',
+            'author',
+            'post',
+            'instrument',
+            'commit',
         )
