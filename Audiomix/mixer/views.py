@@ -12,7 +12,7 @@ def post_detail(request, pk):
     if request.method == 'GET':
         post = Post.objects.get(pk=pk)
         serializer = PostSerializer(post)
-        return JsonResponse(serializer.data, safe=False)
+        return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK, json_dumps_params={'indent': 4})
 
     if request.method == 'POST':
         post = Post.objects.get(pk=pk)

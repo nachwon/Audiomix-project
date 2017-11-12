@@ -12,7 +12,7 @@ class Post(models.Model):
 
 class Commit(models.Model):
     author = models.CharField(max_length=50)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='commits', on_delete=models.CASCADE)
     INST_CHOICES = (
         ('V', 'Vocal'),
         ('G', 'Guitar'),
