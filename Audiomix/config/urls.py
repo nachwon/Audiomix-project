@@ -22,7 +22,7 @@ from mixer.views import post_detail
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^post_detail/(?P<pk>\d+)/$', post_detail, name='mixer'),
+    url(r'^post-detail/(?P<pk>\d+)/$', post_detail, name='mixer'),
 ]
 
 urlpatterns += static(
