@@ -18,11 +18,11 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 
-from mixer.views import mixer
+from mixer.views import post_detail
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', mixer, name='mixer'),
+    url(r'^post_detail/(?P<pk>\d+)/$', post_detail, name='mixer'),
 ]
 
 urlpatterns += static(
