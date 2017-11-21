@@ -3,7 +3,7 @@ Description=uWSGI service
 After=syslog.target
 
 [Service]
-ExecStart=/home/ubuntu/.pyenv/versions/uwsgi-env/bin/uwsgi -i /srv/django_audiomix/.config/uwsgi/uwsgi.ini
+ExecStart=/root/.pyenv/versions/app/bin/uwsgi -i /srv/app/.config/uwsgi/uwsgi.ini
 
 Restart=always
 KillSignal=SIGQUIT
