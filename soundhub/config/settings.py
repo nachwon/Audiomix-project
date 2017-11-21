@@ -32,7 +32,11 @@ SECRET_KEY = 'iti-7ei(mb_=d*w70ozbncf9(#vi)4cb+)p#cbn4#ez$o4tn-9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '.ap-northeast-2.elasticbeanstalk.com',
+    '.che1.kr',
+]
 
 
 # Application definition
