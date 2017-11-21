@@ -14,7 +14,14 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT_DIR = os.path.dirname(BASE_DIR)
 
+
+# Static Files Settings
+STATIC_ROOT = os.path.join(ROOT_DIR, '.static_root')
+
+# Media Files Settings
+MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
