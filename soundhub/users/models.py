@@ -41,5 +41,56 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
+# 이메일을 아이디로 사용하는 커스텀 유저 모델
+class CustomUser(AbstractBaseUser):
+    # 이메일 주소
+    email = models.EmailField(
+        verbose_name='이메일 주소',
+        max_length=255,
+        unique=True,
+    )
+
+    # 악기 선택지
+    INSTRUMENT_CHOICES = (
+        ('G', 'Guitar'),
+        ('B', 'Base'),
+        ('D', 'Drums'),
+        ('V', 'Vocals'),
+        ('K', 'Keyboard'),
+        ('O', 'Others'),
+    )
+    # 사용 악기
+    instrument = models.CharField(max_length=1, choices=INSTRUMENT_CHOICES)
+
+    # 관리자 여부
+    is_admin = models.BooleanField(default=False)
+
+    # 이메일을 유저네임으로 설정
+    USERNAME_FIELD = 'email'
+
+    # 필수 정보 설정
+    REQUIRED_FIELDS = (
+        'email',
+        'instrument',
+    )
+
+    # 커스텀 유저 매니저를 사용하도록 설정
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.email
+
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        return True
+
+    def has_module_perms(self, app_label):
+        return True
+
+    @property
+    def is_staff(self):
+        return self.is_admin
+
+
 
 
