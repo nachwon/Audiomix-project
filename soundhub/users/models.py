@@ -5,7 +5,7 @@ from django.db import models
 
 # 회원 가입시 이메일, 닉네임, 악기, 비밀번호를 받도록 하는 커스텀 매니저 설정
 class CustomUserManager(BaseUserManager):
-    # 일반유저 생성 - create_user 메서드 오버라이드
+    # 유저 생성 공통 메서드
     def _create_user(self, email, nickname, password, is_staff, is_superuser, instrument=None):
         # 이메일을 입력하지 않은 경우 에러 발생
         if not email:
@@ -31,7 +31,7 @@ class CustomUserManager(BaseUserManager):
 
     # 관리자 유저 생성 - create_superuser 매서드 오버라이드
     def create_superuser(self, email, nickname, password, instrument=None):
-        # 유저 인스턴스 생성
+        # _create_user 메서드를 사용하고 is_staff, is_superuser 값을 True로 설정
         user = self._create_user(
             email=email,
             nickname=nickname,
@@ -42,7 +42,9 @@ class CustomUserManager(BaseUserManager):
         )
         return user
 
+    # 일반 유저 생성 - create_user 메서드 오버라이드
     def create_user(self, email, nickname, password, instrument=None):
+        # _create_user 메서드를 사용하고 is_staff, is_superuser 값을 False로 설정
         user = self._create_user(
             email=email,
             nickname=nickname,
@@ -55,6 +57,7 @@ class CustomUserManager(BaseUserManager):
 
 
 # 이메일을 아이디로 사용하는 커스텀 유저 모델
+# PermissionsMixin 을 상속받아서 권한 관련 메서드들(is_superuser)을 포함
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     # 이메일 주소
     email = models.EmailField(
@@ -102,6 +105,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+    # 필수 메서드들
     def get_full_name(self):
         return self.email
 
