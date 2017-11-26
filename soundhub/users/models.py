@@ -1,11 +1,12 @@
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 
 
 # 회원 가입시 이메일, 닉네임, 악기, 비밀번호를 받도록 하는 커스텀 매니저 설정
 class CustomUserManager(BaseUserManager):
     # 일반유저 생성 - create_user 메서드 오버라이드
-    def create_user(self, email, nickname, instrument, password):
+    def _create_user(self, email, nickname, password, is_staff, is_superuser, instrument=None):
         # 이메일을 입력하지 않은 경우 에러 발생
         if not email:
             raise ValueError('이메일을 반드시 입력해야 합니다.')
@@ -14,6 +15,8 @@ class CustomUserManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email),  # 이메일 주소를 소문자화하여 노멀라이즈
             nickname=nickname,
+            is_staff=is_staff,
+            is_superuser=is_superuser,
             instrument=instrument,
         )
 
@@ -29,22 +32,30 @@ class CustomUserManager(BaseUserManager):
     # 관리자 유저 생성 - create_superuser 매서드 오버라이드
     def create_superuser(self, email, nickname, password, instrument=None):
         # 유저 인스턴스 생성
-        user = self.model(
-            email,
-            nickname,
-            instrument,
-            password,
+        user = self._create_user(
+            email=email,
+            nickname=nickname,
+            password=password,
+            is_staff=True,
+            is_superuser=True,
+            instrument=instrument,
         )
-        # 관리자 여부 값 설정
-        user.is_admin = True
+        return user
 
-        # 유저 저장
-        user.save()
+    def create_user(self, email, nickname, password, instrument=None):
+        user = self._create_user(
+            email=email,
+            nickname=nickname,
+            password=password,
+            is_staff=False,
+            is_superuser=False,
+            instrument=instrument,
+        )
         return user
 
 
 # 이메일을 아이디로 사용하는 커스텀 유저 모델
-class CustomUser(AbstractBaseUser):
+class CustomUser(AbstractBaseUser, PermissionsMixin):
     # 이메일 주소
     email = models.EmailField(
         verbose_name='이메일 주소',
@@ -71,7 +82,7 @@ class CustomUser(AbstractBaseUser):
                                   null=True)
 
     # 관리자 여부
-    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
 
     # 활성화 여부
     is_active = models.BooleanField(default=True)
@@ -97,11 +108,5 @@ class CustomUser(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
-
-    @property
-    def is_staff(self):
-        return self.is_admin
-
-
 
 
