@@ -44,13 +44,17 @@ AUTH_USER_MODEL = 'users.User'
 # Application definition
 
 INSTALLED_APPS = [
+    # 빌트인 앱
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    # 써드파티 앱
+    'django_extensions',
+    'rest_framework',
+    # 커스텀 앱
     'users',
 ]
 
