@@ -65,7 +65,10 @@ class CustomUser(AbstractBaseUser):
         ('O', 'Others'),
     )
     # 사용 악기
-    instrument = models.CharField(max_length=1, choices=INSTRUMENT_CHOICES)
+    instrument = models.CharField(max_length=1,
+                                  choices=INSTRUMENT_CHOICES,
+                                  blank=True,
+                                  null=True)
 
     # 관리자 여부
     is_admin = models.BooleanField(default=False)
