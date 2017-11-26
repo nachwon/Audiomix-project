@@ -58,7 +58,7 @@ class CustomUserManager(BaseUserManager):
 
 # 이메일을 아이디로 사용하는 커스텀 유저 모델
 # PermissionsMixin 을 상속받아서 권한 관련 메서드들(is_superuser)을 포함
-class CustomUser(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     # 이메일 주소
     email = models.EmailField(
         verbose_name='이메일 주소',

@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='customuser',
+            model_name='user',
             name='instrument',
             field=models.CharField(blank=True, choices=[('G', 'Guitar'), ('B', 'Base'), ('D', 'Drums'), ('V', 'Vocals'), ('K', 'Keyboard'), ('O', 'Others')], max_length=1, null=True),
         ),

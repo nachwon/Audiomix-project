@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from users.models import CustomUser
+from users.models import User
 
 
 class UserCreationForm(forms.ModelForm):
@@ -11,7 +11,7 @@ class UserCreationForm(forms.ModelForm):
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
 
     class Meta:
-        model = CustomUser
+        model = User
         fields = ('email', 'nickname', 'instrument')
 
     def clean_password2(self):
@@ -32,7 +32,7 @@ class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField()
 
     class Meta:
-        model = CustomUser
+        model = User
         fields = (
             'email',
             'nickname',
@@ -70,5 +70,5 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
-admin.site.register(CustomUser, UserAdmin)
+admin.site.register(User, UserAdmin)
 
