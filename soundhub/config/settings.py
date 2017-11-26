@@ -38,6 +38,8 @@ ALLOWED_HOSTS = [
     '.che1.kr',
 ]
 
+AUTH_USER_MODEL = 'users.CustomUser'
+
 
 # Application definition
 
