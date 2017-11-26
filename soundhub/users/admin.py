@@ -52,7 +52,7 @@ class UserAdmin(BaseUserAdmin):
     add_form = UserCreationForm
 
     list_display = ('email', 'nickname', 'instrument', 'is_staff', 'is_superuser')
-    list_filter = ('is_staff',)
+    list_filter = ('is_staff', 'is_superuser',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('Personal info', {'fields': ('nickname', 'instrument',)}),
