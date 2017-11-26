@@ -7,11 +7,15 @@ from users.serializers import UserSerializer, SignupSerializer
 
 
 # 사용자 본인 계정 조회, 수정, 삭제
-class UserDetail(generics.RetrieveAPIView):
+from utils.permissions import IsOwnerOrReadOnly
+
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (
-        permissions.IsAuthenticated,
+        # permissions.IsAuthenticated,
+        IsOwnerOrReadOnly,
     )
 
 
