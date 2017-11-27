@@ -19,8 +19,15 @@ class Post(models.Model):
     instrument = models.CharField(max_length=1, choices=INSTRUMENT_CHOICES)
     master_track = models.FileField(upload_to='master_tracks')
 
+    def __str__(self):
+        return f'{self.title} - {self.author}'
+
 
 class CommentTrack(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
     comment_track = models.FileField(upload_to='comment_tracks')
     instrument = models.CharField(max_length=1, choices=INSTRUMENT_CHOICES)
+
+    def __str__(self):
+        return f'{self.post} - {self.instrument}'

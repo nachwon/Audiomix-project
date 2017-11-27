@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'rest_framework',
     # 커스텀 앱
     'users',
+    'posts',
 ]
 
 MIDDLEWARE = [
