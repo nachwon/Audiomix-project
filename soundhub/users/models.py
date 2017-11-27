@@ -100,7 +100,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.email
+        return self.nickname
 
     # 필수 메서드들
     def get_full_name(self):
