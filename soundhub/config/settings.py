@@ -9,25 +9,37 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-
+import json
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+# 경로 설정
+# 프로젝트 경로
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# 루트 경로
 ROOT_DIR = os.path.dirname(BASE_DIR)
+# 기밀정보 경로
+CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secrets')
+CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')
 
 
-# Static Files Settings
-STATIC_ROOT = os.path.join(ROOT_DIR, '.static_root')
+# 미디어 파일 설정
+# MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
 
-# Media Files Settings
-MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
+# S3 저장소 설정
+DEFAULT_FILE_STORAGE = 'config.storages.MediaStorage'
+STATICFILES_STORAGE = 'config.storages.StaticStorage'
+MEDIAFILES_LOCATION = 'media'
+STATICFILES_LOCATION = 'static'
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
+# AWS Access
+config_secret = json.loads(open(CONFIG_SETTINGS_COMMON_FILE).read())
+AWS_ACCESS_KEY_ID = config_secret['aws']['access_key_id']
+AWS_SECRET_ACCESS_KEY = config_secret['aws']['secret_access_key']
+AWS_STORAGE_BUCKET_NAME = config_secret['aws']['s3_bucket_name']
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'iti-7ei(mb_=d*w70ozbncf9(#vi)4cb+)p#cbn4#ez$o4tn-9'
+SECRET_KEY = config_secret['django']['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
