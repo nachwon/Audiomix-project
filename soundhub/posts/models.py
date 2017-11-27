@@ -17,7 +17,8 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     instrument = models.CharField(max_length=1, choices=INSTRUMENT_CHOICES)
-    master_track = models.FileField(upload_to='master_tracks')
+    master_track = models.FileField(upload_to='master_tracks', blank=True, null=True)
+    author_track = models.FileField(upload_to='author_tracks')
 
     def __str__(self):
         return f'{self.title} - {self.author}'
