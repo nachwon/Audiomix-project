@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     # 써드파티 앱
     'django_extensions',
     'rest_framework',
+    'storages',
     # 커스텀 앱
     'users',
     'posts',
