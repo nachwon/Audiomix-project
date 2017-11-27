@@ -6,7 +6,7 @@ from django.db import models
 # 회원 가입시 이메일, 닉네임, 악기, 비밀번호를 받도록 하는 커스텀 매니저 설정
 class CustomUserManager(BaseUserManager):
     # 유저 생성 공통 메서드
-    def _create_user(self, email, nickname, password, is_staff, is_superuser, instrument=None):
+    def _create_user(self, email, nickname, password, is_staff=False, is_superuser=False, instrument=None):
         # 이메일을 입력하지 않은 경우 에러 발생
         if not email:
             raise ValueError('이메일을 반드시 입력해야 합니다.')
@@ -49,8 +49,6 @@ class CustomUserManager(BaseUserManager):
             email=email,
             nickname=nickname,
             password=password,
-            is_staff=False,
-            is_superuser=False,
             instrument=instrument,
         )
         return user
@@ -69,26 +67,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     # 닉네임
     nickname = models.CharField(max_length=50, unique=True)
 
-    # 악기 선택지
-    INSTRUMENT_CHOICES = (
-        ('G', 'Guitar'),
-        ('B', 'Base'),
-        ('D', 'Drums'),
-        ('V', 'Vocals'),
-        ('K', 'Keyboard'),
-        ('O', 'Others'),
-    )
-    # 사용 악기
-    instrument = models.CharField(max_length=1,
-                                  choices=INSTRUMENT_CHOICES,
-                                  blank=True,
-                                  null=True)
+    # Guitar, Base, Drum, Vocal, Keyboard, Other 등은 프론트에서 체크박스 value 로 받고,
+    # Serializer 에서 문자열로 합쳐줌
+    instrument = models.TextField(blank=True, null=True)
 
     # 관리자 여부
     is_staff = models.BooleanField(default=False)
 
     # 활성화 여부
     is_active = models.BooleanField(default=True)
+    # 활성화 여부를 판단할 해쉬 값
+    activation_key = models.CharField(max_length=40)
 
     # 이메일을 유저네임으로 설정
     USERNAME_FIELD = 'email'
@@ -113,7 +102,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.nickname
 
     def has_perm(self, perm, obj=None):
-        "Does the user have a specific permission?"
+        """Does the user have a specific permission?"""
         return True
 
     def has_module_perms(self, app_label):
