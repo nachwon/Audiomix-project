@@ -206,4 +206,4 @@ venv.bak/
 !.elasticbeanstalk/*.global.yml
 
 # config_secrets
-.config_secrets/
+!.config_secrets/
