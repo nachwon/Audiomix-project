@@ -30,4 +30,4 @@ class CommentTrack(models.Model):
     instrument = models.CharField(max_length=1, choices=INSTRUMENT_CHOICES)
 
     def __str__(self):
-        return f'{self.post} - {self.instrument}'
+        return f'{self.post.title}: {self.instrument}'
