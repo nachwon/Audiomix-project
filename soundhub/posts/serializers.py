@@ -27,9 +27,21 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class CommentTrackSerializer(serializers.ModelSerializer):
-    author = UserSerializer(read_only=True)
-    post = PostSerializer(read_only=True)
+    author = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='nickname'
+    )
+    post = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='title',
+    )
 
     class Meta:
         model = CommentTrack
-        fields = '__all__'
+        fields = (
+            'id',
+            'author',
+            'post',
+            'comment_track',
+            'instrument',
+        )
