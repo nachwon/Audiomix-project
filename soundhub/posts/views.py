@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from posts.models import Post, CommentTrack
 from posts.serializers import PostSerializer, CommentTrackSerializer
 
-from utils.permissions import IsOwnerOrReadOnly, IsAuthorOrReadOnly
+from utils.permissions import IsAuthorOrReadOnly
 
 
 # 포스트 목록 조회 및 포스트 생성 API
@@ -30,19 +30,29 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     )
 
 
+# 코멘트 트랙 조회, 등록
 class CommentTrackList(generics.ListCreateAPIView):
-    queryset = CommentTrack.objects.all()
     serializer_class = CommentTrackSerializer
     permission_classes = (
-        # 회원인 경우만 코멘트 작성 가능
         IsAuthenticatedOrReadOnly,
     )
 
+    # 쿼리셋 가져오기
+    def get_queryset(self):
+        # GET 요청인 경우 코멘트 트랙 리스트 가져옴
+        if self.request.method == 'GET':
+            return CommentTrack.objects.all()
+        # POST 요청인 경우 pk 값으로 포스트 객체 가져옴
+        elif self.request.method == 'POST':
+            return Post.objects.all()
+
+    # POST 요청 받을 시
     def perform_create(self, serializer):
-        post = serializer.get_object()
+        post = self.get_object()
         print(post)
         serializer.save(
+            # 요청 보낸 유저를 코멘트 작성자로
             author=self.request.user,
-            # post=self.post,
+            # pk 값으로 가져온 포스트 객체에 코멘트 작성
+            post=post,
         )
-
