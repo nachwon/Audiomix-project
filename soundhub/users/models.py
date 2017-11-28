@@ -69,7 +69,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     # 악기 선택지
     INSTRUMENT_CHOICES = (
         ('G', 'Guitar'),
-        ('B', 'Base'),
+        ('B', 'Bass'),
         ('D', 'Drums'),
         ('V', 'Vocals'),
         ('K', 'Keyboard'),

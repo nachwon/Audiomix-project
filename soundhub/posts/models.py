@@ -5,7 +5,7 @@ User = get_user_model()
 
 INSTRUMENT_CHOICES = (
         ('G', 'Guitar'),
-        ('B', 'Base'),
+        ('B', 'Bass'),
         ('D', 'Drums'),
         ('V', 'Vocals'),
         ('K', 'Keyboard'),
