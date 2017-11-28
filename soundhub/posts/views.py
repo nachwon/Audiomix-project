@@ -41,7 +41,9 @@ class CommentTrackList(generics.ListCreateAPIView):
     def get_queryset(self):
         # GET 요청인 경우 코멘트 트랙 리스트 가져옴
         if self.request.method == 'GET':
-            return CommentTrack.objects.all()
+            pk = self.kwargs['pk']
+            post = Post.objects.get(pk=pk)
+            return post.comment_tracks.all()
         # POST 요청인 경우 pk 값으로 포스트 객체 가져옴
         elif self.request.method == 'POST':
             return Post.objects.all()
@@ -56,3 +58,11 @@ class CommentTrackList(generics.ListCreateAPIView):
             # pk 값으로 가져온 포스트 객체에 코멘트 작성
             post=post,
         )
+
+
+class CommentTrackDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CommentTrack.objects.all()
+    serializer_class = CommentTrackSerializer
+    permission_classes = (
+        IsAuthorOrReadOnly,
+    )
