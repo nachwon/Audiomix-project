@@ -76,8 +76,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # 활성화 여부
     is_active = models.BooleanField(default=True)
-    # 활성화 여부를 판단할 해쉬 값
-    activation_key = models.CharField(max_length=40)
 
     # 이메일을 유저네임으로 설정
     USERNAME_FIELD = 'email'
@@ -109,3 +107,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         return True
 
 
+# Email Verification 에 사용되는 Activation key 정보를 담고 있는 클래스
+# User class 와 one to one 으로 연결
+class ActivationKeyInfo(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    key = models.CharField(max_length=40, blank=True)
+    # key 만료 기한
+    expires_at = models.DateTimeField(null=True)
