@@ -4,6 +4,9 @@ from django.db import models
 
 
 # 회원 가입시 이메일, 닉네임, 악기, 비밀번호를 받도록 하는 커스텀 매니저 설정
+from rest_framework.authtoken.models import Token
+
+
 class CustomUserManager(BaseUserManager):
     # 유저 생성 공통 메서드
     def _create_user(self, email, nickname, password, is_staff=False, is_superuser=False, instrument=None):
@@ -89,6 +92,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f'name: {self.nickname}, email: {self.email}'
+
+    @property
+    def token(self):
+        return Token.objects.get_or_create(user=self)[0].key
 
     # 필수 메서드들
     def get_full_name(self):
