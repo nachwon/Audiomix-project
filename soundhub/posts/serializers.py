@@ -12,5 +12,4 @@ class PostSerializer(serializers.ModelSerializer):
             'author',
             'master_track',
             'author_track',
-            'comment_tracks'
         )
