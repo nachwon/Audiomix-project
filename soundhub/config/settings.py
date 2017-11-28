@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from config_secret import settings
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT_DIR = os.path.dirname(BASE_DIR)
 
@@ -23,11 +26,18 @@ STATIC_ROOT = os.path.join(ROOT_DIR, '.static_root')
 # Media Files Settings
 MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
+# Django Mail Information
+# EMAIL_HOST_USER 와 PASSWORD 는 config_secret 모듈에서 관리한다
+# config_secret 모듈은 import 하기 쉽도록 파이썬 모듈로 관리, .gitignore 에 추가해두었다
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = settings.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = settings.EMAIL_HOST_PASSWORD1 + settings.EMAIL_HOST_PASSWORD2
+DEFAULT_FROM_EMAIL = 'joo2theeon@gmail.com'
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'iti-7ei(mb_=d*w70ozbncf9(#vi)4cb+)p#cbn4#ez$o4tn-9'
+SECRET_KEY = settings.SECRET_KEY1 + settings.SECRET_KEY2
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -42,7 +52,6 @@ AUTH_USER_MODEL = 'users.User'
 
 
 # Application definition
-
 INSTALLED_APPS = [
     # 빌트인 앱
     'django.contrib.admin',

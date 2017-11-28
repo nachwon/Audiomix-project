@@ -197,6 +197,7 @@ venv.bak/
 .idea
 *.mp3
 *.WAV
+config_secret/
 
 # End of https://www.gitignore.io/api/linux,python,django,pycharm
 
