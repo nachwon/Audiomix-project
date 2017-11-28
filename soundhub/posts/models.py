@@ -26,7 +26,7 @@ class Post(models.Model):
 
 class CommentTrack(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='comment_tracks' ,on_delete=models.CASCADE)
     comment_track = models.FileField(upload_to='comment_tracks')
     instrument = models.CharField(max_length=1, choices=INSTRUMENT_CHOICES)
 
