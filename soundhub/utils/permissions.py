@@ -22,5 +22,6 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
             return True
 
         # 안전한 요청이 아닐 경우 해당 포스트의 작성자와 현재 로그인한 유저의 이메일이 일치하는지 확인
-        print(request.user)
         return view.get_object().author.email == request.user.get_full_name()
+
+
