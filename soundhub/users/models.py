@@ -63,19 +63,17 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=255,
         unique=True,
     )
-
     # 닉네임
     nickname = models.CharField(max_length=50, unique=True)
-
     # Guitar, Base, Drum, Vocal, Keyboard, Other 등은 프론트에서 체크박스 value 로 받고,
     # Serializer 에서 문자열로 합쳐줌
-    instrument = models.TextField(blank=True, null=True)
-
+    instrument = models.CharField(max_length=255, blank=True, null=True)
     # 관리자 여부
     is_staff = models.BooleanField(default=False)
-
     # 활성화 여부
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
+    # 계정생성 날짜
+    created_at = models.DateField(auto_now_add=True)
 
     # 이메일을 유저네임으로 설정
     USERNAME_FIELD = 'email'
@@ -90,7 +88,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.email
+        return f'name: {self.nickname}, email: {self.email}'
 
     # 필수 메서드들
     def get_full_name(self):
@@ -113,4 +111,4 @@ class ActivationKeyInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     key = models.CharField(max_length=40, blank=True)
     # key 만료 기한
-    expires_at = models.DateTimeField(null=True)
+    expires_at = models.DateTimeField()
