@@ -47,6 +47,15 @@ EMAIL_HOST_USER = config_secret['email']['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = config_secret['email']['EMAIL_HOST_PASSWORD']
 DEFAULT_FROM_EMAIL = 'joo2theeon@gmail.com'
 
+# Django REST Framework Settings
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication'
+    ),
+}
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config_secret['django']['SECRET_KEY']
 
