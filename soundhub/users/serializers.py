@@ -17,6 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
             'nickname',
             'instrument',
             'is_staff',
+            'is_active',
             'last_login',
         )
 

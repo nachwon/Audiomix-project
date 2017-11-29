@@ -44,7 +44,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = config_secret['email']['EMAIL_HOST_USER']
-EMAIL_HOST_PASSWORD = config_secret['email']['EMAIL_HOST_PASSWORD1'] + config_secret['email']['EMAIL_HOST_PASSWORD2']
+EMAIL_HOST_PASSWORD = config_secret['email']['EMAIL_HOST_PASSWORD']
 DEFAULT_FROM_EMAIL = 'joo2theeon@gmail.com'
 
 # SECURITY WARNING: keep the secret key used in production secret!

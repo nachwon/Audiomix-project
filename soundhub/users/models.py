@@ -9,7 +9,7 @@ from rest_framework.authtoken.models import Token
 
 class CustomUserManager(BaseUserManager):
     # 유저 생성 공통 메서드
-    def _create_user(self, email, nickname, password, is_staff, instrument=None):
+    def _create_user(self, email, nickname, password, is_staff, is_active, instrument=None):
         # 이메일을 입력하지 않은 경우 에러 발생
         if not email:
             raise ValueError('이메일을 반드시 입력해야 합니다.')
@@ -19,6 +19,7 @@ class CustomUserManager(BaseUserManager):
             email=self.normalize_email(email),  # 이메일 주소를 소문자화하여 노멀라이즈
             nickname=nickname,
             is_staff=is_staff,
+            is_active=is_active,
             instrument=instrument,
         )
 
@@ -39,6 +40,7 @@ class CustomUserManager(BaseUserManager):
             nickname=nickname,
             password=password,
             is_staff=True,
+            is_active=True,
             instrument=instrument,
         )
         return user
@@ -51,6 +53,7 @@ class CustomUserManager(BaseUserManager):
             nickname=nickname,
             password=password,
             is_staff=False,
+            is_active=False,
             instrument=instrument,
         )
         return user
@@ -73,9 +76,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     instrument = models.CharField(max_length=255, blank=True, null=True)
 
     # 관리자 여부
-    is_staff = models.BooleanField(default=False)
+    is_staff = models.BooleanField()
     # 활성화 여부
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField()
     # 계정생성 날짜
     created_at = models.DateField(auto_now_add=True)
 

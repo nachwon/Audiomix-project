@@ -35,23 +35,6 @@ class UserSignup(generics.CreateAPIView):
     serializer_class = SignupSerializer
 
 
-class UserLogin(APIView):
-    def post(self, request, *args, **kwargs):
-        if request.method == 'POST':
-            username = request.data.get('email')
-            password = request.data.get('password')
-            user = authenticate(username=username, password=password)
-
-            if user:
-                serializer = UserSerializer(user)
-                data = {
-                    "user": serializer.data,
-                }
-            else:
-                data = {"error": "login failed"}
-            return Response(data, status=status.HTTP_200_OK)
-
-
 class Login(APIView):
     def post(self, request, *args, **kwargs):
         email = request.data['email']
@@ -137,8 +120,5 @@ class ActivateUser(APIView):
         activation_key_info.user.is_active = True
         # user.save()
         activation_key_info.user.save()
-        data = {
-            'user': UserSerializer(activation_key_info.user).data,
-            'is_active': activation_key_info.user.is_active,
-        }
+        data = UserSerializer(activation_key_info.user).data
         return Response(data)
