@@ -12,8 +12,9 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import json
 import os
 
-# 경로 설정
-# 프로젝트 경로
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from config_secret import settings
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # 루트 경로
 ROOT_DIR = os.path.dirname(BASE_DIR)
@@ -39,6 +40,16 @@ AWS_STORAGE_BUCKET_NAME = config_secret['aws']['s3_bucket_name']
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_S3_REGION_NAME = 'ap-northeast-2'
 
+# Django Mail Information
+# EMAIL_HOST_USER 와 PASSWORD 는 config_secret 모듈에서 관리한다
+# config_secret 모듈은 import 하기 쉽도록 파이썬 모듈로 관리, .gitignore 에 추가해두었다
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = settings.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = settings.EMAIL_HOST_PASSWORD1 + settings.EMAIL_HOST_PASSWORD2
+DEFAULT_FROM_EMAIL = 'joo2theeon@gmail.com'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config_secret['django']['SECRET_KEY']
@@ -56,7 +67,6 @@ AUTH_USER_MODEL = 'users.User'
 
 
 # Application definition
-
 INSTALLED_APPS = [
     # 빌트인 앱
     'django.contrib.admin',
@@ -68,6 +78,7 @@ INSTALLED_APPS = [
     # 써드파티 앱
     'django_extensions',
     'rest_framework',
+    'rest_framework.authtoken',
     'storages',
     # 커스텀 앱
     'users',

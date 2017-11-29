@@ -4,9 +4,12 @@ from django.db import models
 
 
 # 회원 가입시 이메일, 닉네임, 악기, 비밀번호를 받도록 하는 커스텀 매니저 설정
+from rest_framework.authtoken.models import Token
+
+
 class CustomUserManager(BaseUserManager):
     # 유저 생성 공통 메서드
-    def _create_user(self, email, nickname, password, is_staff, instrument=None):
+    def _create_user(self, email, nickname, password, instrument=None):
         # 이메일을 입력하지 않은 경우 에러 발생
         if not email:
             raise ValueError('이메일을 반드시 입력해야 합니다.')
@@ -62,30 +65,19 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=255,
         unique=True,
     )
-
     # 닉네임
     nickname = models.CharField(max_length=50, unique=True)
 
-    # 악기 선택지
-    INSTRUMENT_CHOICES = (
-        ('G', 'Guitar'),
-        ('B', 'Bass'),
-        ('D', 'Drums'),
-        ('V', 'Vocals'),
-        ('K', 'Keyboard'),
-        ('O', 'Others'),
-    )
-    # 사용 악기
-    instrument = models.CharField(max_length=1,
-                                  choices=INSTRUMENT_CHOICES,
-                                  blank=True,
-                                  null=True)
+    # Guitar, Base, Drum, Vocal, Keyboard, Other 등은 프론트에서 체크박스 value 로 받고,
+    # Serializer 에서 문자열로 합쳐줌
+    instrument = models.CharField(max_length=255, blank=True, null=True)
 
     # 관리자 여부
     is_staff = models.BooleanField(default=False)
-
     # 활성화 여부
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
+    # 계정생성 날짜
+    created_at = models.DateField(auto_now_add=True)
 
     # 이메일을 유저네임으로 설정
     USERNAME_FIELD = 'email'
@@ -102,6 +94,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.nickname
 
+    @property
+    def token(self):
+        return Token.objects.get_or_create(user=self)[0].key
+
     # 필수 메서드들
     def get_full_name(self):
         return self.email
@@ -110,10 +106,17 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.nickname
 
     def has_perm(self, perm, obj=None):
-        "Does the user have a specific permission?"
+        """Does the user have a specific permission?"""
         return True
 
     def has_module_perms(self, app_label):
         return True
 
 
+# Email Verification 에 사용되는 Activation key 정보를 담고 있는 클래스
+# User class 와 one to one 으로 연결
+class ActivationKeyInfo(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    key = models.CharField(max_length=40, blank=True)
+    # key 만료 기한
+    expires_at = models.DateTimeField()
