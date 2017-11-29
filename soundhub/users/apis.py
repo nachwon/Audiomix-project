@@ -1,5 +1,7 @@
 import hashlib
 from datetime import datetime, timedelta
+from django.utils import timezone
+from pprint import pprint
 from random import random
 
 from django.contrib.auth import get_user_model, authenticate
@@ -19,11 +21,10 @@ User = get_user_model()
 
 class Login(APIView):
     def post(self, request, *args, **kwargs):
-        print(request.data)
-        username = request.data['email']
+        email = request.data['email']
         password = request.data['password']
 
-        user = authenticate(email=username, password=password)
+        user = authenticate(email=email, password=password)
         if user:
             token, is_token_created = Token.objects.get_or_create(user=user)
             data = {
@@ -97,10 +98,12 @@ class ActivateUser(APIView):
         # activation key 와 일치하는 정보가 없으면 HTTP status 404
         activation_key_info = get_object_or_404(ActivationKeyInfo, key=activation_key)
         # activation key 가 만료된 경우
-        if not activation_key_info.expires_at > datetime.now():
+        if not activation_key_info.expires_at > timezone.now():
             raise APIException('activation_key 의 기한이 만료되었습니다.')
         # activation key 와 일치하는 정보가 있고, key 가 유효할 경우
         activation_key_info.user.is_active = True
+        # user.save()
+        activation_key_info.user.save()
         data = {
             'user': UserSerializer(activation_key_info.user).data,
             'is_active': activation_key_info.user.is_active,
