@@ -9,7 +9,7 @@ from rest_framework.authtoken.models import Token
 
 class CustomUserManager(BaseUserManager):
     # 유저 생성 공통 메서드
-    def _create_user(self, email, nickname, password, instrument=None):
+    def _create_user(self, email, nickname, password, is_staff, instrument=None):
         # 이메일을 입력하지 않은 경우 에러 발생
         if not email:
             raise ValueError('이메일을 반드시 입력해야 합니다.')
