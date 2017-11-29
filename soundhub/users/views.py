@@ -29,12 +29,6 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     )
 
 
-# 사용자 계정 생성
-class UserSignup(generics.CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = SignupSerializer
-
-
 class Login(APIView):
     def post(self, request, *args, **kwargs):
         email = request.data['email']
@@ -82,22 +76,22 @@ class Signup(APIView):
             user = serializer.save()
             # activation key 생성을 위한 무작위 문자열
             # user 마다 unique 한 값을 가지게 하기 위해 user.email 첨가
-            random_string = str(random()) + user.email
-            # sha1 함수로 영문소문자 또는 숫자로 이루어진 40자의 해쉬토큰 생성
-            activation_key = hashlib.sha1(random_string.encode('utf-8')).hexdigest()
-            # activation key 유효기간 2일
-            expires_at = datetime.now() + timedelta(days=2)
-            # activation key 생성
-            ActivationKeyInfo.objects.create(
-                user=user,
-                key=activation_key,
-                expires_at=expires_at,
-            )
-            # 인증 메일 발송
-            send_verification_mail(
-                activation_key=activation_key,
-                recipient_list=[user.email],
-            )
+            # random_string = str(random()) + user.email
+            # # sha1 함수로 영문소문자 또는 숫자로 이루어진 40자의 해쉬토큰 생성
+            # activation_key = hashlib.sha1(random_string.encode('utf-8')).hexdigest()
+            # # activation key 유효기간 2일
+            # expires_at = datetime.now() + timedelta(days=2)
+            # # activation key 생성
+            # ActivationKeyInfo.objects.create(
+            #     user=user,
+            #     key=activation_key,
+            #     expires_at=expires_at,
+            # )
+            # # 인증 메일 발송
+            # send_verification_mail(
+            #     activation_key=activation_key,
+            #     recipient_list=[user.email],
+            # )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

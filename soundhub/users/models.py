@@ -53,7 +53,8 @@ class CustomUserManager(BaseUserManager):
             nickname=nickname,
             password=password,
             is_staff=False,
-            is_active=False,
+            # 이메일 인증 사용시 False
+            is_active=True,
             instrument=instrument,
         )
         return user
