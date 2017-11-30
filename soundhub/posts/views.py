@@ -1,5 +1,7 @@
 from rest_framework import generics
+from rest_framework import exceptions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
 
 from posts.models import Post, CommentTrack
 from posts.serializers import PostSerializer, CommentTrackSerializer
@@ -42,8 +44,14 @@ class CommentTrackList(generics.ListCreateAPIView):
         # GET 요청인 경우 코멘트 트랙 리스트 가져옴
         if self.request.method == 'GET':
             pk = self.kwargs['pk']
-            post = Post.objects.get(pk=pk)
-            return post.comment_tracks.all()
+            post = Post.objects.filter(pk=pk).exists()
+            if post:
+                return post.comment_tracks.all()
+            else:
+                error = {
+                    "detail": "포스트가 존재하지 않습니다."
+                }
+                raise exceptions.ValidationError(error)
         # POST 요청인 경우 pk 값으로 포스트 객체 가져옴
         elif self.request.method == 'POST':
             return Post.objects.all()
@@ -51,7 +59,6 @@ class CommentTrackList(generics.ListCreateAPIView):
     # POST 요청 받을 시
     def perform_create(self, serializer):
         post = self.get_object()
-        print(post)
         serializer.save(
             # 요청 보낸 유저를 코멘트 작성자로
             author=self.request.user,
