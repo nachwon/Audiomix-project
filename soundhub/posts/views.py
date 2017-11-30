@@ -51,7 +51,6 @@ class CommentTrackList(generics.ListCreateAPIView):
     # POST 요청 받을 시
     def perform_create(self, serializer):
         post = self.get_object()
-        print(post)
         serializer.save(
             # 요청 보낸 유저를 코멘트 작성자로
             author=self.request.user,
