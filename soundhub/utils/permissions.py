@@ -18,8 +18,6 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 class IsAuthorOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
         # 안전한 요청인 경우 True
-        # print(request.method)
-        print(view.get_object().author, request.user)
         if request.method in permissions.SAFE_METHODS:
             return True
 
