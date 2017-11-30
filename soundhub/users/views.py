@@ -8,6 +8,7 @@ from rest_framework import status, generics
 from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import APIException
 from rest_framework.generics import get_object_or_404
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -26,6 +27,14 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (
         # 커스텀 권한
         IsOwnerOrReadOnly,
+    )
+
+
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (
+        IsAuthenticatedOrReadOnly,
     )
 
 
