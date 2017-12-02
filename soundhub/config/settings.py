@@ -46,6 +46,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '.ap-northeast-2.elasticbeanstalk.com',
     '.che1.kr',
+    'testserver',
 ]
 
 AUTH_USER_MODEL = 'users.User'
