@@ -67,3 +67,39 @@ class PostListAPIViewTest(APILiveServerTestCase):
         self.assertEqual(Post.objects.count(), 1)
         # 파일 일치 테스트
         # self.assertTrue(filecmp.cmp(track_dir, post.author_track.file))
+
+    # 포스트 조회 테스트
+    def test_post_retrieve(self):
+        # 유저 생성
+        user = self.create_user()
+        # 포스트 생성
+        factory = APIRequestFactory()
+        track_dir = os.path.join(settings.MEDIA_ROOT, 'author_tracks/The_Shortest_Straw_-_Guitar.mp3')
+        with open(track_dir, 'rb') as author_track:
+            data = {
+                'title': 'test_title',
+                'author_track': author_track,
+            }
+            request = factory.post(self.API_VIEW_URL, data)
+        force_authenticate(request, user=user)
+
+        view = PostList.as_view()
+        view(request)
+
+        # 비교대상 포스트
+        post = Post.objects.get(pk=2)
+
+        # 생성한 포스트 가져오기
+        response = self.client.get('http://testserver/post/2/')
+
+        # 데이터베이스에서 꺼내온 포스트와 /post/2/의 응답으로 받은 포스트를 비교
+        self.assertEqual(response.data['id'], post.pk)
+        self.assertEqual(response.data['title'], post.title)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['author_track'], post.author_track)
+
+
+
+
+
+
