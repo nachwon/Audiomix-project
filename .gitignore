@@ -208,3 +208,4 @@ config_secret/
 
 # config_secrets
 .config_secrets/
+secrets.tar
