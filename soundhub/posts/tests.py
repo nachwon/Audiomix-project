@@ -14,6 +14,7 @@ from posts.views import PostList, PostDetail
 User = get_user_model()
 
 
+# 포스트 리스트 API 테스트 - 포스트 생성, 리스트 조회
 class PostListAPIViewTest(APILiveServerTestCase):
     API_VIEW_URL = '/post/'
     API_VIEW_URL_NAME = 'post:list'
@@ -76,19 +77,23 @@ class PostListAPIViewTest(APILiveServerTestCase):
         # 파일 일치 테스트
         # self.assertTrue(filecmp.cmp(track_dir, post.author_track.file.name))
 
+    # 포스트 리스트 조회 테스트
     def test_post_list_retrieve(self):
+        # 랜덤 갯수의 포스트 생성
         num = randint(0, 10)
         user = self.create_user()
         for i in range(num):
             self.create_post(user=user)
 
+        # /post/ 에 GET 요청
         response = self.client.get(self.API_VIEW_URL)
 
+        # 결과 테스트
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Post.objects.count(), num)
-        self.assertEqual(response.data['count'], num)
 
 
+# 포스트 디테일 API 테스트 - 포스트 디테일 조회, 수정, 삭제
 class PostDetailAPIViewTest(APILiveServerTestCase):
     API_VIEW_URL = '/post/'
 
@@ -128,7 +133,7 @@ class PostDetailAPIViewTest(APILiveServerTestCase):
         # 비교대상 포스트
         post = Post.objects.get(pk=pk)
 
-        # 생성한 포스트 가져오기
+        # 생성한 포스트 가져오기 - /post/pk/ 로 GET 요청
         response = self.client.get(f'http://testserver/post/{pk}/')
 
         # 데이터베이스에서 꺼내온 포스트와 /post/pk/의 응답으로 받은 포스트를 비교
@@ -167,6 +172,7 @@ class PostDetailAPIViewTest(APILiveServerTestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['title'], 'updated_title')
 
+    # 포스트 삭제 테스트
     def test_post_destroy(self):
         # 포스트 생성
         pk = self.create_post().data['id']
