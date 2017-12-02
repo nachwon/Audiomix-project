@@ -108,7 +108,7 @@ class ActivateUser(APIView):
             'user': UserSerializer(activation_key_info.user).data,
             'is_active': activation_key_info.user.is_active,
         }
-        return Response(data)
+        return Response(data, status=status.HTTP_200_OK)
 
 
 
