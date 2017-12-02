@@ -43,6 +43,8 @@ class CustomUserManager(BaseUserManager):
             is_superuser=True,
             instrument=instrument,
         )
+        user.is_active = True
+        user.save()
         return user
 
     # 일반 유저 생성 - create_user 메서드 오버라이드
@@ -119,3 +121,6 @@ class ActivationKeyInfo(models.Model):
     key = models.CharField(max_length=40, blank=True)
     # key 만료 기한
     expires_at = models.DateTimeField()
+
+    def __str__(self):
+        return f'user:{self.user.nickname}'
