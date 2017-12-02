@@ -46,6 +46,7 @@ class CommentTrackList(generics.ListCreateAPIView):
             pk = self.kwargs['pk']
             post = Post.objects.filter(pk=pk).exists()
             if post:
+                post = Post.objects.get(pk=pk)
                 return post.comment_tracks.all()
             else:
                 error = {

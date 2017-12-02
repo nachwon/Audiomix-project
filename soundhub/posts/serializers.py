@@ -32,6 +32,7 @@ class CommentTrackSerializer(serializers.ModelSerializer):
         read_only=True,
         slug_field='title',
     )
+    comment_track = serializers.FileField(max_length=255, use_url=False)
 
     class Meta:
         model = CommentTrack
