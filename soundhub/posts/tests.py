@@ -3,10 +3,9 @@ import os
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.test import TestCase
 from django.urls import resolve, reverse
 from rest_framework import status
-from rest_framework.test import APILiveServerTestCase, APIRequestFactory, force_authenticate, RequestsClient
+from rest_framework.test import APILiveServerTestCase, APIRequestFactory, force_authenticate
 
 from posts.models import Post
 from posts.views import PostList, PostDetail
@@ -29,7 +28,7 @@ class PostListAPIViewTest(APILiveServerTestCase):
         )
 
     # 테스트 포스트 생성
-    def create_post(self):
+    def create_post(self, pk=None):
         # 유저 생성
         user = self.create_user()
         # 포스트 생성
@@ -112,15 +111,15 @@ class PostDetailAPIViewTest(APILiveServerTestCase):
     # 포스트 조회 테스트
     def test_post_retrieve(self):
         # 포스트 생성
-        self.create_post()
+        pk = self.create_post().data['id']
 
         # 비교대상 포스트
-        post = Post.objects.get(pk=1)
+        post = Post.objects.get(pk=pk)
 
         # 생성한 포스트 가져오기
-        response = self.client.get('http://testserver/post/1/')
+        response = self.client.get(f'http://testserver/post/{pk}/')
 
-        # 데이터베이스에서 꺼내온 포스트와 /post/1/의 응답으로 받은 포스트를 비교
+        # 데이터베이스에서 꺼내온 포스트와 /post/pk/의 응답으로 받은 포스트를 비교
         self.assertEqual(response.data['id'], post.pk)
         self.assertEqual(response.data['title'], post.title)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -129,32 +128,60 @@ class PostDetailAPIViewTest(APILiveServerTestCase):
     # 포스트 수정 테스트
     def test_post_update(self):
         # 포스트 생성
-        self.create_post()
+        pk = self.create_post().data['id']
 
-        # /post/3/으로 PATCH 요청을 보냄
+        # /post/pk/으로 PATCH 요청을 보냄
         factory = APIRequestFactory()
         data = {
             'title': 'updated_title',
         }
-        request = factory.patch('/post/2/', data)
+        request = factory.patch(f'/post/{pk}/', data)
         view = PostDetail.as_view()
-        response = view(request, pk=2)
+        response = view(request, pk=pk)
 
         # 인증 정보가 없는 경우 포스트 수정 불가인지 확인
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
         # 작성자가 아닌 경우 포스트 수정 불가능한지 확인
-        self.create_user('testuser2@test.co.kr', 'testuser2')
-        user = User.objects.get(email='testuser2@test.co.kr')
-        user.refresh_from_db()
+        user = self.create_user('testuser2@test.co.kr', 'testuser2')
         force_authenticate(request, user=user)
-        response = view(request, pk=2)
+        response = view(request, pk=pk)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
         # 작성자인 경우 포스트 수정 성공 확인
         user = User.objects.get(email='testuser@test.co.kr')
         force_authenticate(request, user=user)
-        response = view(request, pk=2)
+        response = view(request, pk=pk)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['title'], 'updated_title')
 
+    def test_post_destroy(self):
+        # 포스트 생성
+        pk = self.create_post().data['id']
+
+        # /post/pk/으로 DELETE 요청을 보냄
+        factory = APIRequestFactory()
+        request = factory.delete(f'/post/{pk}/')
+        view = PostDetail.as_view()
+        response = view(request, pk=pk)
+
+        # 인증 데이터가 없을 경우 포스트 삭제 불가 테스트
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # 작성자가 아닌 경우 포스트 삭제 불가능한지 테스트
+        user = self.create_user('testuser2@test.co.kr', 'testuser2')
+        force_authenticate(request, user=user)
+        response = view(request, pk=pk)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        # 작성자인 경우 삭제 가능
+        user = User.objects.get(email='testuser@test.co.kr')
+        force_authenticate(request, user=user)
+        response = view(request, pk=pk)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        # 포스트가 삭제되었는지 확인
+        request = factory.get(f'/post/{pk}/')
+        view = PostDetail.as_view()
+        response = view(request, pk=pk)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
