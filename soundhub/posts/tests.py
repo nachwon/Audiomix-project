@@ -1,5 +1,6 @@
 import filecmp
 import os
+from random import randint
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -28,9 +29,7 @@ class PostListAPIViewTest(APILiveServerTestCase):
         )
 
     # 테스트 포스트 생성
-    def create_post(self, pk=None):
-        # 유저 생성
-        user = self.create_user()
+    def create_post(self, user):
         # 포스트 생성
         factory = APIRequestFactory()
         track_dir = os.path.join(settings.MEDIA_ROOT, 'author_tracks/The_Shortest_Straw_-_Guitar.mp3')
@@ -60,7 +59,8 @@ class PostListAPIViewTest(APILiveServerTestCase):
     # Post Create 테스트
     def test_post_create(self):
         # 포스트 생성
-        response = self.create_post()
+        user = self.create_user()
+        response = self.create_post(user=user)
 
         test_user = User.objects.first()
         post = Post.objects.get(pk=response.data['id'])
@@ -75,6 +75,18 @@ class PostListAPIViewTest(APILiveServerTestCase):
         self.assertEqual(Post.objects.count(), 1)
         # 파일 일치 테스트
         # self.assertTrue(filecmp.cmp(track_dir, post.author_track.file.name))
+
+    def test_post_list_retrieve(self):
+        num = randint(0, 10)
+        user = self.create_user()
+        for i in range(num):
+            self.create_post(user=user)
+
+        response = self.client.get(self.API_VIEW_URL)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Post.objects.count(), num)
+        self.assertEqual(response.data['count'], num)
 
 
 class PostDetailAPIViewTest(APILiveServerTestCase):
@@ -185,3 +197,4 @@ class PostDetailAPIViewTest(APILiveServerTestCase):
         view = PostDetail.as_view()
         response = view(request, pk=pk)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
