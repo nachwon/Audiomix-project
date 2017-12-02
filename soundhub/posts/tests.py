@@ -24,3 +24,8 @@ class PostListAPIViewTest(APILiveServerTestCase):
         url = reverse(self.API_VIEW_URL_NAME)
         self.assertEqual(url, self.API_VIEW_URL)
 
+    # Post Create 테스트
+    def test_post_create(self):
+        pass
+
+
