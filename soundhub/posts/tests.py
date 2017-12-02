@@ -19,6 +19,7 @@ class PostListAPIViewTest(APILiveServerTestCase):
     API_VIEW_URL_NAME = 'post:list'
     VIEW_CLASS = PostList
 
+    # 테스트 유저 생성
     @staticmethod
     def create_user(email='testuser@test.co.kr'):
         return User.objects.create_user(
@@ -26,6 +27,25 @@ class PostListAPIViewTest(APILiveServerTestCase):
             nickname='testuser',
             password='testpassword'
         )
+
+    # 테스트 포스트 생성
+    def create_post(self):
+        # 유저 생성
+        user = self.create_user()
+        # 포스트 생성
+        factory = APIRequestFactory()
+        track_dir = os.path.join(settings.MEDIA_ROOT, 'author_tracks/The_Shortest_Straw_-_Guitar.mp3')
+        with open(track_dir, 'rb') as author_track:
+            data = {
+                'title': 'test_title',
+                'author_track': author_track,
+            }
+            request = factory.post(self.API_VIEW_URL, data)
+        force_authenticate(request, user=user)
+
+        view = PostList.as_view()
+        response = view(request)
+        return response
 
     # /post/로 접속했을 때 PostList 뷰를 사용하고 있는지 테스트
     def test_post_list_url_resolve(self):
@@ -40,19 +60,8 @@ class PostListAPIViewTest(APILiveServerTestCase):
 
     # Post Create 테스트
     def test_post_create(self):
-        user = self.create_user()
-        factory = APIRequestFactory()
-        track_dir = os.path.join(settings.MEDIA_ROOT, 'author_tracks/The_Shortest_Straw_-_Guitar.mp3')
-        with open(track_dir, 'rb') as author_track:
-            data = {
-                'title': 'test_title',
-                'author_track': author_track,
-            }
-            request = factory.post(self.API_VIEW_URL, data)
-        force_authenticate(request, user=user)
-
-        view = PostList.as_view()
-        response = view(request)
+        # 포스트 생성
+        response = self.create_post()
 
         test_user = User.objects.first()
         post = Post.objects.get(pk=response.data['id'])
@@ -70,21 +79,8 @@ class PostListAPIViewTest(APILiveServerTestCase):
 
     # 포스트 조회 테스트
     def test_post_retrieve(self):
-        # 유저 생성
-        user = self.create_user()
         # 포스트 생성
-        factory = APIRequestFactory()
-        track_dir = os.path.join(settings.MEDIA_ROOT, 'author_tracks/The_Shortest_Straw_-_Guitar.mp3')
-        with open(track_dir, 'rb') as author_track:
-            data = {
-                'title': 'test_title',
-                'author_track': author_track,
-            }
-            request = factory.post(self.API_VIEW_URL, data)
-        force_authenticate(request, user=user)
-
-        view = PostList.as_view()
-        view(request)
+        self.create_post()
 
         # 비교대상 포스트
         post = Post.objects.get(pk=2)
