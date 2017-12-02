@@ -7,6 +7,7 @@ from users.serializers import UserSerializer
 class PostSerializer(serializers.ModelSerializer):
     # 유저 시리얼라이저를 통해 유저 객체 직렬화 후 할당
     author = UserSerializer(read_only=True)
+    author_track = serializers.FileField(max_length=255, use_url=False)
 
     class Meta:
         model = Post
@@ -31,6 +32,7 @@ class CommentTrackSerializer(serializers.ModelSerializer):
         read_only=True,
         slug_field='title',
     )
+    comment_track = serializers.FileField(max_length=255, use_url=False)
 
     class Meta:
         model = CommentTrack

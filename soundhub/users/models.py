@@ -89,7 +89,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     # 필수 정보 설정
     REQUIRED_FIELDS = (
         'nickname',
-        'instrument',
     )
 
     # 커스텀 유저 매니저를 사용하도록 설정
