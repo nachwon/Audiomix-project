@@ -57,14 +57,3 @@ class SignupSerializer(serializers.ModelSerializer):
             password=validated_data['password1'],
             instrument=validated_data['instrument'],
         )
-
-
-# class ActivationKeyInfoSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = ActivationKeyInfo
-#         fields = ('user', 'key', 'expires_at')
-#
-#     # def validate(self, data):
-#     #     if len(data['key']) < 40:
-#     #         raise serializers.ValidationError('올바른 key 값이 아닙니다.')
-#     #     return data
