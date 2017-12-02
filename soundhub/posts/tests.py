@@ -21,10 +21,10 @@ class PostListAPIViewTest(APILiveServerTestCase):
 
     # 테스트 유저 생성
     @staticmethod
-    def create_user(email='testuser@test.co.kr'):
+    def create_user(email='testuser@test.co.kr', nickname='testuser'):
         return User.objects.create_user(
             email=email,
-            nickname='testuser',
+            nickname=nickname,
             password='testpassword'
         )
 
@@ -75,7 +75,7 @@ class PostListAPIViewTest(APILiveServerTestCase):
         # 생성된 포스트 갯수 테스트
         self.assertEqual(Post.objects.count(), 1)
         # 파일 일치 테스트
-        # self.assertTrue(filecmp.cmp(track_dir, post.author_track.file))
+        # self.assertTrue(filecmp.cmp(track_dir, post.author_track.file.name))
 
     # 포스트 조회 테스트
     def test_post_retrieve(self):
@@ -94,6 +94,37 @@ class PostListAPIViewTest(APILiveServerTestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['author_track'], post.author_track)
 
+    # 포스트 수정 테스트
+    def test_post_update(self):
+        # 포스트 생성
+        self.create_post()
+
+        # /post/3/으로 PATCH 요청을 보냄
+        factory = APIRequestFactory()
+        data = {
+            'title': 'updated_title',
+        }
+        request = factory.patch('/post/3/', data)
+        view = PostDetail.as_view()
+        response = view(request, pk=3)
+
+        # 인증 정보가 없는 경우 포스트 수정 불가인지 확인
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # 작성자가 아닌 경우 포스트 수정 불가능한지 확인
+        self.create_user('testuser2@test.co.kr', 'testuser2')
+        user = User.objects.get(email='testuser2@test.co.kr')
+        user.refresh_from_db()
+        force_authenticate(request, user=user)
+        response = view(request, pk=3)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        # 작성자인 경우 포스트 수정 성공 확인
+        user = User.objects.get(email='testuser@test.co.kr')
+        force_authenticate(request, user=user)
+        response = view(request, pk=3)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['title'], 'updated_title')
 
 
 
