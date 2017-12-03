@@ -1,9 +1,10 @@
+from django.contrib.auth.models import AnonymousUser
 from rest_framework import generics
 from rest_framework import exceptions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
-from posts.models import Post, CommentTrack
+from posts.models import Post, CommentTrack, PostLike
 from posts.serializers import PostSerializer, CommentTrackSerializer
 
 from utils.permissions import IsAuthorOrReadOnly
@@ -84,3 +85,27 @@ class CommentTrackDetail(generics.RetrieveUpdateDestroyAPIView):
         # 작성자 본인에게만 수정, 삭제 권한 부여
         IsAuthorOrReadOnly,
     )
+
+
+class PostLikeToggle(generics.GenericAPIView):
+    queryset = Post.objects.all()
+    permission_classes = (
+        IsAuthenticatedOrReadOnly,
+    )
+
+    def post(self, request, *args, **kwargs):
+        instance = self.get_object()
+        user = request.user
+
+        if user in instance.liked.all():
+            liked = PostLike.objects.get(author_id=user.pk, post_id=instance.pk)
+            liked.delete()
+
+        else:
+            PostLike.objects.create(author_id=user.pk, post_id=instance.pk)
+
+        data = {
+            "post": PostSerializer(instance).data
+        }
+
+        return Response(data)
