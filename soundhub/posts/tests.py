@@ -9,7 +9,7 @@ from rest_framework import status
 from rest_framework.test import APILiveServerTestCase, APIRequestFactory, force_authenticate
 
 from posts.models import Post, CommentTrack
-from posts.views import PostList, PostDetail, CommentTrackList
+from posts.views import PostList, PostDetail, CommentTrackList, CommentTrackDetail
 
 User = get_user_model()
 
@@ -356,7 +356,7 @@ class CommentDetailAPIViewTest(APILiveServerTestCase):
         response = view(request, pk=pk)
         return response
 
-    # 커멘트 트랙 조회
+    # 커멘트 트랙 조회 테스트
     def test_comment_retrieve(self):
         user1 = self.create_user()
         user2 = self.create_user(email='testuser2@test.co.kr', nickname='testuser2')
@@ -364,9 +364,42 @@ class CommentDetailAPIViewTest(APILiveServerTestCase):
         comment = self.create_comment(post=post, user=user2)
         pk = comment.data['id']
 
+        # /post/comment/pk/ 에 GET 요청 보냄
         response = self.client.get(f'http://testserver/post/comment/{pk}/')
-        print(response)
 
         self.assertEqual(response.data['author'], user2.nickname)
         self.assertEqual(response.data['instrument'], 'Bass')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    # 커멘트 트랙 수정 테스트
+    def test_comment_update(self):
+        user1 = self.create_user()
+        user2 = self.create_user(email='testuser2@test.co.kr', nickname='testuser2')
+        post = self.create_post(user=user1)
+        comment = self.create_comment(post=post, user=user2)
+        pk = comment.data['id']
+
+        # /post/comment/pk/ 에 PATCH 요청 보냄
+        factory = APIRequestFactory()
+        data = {
+            'instrument': 'Vocal'
+        }
+        request = factory.patch(f'/post/comment/{pk}', data=data)
+        view = CommentTrackDetail.as_view()
+        response = view(request, pk=pk)
+
+        # 인증 정보 없는 경우 수정 불가능 테스트
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # 작성자가 아닌 경우 수정 불가능 테스트
+        force_authenticate(request, user=user1)
+        response = view(request, pk=pk)
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        # 작성자인 경우 수정 가능 테스트
+        force_authenticate(request, user=user2)
+        response = view(request, pk=pk)
+
+        self.assertEqual(response.data['instrument'], 'Vocal')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
