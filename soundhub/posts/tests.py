@@ -234,6 +234,7 @@ class CommentListAPIViewTest(APILiveServerTestCase):
         response = view(request)
         return response
 
+    # 테스트 커멘트 생성
     def create_comment(self, user, post):
         # 포스트 생성
         pk = post.data['id']
@@ -305,3 +306,67 @@ class CommentListAPIViewTest(APILiveServerTestCase):
         # 결과 테스트
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(test_post.comment_tracks.count(), num)
+
+
+class CommentDetailAPIViewTest(APILiveServerTestCase):
+    POST_API_VIEW_URL = '/post/'
+
+    # 테스트 유저 생성
+    @staticmethod
+    def create_user(email='testuser@test.co.kr', nickname='testuser'):
+        return User.objects.create_user(
+            email=email,
+            nickname=nickname,
+            password='testpassword'
+        )
+
+    # 테스트 포스트 생성
+    def create_post(self, user):
+        # 포스트 생성
+        factory = APIRequestFactory()
+        track_dir = os.path.join(settings.MEDIA_ROOT, 'author_tracks/The_Shortest_Straw_-_Guitar.mp3')
+        with open(track_dir, 'rb') as author_track:
+            data = {
+                'title': 'test_title',
+                'author_track': author_track,
+            }
+            request = factory.post(self.POST_API_VIEW_URL, data)
+        force_authenticate(request, user=user)
+
+        view = PostList.as_view()
+        response = view(request)
+        return response
+
+    # 테스트 커멘트 생성
+    def create_comment(self, user, post):
+        # 포스트 생성
+        pk = post.data['id']
+
+        # /post/pk/comments/로 POST 요청 보냄
+        factory = APIRequestFactory()
+        track_dir = os.path.join(settings.MEDIA_ROOT, 'comment_tracks/The_Shortest_Straw_-_Bass.mp3')
+        with open(track_dir, 'rb') as author_track:
+            data = {
+                'comment_track': author_track,
+                'instrument': 'Bass'
+            }
+            request = factory.post(f'/post/{pk}/comments/', data)
+        force_authenticate(request, user=user)
+        view = CommentTrackList.as_view()
+        response = view(request, pk=pk)
+        return response
+
+    # 커멘트 트랙 조회
+    def test_comment_retrieve(self):
+        user1 = self.create_user()
+        user2 = self.create_user(email='testuser2@test.co.kr', nickname='testuser2')
+        post = self.create_post(user=user1)
+        comment = self.create_comment(post=post, user=user2)
+        pk = comment.data['id']
+
+        response = self.client.get(f'http://testserver/post/comment/{pk}/')
+        print(response)
+
+        self.assertEqual(response.data['author'], user2.nickname)
+        self.assertEqual(response.data['instrument'], 'Bass')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
