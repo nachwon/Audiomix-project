@@ -8,7 +8,7 @@ from django.urls import resolve, reverse
 from rest_framework import status
 from rest_framework.test import APILiveServerTestCase, APIRequestFactory, force_authenticate
 
-from posts.models import Post
+from posts.models import Post, CommentTrack
 from posts.views import PostList, PostDetail, CommentTrackList
 
 User = get_user_model()
@@ -207,6 +207,7 @@ class PostDetailAPIViewTest(APILiveServerTestCase):
 
 class CommentListAPIViewTest(APILiveServerTestCase):
     POST_API_VIEW_URL = '/post/'
+
     # 테스트 유저 생성
     @staticmethod
     def create_user(email='testuser@test.co.kr', nickname='testuser'):
@@ -233,7 +234,26 @@ class CommentListAPIViewTest(APILiveServerTestCase):
         response = view(request)
         return response
 
-    def test_comment_list_retrieve(self):
+    def create_comment(self, user, post):
+        # 포스트 생성
+        pk = post.data['id']
+
+        # /post/pk/comments/로 POST 요청 보냄
+        factory = APIRequestFactory()
+        track_dir = os.path.join(settings.MEDIA_ROOT, 'comment_tracks/The_Shortest_Straw_-_Bass.mp3')
+        with open(track_dir, 'rb') as author_track:
+            data = {
+                'comment_track': author_track,
+                'instrument': 'Bass'
+            }
+            request = factory.post(f'/post/{pk}/comments/', data)
+        force_authenticate(request, user=user)
+        view = CommentTrackList.as_view()
+        response = view(request, pk=pk)
+        return response
+
+    # 코멘트 트랙 생성 테스트
+    def test_comment_create(self):
         # 유저 및 포스트 생성
         user = self.create_user()
         pk = self.create_post(user=user).data['id']
@@ -246,16 +266,42 @@ class CommentListAPIViewTest(APILiveServerTestCase):
                 'comment_track': author_track,
                 'instrument': 'Bass'
             }
-            request = factory.post(f'/post/{pk}/comment/', data)
+            request = factory.post(f'/post/{pk}/comments/', data)
         view = CommentTrackList.as_view()
         response = view(request, pk=pk)
 
-        # 인증정보가 없는 경우 코맨트 트랙 생성 불가 테스트
+        # 인증정보가 없는 경우 커맨트 트랙 생성 불가 테스트
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
         # 인증정보가 있으면 트랙 생성
         force_authenticate(request, user=user)
         response = view(request, pk=pk)
-        print(response.data)
 
+        # 데이터베이스에서 커맨트 트랙을 가져와서
+        comment_track = CommentTrack.objects.get(pk=response.data['id'])
+
+        # 생성된 트랙과 동일한지 비교
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['instrument'], comment_track.instrument)
+
+    def test_comment_list_retrieve(self):
+        # 유저1로 포스트를 생성
+        user = self.create_user()
+        post = self.create_post(user=user)
+        pk = post.data["id"]
+
+        # 유저2로 유저1이 만든 포스트에 커맨트 트랙을 무작위 갯수로 생성
+        another_user = self.create_user(email='testuser2@test.co.kr', nickname='testuser2')
+        num = randint(0, 10)
+        for i in range(num):
+            self.create_comment(user=another_user, post=post)
+
+        # /post/pk/ 에 GET 요청
+        response = self.client.get(f'http://testserver/post/{pk}/comments/')
+
+        # 데이터베이스에서 꺼내온 포스트
+        test_post = Post.objects.get(pk=pk)
+
+        # 결과 테스트
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(test_post.comment_tracks.count(), num)
