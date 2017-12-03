@@ -205,6 +205,7 @@ class PostDetailAPIViewTest(APILiveServerTestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 
+# 커멘트 목록 API 테스트 - 커멘트 목록 조회, 커맨트 생성
 class CommentListAPIViewTest(APILiveServerTestCase):
     POST_API_VIEW_URL = '/post/'
 
@@ -308,6 +309,7 @@ class CommentListAPIViewTest(APILiveServerTestCase):
         self.assertEqual(test_post.comment_tracks.count(), num)
 
 
+# 커멘트 디테일 API 테스트 - 커멘트 조회, 수정, 삭제
 class CommentDetailAPIViewTest(APILiveServerTestCase):
     POST_API_VIEW_URL = '/post/'
 
@@ -373,6 +375,7 @@ class CommentDetailAPIViewTest(APILiveServerTestCase):
 
     # 커멘트 트랙 수정 테스트
     def test_comment_update(self):
+        # 유저, 포스트, 코멘트 트랙 생성
         user1 = self.create_user()
         user2 = self.create_user(email='testuser2@test.co.kr', nickname='testuser2')
         post = self.create_post(user=user1)
@@ -384,7 +387,7 @@ class CommentDetailAPIViewTest(APILiveServerTestCase):
         data = {
             'instrument': 'Vocal'
         }
-        request = factory.patch(f'/post/comment/{pk}', data=data)
+        request = factory.patch(f'/post/comment/{pk}/', data=data)
         view = CommentTrackDetail.as_view()
         response = view(request, pk=pk)
 
@@ -403,3 +406,38 @@ class CommentDetailAPIViewTest(APILiveServerTestCase):
 
         self.assertEqual(response.data['instrument'], 'Vocal')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    # 커멘트 삭제 테스트
+    def test_comment_destroy(self):
+        # 유저, 포스트, 코멘트 트랙 생성
+        user1 = self.create_user()
+        user2 = self.create_user(email='testuser2@test.co.kr', nickname='testuser2')
+        post = self.create_post(user=user1)
+        comment = self.create_comment(post=post, user=user2)
+        pk = comment.data['id']
+
+        # /post/comment/pk/에 DELETE 요청 보냄
+        factory = APIRequestFactory()
+        request = factory.delete(f'/post/comment/{pk}/')
+        view = CommentTrackDetail.as_view()
+        response = view(request, pk=pk)
+
+        # 인증 정보가 없는 경우 삭제 불가능 테스트
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # 작성자가 아닌 경우 삭제 불가능 테스트
+        force_authenticate(request, user=user1)
+        response = view(request, pk=pk)
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        # 작성자인 경우 삭제 가능 테스트
+        force_authenticate(request, user=user2)
+        response = view(request, pk=pk)
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        # 코멘트가 삭제되었는지 확인
+        response = self.client.get(f'http://testserver/post/comment/{pk}/')
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
