@@ -204,3 +204,32 @@ class PostDetailAPIViewTest(APILiveServerTestCase):
         response = view(request, pk=pk)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
+
+class CommentListAPIViewTest(APILiveServerTestCase):
+    # 테스트 유저 생성
+    @staticmethod
+    def create_user(email='testuser@test.co.kr', nickname='testuser'):
+        return User.objects.create_user(
+            email=email,
+            nickname=nickname,
+            password='testpassword'
+        )
+
+    # 테스트 포스트 생성
+    def create_post(self, user):
+        API_VIEW_URL = '/post/comment/'
+
+        # 포스트 생성
+        factory = APIRequestFactory()
+        track_dir = os.path.join(settings.MEDIA_ROOT, 'author_tracks/The_Shortest_Straw_-_Guitar.mp3')
+        with open(track_dir, 'rb') as author_track:
+            data = {
+                'title': 'test_title',
+                'author_track': author_track,
+            }
+            request = factory.post(self.API_VIEW_URL, data)
+        force_authenticate(request, user=user)
+
+        view = PostList.as_view()
+        response = view(request)
+        return response
