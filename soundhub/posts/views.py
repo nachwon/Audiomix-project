@@ -87,25 +87,34 @@ class CommentTrackDetail(generics.RetrieveUpdateDestroyAPIView):
     )
 
 
+# 포스트 좋아요 & 좋아요 취소 토글
 class PostLikeToggle(generics.GenericAPIView):
     queryset = Post.objects.all()
     permission_classes = (
+        # 회원만 좋아요 가능
         IsAuthenticatedOrReadOnly,
     )
 
+    # /post/pk/like/ 에 POST 요청
     def post(self, request, *args, **kwargs):
+        # pk 값으로 필터해서 Post 인스턴스 하나 가져옴
         instance = self.get_object()
+        # 현재 로그인된 유저. AnonymousUser인 경우 permission에서 거름.
         user = request.user
 
+        # 현재 로그인된 유저가 Post 인스턴스의 liked 목록에 있으면
         if user in instance.liked.all():
+            # PostLike 테이블에서 해당 관계 삭제
             liked = PostLike.objects.get(author_id=user.pk, post_id=instance.pk)
             liked.delete()
 
+        # 없으면
         else:
+            # PostLike 테이블에서 관계 생성
             PostLike.objects.create(author_id=user.pk, post_id=instance.pk)
 
+        # 업데이트된 instance를 PostSerializer에 넣어 직렬화한 data를 응답으로 돌려줌
         data = {
             "post": PostSerializer(instance).data
         }
-
         return Response(data)
