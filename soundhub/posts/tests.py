@@ -9,7 +9,7 @@ from rest_framework import status
 from rest_framework.test import APILiveServerTestCase, APIRequestFactory, force_authenticate
 
 from posts.models import Post, CommentTrack
-from posts.views import PostList, PostDetail, CommentTrackList, CommentTrackDetail
+from posts.views import PostList, PostDetail, CommentTrackList, CommentTrackDetail, PostLikeToggle
 
 User = get_user_model()
 
@@ -441,3 +441,70 @@ class CommentDetailAPIViewTest(APILiveServerTestCase):
         response = self.client.get(f'http://testserver/post/comment/{pk}/')
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+class PostLikeToggleTest(APILiveServerTestCase):
+    POST_API_VIEW_URL = '/post/'
+
+    # 테스트 유저 생성
+    @staticmethod
+    def create_user(email='testuser@test.co.kr', nickname='testuser'):
+        return User.objects.create_user(
+            email=email,
+            nickname=nickname,
+            password='testpassword'
+        )
+
+    # 테스트 포스트 생성
+    def create_post(self, user):
+        # 포스트 생성
+        factory = APIRequestFactory()
+        track_dir = os.path.join(settings.MEDIA_ROOT, 'author_tracks/The_Shortest_Straw_-_Guitar.mp3')
+        with open(track_dir, 'rb') as author_track:
+            data = {
+                'title': 'test_title',
+                'author_track': author_track,
+            }
+            request = factory.post(self.POST_API_VIEW_URL, data)
+        force_authenticate(request, user=user)
+
+        view = PostList.as_view()
+        response = view(request)
+        return response
+
+    # 포스트 좋아요 & 좋아요 취소 테스트
+    def test_post_like(self):
+        user1 = self.create_user()
+        user2 = self.create_user(email='testuser2@test.co.kr', nickname='testuser2')
+        post = self.create_post(user=user1)
+        pk = post.data['id']
+        test_post = Post.objects.get(pk=pk)
+
+        # /post/pk/like/ 로 POST 요청 보냄
+        factory = APIRequestFactory()
+        request = factory.post(f'/post/{pk}/like/')
+        view = PostLikeToggle.as_view()
+        response = view(request, pk=pk)
+
+        # 인증 데이터가 없는 경우 좋아요 불가능 테스트
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # 인증된 유저인 경우 좋아요 가능 테스트
+        force_authenticate(request, user=user2)
+        response = view(request, pk=pk)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(test_post.liked.count(), 1)
+
+        # 또 다른 인증된 유저로 좋아요 테스트
+        force_authenticate(request, user=user1)
+        response = view(request, pk=pk)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(test_post.liked.count(), 2)
+
+        # 동일한 POST 요청을 다시 보내면 좋아요 취소 테스트
+        response = view(request, pk=pk)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(test_post.liked.count(), 1)
