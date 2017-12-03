@@ -9,7 +9,7 @@ from rest_framework import status
 from rest_framework.test import APILiveServerTestCase, APIRequestFactory, force_authenticate
 
 from posts.models import Post
-from posts.views import PostList, PostDetail
+from posts.views import PostList, PostDetail, CommentTrackList
 
 User = get_user_model()
 
@@ -206,6 +206,7 @@ class PostDetailAPIViewTest(APILiveServerTestCase):
 
 
 class CommentListAPIViewTest(APILiveServerTestCase):
+    POST_API_VIEW_URL = '/post/'
     # 테스트 유저 생성
     @staticmethod
     def create_user(email='testuser@test.co.kr', nickname='testuser'):
@@ -217,8 +218,6 @@ class CommentListAPIViewTest(APILiveServerTestCase):
 
     # 테스트 포스트 생성
     def create_post(self, user):
-        API_VIEW_URL = '/post/comment/'
-
         # 포스트 생성
         factory = APIRequestFactory()
         track_dir = os.path.join(settings.MEDIA_ROOT, 'author_tracks/The_Shortest_Straw_-_Guitar.mp3')
@@ -227,9 +226,36 @@ class CommentListAPIViewTest(APILiveServerTestCase):
                 'title': 'test_title',
                 'author_track': author_track,
             }
-            request = factory.post(self.API_VIEW_URL, data)
+            request = factory.post(self.POST_API_VIEW_URL, data)
         force_authenticate(request, user=user)
 
         view = PostList.as_view()
         response = view(request)
         return response
+
+    def test_comment_list_retrieve(self):
+        # 유저 및 포스트 생성
+        user = self.create_user()
+        pk = self.create_post(user=user).data['id']
+
+        # post/pk/comment로 POST 요청 보냄
+        factory = APIRequestFactory()
+        track_dir = os.path.join(settings.MEDIA_ROOT, 'comment_tracks/The_Shortest_Straw_-_Bass.mp3')
+        with open(track_dir, 'rb') as author_track:
+            data = {
+                'comment_track': author_track,
+                'instrument': 'Bass'
+            }
+            request = factory.post(f'/post/{pk}/comment/', data)
+        view = CommentTrackList.as_view()
+        response = view(request, pk=pk)
+
+        # 인증정보가 없는 경우 코맨트 트랙 생성 불가 테스트
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # 인증정보가 있으면 트랙 생성
+        force_authenticate(request, user=user)
+        response = view(request, pk=pk)
+        print(response.data)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
