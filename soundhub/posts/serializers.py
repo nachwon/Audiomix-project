@@ -16,6 +16,8 @@ class PostSerializer(serializers.ModelSerializer):
             'id',
             'title',
             'author',
+            'instrument',
+            'genre',
             'liked',
             'master_track',
             'author_track',
