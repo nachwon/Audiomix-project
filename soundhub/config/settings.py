@@ -85,6 +85,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'storages',
+    'django_filters',
     # 커스텀 앱
     'users',
     'posts',
