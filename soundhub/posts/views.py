@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AnonymousUser
+from rest_framework import filters
 from rest_framework import generics
 from rest_framework import exceptions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -18,6 +18,8 @@ class PostList(generics.ListCreateAPIView):
         # 회원인 경우만 포스트 작성 가능
         IsAuthenticatedOrReadOnly,
     )
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('created_data',)
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)

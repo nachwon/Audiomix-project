@@ -21,7 +21,7 @@ class Post(models.Model):
         return f'{self.title} - {self.author}'
 
     class Meta:
-        ordering = ['created_data']
+        ordering = ['-created_data']
 
 
 class CommentTrack(models.Model):
@@ -34,6 +34,9 @@ class CommentTrack(models.Model):
     def __str__(self):
         return f'{self.post.title}: {self.instrument}'
 
+    class Meta:
+        ordering = ('-created_data',)
+
 
 class PostLike(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -44,4 +47,4 @@ class PostLike(models.Model):
         return f'{self.author} liked {self.post}'
 
     class Meta:
-        ordering = ['liked_date']
+        ordering = ['-liked_date']
