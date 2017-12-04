@@ -15,6 +15,7 @@ class Post(models.Model):
         through='PostLike',
         related_name='liked_posts'
     )
+    num_liked = models.IntegerField(default=0)
     created_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):

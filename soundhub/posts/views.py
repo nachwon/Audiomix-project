@@ -1,4 +1,3 @@
-from rest_framework import filters
 from rest_framework import generics
 from rest_framework import exceptions
 from rest_framework.mixins import ListModelMixin
@@ -19,8 +18,6 @@ class PostList(generics.ListCreateAPIView):
         # 회원인 경우만 포스트 작성 가능
         IsAuthenticatedOrReadOnly,
     )
-    filter_backends = (filters.OrderingFilter,)
-    ordering_fields = ('created_data',)
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -110,11 +107,15 @@ class PostLikeToggle(generics.GenericAPIView):
             # PostLike 테이블에서 해당 관계 삭제
             liked = PostLike.objects.get(author_id=user.pk, post_id=instance.pk)
             liked.delete()
+            instance.num_liked = len(instance.liked.all())
+            instance.save()
 
         # 없으면
         else:
             # PostLike 테이블에서 관계 생성
             PostLike.objects.create(author_id=user.pk, post_id=instance.pk)
+            instance.num_liked = len(instance.liked.all())
+            instance.save()
 
         # 업데이트된 instance를 PostSerializer에 넣어 직렬화한 data를 응답으로 돌려줌
         data = {
@@ -128,7 +129,7 @@ class HomePageView(ListModelMixin,generics.GenericAPIView):
 
     def list(self, request, *args, **kwargs):
         pop_post_queryset = Post.objects.order_by('liked')[:15]
-        recent_post_queryset = Post.objects.order_by('created_date')[:15]
+        recent_post_queryset = Post.objects.order_by('-created_date')[:15]
 
         pop_post_serializer = self.post_serializer(pop_post_queryset, many=True)
         recent_post_serializer = self.post_serializer(recent_post_queryset, many=True)
