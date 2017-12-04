@@ -128,7 +128,7 @@ class HomePageView(ListModelMixin,generics.GenericAPIView):
     post_serializer = PostSerializer
 
     def list(self, request, *args, **kwargs):
-        pop_post_queryset = Post.objects.order_by('liked')[:15]
+        pop_post_queryset = Post.objects.order_by('-num_liked')[:15]
         recent_post_queryset = Post.objects.order_by('-created_date')[:15]
 
         pop_post_serializer = self.post_serializer(pop_post_queryset, many=True)
