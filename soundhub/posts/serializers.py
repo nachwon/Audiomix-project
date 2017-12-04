@@ -19,6 +19,7 @@ class PostSerializer(serializers.ModelSerializer):
             'instrument',
             'genre',
             'liked',
+            'created_date',
             'master_track',
             'author_track',
             'comment_tracks',
