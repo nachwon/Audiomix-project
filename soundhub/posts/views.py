@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
 from posts.models import Post, CommentTrack, PostLike
-from posts.serializers import PostSerializer, CommentTrackSerializer
+from posts.serializers import PostListSerializer, PostDetailSerializer, CommentTrackSerializer
 
 from utils.permissions import IsAuthorOrReadOnly
 
@@ -12,7 +12,7 @@ from utils.permissions import IsAuthorOrReadOnly
 # 포스트 목록 조회 및 포스트 생성 API
 class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
-    serializer_class = PostSerializer
+    serializer_class = PostListSerializer
     permission_classes = (
         # 회원인 경우만 포스트 작성 가능
         IsAuthenticatedOrReadOnly,
@@ -25,7 +25,7 @@ class PostList(generics.ListCreateAPIView):
 # 단일 포스트 조회, 수정, 삭제 API
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
-    serializer_class = PostSerializer
+    serializer_class = PostDetailSerializer
     permission_classes = (
         # 작성자인 경우만 포스트 수정, 삭제 가능
         IsAuthorOrReadOnly,

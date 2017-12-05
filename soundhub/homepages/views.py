@@ -4,7 +4,7 @@ from rest_framework.mixins import ListModelMixin
 from rest_framework.response import Response
 
 from posts.models import Post
-from posts.serializers import PostSerializer
+from posts.serializers import PostListSerializer
 from users.serializers import UserSerializer
 
 User = get_user_model()
@@ -12,7 +12,7 @@ User = get_user_model()
 
 class HomePageView(ListModelMixin, generics.GenericAPIView):
     user_serializer = UserSerializer
-    post_serializer = PostSerializer
+    post_serializer = PostListSerializer
 
     def list(self, request, *args, **kwargs):
         pop_user_queryset = User.objects.order_by('-total_liked')[:15]

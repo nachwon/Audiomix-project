@@ -26,6 +26,28 @@ class CommentTrackSerializer(serializers.ModelSerializer):
         )
 
 
+class PostListSerializer(serializers.ModelSerializer):
+    # 유저 시리얼라이저를 통해 유저 객체 직렬화 후 할당
+    author = UserSerializer(read_only=True)
+    author_track = serializers.FileField(max_length=255, use_url=False)
+    liked = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = Post
+        fields = (
+            'id',
+            'title',
+            'author',
+            'instrument',
+            'genre',
+            'liked',
+            'num_liked',
+            'created_date',
+            'master_track',
+            'author_track',
+        )
+
+
 class CommentTrackField(serializers.RelatedField):
     def to_representation(self, value):
         vocal_list = list()
@@ -58,7 +80,7 @@ class CommentTrackField(serializers.RelatedField):
         return data
 
 
-class PostSerializer(serializers.ModelSerializer):
+class PostDetailSerializer(serializers.ModelSerializer):
     # 유저 시리얼라이저를 통해 유저 객체 직렬화 후 할당
     author = UserSerializer(read_only=True)
     author_track = serializers.FileField(max_length=255, use_url=False)
