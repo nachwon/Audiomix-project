@@ -38,6 +38,8 @@ class PostListAPIViewTest(APILiveServerTestCase):
             data = {
                 'title': 'test_title',
                 'author_track': author_track,
+                'instrument': 'Guitar',
+                'genre': 'Heavy Metal',
             }
             request = factory.post(self.API_VIEW_URL, data)
         force_authenticate(request, user=user)
@@ -117,6 +119,8 @@ class PostDetailAPIViewTest(APILiveServerTestCase):
             data = {
                 'title': 'test_title',
                 'author_track': author_track,
+                'instrument': 'Guitar',
+                'genre': 'Heavy Metal',
             }
             request = factory.post(self.API_VIEW_URL, data)
         force_authenticate(request, user=user)
@@ -227,6 +231,8 @@ class CommentListAPIViewTest(APILiveServerTestCase):
             data = {
                 'title': 'test_title',
                 'author_track': author_track,
+                'instrument': 'Guitar',
+                'genre': 'Heavy Metal',
             }
             request = factory.post(self.POST_API_VIEW_URL, data)
         force_authenticate(request, user=user)
@@ -331,6 +337,8 @@ class CommentDetailAPIViewTest(APILiveServerTestCase):
             data = {
                 'title': 'test_title',
                 'author_track': author_track,
+                'instrument': 'Guitar',
+                'genre': 'Heavy Metal'
             }
             request = factory.post(self.POST_API_VIEW_URL, data)
         force_authenticate(request, user=user)
@@ -464,6 +472,8 @@ class PostLikeToggleTest(APILiveServerTestCase):
             data = {
                 'title': 'test_title',
                 'author_track': author_track,
+                'instrument': 'Guitar',
+                'genre': 'Heavy Metal',
             }
             request = factory.post(self.POST_API_VIEW_URL, data)
         force_authenticate(request, user=user)
