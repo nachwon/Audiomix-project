@@ -16,14 +16,21 @@ class Post(models.Model):
         related_name='liked_posts'
     )
     num_liked = models.IntegerField(default=0)
+    num_comments = models.IntegerField(default=0)
     created_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
         return f'{self.title} - {self.author}'
 
-    def save_num_liked(self, *args, **kwargs):
-        self.num_liked = len(self.liked.all())
-        self.save(*args, **kwargs)
+    # 자신을 좋아요한 횟수를 num_liked 필드에 저장
+    def save_num_liked(self):
+        self.num_liked = self.liked.count()
+        self.save()
+
+    # 자신에게 연결된 코멘트들의 갯수를 num_comments 필드에 저장
+    def save_num_comments(self):
+        self.num_comments = self.comment_tracks.count()
+        self.save()
 
     class Meta:
         ordering = ['-created_date']

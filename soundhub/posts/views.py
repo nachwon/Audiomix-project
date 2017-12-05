@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework import exceptions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
@@ -74,6 +74,7 @@ class CommentTrackList(generics.ListCreateAPIView):
             # pk 값으로 가져온 포스트 객체에 코멘트 작성
             post=post,
         )
+        post.save_num_comments()  # 코멘트 갯수 업데이트
 
 
 # 커멘트 트랙 디테일 조회, 수정, 삭제 API
@@ -84,6 +85,13 @@ class CommentTrackDetail(generics.RetrieveUpdateDestroyAPIView):
         # 작성자 본인에게만 수정, 삭제 권한 부여
         IsAuthorOrReadOnly,
     )
+
+    # CommentTrack 삭제시 연결된 Post의 num_comments - 1 을 해주고 삭제
+    def delete(self, request, *args, **kwargs):
+        comment = self.get_object()
+        comment.post.num_comments -= 1
+        comment.post.save()
+        return self.destroy(request, *args, **kwargs)
 
 
 # 포스트 좋아요 & 좋아요 취소 토글
@@ -116,7 +124,7 @@ class PostLikeToggle(generics.GenericAPIView):
             instance.save_num_liked()  # Post의 num_liked 업데이트
             instance.author.save_total_liked()  # User의 total_liked 업데이트
 
-        # 업데이트된 instance를 PostSerializer에 넣어 직렬화한 data를 응답으로 돌려줌
+        # 업데이트된 instance를 PostSerializer에 넣어 직렬화하여 응답으로 돌려줌
         data = {
             "post": PostDetailSerializer(instance).data
         }

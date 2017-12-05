@@ -100,6 +100,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.nickname
 
+    # 유저의 모든 포스트들이 받은 좋아요 갯수를 총합하여 total_liked 필드에 저장
     def save_total_liked(self, *args, **kwargs):
         posts = self.post_set.all()
         total_liked = sum([i.num_liked for i in posts])
