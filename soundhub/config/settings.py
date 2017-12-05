@@ -89,6 +89,7 @@ INSTALLED_APPS = [
     # 커스텀 앱
     'users',
     'posts',
+    'homepages',
 ]
 
 MIDDLEWARE = [
