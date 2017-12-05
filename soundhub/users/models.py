@@ -100,11 +100,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.nickname
 
-    def save(self, *args, **kwargs):
+    def save_total_liked(self, *args, **kwargs):
         posts = self.post_set.all()
         total_liked = sum([i.num_liked for i in posts])
         self.total_liked = total_liked
-        super().save(*args, **kwargs)
+        self.save(*args, **kwargs)
 
     @property
     def token(self):
