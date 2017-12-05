@@ -118,6 +118,6 @@ class PostLikeToggle(generics.GenericAPIView):
 
         # 업데이트된 instance를 PostSerializer에 넣어 직렬화한 data를 응답으로 돌려줌
         data = {
-            "post": PostSerializer(instance).data
+            "post": PostDetailSerializer(instance).data
         }
         return Response(data)
