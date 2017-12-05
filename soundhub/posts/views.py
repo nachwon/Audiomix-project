@@ -106,15 +106,15 @@ class PostLikeToggle(generics.GenericAPIView):
             # PostLike 테이블에서 해당 관계 삭제
             liked = PostLike.objects.get(author_id=user.pk, post_id=instance.pk)
             liked.delete()
-            instance.num_liked = len(instance.liked.all())
-            instance.save()
+            instance.save()  # Post의 num_liked 업데이트
+            instance.author.save()  # User의 total_liked 업데이트
 
         # 없으면
         else:
             # PostLike 테이블에서 관계 생성
             PostLike.objects.create(author_id=user.pk, post_id=instance.pk)
-            instance.num_liked = len(instance.liked.all())
-            instance.save()
+            instance.save()  # Post의 num_liked 업데이트
+            instance.author.save()  # User의 total_liked 업데이트
 
         # 업데이트된 instance를 PostSerializer에 넣어 직렬화한 data를 응답으로 돌려줌
         data = {

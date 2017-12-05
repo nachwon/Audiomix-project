@@ -21,6 +21,10 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.title} - {self.author}'
 
+    def save(self, *args, **kwargs):
+        self.num_liked = len(self.liked.all())
+        super().save(*args, **kwargs)
+
     class Meta:
         ordering = ['-created_date']
 
