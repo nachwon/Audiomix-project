@@ -23,6 +23,16 @@ class UserSerializer(serializers.ModelSerializer):
         )
 
 
+# 유저 수정 시리얼라이저
+class UserUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'nickname',
+            'instrument',
+        )
+
+
 # 회원가입 시리얼라이저
 class SignupSerializer(serializers.ModelSerializer):
     password1 = serializers.CharField(write_only=True)

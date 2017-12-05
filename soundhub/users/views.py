@@ -15,7 +15,7 @@ from rest_framework.views import APIView
 from utils.mail import send_verification_mail
 from utils.permissions import IsOwnerOrReadOnly
 from .models import ActivationKeyInfo
-from .serializers import UserSerializer, SignupSerializer
+from .serializers import UserSerializer, SignupSerializer, UserUpdateSerializer
 
 User = get_user_model()
 
@@ -29,7 +29,15 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
         IsOwnerOrReadOnly,
     )
 
+    # PATCH 요청의 경우 수정할 수 있는 필드를 제한하도록 UserUpdateSerializer를 사용
+    def get_serializer_class(self):
+        if self.request.method == 'PATCH':
+            return UserUpdateSerializer
+        else:
+            return UserSerializer
 
+
+# 유저 목록 조회
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -38,6 +46,7 @@ class UserList(generics.ListAPIView):
     )
 
 
+# 로그인
 class Login(APIView):
     def post(self, request, *args, **kwargs):
         email = request.data['email']
@@ -58,6 +67,7 @@ class Login(APIView):
             return Response(data, status=status.HTTP_401_UNAUTHORIZED)
 
 
+# 회원가입
 class Signup(APIView):
     def post(self, request):
         """
@@ -83,6 +93,9 @@ class Signup(APIView):
         if serializer.is_valid():
             # 방금 생성한 user
             user = serializer.save()
+            """
+            이메일 인증 활성화 하려면 아래의 코드 Uncomment
+            """
             # activation key 생성을 위한 무작위 문자열
             # user 마다 unique 한 값을 가지게 하기 위해 user.email 첨가
             # random_string = str(random()) + user.email
