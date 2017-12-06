@@ -72,6 +72,7 @@ class CommentTrackField(serializers.RelatedField):
                 data['Vocal'] = vocal_list
             elif i.instrument in ('Guitar', 'G'):
                 guitar_list.append(list_item)
+                data['Guitar'] = guitar_list
             elif i.instrument in ('Drums', 'D'):
                 drums_list.append(list_item)
                 data['Drums'] = drums_list
