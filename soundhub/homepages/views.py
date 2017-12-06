@@ -32,3 +32,27 @@ class HomePageView(ListModelMixin, generics.GenericAPIView):
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+
+
+class GenreHomePageView(ListModelMixin, generics.GenericAPIView):
+    post_serializer = PostListSerializer
+    lookup_url_kwarg = 'genre'
+
+    def list(self, request, *args, **kwargs):
+        genre = self.kwargs.get(self.lookup_url_kwarg)
+        post_queryset = Post.objects.filter(genre=genre)
+
+        pop_post_queryset = post_queryset.order_by('-num_liked')[:15]
+        recent_post_queryset = post_queryset.order_by('-created_date')[:15]
+
+        pop_post_serializer = self.post_serializer(pop_post_queryset, many=True)
+        recent_post_serializer = self.post_serializer(recent_post_queryset, many=True)
+
+        data = {
+            "pop_post": pop_post_serializer.data,
+            "recent_post": recent_post_serializer.data
+        }
+        return Response(data)
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
