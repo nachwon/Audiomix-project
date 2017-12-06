@@ -30,6 +30,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         fields = (
             'nickname',
             'instrument',
+            'genre',
         )
 
 
