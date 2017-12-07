@@ -52,6 +52,7 @@ class CommentTrack(models.Model):
     class Meta:
         ordering = ('-created_date',)
 
+    # 커맨트 트랙의 믹스 여부에 따라 is_mixed 값을 바꿔줌
     def save_is_mixed(self):
         if self.mixed_to is not None:
             self.is_mixed = True
