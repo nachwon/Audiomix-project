@@ -10,6 +10,7 @@ class Post(models.Model):
     genre = models.CharField(max_length=100)
     master_track = models.FileField(upload_to='master_tracks', blank=True, null=True)
     author_track = models.FileField(upload_to='author_tracks', max_length=255)
+    mixed_tracks = models.CharField(max_length=255, blank=True, null=True)
     liked = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         through='PostLike',
