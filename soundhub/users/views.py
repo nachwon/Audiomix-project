@@ -15,7 +15,7 @@ from rest_framework.views import APIView
 from utils.mail import send_verification_mail
 from utils.permissions import IsOwnerOrReadOnly
 from .models import ActivationKeyInfo
-from .serializers import UserSerializer, SignupSerializer, UserUpdateSerializer
+from .serializers import UserSerializer, SignupSerializer
 
 User = get_user_model()
 
@@ -28,13 +28,6 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
         # 커스텀 권한
         IsOwnerOrReadOnly,
     )
-
-    # PATCH 요청의 경우 수정할 수 있는 필드를 제한하도록 UserUpdateSerializer를 사용
-    def get_serializer_class(self):
-        if self.request.method == 'PATCH':
-            return UserUpdateSerializer
-        else:
-            return UserSerializer
 
 
 # 유저 목록 조회

@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import generics, status
 from rest_framework import exceptions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -31,6 +32,34 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
         # 작성자인 경우만 포스트 수정, 삭제 가능
         IsAuthorOrReadOnly,
     )
+
+    def patch(self, request, *args, **kwargs):
+        mixed_tracks_raw = request.data.get('mix_tracks', False)
+        if mixed_tracks_raw:
+            post = self.get_object()
+            queryset = post.comment_tracks.all()
+            mixed_tracks = mixed_tracks_raw.replace(' ', '').split(',')
+            post.mixed_tracks.clear()
+            error_msg = list()
+            for pk in mixed_tracks:
+                print(pk)
+                try:
+                    comment = post.comment_tracks.get(pk=pk)
+                    post.mixed_tracks.add(comment)
+
+                except ObjectDoesNotExist:
+                    error_msg.append(pk)
+                    continue
+
+            if bool(error_msg):
+                raise exceptions.NotFound(f'찾을 수 없습니다: 코멘트 트랙 {", ".join(error_msg)}')
+
+            post.save()
+            for i in queryset:
+                print(i.mixed_to)
+                print(i.save_is_mixed())
+
+        return self.partial_update(request, *args, **kwargs)
 
 
 # 코멘트 트랙 조회, 등록 API
@@ -130,7 +159,3 @@ class PostLikeToggle(generics.GenericAPIView):
             "post": PostSerializer(instance).data
         }
         return Response(data)
-
-
-class MixComment(APIView):
-    pass

@@ -21,9 +21,14 @@ class CommentTrackSerializer(serializers.ModelSerializer):
             'id',
             'author',
             'post',
-            'mixed_to',
+            'is_mixed',
             'comment_track',
             'instrument',
+        )
+        read_only_fields = (
+            'author',
+            'post',
+            'is_mixed',
         )
 
 
@@ -66,6 +71,8 @@ class PostSerializer(serializers.ModelSerializer):
     author_track = serializers.FileField(max_length=255, use_url=False)
     liked = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     comment_tracks = CommentTrackField(read_only=True)
+    mixed_tracks = CommentTrackField(read_only=True
+    )
 
     class Meta:
         model = Post
@@ -83,4 +90,13 @@ class PostSerializer(serializers.ModelSerializer):
             'author_track',
             'mixed_tracks',
             'comment_tracks',
+        )
+        read_only_fields = (
+            'author',
+            'liked',
+            'num_liked',
+            'num_comments',
+            'created_date',
+            'master_track',
+            'mixed_tracks'
         )
