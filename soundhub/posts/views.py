@@ -23,7 +23,7 @@ class PostList(generics.ListCreateAPIView):
 
 
 # 단일 포스트 조회, 수정, 삭제 API
-class PostDetail(generics.RetrieveUpdateDestroyAPIView):
+class PostDetail(generics.CreateAPIView, generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
     permission_classes = (
