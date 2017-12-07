@@ -10,9 +10,6 @@ class Post(models.Model):
     genre = models.CharField(max_length=100)
     master_track = models.FileField(upload_to='master_tracks', blank=True, null=True)
     author_track = models.FileField(upload_to='author_tracks', max_length=255)
-    mixed_tracks = models.ManyToManyField('CommentTrack',
-                                          through='MixedTrack',
-                                          related_name='mixed_tracks')
     liked = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                    through='PostLike',
                                    related_name='liked_posts')
@@ -40,6 +37,7 @@ class Post(models.Model):
 class CommentTrack(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, related_name='comment_tracks', on_delete=models.CASCADE)
+    mixed_to = models.ForeignKey(Post, related_name='mixed_tracks', on_delete=models.SET_NULL, blank=True, null=True)
     comment_track = models.FileField(upload_to='comment_tracks', max_length=255)
     instrument = models.CharField(max_length=100)
     created_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -61,9 +59,3 @@ class PostLike(models.Model):
 
     class Meta:
         ordering = ['-liked_date']
-
-
-class MixedTrack(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    comment = models.ForeignKey(CommentTrack, on_delete=models.CASCADE)
-    mixed_date = models.DateTimeField(auto_now_add=True)

@@ -2,6 +2,7 @@ from rest_framework import generics, status
 from rest_framework import exceptions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from posts.models import Post, CommentTrack, PostLike
 from posts.serializers import PostListSerializer, PostDetailSerializer, CommentTrackSerializer
@@ -23,7 +24,7 @@ class PostList(generics.ListCreateAPIView):
 
 
 # 단일 포스트 조회, 수정, 삭제 API
-class PostDetail(generics.CreateAPIView, generics.RetrieveUpdateDestroyAPIView):
+class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
     permission_classes = (
@@ -129,3 +130,7 @@ class PostLikeToggle(generics.GenericAPIView):
             "post": PostDetailSerializer(instance).data
         }
         return Response(data)
+
+
+class MixComment(APIView):
+    pass

@@ -21,6 +21,7 @@ class CommentTrackSerializer(serializers.ModelSerializer):
             'id',
             'author',
             'post',
+            'mixed_to',
             'comment_track',
             'instrument',
         )
@@ -105,5 +106,6 @@ class PostDetailSerializer(serializers.ModelSerializer):
             'created_date',
             'master_track',
             'author_track',
+            'mixed_tracks',
             'comment_tracks',
         )
