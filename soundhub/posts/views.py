@@ -1,10 +1,12 @@
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import generics, status
 from rest_framework import exceptions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from posts.models import Post, CommentTrack, PostLike
-from posts.serializers import PostListSerializer, PostDetailSerializer, CommentTrackSerializer
+from posts.serializers import PostSerializer, CommentTrackSerializer
 
 from utils.permissions import IsAuthorOrReadOnly
 
@@ -12,7 +14,7 @@ from utils.permissions import IsAuthorOrReadOnly
 # 포스트 목록 조회 및 포스트 생성 API
 class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
-    serializer_class = PostListSerializer
+    serializer_class = PostSerializer
     permission_classes = (
         # 회원인 경우만 포스트 작성 가능
         IsAuthenticatedOrReadOnly,
@@ -25,11 +27,59 @@ class PostList(generics.ListCreateAPIView):
 # 단일 포스트 조회, 수정, 삭제 API
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
-    serializer_class = PostDetailSerializer
+    serializer_class = PostSerializer
     permission_classes = (
         # 작성자인 경우만 포스트 수정, 삭제 가능
         IsAuthorOrReadOnly,
     )
+
+    # 커멘트 트랙 믹스를 위한 패치 요청 오버라이드
+    def patch(self, request, *args, **kwargs):
+        # mix_tracks 라는 키값으로 들어온 데이터를 확인.
+        # mix_tracks 에는 ,로 구분된 커멘트 트랙의 pk 값을 전달해야 함. ex) 54, 55
+        mixed_tracks_raw = request.data.get('mix_tracks', False)
+        # 데이터가 있으면,
+        if mixed_tracks_raw:
+            # pk 값으로 포스트를 가져온다.
+            post = self.get_object()
+            # 가져온 포스트에 연결된 모든 커맨트 트랙 리스트를 가져온다.
+            queryset = post.comment_tracks.all()
+            # 한 덩어리의 문자열에서 공백 문자를 제거하고 ,를 기준으로 분리하여 리스트로 만든다.
+            # ex) "54, 55" -> [54, 55]
+            mixed_tracks = mixed_tracks_raw.replace(' ', '').split(',')
+            # 기존의 mixed_tracks 값을 모두 제거해준다.
+            post.mixed_tracks.clear()
+            # 에러 메세지를 담기 위한 리스트 생성
+            error_msg = list()
+
+            # mixed_tracks 의 값을 하나씩 돌면서
+            for pk in mixed_tracks:
+                try:
+                    # 커맨트 트랙 객체를 가져와서
+                    comment = post.comment_tracks.get(pk=pk)
+                    # 포스트 객체의 mixed_tracks 관계 필드에 추가한다.
+                    post.mixed_tracks.add(comment)
+
+                # 값을 못 가져오는 경우, 즉, 해당 포스트에 연결된 커멘트 트랙 중 하나의 pk 가 아닌 경우
+                except ObjectDoesNotExist:
+                    # 에러 메세지 리스트에 못 찾은 pk 값 전달.
+                    error_msg.append(pk)
+                    continue
+
+            # 에러 메세지 리스트가 비어있지 않으면,
+            if bool(error_msg):
+                # 에러 일으키면서 에러 메세지 전달
+                raise exceptions.NotFound(f'찾을 수 없습니다: 코멘트 트랙 {", ".join(error_msg)}')
+
+            # 에러가 없으면 포스트 상태 저장
+            post.save()
+
+            # 모든 커멘트 트랙들 돌면서 is_mixed 값 업데이트
+            for i in queryset:
+                i.save_is_mixed()
+
+        # 나머지 필드들에 대해서는 기존의 PATCH 요청과 동일
+        return self.partial_update(request, *args, **kwargs)
 
 
 # 코멘트 트랙 조회, 등록 API
@@ -126,6 +176,6 @@ class PostLikeToggle(generics.GenericAPIView):
 
         # 업데이트된 instance를 PostSerializer에 넣어 직렬화하여 응답으로 돌려줌
         data = {
-            "post": PostDetailSerializer(instance).data
+            "post": PostSerializer(instance).data
         }
         return Response(data)

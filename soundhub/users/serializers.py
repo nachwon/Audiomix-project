@@ -16,20 +16,18 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'nickname',
             'instrument',
+            'genre',
             'total_liked',
             'is_staff',
             'is_active',
             'last_login',
         )
-
-
-# 유저 수정 시리얼라이저
-class UserUpdateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = (
-            'nickname',
-            'instrument',
+        read_only_fields = (
+            'email',
+            'total_liked',
+            'is_staff',
+            'is_active',
+            'last_login',
         )
 
 

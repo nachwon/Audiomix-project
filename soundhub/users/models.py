@@ -76,6 +76,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     # Serializer 에서 문자열로 합쳐줌
     instrument = models.CharField(max_length=255, blank=True, null=True)
 
+    # 선호하는 장르
+    genre = models.CharField(max_length=100, blank=True, null=True)
+
     # 총 좋아요 수
     total_liked = models.IntegerField(default=0)
 
