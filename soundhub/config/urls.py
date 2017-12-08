@@ -16,11 +16,12 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from config.views import redirect_to_home
 from homepages.views import HomePageView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', HomePageView.as_view(), name='homepage'),
+    url(r'^$', redirect_to_home, name='homepage'),
     url(r'^user/', include('users.urls', namespace='user')),
     url(r'^post/', include('posts.urls', namespace='post')),
     url(r'^home/', include('homepages.urls', namespace='home')),

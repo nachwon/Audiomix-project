@@ -16,7 +16,7 @@ class Post(models.Model):
                                    related_name='liked_posts')
     num_liked = models.IntegerField(default=0)
     num_comments = models.IntegerField(default=0)
-    created_date = models.DateTimeField(auto_now_add=True)
+    created_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
         return f'{self.title} - {self.author}'
@@ -41,10 +41,10 @@ class CommentTrack(models.Model):
     mixed_to = models.ForeignKey(Post, related_name='mixed_tracks',
                                  on_delete=models.CASCADE,
                                  blank=True, null=True)
-    is_mixed = models.BooleanField(default=False)
+    is_mixed = models.NullBooleanField(default=False)
     comment_track = models.FileField(upload_to='comment_tracks', max_length=255)
     instrument = models.CharField(max_length=100)
-    created_date = models.DateTimeField(auto_now_add=True)
+    created_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
         return f'{self.post.title}: {self.instrument}'
@@ -65,7 +65,7 @@ class CommentTrack(models.Model):
 class PostLike(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    liked_date = models.DateTimeField(auto_now_add=True)
+    liked_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
         return f'{self.author} liked {self.post}'
