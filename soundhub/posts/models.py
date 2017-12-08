@@ -1,7 +1,12 @@
+import os
+import requests
+
 from django.db import models
 from django.db.models.manager import BaseManager
+from pydub import AudioSegment
 
 from config import settings
+from config.settings import MEDIA_ROOT
 
 
 class Post(models.Model):
@@ -30,6 +35,39 @@ class Post(models.Model):
     def save_num_comments(self):
         self.num_comments = self.comment_tracks.count()
         self.save()
+
+    def save_master_track(self):
+        mixed_tracks = self.mixed_tracks.all()
+        author_track = self.author_track
+        if mixed_tracks.exists():
+            author_track_response = requests.get(author_track.url)
+            directory = os.path.join(MEDIA_ROOT, f'{self.author.nickname}: Post_{self.pk}')
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+            author_track_dir = os.path.join(directory, 'author_track.mp3')
+            with open(author_track_dir, 'wb') as f:
+                f.write(author_track_response.content)
+            mix_list = list()
+            author_mix = AudioSegment.from_mp3(author_track_dir)
+
+            for track in mixed_tracks:
+                comment_track_response = requests.get(track.comment_track.url)
+                comment_dir = os.path.join(directory, f'comment_track_{track.pk}.mp3')
+                with open(comment_dir, 'wb') as f:
+                    f.write(comment_track_response.content)
+                mix = AudioSegment.from_mp3(comment_dir)
+                mix_list.append(mix)
+
+            for mix in mix_list:
+                author_mix = author_mix.overlay(mix)
+            master_dir = os.path.join(directory, f'master_track.mp3')
+
+            author_mix.export(master_dir, format="mp3")
+
+            with open(master_dir, 'rb') as f:
+                master_track = f
+
+            return master_track
 
     class Meta:
         ordering = ['-created_date']

@@ -78,6 +78,17 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
             for i in queryset:
                 i.save_is_mixed()
 
+            master_track = post.save_master_track()
+            print(master_track)
+
+        else:
+            post = self.get_object()
+            queryset = post.comment_tracks.all()
+            post.mixed_tracks.clear()
+            # 모든 커멘트 트랙들 돌면서 is_mixed 값 업데이트
+            for i in queryset:
+                i.save_is_mixed()
+
         # 나머지 필드들에 대해서는 기존의 PATCH 요청과 동일
         return self.partial_update(request, *args, **kwargs)
 
