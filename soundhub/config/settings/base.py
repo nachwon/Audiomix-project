@@ -13,13 +13,12 @@ import json
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # 루트 경로
 ROOT_DIR = os.path.dirname(BASE_DIR)
 # 기밀정보 경로
 CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secrets')
 CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')
-
 
 # 미디어 파일 설정
 MEDIA_ROOT = os.path.join(ROOT_DIR, 'temp')
@@ -121,11 +120,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
-
-
-# 데이터베이스 설정
-
-DATABASES = config_secret['databases']['postgresql']
 
 
 # Password validation
