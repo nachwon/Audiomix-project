@@ -1,3 +1,4 @@
+import requests
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import generics, status
 from rest_framework import exceptions
@@ -35,6 +36,7 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
 
     # 커멘트 트랙 믹스를 위한 패치 요청 오버라이드
     def patch(self, request, *args, **kwargs):
+        print(request.data, args, kwargs)
         # mix_tracks 라는 키값으로 들어온 데이터를 확인.
         # mix_tracks 에는 ,로 구분된 커멘트 트랙의 pk 값을 전달해야 함. ex) 54, 55
         mixed_tracks_raw = request.data.get('mix_tracks', False)
@@ -78,16 +80,15 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
             for i in queryset:
                 i.save_is_mixed()
 
-            master_track = post.save_master_track()
-            print(master_track)
+            post.save_master_track()
 
-        else:
-            post = self.get_object()
-            queryset = post.comment_tracks.all()
-            post.mixed_tracks.clear()
-            # 모든 커멘트 트랙들 돌면서 is_mixed 값 업데이트
-            for i in queryset:
-                i.save_is_mixed()
+        # else:
+        #     post = self.get_object()
+        #     queryset = post.comment_tracks.all()
+        #     post.mixed_tracks.clear()
+        #     # 모든 커멘트 트랙들 돌면서 is_mixed 값 업데이트
+        #     for i in queryset:
+        #         i.save_is_mixed()
 
         # 나머지 필드들에 대해서는 기존의 PATCH 요청과 동일
         return self.partial_update(request, *args, **kwargs)
