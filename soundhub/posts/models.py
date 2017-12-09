@@ -2,7 +2,6 @@ import os
 import requests
 
 from django.db import models
-from django.db.models.manager import BaseManager
 from pydub import AudioSegment
 
 from config import settings
@@ -65,7 +64,7 @@ class Post(models.Model):
             author_mix.export(master_dir, format="mp3")
 
             with open(master_dir, 'rb') as f:
-                master_track = f
+                master_track = f.read()
 
             return master_track
 

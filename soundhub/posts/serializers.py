@@ -73,6 +73,7 @@ class PostSerializer(serializers.ModelSerializer):
     comment_tracks = CommentTrackField(read_only=True)
     mixed_tracks = CommentTrackField(read_only=True
     )
+    master_track = serializers.FileField(max_length=255, use_url=False, required=False)
 
     class Meta:
         model = Post
@@ -97,6 +98,5 @@ class PostSerializer(serializers.ModelSerializer):
             'num_liked',
             'num_comments',
             'created_date',
-            'master_track',
             'mixed_tracks'
         )
