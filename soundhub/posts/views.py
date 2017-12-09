@@ -191,3 +191,8 @@ class PostLikeToggle(generics.GenericAPIView):
             "post": PostSerializer(instance).data
         }
         return Response(data)
+
+
+class MixTracks(generics.GenericAPIView):
+    def post(self, request, *args, **kwargs):
+        print(request.data, *args, **kwargs)
