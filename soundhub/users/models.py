@@ -82,13 +82,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     # 총 좋아요 수
     total_liked = models.IntegerField(default=0)
 
-    # 관리자 여부
-    is_staff = models.BooleanField()
-    # 활성화 여부
-    is_active = models.BooleanField()
-    # 계정생성 날짜
-    created_at = models.DateField(auto_now_add=True)
-
     # 팔로잉
     following = models.ManyToManyField(
         'self',
@@ -98,6 +91,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name='following users',
         blank=True
     )
+
+    num_followings = models.IntegerField(default=0)
+    num_followers = models.IntegerField(default=0)
+
+    # 관리자 여부
+    is_staff = models.BooleanField()
+    # 활성화 여부
+    is_active = models.BooleanField()
+    # 계정생성 날짜
+    created_at = models.DateField(auto_now_add=True)
 
     # 이메일을 유저네임으로 설정
     USERNAME_FIELD = 'email'
@@ -154,3 +157,6 @@ class Relationship(models.Model):
     to_user = models.ForeignKey(User, on_delete=models.CASCADE,
                                 related_name='follower_set')
     related_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.from_user.nickname} is following {self.to_user.nickname}'

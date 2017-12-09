@@ -14,7 +14,7 @@ from rest_framework.views import APIView
 
 from utils.mail import send_verification_mail
 from utils.permissions import IsOwnerOrReadOnly
-from .models import ActivationKeyInfo
+from .models import ActivationKeyInfo, Relationship
 from .serializers import UserSerializer, SignupSerializer
 
 User = get_user_model()
@@ -133,5 +133,23 @@ class ActivateUser(APIView):
         return Response(data)
 
 
-class FollowUser(generics.GenericAPIView):
+class FollowUserToggle(generics.GenericAPIView):
     queryset = User.objects.all()
+    permission_classes = (
+        IsAuthenticatedOrReadOnly,
+    )
+
+    def post(self, request, *args, **kwargs):
+        to_user_instance = self.get_object()
+        from_user_instance = request.user
+
+        if to_user_instance in from_user_instance.following.all():
+            relation = Relationship.objects.get(to_user_id=to_user_instance.pk,
+                                                from_user_id=from_user_instance.pk)
+            relation.delete()
+        else:
+            Relationship.objects.create(to_user_id=to_user_instance.pk,
+                                        from_user_id=from_user_instance.pk)
+
+        data = UserSerializer(from_user_instance).data
+        return Response(data)

@@ -71,8 +71,7 @@ class PostSerializer(serializers.ModelSerializer):
     author_track = serializers.FileField(max_length=255, use_url=False)
     liked = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     comment_tracks = CommentTrackField(read_only=True)
-    mixed_tracks = CommentTrackField(read_only=True
-    )
+    mixed_tracks = CommentTrackField(read_only=True)
     master_track = serializers.FileField(max_length=255, use_url=False, required=False)
 
     class Meta:

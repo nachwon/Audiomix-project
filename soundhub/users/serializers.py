@@ -7,8 +7,18 @@ from .models import ActivationKeyInfo
 User = get_user_model()
 
 
+class FollowingField(serializers.RelatedField):
+
+    def get_queryset(self, *args, **kwargs):
+        print(kwargs)
+
+    def to_representation(self, value):
+        print(value.all())
+
+
 # 유저 모델 시리얼라이저
 class UserSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = User
         fields = (
@@ -18,6 +28,8 @@ class UserSerializer(serializers.ModelSerializer):
             'instrument',
             'genre',
             'total_liked',
+            'num_following',
+            'num_followers',
             'is_staff',
             'is_active',
             'last_login',
@@ -25,6 +37,7 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = (
             'email',
             'total_liked',
+            'following',
             'is_staff',
             'is_active',
             'last_login',
