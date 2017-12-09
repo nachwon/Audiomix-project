@@ -117,11 +117,17 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.nickname
 
     # 유저의 모든 포스트들이 받은 좋아요 갯수를 총합하여 total_liked 필드에 저장
-    def save_total_liked(self, *args, **kwargs):
+    def save_total_liked(self):
         posts = self.post_set.all()
         total_liked = sum([i.num_liked for i in posts])
         self.total_liked = total_liked
-        self.save(*args, **kwargs)
+        self.save()
+
+    # 팔로우 카운트 관련 필드 업데이트
+    def save_num_relations(self,):
+        self.num_followers = self.followers.count()
+        self.num_followings = self.following.count()
+        self.save()
 
     @property
     def token(self):

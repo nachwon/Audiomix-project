@@ -28,7 +28,7 @@ class UserSerializer(serializers.ModelSerializer):
             'instrument',
             'genre',
             'total_liked',
-            'num_following',
+            'num_followings',
             'num_followers',
             'is_staff',
             'is_active',

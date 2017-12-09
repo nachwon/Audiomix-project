@@ -151,5 +151,8 @@ class FollowUserToggle(generics.GenericAPIView):
             Relationship.objects.create(to_user_id=to_user_instance.pk,
                                         from_user_id=from_user_instance.pk)
 
+        from_user_instance.save_num_relations()
+        to_user_instance.save_num_relations()
+
         data = UserSerializer(from_user_instance).data
         return Response(data)
