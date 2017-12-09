@@ -131,3 +131,7 @@ class ActivateUser(APIView):
         activation_key_info.user.save()
         data = UserSerializer(activation_key_info.user).data
         return Response(data)
+
+
+class FollowUser(generics.GenericAPIView):
+    queryset = User.objects.all()

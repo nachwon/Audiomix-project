@@ -89,6 +89,16 @@ class User(AbstractBaseUser, PermissionsMixin):
     # 계정생성 날짜
     created_at = models.DateField(auto_now_add=True)
 
+    # 팔로잉
+    following = models.ManyToManyField(
+        'self',
+        symmetrical=False,
+        through='Relationship',
+        related_name='followers',
+        verbose_name='following users',
+        blank=True
+    )
+
     # 이메일을 유저네임으로 설정
     USERNAME_FIELD = 'email'
 
@@ -136,3 +146,11 @@ class ActivationKeyInfo(models.Model):
     key = models.CharField(max_length=40, blank=True)
     # key 만료 기한
     expires_at = models.DateTimeField()
+
+
+class Relationship(models.Model):
+    from_user = models.ForeignKey(User, on_delete=models.CASCADE,
+                                  related_name='following_set')
+    to_user = models.ForeignKey(User, on_delete=models.CASCADE,
+                                related_name='follower_set')
+    related_date = models.DateTimeField(auto_now_add=True)
