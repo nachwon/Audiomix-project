@@ -1,6 +1,7 @@
 import os
 import requests
 from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 
 from django.db import models
 from pydub import AudioSegment
@@ -10,15 +11,15 @@ from config.settings import MEDIA_ROOT
 
 
 def author_track_directory_path(instance, filename):
-    return f'user_{instance.author.id}/Post_{instance.id}/author_track/{filename}'
+    return f'user_{instance.author.id}/Post_{instance.id}/author_track/author_track.mp3'
 
 
 def master_track_directory_path(instance, filename):
-    return f'user_{instance.author.id}/Post_{instance.id}/master_track/{filename}'
+    return f'user_{instance.author.id}/Post_{instance.id}/master_track/master_track.mp3'
 
 
 def comment_track_directory_path(instance, filename):
-    return f'user_{instance.post.author.id}/Post_{instance.post.id}/comment_tracks/{filename}'
+    return f'user_{instance.post.author.id}/Post_{instance.post.id}/comment_tracks/comment_track_{instance.pk}.mp3'
 
 
 class Post(models.Model):
@@ -51,33 +52,27 @@ class Post(models.Model):
     def save_master_track(self):
         mixed_tracks = self.mixed_tracks.all()
         author_track = self.author_track
-        if mixed_tracks.exists():
-            author_track_response = requests.get(author_track.url)
-            directory = os.path.join(MEDIA_ROOT, f'{self.author.nickname}: Post_{self.pk}')
-            if not os.path.exists(directory):
-                os.makedirs(directory)
-            author_track_dir = os.path.join(directory, 'author_track.mp3')
-            with open(author_track_dir, 'wb') as f:
-                f.write(author_track_response.content)
-            mix_list = list()
-            author_mix = AudioSegment.from_mp3(author_track_dir)
+        storage = default_storage
 
+        if mixed_tracks.exists():
+
+            # author_track 파일을 s3에서 가져옴
+            author_track_dir = f'user_{self.author.id}/Post_{self.pk}/author_track/author_track.mp3'
+            author_track = storage.open(author_track_dir, 'r')
+            author_mix = AudioSegment.from_mp3(author_track)
+
+            mix_list = list()
             for track in mixed_tracks:
-                comment_track_response = requests.get(track.comment_track.url)
-                comment_dir = os.path.join(directory, f'comment_track_{track.pk}.mp3')
-                with open(comment_dir, 'wb') as f:
-                    f.write(comment_track_response.content)
-                mix = AudioSegment.from_mp3(comment_dir)
+                comment_track_dir = \
+                    f'user_{track.post.author.id}/Post_{track.post.pk}/comment_tracks/comment_track_{track.pk}.mp3'
+                comment_track = storage.open(comment_track_dir, 'r')
+                mix = AudioSegment.from_mp3(comment_track)
                 mix_list.append(mix)
 
             for mix in mix_list:
                 author_mix = author_mix.overlay(mix)
-            master_dir = os.path.join(directory, f'master_track.mp3')
 
-            author_mix.export(master_dir, format="mp3")
-
-            with open(master_dir, 'rb') as f:
-                master_track = f.read()
+            master_track = author_mix.export(author_mix, format="mp3")
             file = ContentFile(master_track)  # 서상원 Contributed
             return file
 
