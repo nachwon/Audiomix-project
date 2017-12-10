@@ -62,6 +62,16 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
         IsAuthorOrReadOnly,
     )
 
+    # 포스트 객체 삭제시 s3 저장소 내의 파일들도 모두 삭제
+    def perform_destroy(self, instance):
+        instance.author_track.delete()
+        instance.master_track.delete()
+        # 연결된 모든 커멘트 트랙 객체의 파일들도 삭제
+        comment_set = instance.comment_tracks.all()
+        for i in comment_set:
+            i.comment_track.delete()
+        instance.delete()
+
 
 # 코멘트 트랙 조회, 등록 API
 class CommentTrackList(generics.ListCreateAPIView):
