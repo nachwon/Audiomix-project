@@ -1,7 +1,9 @@
 import os
 import requests
+from django.core.files.base import ContentFile
 
 from django.db import models
+from io import BytesIO
 from pydub import AudioSegment
 
 from config import settings
@@ -65,8 +67,8 @@ class Post(models.Model):
 
             with open(master_dir, 'rb') as f:
                 master_track = f.read()
-
-            return master_track
+            file = ContentFile(master_track)  # 서상원 Contributed
+            return file
 
     class Meta:
         ordering = ['-created_date']

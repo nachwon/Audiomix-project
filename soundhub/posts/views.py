@@ -140,6 +140,7 @@ class MixTracks(generics.UpdateAPIView, generics.GenericAPIView):
     )
 
     def patch(self, request, *args, **kwargs):
+        print(request.data, kwargs)
         # mix_tracks 라는 키값으로 들어온 데이터를 확인.
         # mix_tracks 에는 ,로 구분된 커멘트 트랙의 pk 값을 전달해야 함. ex) 54, 55
         mixed_tracks_raw = request.data.get('mix_tracks', False)
@@ -183,7 +184,11 @@ class MixTracks(generics.UpdateAPIView, generics.GenericAPIView):
             for i in queryset:
                 i.save_is_mixed()
 
-            post.save_master_track()
+            master_track = post.save_master_track()
+            post.master_track.save(
+                'master_track.mp3',
+                master_track,
+            )
 
         else:
             post = self.get_object()
