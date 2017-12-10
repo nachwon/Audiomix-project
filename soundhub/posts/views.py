@@ -134,6 +134,10 @@ class CommentTrackDetail(generics.RetrieveUpdateDestroyAPIView):
         comment.post.save()
         return self.destroy(request, *args, **kwargs)
 
+    def perform_destroy(self, instance):
+        instance.comment_track.delete()
+        instance.delete()
+
 
 # 포스트 좋아요 & 좋아요 취소 토글
 class PostLikeToggle(generics.GenericAPIView):
