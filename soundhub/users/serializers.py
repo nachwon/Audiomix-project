@@ -55,6 +55,7 @@ class SignupSerializer(serializers.ModelSerializer):
             'id',
             'email',
             'nickname',
+            'genre',
             'instrument',
             'password1',
             'password2',
