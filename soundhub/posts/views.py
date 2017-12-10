@@ -21,23 +21,29 @@ class PostList(generics.ListCreateAPIView):
         IsAuthenticatedOrReadOnly,
     )
 
+    # author_track 저장 폴더 경로의 동적 생성에 포스트 pk 값을 사용하기 위한 create 메서드 오버라이드
     def create(self, request, *args, **kwargs):
+        # author_track 을 제외한 모든 정보
         data = {
             "title": request.data.get('title'),
             "instrument": request.data.get('instrument'),
             "genre": request.data.get('genre')
         }
+        # 정보를 시리얼라이저에 전달하여 객체화
         serializer = self.get_serializer(data=data)
+        # is_valid 를 통해 데이터 검증
+        # author_track 의 required=False 때문에 author_track 이 없어도 통과함.
         serializer.is_valid(raise_exception=True)
+        # 저장해서 포스트 pk 값 할당
         serializer.save(author=self.request.user)
-
-        serializer.save()
-
+        # perform_create 메서드를 호출해서 author_track 포함하여 저장
+        # 포스트에 pk 값이 할당되었으므로, author_track 을 저장할 때 경로에 pk 값을 사용할 수 있다.
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
+        # author_track 이 없으면 에러 발생
         if self.request.data.get('author_track', False):
             serializer.save(author_track=self.request.data.get('author_track'))
         else:
