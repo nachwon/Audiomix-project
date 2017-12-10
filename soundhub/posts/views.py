@@ -1,6 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework import exceptions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
@@ -21,8 +21,24 @@ class PostList(generics.ListCreateAPIView):
         IsAuthenticatedOrReadOnly,
     )
 
-    def perform_create(self, serializer):
+    def create(self, request, *args, **kwargs):
+        data = {
+            "title": request.data.get('title'),
+            "instrument": request.data.get('instrument'),
+            "genre": request.data.get('genre')
+        }
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
         serializer.save(author=self.request.user)
+
+        serializer.save()
+
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def perform_create(self, serializer):
+        serializer.save(author_track=self.request.data.get('author_track'))
 
 
 # 단일 포스트 조회, 수정, 삭제 API

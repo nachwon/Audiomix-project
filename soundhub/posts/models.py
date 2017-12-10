@@ -3,11 +3,22 @@ import requests
 from django.core.files.base import ContentFile
 
 from django.db import models
-from io import BytesIO
 from pydub import AudioSegment
 
 from config import settings
 from config.settings import MEDIA_ROOT
+
+
+def author_track_directory_path(instance, filename):
+    return f'user_{instance.author.id}/Post_{instance.id}/author_track/{filename}'
+
+
+def master_track_directory_path(instance, filename):
+    return f'user_{instance.author.id}/Post_{instance.id}/master_track/{filename}'
+
+
+def comment_track_directory_path(instance, filename):
+    return f'user_{instance.post.author.id}/Post_{instance.post.id}/comment_tracks/{filename}'
 
 
 class Post(models.Model):
@@ -15,8 +26,8 @@ class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     instrument = models.CharField(max_length=100)
     genre = models.CharField(max_length=100)
-    master_track = models.FileField(upload_to='master_tracks', blank=True, null=True)
-    author_track = models.FileField(upload_to='author_tracks', max_length=255)
+    master_track = models.FileField(upload_to=master_track_directory_path, blank=True, null=True)
+    author_track = models.FileField(upload_to=author_track_directory_path, max_length=255)
     liked = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                    through='PostLike',
                                    related_name='liked_posts')
@@ -81,7 +92,7 @@ class CommentTrack(models.Model):
                                  on_delete=models.CASCADE,
                                  blank=True, null=True)
     is_mixed = models.NullBooleanField(default=False)
-    comment_track = models.FileField(upload_to='comment_tracks', max_length=255)
+    comment_track = models.FileField(upload_to=comment_track_directory_path, max_length=255)
     instrument = models.CharField(max_length=100)
     created_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
