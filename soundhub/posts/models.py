@@ -72,7 +72,15 @@ class Post(models.Model):
             for mix in mix_list:
                 author_mix = author_mix.overlay(mix)
 
-            master_track = author_mix.export(author_mix, format="mp3")
+            directory = os.path.join(MEDIA_ROOT, f'{self.author.nickname}: Post_{self.pk}')
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+            master_dir = os.path.join(directory, f'master_track.mp3')
+
+            author_mix.export(master_dir, format="mp3")
+
+            with open(master_dir, 'rb') as f:
+                master_track = f.read()
             file = ContentFile(master_track)  # 서상원 Contributed
             return file
 

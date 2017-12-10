@@ -107,14 +107,35 @@ class CommentTrackList(generics.ListCreateAPIView):
             return Post.objects.all()
 
     # POST 요청 받을 시
+
+    def create(self, request, *args, **kwargs):
+        post = self.get_object()
+        data = {
+            "instrument": request.data.get('instrument')
+        }
+        serializer = self.get_serializer(data=data)
+        # is_valid 를 통해 데이터 검증
+        # author_track 의 required=False 때문에 author_track 이 없어도 통과함.
+        serializer.is_valid(raise_exception=True)
+        # 저장해서 포스트 pk 값 할당
+        serializer.save(author=self.request.user, post=post)
+        # perform_create 메서드를 호출해서 author_track 포함하여 저장
+        # 포스트에 pk 값이 할당되었으므로, author_track 을 저장할 때 경로에 pk 값을 사용할 수 있다.
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
     def perform_create(self, serializer):
         post = self.get_object()
-        serializer.save(
-            # 요청 보낸 유저를 코멘트 작성자로
-            author=self.request.user,
-            # pk 값으로 가져온 포스트 객체에 코멘트 작성
-            post=post,
-        )
+        if self.request.data.get('comment_track', False):
+            serializer.save(
+                comment_track=self.request.data.get('comment_track')
+            )
+        else:
+            data = {
+                "detail": "코멘트 트랙이 제출되지 않았습니다."
+            }
+            raise exceptions.ValidationError(data)
         post.save_num_comments()  # 코멘트 갯수 업데이트
 
 
