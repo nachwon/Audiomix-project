@@ -38,7 +38,13 @@ class PostList(generics.ListCreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
-        serializer.save(author_track=self.request.data.get('author_track'))
+        if self.request.data.get('author_track', False):
+            serializer.save(author_track=self.request.data.get('author_track'))
+        else:
+            data = {
+                "detail": "author_track 파일이 제출되지 않았습니다."
+            }
+            raise exceptions.ValidationError(data)
 
 
 # 단일 포스트 조회, 수정, 삭제 API
@@ -156,7 +162,6 @@ class MixTracks(generics.UpdateAPIView, generics.GenericAPIView):
     )
 
     def patch(self, request, *args, **kwargs):
-        print(request.data, kwargs)
         # mix_tracks 라는 키값으로 들어온 데이터를 확인.
         # mix_tracks 에는 ,로 구분된 커멘트 트랙의 pk 값을 전달해야 함. ex) 54, 55
         mixed_tracks_raw = request.data.get('mix_tracks', False)
