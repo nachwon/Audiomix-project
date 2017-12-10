@@ -51,7 +51,6 @@ class Post(models.Model):
 
     def save_master_track(self):
         mixed_tracks = self.mixed_tracks.all()
-        author_track = self.author_track
         storage = default_storage
 
         if mixed_tracks.exists():

@@ -254,8 +254,12 @@ class MixTracks(generics.UpdateAPIView, generics.GenericAPIView):
 
         else:
             post = self.get_object()
+            post.master_track = post.author_track
+            post.save()
+
             queryset = post.comment_tracks.all()
             post.mixed_tracks.clear()
+
             # 모든 커멘트 트랙들 돌면서 is_mixed 값 업데이트
             for i in queryset:
                 i.save_is_mixed()
