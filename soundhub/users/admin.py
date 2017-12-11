@@ -40,7 +40,6 @@ class UserChangeForm(forms.ModelForm):
             'instrument',
             'is_active',
             'is_staff',
-            'is_superuser',
         )
 
     def clean_password(self):
@@ -51,12 +50,12 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ('email', 'nickname', 'instrument', 'is_staff', 'is_superuser')
-    list_filter = ('is_staff', 'is_superuser',)
+    list_display = ('email', 'nickname', 'instrument', 'is_staff')
+    list_filter = ('is_staff',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('Personal info', {'fields': ('nickname', 'instrument',)}),
-        ('Permissions', {'fields': ('is_staff', 'is_superuser',)}),
+        ('Permissions', {'fields': ('is_staff',)}),
     )
 
     add_fieldsets = (

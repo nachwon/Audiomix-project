@@ -1,15 +1,20 @@
+import hashlib
+from datetime import datetime, timedelta
+from random import random
+
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 
 
 # 회원 가입시 이메일, 닉네임, 악기, 비밀번호를 받도록 하는 커스텀 매니저 설정
+from django.utils import timezone
 from rest_framework.authtoken.models import Token
 
 
 class CustomUserManager(BaseUserManager):
     # 유저 생성 공통 메서드
-    def _create_user(self, email, nickname, password, is_staff=False, is_superuser=False, instrument=None):
+    def _create_user(self, email, nickname, password, is_active=False, is_staff=False, instrument=None):
         # 이메일을 입력하지 않은 경우 에러 발생
         if not email:
             raise ValueError('이메일을 반드시 입력해야 합니다.')
@@ -18,8 +23,8 @@ class CustomUserManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email),  # 이메일 주소를 소문자화하여 노멀라이즈
             nickname=nickname,
+            is_active=is_active,
             is_staff=is_staff,
-            is_superuser=is_superuser,
             instrument=instrument,
         )
 
@@ -34,22 +39,20 @@ class CustomUserManager(BaseUserManager):
 
     # 관리자 유저 생성 - create_superuser 매서드 오버라이드
     def create_superuser(self, email, nickname, password, instrument=None):
-        # _create_user 메서드를 사용하고 is_staff, is_superuser 값을 True로 설정
+        # _create_user 메서드를 사용하고 is_staff 값을 True로 설정
         user = self._create_user(
             email=email,
             nickname=nickname,
             password=password,
+            is_active=True,
             is_staff=True,
-            is_superuser=True,
             instrument=instrument,
         )
-        user.is_active = True
-        user.save()
         return user
 
     # 일반 유저 생성 - create_user 메서드 오버라이드
     def create_user(self, email, nickname, password, instrument=None):
-        # _create_user 메서드를 사용하고 is_staff, is_superuser 값을 False로 설정
+        # _create_user 메서드를 사용하고 is_staff 값을 False로 설정
         user = self._create_user(
             email=email,
             nickname=nickname,
@@ -60,8 +63,20 @@ class CustomUserManager(BaseUserManager):
 
 
 # 이메일을 아이디로 사용하는 커스텀 유저 모델
-# PermissionsMixin 을 상속받아서 권한 관련 메서드들(is_superuser)을 포함
+# PermissionsMixin 을 상속받아서 권한 관련 메서드들을 포함
 class User(AbstractBaseUser, PermissionsMixin):
+    USER_TYPE_SOUNDHUB = 'S'
+    USER_TYPE_GOOGLE = 'G'
+    USER_TYPE_FACEBOOK = 'F'
+    USER_TYPE_NAVER = 'N'
+
+    USER_TYPE = (
+        (USER_TYPE_SOUNDHUB, 'Soundhub'),
+        (USER_TYPE_GOOGLE, 'Google'),
+        (USER_TYPE_FACEBOOK, 'Facebook'),
+        (USER_TYPE_NAVER, 'Naver'),
+    )
+
     # 이메일 주소
     email = models.EmailField(
         verbose_name='이메일 주소',
@@ -73,6 +88,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     # Guitar, Base, Drum, Vocal, Keyboard, Other 등은 프론트에서 체크박스 value 로 받고,
     # Serializer 에서 문자열로 합쳐줌
     instrument = models.CharField(max_length=255, blank=True, null=True)
+    # 유저 타입. 소셜로그인인가 아니면 그냥 로그인인가.
+    user_type = models.CharField(max_length=1, choices=USER_TYPE, default=USER_TYPE_SOUNDHUB)
     # 관리자 여부
     is_staff = models.BooleanField(default=False)
     # 활성화 여부
@@ -86,7 +103,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     # 필수 정보 설정
     REQUIRED_FIELDS = (
         'nickname',
-        'instrument',
     )
 
     # 커스텀 유저 매니저를 사용하도록 설정
@@ -114,6 +130,38 @@ class User(AbstractBaseUser, PermissionsMixin):
         return True
 
 
+class ActivationKeyInfoManager(models.Manager):
+    def create(self, user):
+        """
+        1. stale user 삭제
+        2. activation key & expired_at 자동 생성
+
+        :param user: ActivationKeyInfo 와 연결될 유저 객체
+        :return: 생성된 ActivationKeyInfo 객체
+        """
+        # stale user 삭제
+        for aki in ActivationKeyInfo.objects.all():
+            if aki.user.is_active is False and aki.expires_at < timezone.now():
+                aki.delete()
+
+        # activation key 생성을 위한 무작위 문자열
+        # user 마다 unique 한 값을 가지게 하기 위해 user.email 첨가
+        random_string = str(random()) + user.email
+        # sha1 함수로 영문소문자 또는 숫자로 이루어진 40자의 해쉬토큰 생성
+        activation_key = hashlib.sha1(random_string.encode('utf-8')).hexdigest()
+        # activation key 유효기간 2일
+        expires_at = datetime.now() + timedelta(days=2)
+        # activation key 생성
+        activation_key_info = ActivationKeyInfo(
+            user=user,
+            key=activation_key,
+            expires_at=expires_at,
+        )
+        activation_key_info.save()
+
+        return activation_key_info
+
+
 # Email Verification 에 사용되는 Activation key 정보를 담고 있는 클래스
 # User class 와 one to one 으로 연결
 class ActivationKeyInfo(models.Model):
@@ -122,5 +170,24 @@ class ActivationKeyInfo(models.Model):
     # key 만료 기한
     expires_at = models.DateTimeField()
 
+    objects = ActivationKeyInfoManager()
+
     def __str__(self):
         return f'user:{self.user.nickname}'
+
+    def refresh(self):
+        """
+        간단하게 ActivationKeyInfo 를 새로고침 하기 위한 함수
+        :return: None
+        """
+        # activation key 생성을 위한 무작위 문자열
+        # user 마다 unique 한 값을 가지게 하기 위해 user.email 첨가
+        random_string = str(random()) + self.user.email
+        # sha1 함수로 영문소문자 또는 숫자로 이루어진 40자의 해쉬토큰 생성
+        activation_key = hashlib.sha1(random_string.encode('utf-8')).hexdigest()
+        # activation key 유효기간 2일
+        expires_at = datetime.now() + timedelta(days=2)
+
+        self.key = activation_key
+        self.expires_at = expires_at
+        self.save()
