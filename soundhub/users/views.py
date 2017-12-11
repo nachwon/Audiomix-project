@@ -14,7 +14,7 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (
-        # permissions.IsAuthenticated,
+        # 커스텀 권한
         IsOwnerOrReadOnly,
     )
 

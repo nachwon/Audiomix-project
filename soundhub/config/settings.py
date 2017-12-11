@@ -9,22 +9,37 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-
+import json
 import os
 
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from config_secret import settings
 
+# 경로 설정
+# 프로젝트 경로
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# 루트 경로
 ROOT_DIR = os.path.dirname(BASE_DIR)
+# 기밀정보 경로
+# CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secrets')
+# CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')
 
 
-# Static Files Settings
-STATIC_ROOT = os.path.join(ROOT_DIR, '.static_root')
+# 미디어 파일 설정
+# MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
 
-# Media Files Settings
-MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
+# S3 저장소 설정
+# DEFAULT_FILE_STORAGE = 'config.storages.MediaStorage'
+# STATICFILES_STORAGE = 'config.storages.StaticStorage'
+# MEDIAFILES_LOCATION = 'media'
+# STATICFILES_LOCATION = 'static'
+
+# AWS S3 Access
+# config_secret = json.loads(open(CONFIG_SETTINGS_COMMON_FILE).read())
+# AWS_ACCESS_KEY_ID = config_secret['aws']['access_key_id']
+# AWS_SECRET_ACCESS_KEY = config_secret['aws']['secret_access_key']
+# AWS_STORAGE_BUCKET_NAME = config_secret['aws']['s3_bucket_name']
+# AWS_S3_SIGNATURE_VERSION = 's3v4'
+# AWS_S3_REGION_NAME = 'ap-northeast-2'
 
 # Django Mail Information
 # EMAIL_HOST_USER 와 PASSWORD 는 config_secret 모듈에서 관리한다
@@ -65,8 +80,10 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'rest_framework.authtoken',
+    'storages',
     # 커스텀 앱
     'users',
+    'utils'
 ]
 
 MIDDLEWARE = [
