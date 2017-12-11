@@ -85,11 +85,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     # 닉네임
     nickname = models.CharField(max_length=50, unique=True)
+
     # Guitar, Base, Drum, Vocal, Keyboard, Other 등은 프론트에서 체크박스 value 로 받고,
     # Serializer 에서 문자열로 합쳐줌
     instrument = models.CharField(max_length=255, blank=True, null=True)
+
     # 유저 타입. 소셜로그인인가 아니면 그냥 로그인인가.
     user_type = models.CharField(max_length=1, choices=USER_TYPE, default=USER_TYPE_SOUNDHUB)
+
     # 관리자 여부
     is_staff = models.BooleanField(default=False)
     # 활성화 여부
@@ -109,7 +112,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     def __str__(self):
-        return f'name: {self.nickname}, email: {self.email}'
+        return self.nickname
 
     @property
     def token(self):

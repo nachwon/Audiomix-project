@@ -15,7 +15,6 @@ class UserSerializer(serializers.ModelSerializer):
             'instrument',
             'user_type',
             'is_staff',
-            'is_superuser',
             'last_login',
             'created_at',
         )
