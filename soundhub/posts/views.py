@@ -8,6 +8,7 @@ from rest_framework.response import Response
 
 from posts.models import Post, CommentTrack, PostLike
 from posts.serializers import PostSerializer, CommentTrackSerializer
+from posts.tasks import mix_task
 
 from utils.permissions import IsAuthorOrReadOnly
 
@@ -246,7 +247,7 @@ class MixTracks(generics.UpdateAPIView, generics.GenericAPIView):
             for i in queryset:
                 i.save_is_mixed()
 
-            post.save_master_track()
+            mix_task.delay(post.pk)
 
         else:
             post = self.get_object()

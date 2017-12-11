@@ -7,7 +7,7 @@ from django.db import models
 from pydub import AudioSegment
 
 from config import settings
-from config.celery import app
+
 from config.settings import MEDIA_ROOT
 
 
