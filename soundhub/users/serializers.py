@@ -37,7 +37,6 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = (
             'email',
             'total_liked',
-            'following',
             'is_staff',
             'is_active',
             'last_login',

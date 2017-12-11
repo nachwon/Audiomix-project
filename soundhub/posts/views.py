@@ -246,11 +246,7 @@ class MixTracks(generics.UpdateAPIView, generics.GenericAPIView):
             for i in queryset:
                 i.save_is_mixed()
 
-            master_track = post.save_master_track()
-            post.master_track.save(
-                'master_track.mp3',
-                master_track,
-            )
+            post.save_master_track()
 
         else:
             post = self.get_object()
