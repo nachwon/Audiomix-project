@@ -1,13 +1,18 @@
 from django.conf.urls import url
 
-from users import apis
-from users.views import UserDetail
+from users.views import UserDetail, Login, Signup, ActivateUser, UserList, FollowUserToggle, GoogleLogin
 
 urlpatterns = [
-    url(r'^(?P<pk>\d+)/$', UserDetail.as_view(), name='user-detail'),
-    # url(r'^signup/$', UserSignup.as_view(), name='user-signup'),
-    url(r'^login/$', apis.Login.as_view(), name='login'),
-    url(r'^signup/$', apis.Signup.as_view(), name='signup'),
-    url(r'^activate/$', apis.ActivateUser.as_view(), name='activate'),
-    url(r'^google_login/$', apis.GoogleLogin.as_view(), name='google_login'),
+    # User Object
+    url(r'^$', UserList.as_view(), name='list'),
+    url(r'^(?P<pk>\d+)/$', UserDetail.as_view(), name='detail'),
+
+    # User Follow
+    url(r'^(?P<pk>\d+)/follow/$', FollowUserToggle.as_view(), name='follow'),
+
+    # User Login/Signup
+    url(r'^login/$', Login.as_view(), name='login'),
+    url(r'^signup/$', Signup.as_view(), name='signup'),
+    url(r'^activate/$', ActivateUser.as_view(), name='activate'),
+    url(r'^google_login/$', GoogleLogin.as_view(), name='google_login'),
 ]

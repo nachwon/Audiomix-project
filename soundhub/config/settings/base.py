@@ -12,18 +12,15 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from config_secret import settings
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # 루트 경로
 ROOT_DIR = os.path.dirname(BASE_DIR)
 # 기밀정보 경로
 # CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secrets')
 # CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')
 
-
 # 미디어 파일 설정
-# MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
+MEDIA_ROOT = os.path.join(ROOT_DIR, 'temp')
 
 # S3 저장소 설정
 # DEFAULT_FILE_STORAGE = 'config.storages.MediaStorage'
@@ -41,17 +38,24 @@ ROOT_DIR = os.path.dirname(BASE_DIR)
 
 
 # Django Mail Information
-# EMAIL_HOST_USER 와 PASSWORD 는 config_secret 모듈에서 관리한다
-# config_secret 모듈은 import 하기 쉽도록 파이썬 모듈로 관리, .gitignore 에 추가해두었다
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = settings.EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = settings.EMAIL_HOST_PASSWORD1 + settings.EMAIL_HOST_PASSWORD2
-DEFAULT_FROM_EMAIL = 'joo2theeon@gmail.com'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = config_secret['email']['EMAIL_HOST_USER']
+# EMAIL_HOST_PASSWORD = config_secret['email']['EMAIL_HOST_PASSWORD']
+# DEFAULT_FROM_EMAIL = 'joo2theeon@gmail.com'
+#
+# SECRET_KEY = settings.SECRET_KEY1 + settings.SECRET_KEY2
 
-SECRET_KEY = settings.SECRET_KEY1 + settings.SECRET_KEY2
+# Django REST Framework Settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication'
+    ),
+}
+
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECRET_KEY = config_secret['django']['SECRET_KEY']
@@ -83,10 +87,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'storages',
+    'django_filters',
     # 커스텀 앱
     'users',
     'utils',
     'posts',
+    'homepages',
 ]
 
 MIDDLEWARE = [
@@ -121,9 +127,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # 데이터베이스 설정
-
 # DATABASES = config_secret['databases']['postgresql']
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -147,9 +151,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 

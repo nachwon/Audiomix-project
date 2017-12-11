@@ -52,7 +52,7 @@ class CustomUserManager(BaseUserManager):
 
     # 일반 유저 생성 - create_user 메서드 오버라이드
     def create_user(self, email, nickname, password, instrument=None):
-        # _create_user 메서드를 사용하고 is_staff 값을 False로 설정
+        # _create_user 메서드를 사용하고 is_staff 값을 False 로 설정
         user = self._create_user(
             email=email,
             nickname=nickname,
@@ -93,10 +93,29 @@ class User(AbstractBaseUser, PermissionsMixin):
     # 유저 타입. 소셜로그인인가 아니면 그냥 로그인인가.
     user_type = models.CharField(max_length=1, choices=USER_TYPE, default=USER_TYPE_SOUNDHUB)
 
+    # 선호하는 장르
+    genre = models.CharField(max_length=100, blank=True, null=True)
+
+    # 총 좋아요 수
+    total_liked = models.IntegerField(default=0)
+
+    # 팔로잉
+    following = models.ManyToManyField(
+        'self',
+        symmetrical=False,
+        through='Relationship',
+        related_name='followers',
+        verbose_name='following users',
+        blank=True
+    )
+
+    num_followings = models.IntegerField(default=0)
+    num_followers = models.IntegerField(default=0)
+
     # 관리자 여부
-    is_staff = models.BooleanField(default=False)
+    is_staff = models.BooleanField()
     # 활성화 여부
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField()
     # 계정생성 날짜
     created_at = models.DateField(auto_now_add=True)
 
@@ -113,6 +132,19 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.nickname
+
+    # 유저의 모든 포스트들이 받은 좋아요 갯수를 총합하여 total_liked 필드에 저장
+    def save_total_liked(self):
+        posts = self.post_set.all()
+        total_liked = sum([i.num_liked for i in posts])
+        self.total_liked = total_liked
+        self.save()
+
+    # 팔로우 카운트 관련 필드 업데이트
+    def save_num_relations(self,):
+        self.num_followers = self.followers.count()
+        self.num_followings = self.following.count()
+        self.save()
 
     @property
     def token(self):
@@ -194,3 +226,14 @@ class ActivationKeyInfo(models.Model):
         self.key = activation_key
         self.expires_at = expires_at
         self.save()
+
+
+class Relationship(models.Model):
+    from_user = models.ForeignKey(User, on_delete=models.CASCADE,
+                                  related_name='following_set')
+    to_user = models.ForeignKey(User, on_delete=models.CASCADE,
+                                related_name='follower_set')
+    related_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.from_user.nickname} is following {self.to_user.nickname}'
