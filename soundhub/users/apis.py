@@ -1,9 +1,8 @@
-import hashlib
-from datetime import datetime, timedelta
+from datetime import datetime
 from django.utils import timezone
-from pprint import pprint
-from random import random
 
+from google.oauth2 import id_token
+from google.auth.transport import requests
 from django.contrib.auth import get_user_model, authenticate
 from rest_framework import status
 from rest_framework.authtoken.models import Token
@@ -12,7 +11,13 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from utils.mail import send_verification_mail
+from config_secret import settings as secret_settings
+from utils.tasks.mail import (
+    send_verification_mail,
+    send_confirm_readmission_mail,
+    send_verification_mail_after_social_login,
+)
+from utils.encryption import encrypt, decrypt
 from .models import ActivationKeyInfo
 from .serializers import UserSerializer, SignupSerializer
 
@@ -40,10 +45,72 @@ class Login(APIView):
 
 
 class Signup(APIView):
+    def get(self, request):
+        """
+        1. 소셜로그인으로 생성된 유저가, Soundhub Signup 을 시도하는 경우 Signup.post() 함수에서 인증메일을 보내준다
+        2. 인증 메일에는 Signup view 에 get 요청을 보내는 링크를 포함한다
+        3. get parameter 로 전달된 정보를 사용해서
+        4. 어떤 방식으로도 로그인할 수 있도록 Soundhub password 추가
+
+        :param request:
+            GET = {
+                'activation_key': Encrypted Activation Key,
+                'nickname': 사용자 입력 닉네임,
+                'password': Encrypted Password,
+                'instrument': 사용자 입력 악기정보,
+            }
+        :return: None
+        """
+        # get parameter 에서 값 추출
+        # 암호화된 activation key 와
+        activation_key = decrypt(
+            key=secret_settings.ENCRYPTION_KEY,
+            encrypted_text=request.GET['activation_key'],
+        )
+        password = decrypt(
+            key=secret_settings.ENCRYPTION_KEY,
+            encrypted_text=request.GET['password'],
+        )
+        nickname = request.GET['nickname']
+        instrument = request.GET['instrument']
+
+        # activation key 에 해당하는 유저가 존재하는지 검사
+        activation_key_info = get_object_or_404(ActivationKeyInfo, key=activation_key)
+        # activation key 가 만료된 경우
+        if not activation_key_info.expires_at > timezone.now():
+            raise APIException('activation_key 의 기한이 만료되었습니다.')
+
+        # 해당 유저 정보를 변경하고 저장
+        user = activation_key_info.user
+        user.nickname = nickname
+        user.set_password(password)
+        user.instrument = instrument
+        user.save()
+
+        data = {
+            'token': user.token,
+            'user': UserSerializer(user).data,
+        }
+        return Response(data, status=status.HTTP_200_OK)
+
     def post(self, request):
         """
+        1. 전달된 email 의 유저가 존재하는 경우
+            1) 소셜로그인 계정일 때
+                - 추가 회원가입 링크를 담은 인증 메일 발송
+            2) Soundhub 계정일 때
+                a. is_active 가 True
+                    - APIException: '이미 존재하는 유저입니다'
+                b. is_active 가 False
+                    - 안내 메일 발송
+                    - APIException: '이메일 인증 중인 유저입니다. 메일을 확인해주세요.'
+
+        2. 전달된 email 의 유저가 존재하지 않는 경우
+            - User, ActivationKeyInfo 생성
+            - 인증메일 발송
+
         :param request:
-            request.data = {
+            data = {
                 'email': 'useremail@example.com',
                 'nickname': 'user_nickname',
                 'password1': 'password',
@@ -51,39 +118,130 @@ class Signup(APIView):
                 'instrument': 'instrument_name'
             }
 
-        :process:
-            User 생성,
-            ActivationKeyInfo 생성,
-            인증 메일 발송
-
         :return:
             유저 생성 성공: User serializer 데이터 (HTTP status 201)
             유저 생성 실패: User serializer 의 error 정보 (HTTP status 400)
         """
+        # 유저 타입 상수
+        soundhub = User.USER_TYPE_SOUNDHUB
+
+        email = request.data['email']
+        # 전달된 이메일의 유저가 존재하는 경우
+        if User.objects.filter(email=email).exists():
+            user = User.objects.get(email=email)
+            # 소셜로그인 계정인 경우
+            if not user.user_type == soundhub:
+                # password 암호화
+                encrypted_password = encrypt(
+                    key=secret_settings.ENCRYPTION_KEY,
+                    plain_text=request.data['password'],
+                )
+                # 유저의 activation key 새로 설정
+                user.activationkeyinfo.refresh()
+                # activation key info 암호화
+                encrypted_activation_key = encrypt(
+                    key=secret_settings.ENCRYPTION_KEY,
+                    plain_text=user.activationkeyinfo.key,
+                )
+                data = {
+                    'activation_key': encrypted_activation_key,
+                    'nickname': request.data['nickname'],
+                    'password': encrypted_password,  # password 암호화
+                    'instrument': request.data['instrument'],
+                }
+                # 유저 정보를 담은 데이터와 함께 메일 발송
+                send_verification_mail_after_social_login.delay(data, [user.email])
+            # Soundhub 계정일 때
+            elif user.is_active is True:
+                raise APIException('이미 존재하는 유저입니다')
+            elif user.is_active is False:
+                send_confirm_readmission_mail.delay([user.email])
+                raise APIException('이메일 인증 중인 유저입니다. 메일을 확인해주세요.')
+
         serializer = SignupSerializer(data=request.data)
         if serializer.is_valid():
-            # 방금 생성한 user
+            # user 생성, 반환
             user = serializer.save()
-            # activation key 생성을 위한 무작위 문자열
-            # user 마다 unique 한 값을 가지게 하기 위해 user.email 첨가
-            random_string = str(random()) + user.email
-            # sha1 함수로 영문소문자 또는 숫자로 이루어진 40자의 해쉬토큰 생성
-            activation_key = hashlib.sha1(random_string.encode('utf-8')).hexdigest()
-            # activation key 유효기간 2일
-            expires_at = datetime.now() + timedelta(days=2)
             # activation key 생성
-            ActivationKeyInfo.objects.create(
-                user=user,
-                key=activation_key,
-                expires_at=expires_at,
-            )
+            activation_key_info = ActivationKeyInfo.objects.create(user=user)
             # 인증 메일 발송
-            send_verification_mail(
-                activation_key=activation_key,
+            send_verification_mail.delay(
+                activation_key=activation_key_info.key,
                 recipient_list=[user.email],
             )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class GoogleLogin(APIView):
+    @staticmethod
+    def post(request):
+        """
+        request 에는 token 과 client_id 값이 와야 한다
+        token 의 경우, scope 에 'profile'과 'email'을 포함해 발급받은 토큰이어야 한다.
+
+        id_info = {
+            // These six fields are included in all Google ID Tokens.
+            "iss": "https://accounts.google.com",
+            "sub": "110169484474386276334",
+            "azp": "1008719970978-hb24n2dstb40o45d4feuo2ukqmcc6381.apps.googleusercontent.com",
+            "aud": "1008719970978-hb24n2dstb40o45d4feuo2ukqmcc6381.apps.googleusercontent.com",
+            "iat": "1433978353",
+            "exp": "1433981953",
+
+            // These seven fields are only included when the user has granted the "profile" and
+            // "email" OAuth scopes to the application.
+            "email": "testuser@gmail.com",
+            "email_verified": "true",
+            "name" : "Test User",
+            "picture": "https://lh4.googleusercontent.com/-kYgzyAWpZzJ/ABCDEFGHI/AAAJKLMNOP/tIXL9Ir44LE/s99-c/photo.jpg",
+            "given_name": "Test",
+            "family_name": "User",
+            "locale": "en"
+        }
+        :param request:
+        :return:
+        """
+        token = request.data['token']
+        client_id = request.data['client_id']
+        nickname = request.data['nickname']
+        instrument = request.data['instrument']
+
+        try:
+            # token 을 인증하고, 토큰 내부 정보를 가져옴
+            id_info = id_token.verify_oauth2_token(token, requests.Request(), client_id)
+            # token 발행정보 확인
+            if id_info['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+                raise ValueError('Wrong issuer.')
+        except ValueError:
+            raise APIException('token 또는 client_id 가 유효하지 않습니다')
+
+        # 이미 존재하는 유저일 경우 유저 생성 없이 기존 유저 반환
+        if User.objects.filter(email=id_info['email']).exists():
+            user = User.objects.get(email=id_info['email'])
+            user.is_active = True
+            user.save()
+        # 닉네임이 존재할 경우
+        elif User.objects.filter(nickname=nickname).exists():
+            raise APIException('이미 존재하는 닉네임입니다')
+        else:
+            # 토큰 정보로 유저 생성. 이메일 인증 생략하고 바로 is_active=True
+            user = User(
+                email=id_info['email'],
+                nickname=nickname,
+                instrument=instrument,
+                user_type=User.USER_TYPE_GOOGLE,
+                is_active=True,
+                last_login=datetime.now(),
+            )
+            user.save()
+
+        data = {
+            'token': user.token,
+            'user': UserSerializer(user).data,
+            # 'is_active': user.is_active,  # 디버그용
+        }
+        return Response(data, status=status.HTTP_201_CREATED)
 
 
 class ActivateUser(APIView):
@@ -104,9 +262,11 @@ class ActivateUser(APIView):
         activation_key_info.user.is_active = True
         # user.save()
         activation_key_info.user.save()
+        saved_activation_key_info = ActivationKeyInfo.objects.get(key=activation_key)
+
         data = {
             'user': UserSerializer(activation_key_info.user).data,
-            'is_active': activation_key_info.user.is_active,
+            'is_active': saved_activation_key_info.user.is_active,
         }
         return Response(data, status=status.HTTP_200_OK)
 
