@@ -36,6 +36,9 @@ RUN         apt-get -y install nginx
 # supervisor install
 RUN         apt-get -y install supervisor
 
+# rabbitMQ install
+RUN         apt-get -y install rabbitmq-server
+
 # python requirements install
 ENV         LANG C.UTF-8
 COPY        requirements.txt /srv/requirements.txt

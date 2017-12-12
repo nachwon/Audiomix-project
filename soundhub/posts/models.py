@@ -7,6 +7,7 @@ from django.db import models
 from pydub import AudioSegment
 
 from config import settings
+
 from config.settings import MEDIA_ROOT
 
 
@@ -49,7 +50,6 @@ class Post(models.Model):
         self.num_comments = self.comment_tracks.count()
         self.save()
 
-    # master_track 을 생성함
     def save_master_track(self):
         """
         author_track 과 comment_track 들을 S3 저장소에서 바로 불러와 사용하는 것까지는 성공했지만,
@@ -57,6 +57,7 @@ class Post(models.Model):
         따라서, 로컬에 master_track.mp3 를 생성하고 그것을 다시 읽어서 Post 객체에 전달하는 방식임.
         :return: master_track 의 ContentFile 객체
         """
+
         # 포스트의 mixed_tracks 필드에 있는 모든 커맨트 트랙 객체들을 가져옴
         mixed_tracks = self.mixed_tracks.all()
         # S3 저장소
@@ -101,7 +102,11 @@ class Post(models.Model):
                 master_track = f.read()
             # 장고 ContentFile 객체로 변환하여 리턴
             file = ContentFile(master_track)  # 서상원 Contributed
-            return file
+
+            self.master_track.save(
+                'master_track.mp3',
+                file,
+            )
 
     class Meta:
         ordering = ['-created_date']

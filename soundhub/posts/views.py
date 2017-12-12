@@ -8,6 +8,7 @@ from rest_framework.response import Response
 
 from posts.models import Post, CommentTrack, PostLike
 from posts.serializers import PostSerializer, CommentTrackSerializer
+from posts.tasks import mix_task
 
 from utils.permissions import IsAuthorOrReadOnly
 
@@ -246,11 +247,7 @@ class MixTracks(generics.UpdateAPIView, generics.GenericAPIView):
             for i in queryset:
                 i.save_is_mixed()
 
-            master_track = post.save_master_track()
-            post.master_track.save(
-                'master_track.mp3',
-                master_track,
-            )
+            mix_task.delay(post.pk)
 
         else:
             post = self.get_object()
