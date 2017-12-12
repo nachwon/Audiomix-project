@@ -34,6 +34,7 @@ class UserSerializer(serializers.ModelSerializer):
         many=True,
         slug_field='nickname'
     )
+    liked_posts = PostListField(read_only=True)
 
     class Meta:
         model = User
@@ -45,6 +46,7 @@ class UserSerializer(serializers.ModelSerializer):
             'user_type',
             'genre',
             'total_liked',
+            'liked_posts',
             'num_followings',
             'following',
             'num_followers',

@@ -96,7 +96,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     # 선호하는 장르
     genre = models.CharField(max_length=100, blank=True, null=True)
 
-    # 총 좋아요 수
+    # 받은 좋아요 수 총합
     total_liked = models.IntegerField(default=0)
 
     # 팔로잉
