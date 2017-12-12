@@ -9,9 +9,10 @@ COPY        . /srv/app
 
 # ffmpeg
 RUN         apt-get -y update
-
 RUN         apt-get -y install ffmpeg
 
+# rabbitmq
+RUN         apt-get -y install rabbitmq-server
 
 # pyenv virtualenv
 RUN         pyenv local app
