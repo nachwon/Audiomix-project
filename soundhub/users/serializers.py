@@ -4,15 +4,6 @@ from rest_framework import serializers
 User = get_user_model()
 
 
-class FollowingField(serializers.RelatedField):
-
-    def get_queryset(self, *args, **kwargs):
-        print(kwargs)
-
-    def to_representation(self, value):
-        print(value.all())
-
-
 # 유저 모델 시리얼라이저
 class UserSerializer(serializers.ModelSerializer):
 
@@ -28,17 +19,15 @@ class UserSerializer(serializers.ModelSerializer):
             'total_liked',
             'num_followings',
             'num_followers',
-            'is_staff',
             'is_active',
             'last_login',
         )
         read_only_fields = (
             'email',
+            'user_type',
             'total_liked',
-            'is_staff',
             'is_active',
             'last_login',
-            'created_at',
         )
 
 
