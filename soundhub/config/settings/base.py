@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
+import json
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -16,39 +17,37 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # 루트 경로
 ROOT_DIR = os.path.dirname(BASE_DIR)
 # 기밀정보 경로
-# CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secrets')
-# CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')
+CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secrets')
+CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')
 
 # 미디어 파일 설정
 MEDIA_ROOT = os.path.join(ROOT_DIR, 'temp')
 
 # S3 저장소 설정
-# DEFAULT_FILE_STORAGE = 'config.storages.MediaStorage'
-# STATICFILES_STORAGE = 'config.storages.StaticStorage'
-# MEDIAFILES_LOCATION = 'media'
-# STATICFILES_LOCATION = 'static'
+DEFAULT_FILE_STORAGE = 'config.storages.MediaStorage'
+STATICFILES_STORAGE = 'config.storages.StaticStorage'
+MEDIAFILES_LOCATION = 'media'
+STATICFILES_LOCATION = 'static'
 
 # AWS S3 Access
-# config_secret = json.loads(open(CONFIG_SETTINGS_COMMON_FILE).read())
-# AWS_ACCESS_KEY_ID = config_secret['aws']['access_key_id']
-# AWS_SECRET_ACCESS_KEY = config_secret['aws']['secret_access_key']
-# AWS_STORAGE_BUCKET_NAME = config_secret['aws']['s3_bucket_name']
-# AWS_S3_SIGNATURE_VERSION = 's3v4'
-# AWS_S3_REGION_NAME = 'ap-northeast-2'
-
+config_secret = json.loads(open(CONFIG_SETTINGS_COMMON_FILE).read())
+AWS_ACCESS_KEY_ID = config_secret['aws']['access_key_id']
+AWS_SECRET_ACCESS_KEY = config_secret['aws']['secret_access_key']
+AWS_STORAGE_BUCKET_NAME = config_secret['aws']['s3_bucket_name']
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_REGION_NAME = 'ap-northeast-2'
 
 # Django Mail Information
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = config_secret['email']['EMAIL_HOST_USER']
-# EMAIL_HOST_PASSWORD = config_secret['email']['EMAIL_HOST_PASSWORD']
-# DEFAULT_FROM_EMAIL = 'joo2theeon@gmail.com'
-#
-# SECRET_KEY = settings.SECRET_KEY1 + settings.SECRET_KEY2
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config_secret['email']['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = config_secret['email']['EMAIL_HOST_PASSWORD']
+DEFAULT_FROM_EMAIL = 'joo2theeon@gmail.com'
 
 # Django REST Framework Settings
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
@@ -57,8 +56,7 @@ REST_FRAMEWORK = {
 }
 
 # SECURITY WARNING: keep the secret key used in production secret!
-
-# SECRET_KEY = config_secret['django']['SECRET_KEY']
+SECRET_KEY = config_secret['django']['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -66,8 +64,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '.ap-northeast-2.elasticbeanstalk.com',
-    '.che1.kr',
-    'testserver',
+    '.che1.co.kr',
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -90,7 +87,6 @@ INSTALLED_APPS = [
     'django_filters',
     # 커스텀 앱
     'users',
-    'utils',
     'posts',
     'homepages',
 ]
@@ -125,9 +121,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
-# 데이터베이스 설정
-# DATABASES = config_secret['databases']['postgresql']
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
