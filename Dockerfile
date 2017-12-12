@@ -1,11 +1,17 @@
-FROM nachown/base
+FROM        nachown/base
 MAINTAINER  nachwon@naver.com
 
 ENV         LANG C.UTF-8
-ENV         DJANGO_SETTINGS_MODULE config.settings.deploy
+ENV         DJANGO_SETTINGS_MODULE config.settings
 
 WORKDIR     /srv/app
 COPY        . /srv/app
+
+# ffmpeg
+RUN         apt-get -y update
+
+RUN         apt-get -y install ffmpeg
+
 
 # pyenv virtualenv
 RUN         pyenv local app
