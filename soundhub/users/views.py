@@ -12,7 +12,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from config_secret import settings as secret_settings
+# from config_secret import settings as secret_settings
 from utils.permissions import IsOwnerOrReadOnly
 from utils.tasks.mail import (
     send_verification_mail,
