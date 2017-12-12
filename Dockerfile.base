@@ -5,6 +5,10 @@ RUN         apt-get -y update
 RUN         apt-get -y dist-upgrade
 RUN         apt-get install -y python-pip git vim
 
+# ffmpeg install
+RUN         apt-get -y update
+RUN         apt-get -y install ffmpeg
+RUN         apt-get -y install libavcodec-ffmpeg-extra56
 
 # pyenv
 RUN         apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
@@ -37,8 +41,6 @@ RUN         apt-get -y install nginx
 # supervisor install
 RUN         apt-get -y install supervisor
 
-# ffmpeg install
-RUN         apt-get -y install ffmpeg
 
 # rabbitMQ install
 RUN         apt-get -y install rabbitmq-server
