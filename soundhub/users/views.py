@@ -13,6 +13,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 # from config_secret import settings as secret_settings
+from config.settings import ENCRYPTION_KEY
 from utils.permissions import IsOwnerOrReadOnly
 from utils.tasks.mail import (
     send_verification_mail,
@@ -87,11 +88,11 @@ class Signup(APIView):
         # get parameter 에서 값 추출
         # 암호화된 activation key 와
         activation_key = decrypt(
-            key=secret_settings.ENCRYPTION_KEY,
+            key=ENCRYPTION_KEY,
             encrypted_text=request.GET['activation_key'],
         )
         password = decrypt(
-            key=secret_settings.ENCRYPTION_KEY,
+            key=ENCRYPTION_KEY,
             encrypted_text=request.GET['password'],
         )
         nickname = request.GET['nickname']
@@ -156,14 +157,14 @@ class Signup(APIView):
             if not user.user_type == soundhub:
                 # password 암호화
                 encrypted_password = encrypt(
-                    key=secret_settings.ENCRYPTION_KEY,
+                    key=ENCRYPTION_KEY,
                     plain_text=request.data['password'],
                 )
                 # 유저의 activation key 새로 설정
                 user.activationkeyinfo.refresh()
                 # activation key info 암호화
                 encrypted_activation_key = encrypt(
-                    key=secret_settings.ENCRYPTION_KEY,
+                    key=ENCRYPTION_KEY,
                     plain_text=user.activationkeyinfo.key,
                 )
                 data = {

@@ -49,6 +49,9 @@ AWS_S3_REGION_NAME = 'ap-northeast-2'
 #
 # SECRET_KEY = settings.SECRET_KEY1 + settings.SECRET_KEY2
 
+# Encryption Key
+ENCRYPTION_KEY = config_secret['encrypt']['ENCRYPTION_KEY']
+
 # Django REST Framework Settings
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
