@@ -1,9 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-
-from .models import ActivationKeyInfo
-
 User = get_user_model()
 
 
@@ -26,6 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'nickname',
             'instrument',
+            'user_type',
             'genre',
             'total_liked',
             'num_followings',
@@ -40,6 +38,7 @@ class UserSerializer(serializers.ModelSerializer):
             'is_staff',
             'is_active',
             'last_login',
+            'created_at',
         )
 
 

@@ -4,48 +4,26 @@ from django.utils import timezone
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from django.contrib.auth import get_user_model, authenticate
-from rest_framework import status, generics
+from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import APIException
 from rest_framework.generics import get_object_or_404
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from config_secret import settings as secret_settings
-from utils.permissions import IsOwnerOrReadOnly
 from utils.tasks.mail import (
     send_verification_mail,
     send_confirm_readmission_mail,
     send_verification_mail_after_social_login,
 )
 from utils.encryption import encrypt, decrypt
-from .models import ActivationKeyInfo, Relationship
+from .models import ActivationKeyInfo
 from .serializers import UserSerializer, SignupSerializer
 
 User = get_user_model()
 
 
-# 사용자 본인 계정 조회, 수정, 삭제
-class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = (
-        # 커스텀 권한
-        IsOwnerOrReadOnly,
-    )
-
-
-# 유저 목록 조회
-class UserList(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = (
-        IsAuthenticatedOrReadOnly,
-    )
-
-
-# 로그인
 class Login(APIView):
     def post(self, request, *args, **kwargs):
         email = request.data['email']
@@ -66,7 +44,6 @@ class Login(APIView):
             return Response(data, status=status.HTTP_401_UNAUTHORIZED)
 
 
-# 회원가입
 class Signup(APIView):
     def get(self, request):
         """
@@ -294,26 +271,4 @@ class ActivateUser(APIView):
         return Response(data, status=status.HTTP_200_OK)
 
 
-class FollowUserToggle(generics.GenericAPIView):
-    queryset = User.objects.all()
-    permission_classes = (
-        IsAuthenticatedOrReadOnly,
-    )
 
-    def post(self, request, *args, **kwargs):
-        to_user_instance = self.get_object()
-        from_user_instance = request.user
-
-        if to_user_instance in from_user_instance.following.all():
-            relation = Relationship.objects.get(to_user_id=to_user_instance.pk,
-                                                from_user_id=from_user_instance.pk)
-            relation.delete()
-        else:
-            Relationship.objects.create(to_user_id=to_user_instance.pk,
-                                        from_user_id=from_user_instance.pk)
-
-        from_user_instance.save_num_relations()
-        to_user_instance.save_num_relations()
-
-        data = UserSerializer(from_user_instance).data
-        return Response(data)
