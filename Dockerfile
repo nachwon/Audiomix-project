@@ -2,7 +2,7 @@ FROM        nachown/base
 MAINTAINER  nachwon@naver.com
 
 ENV         LANG C.UTF-8
-ENV         DJANGO_SETTINGS_MODULE config.settings.local
+ENV         DJANGO_SETTINGS_MODULE config.settings.deploy
 
 WORKDIR     /srv/app
 COPY        . /srv/app
