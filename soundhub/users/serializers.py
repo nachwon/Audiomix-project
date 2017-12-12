@@ -4,8 +4,36 @@ from rest_framework import serializers
 User = get_user_model()
 
 
+class PostListField(serializers.RelatedField):
+    def to_representation(self, value):
+        post_list = value.all()
+        data = dict()
+        for post in post_list:
+            data[f'post_{post.pk}'] = {
+                "id": post.pk,
+                "title": post.title,
+                "genre": post.genre,
+                "instrument": post.instrument,
+                "num_liked": post.num_liked,
+                "num_comments": post.num_comments,
+                "created_date": post.created_date,
+            }
+        return data
+
+
 # 유저 모델 시리얼라이저
 class UserSerializer(serializers.ModelSerializer):
+    post_set = PostListField(read_only=True)
+    following = serializers.SlugRelatedField(
+        read_only=True,
+        many=True,
+        slug_field='nickname'
+    )
+    followers = serializers.SlugRelatedField(
+        read_only=True,
+        many=True,
+        slug_field='nickname'
+    )
 
     class Meta:
         model = User
@@ -18,13 +46,17 @@ class UserSerializer(serializers.ModelSerializer):
             'genre',
             'total_liked',
             'num_followings',
+            'following',
             'num_followers',
+            'followers',
             'is_active',
             'last_login',
+            'post_set',
         )
         read_only_fields = (
             'email',
             'user_type',
+            'post_set',
             'total_liked',
             'is_active',
             'last_login',

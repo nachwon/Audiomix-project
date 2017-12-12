@@ -17,7 +17,6 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from config.views import redirect_to_home
-from homepages.views import HomePageView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
