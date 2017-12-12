@@ -8,7 +8,6 @@ WORKDIR     /srv/app
 COPY        . /srv/app
 
 # ffmpeg
-RUN         apt-get -y update
 RUN         apt-get -y install ffmpeg
 
 # rabbitmq
