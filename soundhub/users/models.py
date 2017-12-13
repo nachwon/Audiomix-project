@@ -86,6 +86,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     # 닉네임
     nickname = models.CharField(max_length=50, unique=True)
 
+    # 프로필 이미지
+    # profile_img = models.ImageField()
+
+
     # Guitar, Base, Drum, Vocal, Keyboard, Other 등은 프론트에서 체크박스 value 로 받고,
     # Serializer 에서 문자열로 합쳐줌
     instrument = models.CharField(max_length=255, blank=True, null=True)

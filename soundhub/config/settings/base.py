@@ -23,6 +23,12 @@ CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.j
 # 미디어 파일 설정
 MEDIA_ROOT = os.path.join(ROOT_DIR, 'temp')
 
+# 스테틱 파일 설정
+STATIC_DIR = os.path.join(ROOT_DIR, 'static')
+STATICFILES_DIRS = [
+    STATIC_DIR,
+]
+
 # S3 저장소 설정
 DEFAULT_FILE_STORAGE = 'config.storages.MediaStorage'
 STATICFILES_STORAGE = 'config.storages.StaticStorage'
