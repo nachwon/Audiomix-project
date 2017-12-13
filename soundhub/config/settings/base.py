@@ -29,6 +29,9 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
+# 기본 프로필 이미지 경로
+DEFAULT_IMAGE_PATH = 'default-profile.png'
+
 # S3 저장소 설정
 DEFAULT_FILE_STORAGE = 'config.storages.MediaStorage'
 STATICFILES_STORAGE = 'config.storages.StaticStorage'

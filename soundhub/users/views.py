@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from django.utils import timezone
 
 from google.oauth2 import id_token
@@ -22,7 +23,7 @@ from utils.tasks.mail import (
 )
 from utils.encryption import encrypt, decrypt
 from .models import ActivationKeyInfo, Relationship
-from .serializers import UserSerializer, SignupSerializer
+from .serializers import UserSerializer, SignupSerializer, UserProfileImageSerializer
 
 User = get_user_model()
 
@@ -44,6 +45,24 @@ class UserList(generics.ListAPIView):
     permission_classes = (
         IsAuthenticatedOrReadOnly,
     )
+
+
+# 유저 이미지 프로필 수정, 삭제
+class UserProfileImage(generics.UpdateAPIView, generics.DestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserProfileImageSerializer
+    permission_classes = (
+        IsAuthenticatedOrReadOnly,
+    )
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        return self.perform_destroy(instance)
+
+    def perform_destroy(self, instance):
+        instance.profile_img.delete()
+        data = self.get_serializer(instance).data
+        return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
 # 로그인
@@ -181,6 +200,8 @@ class Signup(APIView):
             elif user.is_active is False:
                 send_confirm_readmission_mail.delay([user.email])
                 raise APIException('이메일 인증 중인 유저입니다. 메일을 확인해주세요.')
+
+        print(request.data.get('profile_img', None))
 
         serializer = SignupSerializer(data=request.data)
         if serializer.is_valid():

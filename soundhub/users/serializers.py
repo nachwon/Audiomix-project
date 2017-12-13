@@ -21,6 +21,16 @@ class PostListField(serializers.RelatedField):
         return data
 
 
+class ProfileImageField(serializers.ImageField):
+    queryset = User.objects.all()
+
+    def to_representation(self, value):
+        return value.url
+
+    def to_internal_value(self, data):
+        return data
+
+
 # 유저 모델 시리얼라이저
 class UserSerializer(serializers.ModelSerializer):
     post_set = PostListField(read_only=True)
@@ -35,7 +45,7 @@ class UserSerializer(serializers.ModelSerializer):
         slug_field='nickname'
     )
     liked_posts = PostListField(read_only=True)
-    profile_img = serializers.ImageField(max_length=255, use_url=True, required=False)
+    profile_img = ProfileImageField(read_only=True)
 
     class Meta:
         model = User
@@ -59,11 +69,29 @@ class UserSerializer(serializers.ModelSerializer):
         )
         read_only_fields = (
             'email',
+            'profile_img',
             'user_type',
-            'post_set',
             'total_liked',
             'is_active',
             'last_login',
+            'post_set',
+        )
+
+
+# 유저 프로필 이미지 시리얼라이저
+class UserProfileImageSerializer(serializers.ModelSerializer):
+    profile_img = ProfileImageField()
+
+    class Meta:
+        model = User
+        fields = (
+            'id',
+            'email',
+            'nickname',
+            'profile_img',
+        )
+        read_only_fields = (
+            'nickname',
         )
 
 
@@ -101,5 +129,6 @@ class SignupSerializer(serializers.ModelSerializer):
             email=validated_data.get('email'),
             nickname=validated_data.get('nickname'),
             password=validated_data.get('password1'),
+            genre=validated_data.get('genre'),
             instrument=validated_data.get('instrument'),
         )

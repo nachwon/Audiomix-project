@@ -1,22 +1,21 @@
 import hashlib
-from datetime import datetime, timedelta
+
 from random import random
 
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 
-
-# 회원 가입시 이메일, 닉네임, 악기, 비밀번호를 받도록 하는 커스텀 매니저 설정
 from django.utils import timezone
 from rest_framework.authtoken.models import Token
 
+from users.fields import DefaultStaticImageField
 
 
-
+# 회원 가입시 이메일, 닉네임, 악기, 비밀번호를 받도록 하는 커스텀 매니저 설정
 class CustomUserManager(BaseUserManager):
     # 유저 생성 공통 메서드
-    def _create_user(self, email, nickname, password, is_active=False, is_staff=False, instrument=None):
+    def _create_user(self, email, nickname, password, is_active=True, is_staff=False, genre=None, instrument=None):
         # 이메일을 입력하지 않은 경우 에러 발생
         if not email:
             raise ValueError('이메일을 반드시 입력해야 합니다.')
@@ -27,6 +26,7 @@ class CustomUserManager(BaseUserManager):
             nickname=nickname,
             is_active=is_active,
             is_staff=is_staff,
+            genre=genre,
             instrument=instrument,
         )
 
@@ -40,7 +40,7 @@ class CustomUserManager(BaseUserManager):
         return user
 
     # 관리자 유저 생성 - create_superuser 매서드 오버라이드
-    def create_superuser(self, email, nickname, password, instrument=None):
+    def create_superuser(self, email, nickname, password, genre=None, instrument=None):
         # _create_user 메서드를 사용하고 is_staff 값을 True로 설정
         user = self._create_user(
             email=email,
@@ -48,17 +48,19 @@ class CustomUserManager(BaseUserManager):
             password=password,
             is_active=True,
             is_staff=True,
+            genre=genre,
             instrument=instrument,
         )
         return user
 
     # 일반 유저 생성 - create_user 메서드 오버라이드
-    def create_user(self, email, nickname, password, instrument=None):
+    def create_user(self, email, nickname, password, genre=None, instrument=None):
         # _create_user 메서드를 사용하고 is_staff 값을 False 로 설정
         user = self._create_user(
             email=email,
             nickname=nickname,
             password=password,
+            genre=genre,
             instrument=instrument,
         )
         return user
@@ -94,8 +96,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     nickname = models.CharField(max_length=50, unique=True)
 
     # 프로필 이미지
-    profile_img = models.ImageField(upload_to=profile_image_directory_path,
-                                    default='static/default-profile.png')
+    profile_img = DefaultStaticImageField(blank=True, upload_to=profile_image_directory_path,
+                                          default='default-profile.png')
 
     # Guitar, Base, Drum, Vocal, Keyboard, Other 등은 프론트에서 체크박스 value 로 받고,
     # Serializer 에서 문자열로 합쳐줌
@@ -196,7 +198,7 @@ class ActivationKeyInfoManager(models.Manager):
         # sha1 함수로 영문소문자 또는 숫자로 이루어진 40자의 해쉬토큰 생성
         activation_key = hashlib.sha1(random_string.encode('utf-8')).hexdigest()
         # activation key 유효기간 2일
-        expires_at = datetime.now() + timedelta(days=2)
+        expires_at = timezone.now() + timezone.timedelta(days=2)
         # activation key 생성
         activation_key_info = ActivationKeyInfo(
             user=user,
@@ -232,7 +234,7 @@ class ActivationKeyInfo(models.Model):
         # sha1 함수로 영문소문자 또는 숫자로 이루어진 40자의 해쉬토큰 생성
         activation_key = hashlib.sha1(random_string.encode('utf-8')).hexdigest()
         # activation key 유효기간 2일
-        expires_at = datetime.now() + timedelta(days=2)
+        expires_at = timezone.now() + timezone.timedelta(days=2)
 
         self.key = activation_key
         self.expires_at = expires_at
