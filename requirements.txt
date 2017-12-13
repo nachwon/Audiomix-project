@@ -41,10 +41,12 @@ kombu==4.1.0
 MarkupSafe==1.0
 oauth2client==4.1.2
 oauthlib==2.0.6
+olefile==0.44
 parso==0.1.0
 pathspec==0.5.0
 pexpect==4.2.1
 pickleshare==0.7.4
+Pillow==4.3.0
 prompt-toolkit==1.0.15
 psycopg2==2.7.3.2
 ptyprocess==0.5.2
