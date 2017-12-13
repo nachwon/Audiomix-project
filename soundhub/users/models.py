@@ -61,6 +61,7 @@ class CustomUserManager(BaseUserManager):
         )
         return user
 
+
 # 유저 프로필 이미지 동적 설정
 def profile_image_directory_path(instance, filename):
     return f'user_{instance.author.id}/static/{filename}'
@@ -91,7 +92,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     nickname = models.CharField(max_length=50, unique=True)
 
     # 프로필 이미지
-    profile_img = models.ImageField(upload_to=profile_image_directory_path, default='static/default-profile.png')
+    profile_img = models.ImageField(upload_to=profile_image_directory_path,
+                                    default='static/default-profile.png')
 
     # Guitar, Base, Drum, Vocal, Keyboard, Other 등은 프론트에서 체크박스 value 로 받고,
     # Serializer 에서 문자열로 합쳐줌
