@@ -58,7 +58,7 @@ class CommentTrackField(serializers.RelatedField):
             elif i.instrument in ('Keyboard', 'K'):
                 keys_list.append(list_item)
                 data['Keyboard'] = keys_list
-            elif i.instrument in ('Others', 'O'):
+            else:
                 others_list.append(list_item)
                 data['Others'] = others_list
         return data
