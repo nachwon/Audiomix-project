@@ -35,7 +35,7 @@ class UserSerializer(serializers.ModelSerializer):
         slug_field='nickname'
     )
     liked_posts = PostListField(read_only=True)
-    profile_img = serializers.ImageField(max_length=255, use_url=False, required=False)
+    profile_img = serializers.ImageField(max_length=255, use_url=True, required=False)
 
     class Meta:
         model = User

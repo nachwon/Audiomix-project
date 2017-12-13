@@ -12,6 +12,8 @@ from django.utils import timezone
 from rest_framework.authtoken.models import Token
 
 
+
+
 class CustomUserManager(BaseUserManager):
     # 유저 생성 공통 메서드
     def _create_user(self, email, nickname, password, is_active=False, is_staff=False, instrument=None):
@@ -64,7 +66,7 @@ class CustomUserManager(BaseUserManager):
 
 # 유저 프로필 이미지 동적 설정
 def profile_image_directory_path(instance, filename):
-    return f'user_{instance.author.id}/static/{filename}'
+    return f'user_{instance.id}/static/{filename}'
 
 
 # 이메일을 아이디로 사용하는 커스텀 유저 모델
