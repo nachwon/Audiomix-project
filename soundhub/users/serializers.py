@@ -1,6 +1,7 @@
+import re
+
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from rest_framework.settings import api_settings
 
 User = get_user_model()
 
@@ -26,7 +27,9 @@ class ProfileImageField(serializers.ImageField):
     queryset = User.objects.all()
 
     def to_representation(self, value):
-        return value.url
+        pattern = re.compile(r'.*/che1-soundhub/(.*)[?]')
+        result = pattern.match(value.url).group(1)
+        return result
 
     def to_internal_value(self, data):
         return data
