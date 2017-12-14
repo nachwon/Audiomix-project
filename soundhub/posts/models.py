@@ -1,13 +1,12 @@
 import os
-import requests
+
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 
 from django.db import models
 from pydub import AudioSegment
 
-from config import settings
-from config.settings import MEDIA_ROOT
+from django.conf import settings
 
 
 def author_track_directory_path(instance, filename):
@@ -87,7 +86,7 @@ class Post(models.Model):
                 author_mix = author_mix.overlay(mix)
 
             # master_track 을 위한 로컬 경로
-            directory = os.path.join(MEDIA_ROOT, f'{self.author.nickname}: Post_{self.pk}')
+            directory = os.path.join(settings.MEDIA_ROOT, f'{self.author.nickname}: Post_{self.pk}')
             # 경로가 없으면 만들어줌
             if not os.path.exists(directory):
                 os.makedirs(directory)
@@ -100,7 +99,7 @@ class Post(models.Model):
             with open(master_dir, 'rb') as f:
                 master_track = f.read()
             # 장고 ContentFile 객체로 변환하여 리턴
-            file = ContentFile(master_track)  # 서상원 Contributed
+            file = ContentFile(master_track)  #서상원 Contributed
             return file
 
     class Meta:
