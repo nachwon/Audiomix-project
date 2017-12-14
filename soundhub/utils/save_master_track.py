@@ -1,4 +1,5 @@
 import os
+import shutil
 
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
@@ -44,7 +45,7 @@ def save_master_track(self):
             author_mix = author_mix.overlay(mix)
 
         # master_track 을 위한 로컬 경로
-        directory = os.path.join(settings.MEDIA_ROOT, f'{self.author.nickname}: Post_{self.pk}')
+        directory = os.path.join(settings.MEDIA_ROOT, f'user_{self.author.pk}/Post_{self.pk}')
         # 경로가 없으면 만들어줌
         if not os.path.exists(directory):
             os.makedirs(directory)
@@ -58,9 +59,13 @@ def save_master_track(self):
             master_track = f.read()
         # 장고 ContentFile 객체로 변환하여 리턴
         file = ContentFile(master_track)  # 서상원 Contributed
-
+        # master_track 필드에 저장
         self.master_track.save(
             'master_track.mp3',
             file,
         )
+        # 업로드 후 파일 삭제
+        shutil.rmtree(directory)
+
+
 
