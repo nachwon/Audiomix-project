@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from django.utils import timezone
 
 from google.oauth2 import id_token
@@ -227,8 +228,6 @@ class GoogleLogin(APIView):
         """
         token = request.data['token']
         client_id = request.data['client_id']
-        nickname = request.data['nickname']
-        instrument = request.data['instrument']
 
         try:
             # token 을 인증하고, 토큰 내부 정보를 가져옴
@@ -244,8 +243,19 @@ class GoogleLogin(APIView):
             user = User.objects.get(email=id_info['email'])
             user.is_active = True
             user.save()
+            data = {
+                'token': user.token,
+                'user': UserSerializer(user).data,
+                # 'is_active': user.is_active,  # 디버그용
+            }
+            return Response(data, status=status.HTTP_201_CREATED)
+
+        # 존재하지 않는 유저일 경우만 받음
+        nickname = request.data['nickname']
+        instrument = request.data['instrument']
+
         # 닉네임이 존재할 경우
-        elif User.objects.filter(nickname=nickname).exists():
+        if User.objects.filter(nickname=nickname).exists():
             raise APIException('이미 존재하는 닉네임입니다')
         else:
             # 토큰 정보로 유저 생성. 이메일 인증 생략하고 바로 is_active=True
