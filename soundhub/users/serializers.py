@@ -9,9 +9,9 @@ User = get_user_model()
 class PostListField(serializers.RelatedField):
     def to_representation(self, value):
         post_list = value.all()
-        data = dict()
+        data_list = list()
         for post in post_list:
-            data[f'post_{post.pk}'] = {
+            data = {
                 "id": post.pk,
                 "title": post.title,
                 "genre": post.genre,
@@ -20,7 +20,8 @@ class PostListField(serializers.RelatedField):
                 "num_comments": post.num_comments,
                 "created_date": post.created_date,
             }
-        return data
+            data_list.append(data)
+        return data_list
 
 
 # 프로필 이미지를 위한 커스텀 필드
