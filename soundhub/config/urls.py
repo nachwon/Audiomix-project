@@ -19,6 +19,7 @@ from django.contrib import admin
 from config.views import redirect_to_home
 from utils.search import Search
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', redirect_to_home, name='homepage'),

@@ -1,4 +1,4 @@
-FROM nachown/base
+FROM        nachown/soundhub
 MAINTAINER  nachwon@naver.com
 
 ENV         LANG C.UTF-8
@@ -17,8 +17,9 @@ RUN         cp /srv/app/.config/nginx/soundhub.conf /etc/nginx/sites-available/
 RUN         rm -rf /etc/nginx/sites-enabled/*
 RUN         ln -sf /etc/nginx/sites-available/soundhub.conf /etc/nginx/sites-enabled/
 
-# uWSGI
+# log dir
 RUN         mkdir -p /var/log/uwsgi/app
+RUN         mkdir -p /var/log/celery/app
 
 # manage.py
 WORKDIR     /srv/app/soundhub

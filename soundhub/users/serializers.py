@@ -1,20 +1,59 @@
+import re
+
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 User = get_user_model()
 
 
-class FollowingField(serializers.RelatedField):
-
-    def get_queryset(self, *args, **kwargs):
-        print(kwargs)
-
+class PostListField(serializers.RelatedField):
     def to_representation(self, value):
-        print(value.all())
+        post_list = value.all()
+        data_list = list()
+        for post in post_list:
+            data = {
+                "id": post.pk,
+                "title": post.title,
+                "genre": post.genre,
+                "instrument": post.instrument,
+                "num_liked": post.num_liked,
+                "num_comments": post.num_comments,
+                "created_date": post.created_date,
+            }
+            data_list.append(data)
+        return data_list
+
+
+# 프로필 이미지를 위한 커스텀 필드
+class ProfileImageField(serializers.ImageField):
+    # 객체 저장을 위한 queryset 지정
+    queryset = User.objects.all()
+
+    # 보여줄 때
+    def to_representation(self, value):
+        # value 는 DefaultStaticImageFieldFile 객체
+        # 상대경로를 보여주기 위한 정규표현식
+        pattern = re.compile(r'.*/che1-soundhub/(.*)[?]')
+        # value.url 을 호출하여 파일이 있으면 파일의 절대경로를 가져오고
+        # 없으면 디폴트 이미지의 절대경로를 가져옴
+        # 받은 절대경로를 잘라서 상대경로로 바꿔준 뒤 리턴
+        result = pattern.match(value.url).group(1)
+        return result
+
+    # 저장할 때
+    def to_internal_value(self, data):
+        # 받은 data(파일 객체) 그대로 넘겨줌
+        return data
 
 
 # 유저 모델 시리얼라이저
 class UserSerializer(serializers.ModelSerializer):
+    post_set = PostListField(read_only=True)
+    following = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
+    followers = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
+    liked_posts = PostListField(read_only=True)
+    # 커스팀 필드 ProfileImageField 를 사용해서 profile_img 필드 처리
+    profile_img = ProfileImageField()
 
     class Meta:
         model = User
@@ -22,23 +61,27 @@ class UserSerializer(serializers.ModelSerializer):
             'id',
             'email',
             'nickname',
+            'profile_img',
             'instrument',
             'user_type',
             'genre',
             'total_liked',
+            'liked_posts',
             'num_followings',
+            'following',
             'num_followers',
-            'is_staff',
+            'followers',
             'is_active',
             'last_login',
+            'post_set',
         )
         read_only_fields = (
             'email',
+            'user_type',
             'total_liked',
-            'is_staff',
             'is_active',
             'last_login',
-            'created_at',
+            'post_set',
         )
 
 
@@ -76,5 +119,6 @@ class SignupSerializer(serializers.ModelSerializer):
             email=validated_data.get('email'),
             nickname=validated_data.get('nickname'),
             password=validated_data.get('password1'),
+            genre=validated_data.get('genre'),
             instrument=validated_data.get('instrument'),
         )

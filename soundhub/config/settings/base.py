@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 import json
 import os
-from config_secret import settings as secret_settings
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -24,6 +23,15 @@ CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.j
 
 # 미디어 파일 설정
 MEDIA_ROOT = os.path.join(ROOT_DIR, 'temp')
+
+# 스테틱 파일 설정
+STATIC_DIR = os.path.join(ROOT_DIR, 'static')
+STATICFILES_DIRS = [
+    STATIC_DIR,
+]
+
+# 기본 프로필 이미지 경로
+DEFAULT_IMAGE_PATH = 'default-profile.png'
 
 # S3 저장소 설정
 DEFAULT_FILE_STORAGE = 'config.storages.MediaStorage'
@@ -46,9 +54,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = secret_settings.EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = secret_settings.EMAIL_HOST_PASSWORD1 + secret_settings.EMAIL_HOST_PASSWORD2
+EMAIL_HOST_USER = config_secret['email']['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = config_secret['email']['EMAIL_HOST_PASSWORD']
 DEFAULT_FROM_EMAIL = 'joo2theeon@gmail.com'
+
+# Encryption Key
+ENCRYPTION_KEY = config_secret['encrypt']['ENCRYPTION_KEY']
 
 # Django REST Framework Settings
 REST_FRAMEWORK = {
@@ -58,6 +69,7 @@ REST_FRAMEWORK = {
     ),
 }
 
+# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config_secret['django']['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -157,10 +169,12 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+

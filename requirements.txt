@@ -4,6 +4,7 @@ awsebcli==3.12.1
 beautifulsoup4==4.6.0
 billiard==3.5.0.3
 blessed==1.14.2
+boto3==1.4.8
 botocore==1.8.8
 cachetools==2.0.1
 celery==4.1.0
@@ -40,10 +41,12 @@ kombu==4.1.0
 MarkupSafe==1.0
 oauth2client==4.1.2
 oauthlib==2.0.6
+olefile==0.44
 parso==0.1.0
 pathspec==0.5.0
 pexpect==4.2.1
 pickleshare==0.7.4
+Pillow==4.3.0
 prompt-toolkit==1.0.15
 ptyprocess==0.5.2
 pyasn1==0.4.2
@@ -55,6 +58,7 @@ python-dateutil==2.6.1
 pytz==2017.2
 PyYAML==3.12
 requests==2.18.4
+requests==2.9.1
 requests-oauthlib==0.8.0
 rsa==3.4.2
 s3transfer==0.1.12
