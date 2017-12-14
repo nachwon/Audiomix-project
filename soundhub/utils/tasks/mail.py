@@ -11,7 +11,7 @@ __all__ = (
 )
 
 
-@celery_app.task
+# @celery_app.task
 def send_verification_mail(activation_key, recipient_list):
     """
     activation key 를 담은 activation_link 를 recipient 에게 보냄
@@ -36,7 +36,7 @@ def send_verification_mail(activation_key, recipient_list):
     )
 
 
-@celery_app.task
+# @celery_app.task
 def send_confirm_readmission_mail(recipient_list):
     """
     아직 이메일 인증이 이루어지지 않은 메일로 새로운 가입 요청이 왔을 때 보내주는 알림 메일
@@ -55,7 +55,7 @@ def send_confirm_readmission_mail(recipient_list):
     )
 
 
-@celery_app.task
+# @celery_app.task
 def send_verification_mail_after_social_login(data, recipient_list):
     """
     소셜로그인을 했다가 일반 회원가입을 다시 요청한 변태 가입자를 위한 안내 메일

@@ -4,7 +4,7 @@ from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from pydub import AudioSegment
 
-from config.settings import MEDIA_ROOT
+from django.conf import settings
 
 
 def save_master_track(self):
@@ -44,7 +44,7 @@ def save_master_track(self):
             author_mix = author_mix.overlay(mix)
 
         # master_track 을 위한 로컬 경로
-        directory = os.path.join(MEDIA_ROOT, f'{self.author.nickname}: Post_{self.pk}')
+        directory = os.path.join(settings.MEDIA_ROOT, f'{self.author.nickname}: Post_{self.pk}')
         # 경로가 없으면 만들어줌
         if not os.path.exists(directory):
             os.makedirs(directory)
