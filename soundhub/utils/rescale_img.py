@@ -1,8 +1,10 @@
 import os
+import re
+
 from PIL import Image
 
 from django.conf import settings
-
+from django.core.files.storage import default_storage as storage
 
 """
 프로필 이미지
@@ -26,7 +28,7 @@ def make_profile_img(user):
         return None
 
     # profile_img 생성을 위한 로컬 경로
-    directory = os.path.join(settings.MEDIA_ROOT, f'user_{user.pk}/profile-img')
+    directory = os.path.join(settings.MEDIA_ROOT, f'user_{user.pk}/profile_img')
     # 경로가 없으면 만들어줌
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -69,3 +71,15 @@ def make_profile_img(user):
             resized.save(profile_dir)
             img_list.append(profile_dir)
     return img_list
+
+
+def upload_to_s3(img_list):
+    p = re.compile(r'.*/temp/(.*)')
+
+    for img in img_list:
+        s3_dir = p.match(img).group(1)
+        file = storage.open(s3_dir, 'wb')
+        with open(img, 'rb') as local_file:
+            file.write(local_file.read())
+        file.close()
+        os.remove(img)
