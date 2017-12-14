@@ -20,7 +20,7 @@ from utils.tasks.mail import (
 )
 from utils.encryption import encrypt, decrypt
 from .models import ActivationKeyInfo, Relationship
-from .serializers import UserSerializer, SignupSerializer, UserProfileImageSerializer
+from .serializers import UserSerializer, SignupSerializer
 
 User = get_user_model()
 
@@ -42,24 +42,6 @@ class UserList(generics.ListAPIView):
     permission_classes = (
         IsAuthenticatedOrReadOnly,
     )
-
-
-# 유저 이미지 프로필 수정, 삭제
-class UserProfileImage(generics.UpdateAPIView, generics.DestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserProfileImageSerializer
-    permission_classes = (
-        IsAuthenticatedOrReadOnly,
-    )
-
-    def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
-        return self.perform_destroy(instance)
-
-    def perform_destroy(self, instance):
-        instance.profile_img.delete()
-        data = self.get_serializer(instance).data
-        return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
 # 로그인

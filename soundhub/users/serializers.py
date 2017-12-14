@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from rest_framework.settings import api_settings
 
 User = get_user_model()
 
@@ -45,7 +46,7 @@ class UserSerializer(serializers.ModelSerializer):
         slug_field='nickname'
     )
     liked_posts = PostListField(read_only=True)
-    profile_img = ProfileImageField(read_only=True)
+    profile_img = ProfileImageField()
 
     class Meta:
         model = User
@@ -69,29 +70,11 @@ class UserSerializer(serializers.ModelSerializer):
         )
         read_only_fields = (
             'email',
-            'profile_img',
             'user_type',
             'total_liked',
             'is_active',
             'last_login',
             'post_set',
-        )
-
-
-# 유저 프로필 이미지 시리얼라이저
-class UserProfileImageSerializer(serializers.ModelSerializer):
-    profile_img = ProfileImageField()
-
-    class Meta:
-        model = User
-        fields = (
-            'id',
-            'email',
-            'nickname',
-            'profile_img',
-        )
-        read_only_fields = (
-            'nickname',
         )
 
 
