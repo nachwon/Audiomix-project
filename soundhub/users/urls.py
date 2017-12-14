@@ -1,3 +1,4 @@
+
 from django.conf.urls import url
 
 from users.views import UserDetail, Login, Signup, ActivateUser, UserList, FollowUserToggle, GoogleLogin
@@ -16,3 +17,4 @@ urlpatterns = [
     url(r'^activate/$', ActivateUser.as_view(), name='activate'),
     url(r'^google_login/$', GoogleLogin.as_view(), name='google_login'),
 ]
+
