@@ -23,15 +23,25 @@ class PostListField(serializers.RelatedField):
         return data
 
 
+# 프로필 이미지를 위한 커스텀 필드
 class ProfileImageField(serializers.ImageField):
+    # 객체 저장을 위한 queryset 지정
     queryset = User.objects.all()
 
+    # 보여줄 때
     def to_representation(self, value):
+        # value 는 DefaultStaticImageFieldFile 객체
+        # 상대경로를 보여주기 위한 정규표현식
         pattern = re.compile(r'.*/che1-soundhub/(.*)[?]')
+        # value.url 을 호출하여 파일이 있으면 파일의 절대경로를 가져오고
+        # 없으면 디폴트 이미지의 절대경로를 가져옴
+        # 받은 절대경로를 잘라서 상대경로로 바꿔준 뒤 리턴
         result = pattern.match(value.url).group(1)
         return result
 
+    # 저장할 때
     def to_internal_value(self, data):
+        # 받은 data(파일 객체) 그대로 넘겨줌
         return data
 
 
@@ -49,6 +59,7 @@ class UserSerializer(serializers.ModelSerializer):
         slug_field='nickname'
     )
     liked_posts = PostListField(read_only=True)
+    # 커스팀 필드 ProfileImageField 를 사용해서 profile_img 필드 처리
     profile_img = ProfileImageField()
 
     class Meta:
