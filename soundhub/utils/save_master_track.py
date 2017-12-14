@@ -6,8 +6,6 @@ from pydub import AudioSegment
 
 from config.settings import MEDIA_ROOT
 
-from posts.models import Post
-
 
 def save_master_track(self):
     """
