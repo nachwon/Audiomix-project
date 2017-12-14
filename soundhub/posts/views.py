@@ -247,17 +247,23 @@ class MixTracks(generics.UpdateAPIView, generics.GenericAPIView):
             for i in queryset:
                 i.save_is_mixed()
 
+            # 셀러리를 사용한 비동기 처리로 음원 파일 믹스
             mix_task.delay(post.pk)
 
+        # mix_tracks 키로 넘어온 값이 없으면
         else:
+            # 포스트 객체 가져와서
             post = self.get_object()
+            # 객체의 master_track 을 author_track 과 동일하게 만들어 주고
             post.master_track = post.author_track
+            # 저장
             post.save()
-
-            queryset = post.comment_tracks.all()
+            # mixed_tracks 필드를 비워준다
             post.mixed_tracks.clear()
 
-            # 모든 커멘트 트랙들 돌면서 is_mixed 값 업데이트
+            # 포스트에 달린 모든 커멘트 트랙들을 불러와서
+            queryset = post.comment_tracks.all()
+            # 하나씩 돌면서 is_mixed 값 업데이트
             for i in queryset:
                 i.save_is_mixed()
 
