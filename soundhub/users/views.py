@@ -43,7 +43,10 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
         # 프로필 이미지 생성
         img_list = make_profile_img(user)
         # 저장소에 업로드 및 로컬 파일 삭제
-        upload_to_s3(img_list)
+        try:
+            upload_to_s3(img_list)
+        except TypeError:
+            pass
 
 
 # 유저 목록 조회
