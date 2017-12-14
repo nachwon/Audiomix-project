@@ -49,16 +49,8 @@ class ProfileImageField(serializers.ImageField):
 # 유저 모델 시리얼라이저
 class UserSerializer(serializers.ModelSerializer):
     post_set = PostListField(read_only=True)
-    following = serializers.SlugRelatedField(
-        read_only=True,
-        many=True,
-        slug_field='nickname'
-    )
-    followers = serializers.SlugRelatedField(
-        read_only=True,
-        many=True,
-        slug_field='nickname'
-    )
+    following = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
+    followers = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
     liked_posts = PostListField(read_only=True)
     # 커스팀 필드 ProfileImageField 를 사용해서 profile_img 필드 처리
     profile_img = ProfileImageField()
