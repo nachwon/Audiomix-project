@@ -19,7 +19,7 @@ from django.conf import settings
 # 프로필 이미지 파일 생성
 def make_profile_img(user):
     profile_img = user.profile_img
-    sizes = ((200, 200), (400, 400), (600, 600))
+    sizes = ((200, 200), (400, 400))
     try:
         img = Image.open(profile_img)
     except ValueError:
