@@ -13,6 +13,7 @@ from rest_framework.views import APIView
 
 from config.settings import ENCRYPTION_KEY
 from utils.permissions import IsOwnerOrReadOnly
+from utils.rescale_img import make_profile_img, upload_to_s3
 from utils.tasks.mail import (
     send_verification_mail,
     send_confirm_readmission_mail,
@@ -34,19 +35,15 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
         IsOwnerOrReadOnly,
     )
 
-    def update(self, request, *args, **kwargs):
-        partial = kwargs.pop('partial', False)
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-
-        if getattr(instance, '_prefetched_objects_cache', None):
-            # If 'prefetch_related' has been applied to a queryset, we need to
-            # forcibly invalidate the prefetch cache on the instance.
-            instance._prefetched_objects_cache = {}
-
-        return Response(serializer.data)
+    def perform_update(self, serializer):
+        # 데이터 저장
+        serializer.save()
+        # 유저 객체 가져오기
+        user = self.get_object()
+        # 프로필 이미지 생성
+        img_list = make_profile_img(user)
+        # 저장소에 업로드 및 로컬 파일 삭제
+        upload_to_s3(img_list)
 
 
 # 유저 목록 조회
