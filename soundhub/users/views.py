@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from django.utils import timezone
 
 from google.oauth2 import id_token
@@ -13,7 +11,6 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-# from config_secret import settings as secret_settings
 from config.settings import ENCRYPTION_KEY
 from utils.permissions import IsOwnerOrReadOnly
 from utils.tasks.mail import (
@@ -277,7 +274,7 @@ class GoogleLogin(APIView):
                 instrument=instrument,
                 user_type=User.USER_TYPE_GOOGLE,
                 is_active=True,
-                last_login=datetime.now(),
+                last_login=timezone.now(),
             )
             user.save()
 

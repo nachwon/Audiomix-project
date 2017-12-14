@@ -1,12 +1,6 @@
-import os
-import requests
-from django.core.files.base import ContentFile
-from django.core.files.storage import default_storage
-
 from django.db import models
-from pydub import AudioSegment
 
-from config import settings
+from django.conf import settings
 
 
 def author_track_directory_path(instance, filename):
