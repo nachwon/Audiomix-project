@@ -68,7 +68,7 @@ class CustomUserManager(BaseUserManager):
 
 # 유저 프로필 이미지 동적 설정
 def profile_image_directory_path(instance, filename):
-    return f'user_{instance.id}/static/{filename}'
+    return f'user_{instance.id}/profile_img/{filename}'
 
 
 # 이메일을 아이디로 사용하는 커스텀 유저 모델
