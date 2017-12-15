@@ -58,6 +58,10 @@ EMAIL_HOST_USER = config_secret['email']['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = config_secret['email']['EMAIL_HOST_PASSWORD']
 DEFAULT_FROM_EMAIL = 'joo2theeon@gmail.com'
 
+# Facebook app
+FACEBOOK_APP_ID = config_secret['facebook']['FACEBOOK_APP_ID']
+FACEBOOK_APP_SECRET_CODE = config_secret['facebook']['FACEBOOK_APP_SECRET_CODE']
+
 # Encryption Key
 ENCRYPTION_KEY = config_secret['encrypt']['ENCRYPTION_KEY']
 
@@ -83,6 +87,11 @@ ALLOWED_HOSTS = [
 ]
 
 AUTH_USER_MODEL = 'users.User'
+# 기본 인증 백엔드에 Facebook Backend 추가함
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'member.backends.FacebookBackend',
+]
 
 # Application definition
 INSTALLED_APPS = [
