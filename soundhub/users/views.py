@@ -35,18 +35,23 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
         IsOwnerOrReadOnly,
     )
 
+    # 패치 요청을 받았을 때
+    # request.data 에 profile_img 가 있으면
+    # 이미지 관련 작업 실행
     def perform_update(self, serializer):
-        # 데이터 저장
         serializer.save()
-        # 유저 객체 가져오기
-        user = self.get_object()
-        # 프로필 이미지 생성
-        img_list = make_profile_img(user)
-        # 저장소에 업로드 및 로컬 파일 삭제
-        try:
-            upload_to_s3(img_list)
-        except TypeError:
-            pass
+        data = serializer.context['request'].data
+        if data.get('profile_img', False):
+            # 유저 객체 가져오기
+            user = self.get_object()
+            print(user.profile_img)
+            # 프로필 이미지 생성
+            img_list = make_profile_img(user)
+            # 저장소에 업로드 및 로컬 파일 삭제
+            try:
+                upload_to_s3(img_list)
+            except TypeError:
+                pass
 
 
 # 유저 목록 조회
