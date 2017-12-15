@@ -2,6 +2,7 @@ import hashlib
 
 from random import random
 
+from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
@@ -250,3 +251,8 @@ class Relationship(models.Model):
 
     def __str__(self):
         return f'{self.from_user.nickname} is following {self.to_user.nickname}'
+
+
+class FacebookUserInfo(models.Model):
+    facebook_user_id = models.CharField(max_length=50, unique=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
