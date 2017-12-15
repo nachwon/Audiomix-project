@@ -49,15 +49,14 @@ AWS_S3_REGION_NAME = 'ap-northeast-2'
 
 
 # Django Mail Information
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = config_secret['email']['EMAIL_HOST_USER']
-# EMAIL_HOST_PASSWORD = config_secret['email']['EMAIL_HOST_PASSWORD']
-# DEFAULT_FROM_EMAIL = 'joo2theeon@gmail.com'
-#
-# SECRET_KEY = settings.SECRET_KEY1 + settings.SECRET_KEY2
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config_secret['email']['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = config_secret['email']['EMAIL_HOST_PASSWORD']
+DEFAULT_FROM_EMAIL = 'joo2theeon@gmail.com'
+
 
 # Encryption Key
 ENCRYPTION_KEY = config_secret['encrypt']['ENCRYPTION_KEY']
