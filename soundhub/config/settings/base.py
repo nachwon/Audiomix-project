@@ -90,7 +90,7 @@ AUTH_USER_MODEL = 'users.User'
 # 기본 인증 백엔드에 Facebook Backend 추가함
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'member.backends.FacebookBackend',
+    'user.backends.FacebookBackend',
 ]
 
 # Application definition
