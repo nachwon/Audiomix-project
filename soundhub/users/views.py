@@ -21,7 +21,7 @@ from utils.tasks.mail import (
 )
 from utils.encryption import encrypt, decrypt
 from .models import ActivationKeyInfo, Relationship
-from .serializers import UserSerializer, SignupSerializer
+from .serializers import UserSerializer, SignupSerializer, ProfileImageSerializer
 
 User = get_user_model()
 
@@ -52,6 +52,17 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
                 upload_to_s3(img_list)
             except TypeError:
                 pass
+
+
+class ProfileImage(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = ProfileImageSerializer
+    permission_classes = (
+        IsOwnerOrReadOnly,
+    )
+
+    def perform_destroy(self, instance):
+        instance.profile_img.delete()
 
 
 # 유저 목록 조회
