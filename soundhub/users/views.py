@@ -1,8 +1,12 @@
+from typing import NamedTuple
 
+import requests
+from django.conf import settings
+from django.urls import reverse
 from django.utils import timezone
 
 from google.oauth2 import id_token
-from google.auth.transport import requests
+from google.auth.transport import requests as google_requests
 from django.contrib.auth import get_user_model, authenticate
 from rest_framework import status, generics
 from rest_framework.authtoken.models import Token
@@ -232,7 +236,7 @@ class GoogleLogin(APIView):
 
         try:
             # token 을 인증하고, 토큰 내부 정보를 가져옴
-            id_info = id_token.verify_oauth2_token(token, requests.Request(), client_id)
+            id_info = id_token.verify_oauth2_token(token, google_requests.Request(), client_id)
             # token 발행정보 확인
             if id_info['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
                 raise ValueError('Wrong issuer.')
@@ -249,7 +253,7 @@ class GoogleLogin(APIView):
                 'user': UserSerializer(user).data,
                 # 'is_active': user.is_active,  # 디버그용
             }
-            return Response(data, status=status.HTTP_201_CREATED)
+            return Response(data, status=status.HTTP_200_OK)
 
         # 존재하지 않는 유저일 경우만 받음
         nickname = request.data['nickname']
@@ -306,8 +310,8 @@ class FacebookLogin(APIView):
     # GET 요청이 들어왔을 때.
     def get(self, request):
         # http://developers.facebook.com/ 에서 만든 Facebook 애플리케이션 access 정보.
-        app_id = secret_settings.FACEBOOK_APP_ID
-        app_secret_code = secret_settings.FACEBOOK_APP_SECRET_CODE
+        app_id = settings.FACEBOOK_APP_ID
+        app_secret_code = settings.FACEBOOK_APP_SECRET_CODE
         app_access_token = f'{app_id}|{app_secret_code}'
         code = request.GET['code']
 
@@ -381,8 +385,8 @@ class FacebookLogin(APIView):
 
         # 받아온 토큰 값이 진짜 토큰인지 확인하는 메서드
         def get_debug_token_info(access_token):
-            app_id = secret_settings.FACEBOOK_APP_ID
-            app_secret_code = secret_settings.FACEBOOK_APP_SECRET_CODE
+            app_id = settings.FACEBOOK_APP_ID
+            app_secret_code = settings.FACEBOOK_APP_SECRET_CODE
             app_access_token = f'{app_id}|{app_secret_code}'
 
             params = {
@@ -402,17 +406,35 @@ class FacebookLogin(APIView):
 
         # FacebookBackend를 사용해서 유저 인증
         user = authenticate(facebook_user_id=request.data['facebook_user_id'])
-        # 인증에 실패한 경우 페이스북유저 타입으로 유저를 만들어줌
-        if not user:
+        if user:
+            user.is_active = True
+            user.save()
+            data = {
+                'token': user.token,
+                'user': UserSerializer(user).data,
+                # 'is_active': user.is_active,  # 디버그용
+            }
+            return Response(data, status=status.HTTP_200_OK)
+        else:
+            try:
+                email = request.data['email']
+                nickname = request.data['nickname']
+                instrument = request.data['instrument']
+            except User.DoesNotExist:
+                return None
+            # 인증에 실패한 경우 페이스북유저 타입으로 유저를 만들어줌
             user = User.objects.create_user(
-                username=f'fb_{request.data["facebook_user_id"]}',
+                email=email,
+                nickname=nickname,
+                instrument=instrument,
+                is_active=True,
                 user_type=User.USER_TYPE_FACEBOOK,
             )
-        # 유저 시리얼라이즈 결과를 Response
-        data = {
-            'user': UserSerializer(user).data,
-            'token': user.token,
-        }
+            # 유저 시리얼라이즈 결과를 Response
+            data = {
+                'user': UserSerializer(user).data,
+                'token': user.token,
+            }
         return Response(data)
 
 
