@@ -419,9 +419,9 @@ class FacebookLogin(APIView):
             try:
                 email = request.data['email']
                 nickname = request.data['nickname']
-                instrument = request.data['instrument']
+                instrument = request.data['instrument'] if 'instrument' in request.data else None
             except User.DoesNotExist:
-                return None
+                return Response(None)
             # 인증에 실패한 경우 페이스북유저 타입으로 유저를 만들어줌
             user = User.objects.create_user(
                 email=email,
@@ -436,6 +436,11 @@ class FacebookLogin(APIView):
                 'token': user.token,
             }
         return Response(data)
+
+# 특정 기능을 테스트 할 때 쓰는 뷰
+# class Test(APIView):
+#     def post(self, request):
+#         return Response(None)
 
 
 class ActivateUser(APIView):
