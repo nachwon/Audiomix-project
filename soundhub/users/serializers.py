@@ -31,6 +31,7 @@ class UserSerializer(serializers.ModelSerializer):
     followers = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
     liked_posts = PostListField(read_only=True)
     profile_img = serializers.ImageField(read_only=True, use_url=False)
+    profile_bg = serializers.ImageField(read_only=True, use_url=False)
 
     class Meta:
         model = User
@@ -39,6 +40,7 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'nickname',
             'profile_img',
+            'profile_bg',
             'instrument',
             'user_type',
             'genre',
@@ -56,6 +58,7 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'user_type',
             'profile_img',
+            'profile_bg',
             'total_liked',
             'is_active',
             'last_login',
