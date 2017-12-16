@@ -67,9 +67,7 @@ class CustomUserManager(BaseUserManager):
 
 # 유저 프로필 이미지 동적 설정
 def profile_image_directory_path(instance, filename):
-    ext_p = re.compile(r'.*[.](.*)$')
-    ext = ext_p.match(filename).group(1)
-    return f'user_{instance.id}/profile_img/original_img.{ext}'
+    return f'user_{instance.id}/profile_img/{filename}'
 
 
 def profile_bg_directory_path(instance, filename):

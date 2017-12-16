@@ -45,8 +45,7 @@ def rescale(img, size):
 
 
 # 프로필 이미지 파일 생성
-def make_profile_img(user):
-    profile_img = user.profile_img
+def make_profile_img(user, profile_img):
     sizes = ((200, 200), (400, 400))
     try:
         img = Image.open(profile_img)
@@ -60,27 +59,26 @@ def make_profile_img(user):
         os.makedirs(directory)
 
     img_list = list()
-    if img.width == img.height:
-        for size in sizes:
-            img_copy = img.copy()
-            img_copy.thumbnail(size, Image.ANTIALIAS)
-            filename = f'profile_img_{size[0]}.png'
-            profile_dir = os.path.join(directory, filename)
-            img_copy.save(profile_dir)
-            img_list.append(profile_dir)
+    for size in sizes:
+        resized = rescale(img, size)
+        filename = f'profile_img_{size[0]}.png'
+        profile_dir = os.path.join(directory, filename)
+        resized.save(profile_dir)
+        img_list.append(profile_dir)
 
-    else:
-        for size in sizes:
-            resized = rescale(img, size)
-            filename = f'profile_img_{size[0]}.png'
-            profile_dir = os.path.join(directory, filename)
-            resized.save(profile_dir)
-            img_list.append(profile_dir)
-    return img_list
+    save_img = img_list.pop()
+    with open(save_img, 'rb') as f:
+        file = ContentFile(f.read())
+
+    user.profile_img.save(
+        f'profile_img_{sizes[-1][0]}.png',
+        file
+    )
+    os.remove(save_img)
+    upload_to_s3(img_list)
 
 
-def make_profile_bg(user):
-    profile_bg = user.profile_bg
+def make_profile_bg(user, profile_bg):
     size = (750, 422)
     try:
         img = Image.open(profile_bg)
@@ -119,13 +117,3 @@ def upload_to_s3(img_list):
             file.write(local_file.read())
         file.close()
         os.remove(img)
-
-
-def destroy_from_s3(user):
-    path_200 = f'user_{user.pk}/profile_img/profile_img_200.png'
-    path_400 = f'user_{user.pk}/profile_img/profile_img_400.png'
-    if storage.exists(path_200) and storage.exists(path_400):
-        storage.delete(path_200)
-        storage.delete(path_400)
-    else:
-        return None
