@@ -90,6 +90,7 @@ class ProfileImageSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             'profile_img',
+            'profile_bg'
         )
 
 

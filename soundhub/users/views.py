@@ -13,7 +13,7 @@ from rest_framework.views import APIView
 
 from config.settings import ENCRYPTION_KEY
 from utils.permissions import IsOwnerOrReadOnly
-from utils.rescale_img import make_profile_img, upload_to_s3, destroy_from_s3
+from utils.rescale_img import make_profile_img, upload_to_s3, destroy_from_s3, make_profile_bg
 from utils.tasks.mail import (
     send_verification_mail,
     send_confirm_readmission_mail,
@@ -57,16 +57,22 @@ class ProfileImage(generics.RetrieveUpdateDestroyAPIView):
     # 이미지 관련 작업 실행
     def perform_update(self, serializer):
         serializer.save()
+        # 유저 객체 가져오기
+        user = self.get_object()
         data = serializer.context['request'].data
         if data.get('profile_img', False):
-            # 유저 객체 가져오기
-            user = self.get_object()
-            print(user.profile_img)
             # 프로필 이미지 생성
             img_list = make_profile_img(user)
             # 저장소에 업로드 및 로컬 파일 삭제
             try:
                 upload_to_s3(img_list)
+            except TypeError:
+                pass
+
+        if data.get('profile_bg', False):
+            bg_img = make_profile_bg(user)
+            try:
+                upload_to_s3(bg_img)
             except TypeError:
                 pass
 

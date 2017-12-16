@@ -78,9 +78,31 @@ def make_profile_img(user):
     return img_list
 
 
+def make_profile_bg(user):
+    profile_bg = user.profile_bg
+    size = (750, 422)
+    try:
+        img = Image.open(profile_bg)
+    except ValueError:
+        return None
+
+    # profile_bg 생성을 위한 로컬 경로
+    directory = os.path.join(settings.MEDIA_ROOT, f'user_{user.pk}/profile_bg')
+    # 경로가 없으면 만들어줌
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    img_list = list()
+
+    resized = rescale(img, size)
+    filename = f'profile_bg_rescaled.png'
+    profile_dir = os.path.join(directory, filename)
+    resized.save(profile_dir)
+    img_list.append(profile_dir)
+    return img_list
+
+
 def upload_to_s3(img_list):
     p = re.compile(r'.*/temp/(.*)')
-
     for img in img_list:
         s3_dir = p.match(img).group(1)
         file = storage.open(s3_dir, 'wb')
