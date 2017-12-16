@@ -66,9 +66,14 @@ class UserSerializer(serializers.ModelSerializer):
         )
 
 
-class ProfileImageField(serializers.ImageField):
-    queryset = User.objects.all()
+class BypassEmptyStringField(serializers.ImageField):
+    def to_internal_value(self, data):
+        if data == '':
+            return data
+        return super().to_internal_value(data)
 
+
+class ProfileImageField(BypassEmptyStringField):
     def to_representation(self, value):
         if not value:
             return None
@@ -84,7 +89,7 @@ class ProfileImageField(serializers.ImageField):
 
 class ProfileImageSerializer(serializers.ModelSerializer):
     profile_img = ProfileImageField()
-    profile_bg = serializers.ImageField(use_url=False)
+    profile_bg = BypassEmptyStringField(use_url=False)
 
     class Meta:
         model = User

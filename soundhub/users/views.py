@@ -43,15 +43,6 @@ class ProfileImage(generics.RetrieveUpdateDestroyAPIView):
         IsOwnerOrReadOnly,
     )
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        context = {
-            "hi": "hi"
-        }
-        serializer = self.get_serializer(instance, context=context)
-
-        return Response(serializer.data)
-
     # 패치 요청을 받았을 때
     # request.data 에 profile_img 가 있으면
     # 이미지 관련 작업 실행
@@ -71,10 +62,6 @@ class ProfileImage(generics.RetrieveUpdateDestroyAPIView):
 
         if data.get('profile_bg', False):
             make_profile_bg(user)
-
-    def perform_destroy(self, instance):
-        instance.profile_img.delete()
-        destroy_from_s3(instance)
 
 
 # 유저 목록 조회
