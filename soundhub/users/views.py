@@ -13,7 +13,7 @@ from rest_framework.views import APIView
 
 from config.settings import ENCRYPTION_KEY
 from utils.permissions import IsOwnerOrReadOnly
-from utils.rescale_img import make_profile_img, upload_to_s3
+from utils.rescale_img import make_profile_img, upload_to_s3, destroy_from_s3
 from utils.tasks.mail import (
     send_verification_mail,
     send_confirm_readmission_mail,
@@ -72,6 +72,7 @@ class ProfileImage(generics.RetrieveUpdateDestroyAPIView):
 
     def perform_destroy(self, instance):
         instance.profile_img.delete()
+        destroy_from_s3(instance)
 
 
 # 유저 목록 조회

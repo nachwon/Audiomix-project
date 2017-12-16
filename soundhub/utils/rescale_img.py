@@ -83,3 +83,13 @@ def upload_to_s3(img_list):
             file.write(local_file.read())
         file.close()
         os.remove(img)
+
+
+def destroy_from_s3(user):
+    path_200 = f'user_{user.pk}/profile_img/profile_img_200.png'
+    path_400 = f'user_{user.pk}/profile_img/profile_img_400.png'
+    if storage.exists(path_200) and storage.exists(path_400):
+        storage.delete(path_200)
+        storage.delete(path_400)
+    else:
+        return None
