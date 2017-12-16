@@ -94,7 +94,7 @@ def make_profile_bg(user):
     img_list = list()
 
     resized = rescale(img, size)
-    filename = f'profile_bg_rescaled.png'
+    filename = f'profile_bg.png'
     profile_dir = os.path.join(directory, filename)
     resized.save(profile_dir)
     img_list.append(profile_dir)
