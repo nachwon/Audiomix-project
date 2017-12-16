@@ -1,3 +1,5 @@
+import re
+
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
@@ -28,7 +30,6 @@ class UserSerializer(serializers.ModelSerializer):
     following = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
     followers = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
     liked_posts = PostListField(read_only=True)
-    # 커스팀 필드 ProfileImageField 를 사용해서 profile_img 필드 처리
     profile_img = serializers.ImageField(read_only=True, use_url=False)
 
     class Meta:
@@ -62,8 +63,25 @@ class UserSerializer(serializers.ModelSerializer):
         )
 
 
+class ProfileImageField(serializers.ImageField):
+    queryset = User.objects.all()
+
+    def to_representation(self, value):
+        if not value:
+            return None
+        p = re.compile(r'(user_\d+/profile_img/)')
+        path = p.match(value.name).group(1)
+
+        data = {
+            "original_img": value.name,
+            "profile_img_200": f"{path}profile_img_200.png",
+            "profile_img_400": f"{path}profile_img_400.png",
+        }
+        return data
+
+
 class ProfileImageSerializer(serializers.ModelSerializer):
-    profile_img = serializers.ImageField(use_url=False)
+    profile_img = ProfileImageField()
 
     class Meta:
         model = User

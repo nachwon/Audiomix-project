@@ -35,6 +35,23 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
         IsOwnerOrReadOnly,
     )
 
+
+class ProfileImage(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = ProfileImageSerializer
+    permission_classes = (
+        IsOwnerOrReadOnly,
+    )
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        context = {
+            "hi": "hi"
+        }
+        serializer = self.get_serializer(instance, context=context)
+
+        return Response(serializer.data)
+
     # 패치 요청을 받았을 때
     # request.data 에 profile_img 가 있으면
     # 이미지 관련 작업 실행
@@ -52,14 +69,6 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
                 upload_to_s3(img_list)
             except TypeError:
                 pass
-
-
-class ProfileImage(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = ProfileImageSerializer
-    permission_classes = (
-        IsOwnerOrReadOnly,
-    )
 
     def perform_destroy(self, instance):
         instance.profile_img.delete()
