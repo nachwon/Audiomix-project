@@ -1,4 +1,5 @@
 import hashlib
+import re
 
 from random import random
 
@@ -66,7 +67,15 @@ class CustomUserManager(BaseUserManager):
 
 # 유저 프로필 이미지 동적 설정
 def profile_image_directory_path(instance, filename):
-    return f'user_{instance.id}/profile_img/{filename}'
+    ext_p = re.compile(r'.*[.](.*)$')
+    ext = ext_p.match(filename).group(1)
+    return f'user_{instance.id}/profile_img/original_img.{ext}'
+
+
+def profile_bg_directory_path(instance, filename):
+    ext_p = re.compile(r'.*[.](.*)$')
+    ext = ext_p.match(filename).group(1)
+    return f'user_{instance.id}/profile_img/profile_bg.{ext}'
 
 
 # 이메일을 아이디로 사용하는 커스텀 유저 모델
@@ -95,6 +104,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # 프로필 이미지
     profile_img = models.ImageField(blank=True, upload_to=profile_image_directory_path)
+
+    # 프로필 배경 이미지
+    profile_bg = models.ImageField(blank=True, upload_to=profile_bg_directory_path)
 
     # Guitar, Base, Drum, Vocal, Keyboard, Other 등은 프론트에서 체크박스 value 로 받고,
     # Serializer 에서 문자열로 합쳐줌
