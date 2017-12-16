@@ -70,11 +70,7 @@ class ProfileImage(generics.RetrieveUpdateDestroyAPIView):
                 pass
 
         if data.get('profile_bg', False):
-            bg_img = make_profile_bg(user)
-            try:
-                upload_to_s3(bg_img)
-            except TypeError:
-                pass
+            make_profile_bg(user)
 
     def perform_destroy(self, instance):
         instance.profile_img.delete()

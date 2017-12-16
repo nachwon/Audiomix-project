@@ -76,32 +76,15 @@ class ProfileImageField(serializers.ImageField):
         path = p.match(value.name).group(1)
 
         data = {
-            "original_img": value.name,
             "profile_img_200": f"{path}profile_img_200.png",
             "profile_img_400": f"{path}profile_img_400.png",
         }
         return data
 
 
-class ProfileBackgroundField(serializers.ImageField):
-    queryset = User.objects.all()
-
-    def to_representation(self, value):
-        if not value:
-            return None
-        p = re.compile(r'(user_\d+/profile_bg/)')
-        path = p.match(value.name).group(1)
-
-        data = {
-            "original_img": value.name,
-            "profile_bg": f"{path}profile_bg.png",
-        }
-        return data
-
-
 class ProfileImageSerializer(serializers.ModelSerializer):
     profile_img = ProfileImageField()
-    profile_bg = ProfileBackgroundField()
+    profile_bg = serializers.ImageField(use_url=False)
 
     class Meta:
         model = User

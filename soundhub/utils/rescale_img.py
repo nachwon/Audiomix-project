@@ -4,6 +4,7 @@ import re
 from PIL import Image
 
 from django.conf import settings
+from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage as storage
 
 """
@@ -98,7 +99,15 @@ def make_profile_bg(user):
     profile_dir = os.path.join(directory, filename)
     resized.save(profile_dir)
     img_list.append(profile_dir)
-    return img_list
+
+    with open(profile_dir, 'rb') as f:
+        file = ContentFile(f.read())
+
+    user.profile_bg.save(
+        'profile_bg.png',
+        file,
+    )
+    os.remove(profile_dir)
 
 
 def upload_to_s3(img_list):

@@ -73,9 +73,7 @@ def profile_image_directory_path(instance, filename):
 
 
 def profile_bg_directory_path(instance, filename):
-    ext_p = re.compile(r'.*[.](.*)$')
-    ext = ext_p.match(filename).group(1)
-    return f'user_{instance.id}/profile_bg/original_profile_bg.{ext}'
+    return f'user_{instance.id}/profile_bg/{filename}'
 
 
 # 이메일을 아이디로 사용하는 커스텀 유저 모델
