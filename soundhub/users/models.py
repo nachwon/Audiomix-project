@@ -1,4 +1,5 @@
 import hashlib
+import re
 
 from random import random
 
@@ -69,6 +70,10 @@ def profile_image_directory_path(instance, filename):
     return f'user_{instance.id}/profile_img/{filename}'
 
 
+def profile_bg_directory_path(instance, filename):
+    return f'user_{instance.id}/profile_bg/{filename}'
+
+
 # 이메일을 아이디로 사용하는 커스텀 유저 모델
 # PermissionsMixin 을 상속받아서 권한 관련 메서드들을 포함
 class User(AbstractBaseUser, PermissionsMixin):
@@ -95,6 +100,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # 프로필 이미지
     profile_img = models.ImageField(blank=True, upload_to=profile_image_directory_path)
+
+    # 프로필 배경 이미지
+    profile_bg = models.ImageField(blank=True, upload_to=profile_bg_directory_path)
 
     # Guitar, Base, Drum, Vocal, Keyboard, Other 등은 프론트에서 체크박스 value 로 받고,
     # Serializer 에서 문자열로 합쳐줌

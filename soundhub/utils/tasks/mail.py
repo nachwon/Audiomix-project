@@ -20,8 +20,10 @@ def send_verification_mail(activation_key, recipient_list):
     :param recipient_list: 수신자 이메일 목록 list 객체
     :return: send_mail 함수 반환 값
     """
+
     scheme = 'https://'
     host = 'soundhub.che1.co.kr'
+
     # host_local = 'localhost:8000'
     activation_link = scheme + host + reverse('user:activate') + f'?activation_key={activation_key}'
 
@@ -64,8 +66,10 @@ def send_verification_mail_after_social_login(data, recipient_list):
     :param recipient_list: 수신자 email list 객체
     :return: send_mail 함수 반환 값
     """
+
     scheme = 'https://'
     host = 'soundhub.che1.co.kr'
+
     # host_local = 'localhost:8000'
     # data 에 전달된 값을 get parameter 로 재구성
     params = '?'

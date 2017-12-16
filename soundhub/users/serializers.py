@@ -1,3 +1,5 @@
+import re
+
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
@@ -22,27 +24,14 @@ class PostListField(serializers.RelatedField):
         return data_list
 
 
-class ProfileImageField(serializers.ImageField):
-    queryset = User.objects.all()
-
-    def to_internal_value(self, data):
-        if data == '':
-            return data
-        else:
-            file_object = super().to_internal_value(data)
-            django_field = self._DjangoImageField()
-            django_field.error_messages = self.error_messages
-            return django_field.clean(file_object)
-
-
 # 유저 모델 시리얼라이저
 class UserSerializer(serializers.ModelSerializer):
     post_set = PostListField(read_only=True)
     following = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
     followers = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
     liked_posts = PostListField(read_only=True)
-    # 커스팀 필드 ProfileImageField 를 사용해서 profile_img 필드 처리
-    profile_img = ProfileImageField(use_url=False)
+    profile_img = serializers.ImageField(read_only=True, use_url=False)
+    profile_bg = serializers.ImageField(read_only=True, use_url=False)
 
     class Meta:
         model = User
@@ -51,6 +40,7 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'nickname',
             'profile_img',
+            'profile_bg',
             'instrument',
             'user_type',
             'genre',
@@ -67,10 +57,45 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = (
             'email',
             'user_type',
+            'profile_img',
+            'profile_bg',
             'total_liked',
             'is_active',
             'last_login',
             'post_set',
+        )
+
+
+class BypassEmptyStringField(serializers.ImageField):
+    def to_internal_value(self, data):
+        if data == '':
+            return data
+        return super().to_internal_value(data)
+
+
+class ProfileImageField(BypassEmptyStringField):
+    def to_representation(self, value):
+        if not value:
+            return None
+        p = re.compile(r'(user_\d+/profile_img/)')
+        path = p.match(value.name).group(1)
+
+        data = {
+            "profile_img_200": f"{path}profile_img_200.png",
+            "profile_img_400": f"{path}profile_img_400.png",
+        }
+        return data
+
+
+class ProfileImageSerializer(serializers.ModelSerializer):
+    profile_img = ProfileImageField()
+    profile_bg = BypassEmptyStringField(use_url=False)
+
+    class Meta:
+        model = User
+        fields = (
+            'profile_img',
+            'profile_bg'
         )
 
 
