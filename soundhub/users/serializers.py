@@ -6,7 +6,7 @@ from rest_framework import serializers
 User = get_user_model()
 
 
-class PostListField(serializers.RelatedField):
+class PostSetField(serializers.RelatedField):
     def to_representation(self, value):
         post_list = value.all()
         data_list = list()
@@ -24,12 +24,36 @@ class PostListField(serializers.RelatedField):
         return data_list
 
 
+class LikedPostsField(serializers.RelatedField):
+    def to_representation(self, value):
+        post_list = value.all()
+        data_list = list()
+        for post in post_list:
+            if post.author.profile_img.name == "":
+                profile_img = None
+            else:
+                profile_img = post.author.profile_img.name
+            data = {
+                "id": post.pk,
+                "author": post.author.id,
+                "profile_img": profile_img,
+                "title": post.title,
+                "genre": post.genre,
+                "instrument": post.instrument,
+                "num_liked": post.num_liked,
+                "num_comments": post.num_comments,
+                "created_date": post.created_date,
+            }
+            data_list.append(data)
+        return data_list
+
+
 # 유저 모델 시리얼라이저
 class UserSerializer(serializers.ModelSerializer):
-    post_set = PostListField(read_only=True)
+    post_set = PostSetField(read_only=True)
+    liked_posts = LikedPostsField(read_only=True)
     following = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
     followers = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
-    liked_posts = PostListField(read_only=True)
     profile_img = serializers.ImageField(read_only=True, use_url=False)
     profile_bg = serializers.ImageField(read_only=True, use_url=False)
 
