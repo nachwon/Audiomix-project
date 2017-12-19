@@ -14,6 +14,7 @@ def master_track_directory_path(instance, filename):
 def comment_track_directory_path(instance, filename):
     return f'user_{instance.post.author.id}/Post_{instance.post.id}/comment_tracks/comment_track_{instance.pk}.mp3'
 
+
 def post_img_directory_path(instance, filename):
     return f'user_{instance.author.id}/Post_{instance.id}/post_img/{filename}'
 
