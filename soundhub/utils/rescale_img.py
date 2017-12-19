@@ -110,34 +110,32 @@ def make_profile_bg(user, profile_bg):
 
 
 # 포스트 배경이미지 생성
-def make_profile_bg(post, profile_bg):
+def make_post_img(post, post_img):
     size = (750, 750)
     try:
-        img = Image.open(profile_bg)
+        img = Image.open(post_img)
     except ValueError:
         return None
 
     # profile_bg 생성을 위한 로컬 경로
-    directory = os.path.join(settings.MEDIA_ROOT, f'user_{post.author.pk}/Post_{post.pk}/profile_bg')
+    directory = os.path.join(settings.MEDIA_ROOT, f'user_{post.author.pk}/Post_{post.pk}/post_img')
     # 경로가 없으면 만들어줌
     if not os.path.exists(directory):
         os.makedirs(directory)
-    img_list = list()
 
     resized = rescale(img, size)
     filename = f'post_img.png'
-    profile_dir = os.path.join(directory, filename)
-    resized.save(profile_dir)
-    img_list.append(profile_dir)
+    post_dir = os.path.join(directory, filename)
+    resized.save(post_dir)
 
-    with open(profile_dir, 'rb') as f:
+    with open(post_dir, 'rb') as f:
         file = ContentFile(f.read())
 
     post.post_img.save(
         'post_img.png',
         file,
     )
-    os.remove(profile_dir)
+    os.remove(post_dir)
 
 
 def upload_to_s3(img_list):
