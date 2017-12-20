@@ -1,3 +1,4 @@
+import os
 from django.core.exceptions import ObjectDoesNotExist
 
 from rest_framework import generics, status
@@ -11,6 +12,7 @@ from posts.serializers import PostSerializer, CommentTrackSerializer
 from posts.tasks import mix_task
 
 from utils.permissions import IsAuthorOrReadOnly
+from utils.rescale_img import make_post_img
 
 
 # 포스트 목록 조회 및 포스트 생성 API
@@ -63,6 +65,34 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
         IsAuthorOrReadOnly,
     )
 
+    # 포스트 수정
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        post_img = request.data.get('post_img', False)
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+
+        # 요청에 포스트 이미지가 있을 경우
+        if post_img:
+            # 포스트 이미지 크기 수정 후 업로드
+            make_post_img(post=instance, post_img=post_img)
+        # 포스트 이미지 필드에 빈 스트링이 오면,
+        elif post_img == "":
+            # 인스턴스의 포스트 이미지 삭제
+            instance.post_img.delete()
+        # 요청에 포스트 이미지 필드가 없는 경우
+        else:
+            # 일반적인 포스트 수정 수행
+            self.perform_update(serializer)
+
+        if getattr(instance, '_prefetched_objects_cache', None):
+            # If 'prefetch_related' has been applied to a queryset, we need to
+            # forcibly invalidate the prefetch cache on the instance.
+            instance._prefetched_objects_cache = {}
+
+        return Response(serializer.data)
+
     # 포스트 객체 삭제시 s3 저장소 내의 파일들도 모두 삭제
     def perform_destroy(self, instance):
         instance.author_track.delete()
@@ -108,7 +138,6 @@ class CommentTrackList(generics.ListCreateAPIView):
             return Post.objects.all()
 
     # POST 요청 받을 시
-
     def create(self, request, *args, **kwargs):
         post = self.get_object()
         data = {
