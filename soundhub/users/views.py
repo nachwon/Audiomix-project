@@ -8,7 +8,7 @@ from django.utils import timezone
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
 from django.contrib.auth import get_user_model, authenticate
-from rest_framework import status, generics
+from rest_framework import status, generics, filters
 from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import APIException
 from rest_framework.generics import get_object_or_404
@@ -84,6 +84,7 @@ class UserList(generics.ListAPIView):
     permission_classes = (
         IsAuthenticatedOrReadOnly,
     )
+    filter_backends = (filters.OrderingFilter,)
 
 
 # 로그인
