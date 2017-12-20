@@ -24,6 +24,11 @@ class PostList(generics.ListCreateAPIView):
         IsAuthenticatedOrReadOnly,
     )
     filter_backends = (filters.OrderingFilter,)
+    ordering_fields = (
+        'num_liked',
+        'num_comments',
+        'created_date',
+    )
 
     # author_track 저장 폴더 경로의 동적 생성에 포스트 pk 값을 사용하기 위한 create 메서드 오버라이드
     def create(self, request, *args, **kwargs):
