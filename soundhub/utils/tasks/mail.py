@@ -23,16 +23,16 @@ def send_verification_mail(activation_key, recipient_list):
 
     scheme = 'https://'
     host = 'soundhub.che1.co.kr'
-
-    # host_local = 'localhost:8000'
     activation_link = scheme + host + reverse('user:activate') + f'?activation_key={activation_key}'
 
     subject = '[Soundhub] Email Verification'
-    message = f'Verify your email to login Soundhub \n: {activation_link}'
+    message = ''
+    html_message = f'Verify your email to login Soundhub: <a href="{activation_link}">activation link</a>'
     from_email = 'joo2theeon@gmail.com'
     return send_mail(
         subject=subject,
         message=message,
+        html_message=html_message,
         from_email=from_email,
         recipient_list=recipient_list,
     )
@@ -67,23 +67,28 @@ def send_verification_mail_after_social_login(data, recipient_list):
     :return: send_mail 함수 반환 값
     """
 
+
     scheme = 'https://'
     host = 'soundhub.che1.co.kr'
 
-    # host_local = 'localhost:8000'
     # data 에 전달된 값을 get parameter 로 재구성
+    # params = '?key=value&key=value&' 형태
     params = '?'
     for key, value in data.items():
         params = params + f'{key}={value}&'
+
     # 완성된 회원가입 링크
-    signup_link = scheme + host + reverse('user:signup') + params[:-1]
+
+    signup_link = scheme + host + reverse('user:signup') + params[:-1]  # params[:-1]은 맨 뒤에 &를 떼는 로직
 
     subject = '[Soundhub] Email Verification (Signup Soundhub after social login)'
-    message = f"Verify your email to login Soundhub \n: {signup_link}"
+    message = ''  # 메세지는 필수 필드
+    html_message = f'Verify your email to login Soundhub: <a href="{signup_link}">signup link</a>'
     from_email = 'joo2theeon@gmail.com'
     return send_mail(
         subject=subject,
         message=message,
+        html_message=html_message,
         from_email=from_email,
         recipient_list=recipient_list,
     )

@@ -1,6 +1,4 @@
-import hashlib
-from datetime import datetime, timedelta
-from random import random
+from datetime import datetime
 
 from django.contrib.auth import get_user_model, authenticate
 from django.core import mail
@@ -122,8 +120,8 @@ class SendVerificationMailTest(TestCase):
             activation_key=dummy_activation_key,
             recipient_list=dummy_recipient_list,
         )
-        # self.assertEqual(len(mail.outbox), 1)
-        # self.assertEqual(mail.outbox[0].to, dummy_recipient_list)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, dummy_recipient_list)
 
 
 class SignupViewTest(TestCase):
@@ -181,7 +179,7 @@ class ActivateUserView(TestCase):
         self.assertEqual(User.objects.first().is_active, True)
 
         expected_data = {
-            'user': UserSerializer(dummy_activation_key_info.user).data,
+            'user': UserSerializer(User.objects.first()).data,
             'is_active': True
         }
         expected_data_json = JSONRenderer().render(expected_data)

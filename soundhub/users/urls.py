@@ -1,6 +1,10 @@
+
 from django.conf.urls import url
 
-from users.views import UserDetail, Login, Signup, ActivateUser, UserList, FollowUserToggle, GoogleLogin, ProfileImage
+
+
+
+from users.views import UserDetail, Login, Signup, ActivateUser, UserList, FollowUserToggle, GoogleLogin, FacebookLogin, ProfileImage
 
 urlpatterns = [
     # User Object
@@ -15,4 +19,6 @@ urlpatterns = [
     url(r'^signup/$', Signup.as_view(), name='signup'),
     url(r'^activate/$', ActivateUser.as_view(), name='activate'),
     url(r'^google_login/$', GoogleLogin.as_view(), name='google-login'),
+    url(r'^facebook_login/$', FacebookLogin.as_view(), name='facebook-login')
 ]
+
