@@ -1,7 +1,7 @@
 import os
 from django.core.exceptions import ObjectDoesNotExist
 
-from rest_framework import generics, status
+from rest_framework import generics, status, filters
 from rest_framework import exceptions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
@@ -23,6 +23,7 @@ class PostList(generics.ListCreateAPIView):
         # 회원인 경우만 포스트 작성 가능
         IsAuthenticatedOrReadOnly,
     )
+    filter_backends = (filters.OrderingFilter,)
 
     # author_track 저장 폴더 경로의 동적 생성에 포스트 pk 값을 사용하기 위한 create 메서드 오버라이드
     def create(self, request, *args, **kwargs):
