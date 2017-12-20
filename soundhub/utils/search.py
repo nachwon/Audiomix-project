@@ -54,38 +54,3 @@ class Search(APIView):
             'comment_tracks': comment_track_list,
         }
         return Response(data, status=status.HTTP_200_OK)
-
-
-# def create_post(user):
-#     return Post.objects.create(
-#         title='title',
-#         author=user,
-#         instrument='instrument',
-#         genre='genre',
-#         author_track='track',
-#     )
-
-# def create_comment(user, post):
-#     return CommentTrack.objects.create(
-#         author=user,
-#         post=post,
-#         comment_track='track',
-#         instrument='instrument',
-#     )
-
-# def search_time_counter(num):
-#     dic = dict()
-#     l = list()
-#     a = ''
-#
-#     for i in range(num):
-#         dic[str(i)] = str(i)
-#
-#     start = time.time()
-#     for key, value in dic.items():
-#         if '9' in key:
-#             a = value
-#     end = time.time()
-#
-#     time_consumed = end - start
-#     return time_consumed

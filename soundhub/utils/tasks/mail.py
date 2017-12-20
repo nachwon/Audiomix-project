@@ -21,11 +21,9 @@ def send_verification_mail(activation_key, recipient_list):
     :param recipient_list: 수신자 이메일 목록 list 객체
     :return: send_mail 함수 반환 값
     """
-    scheme = 'http://'
-    # 배포용 서버
-    # host = 'soundhub-dev.ap-northeast-2.elasticbeanstalk.com'
-    # 테스트용 서버
-    host = 'localhost:8000'
+
+    scheme = 'https://'
+    host = 'soundhub.che1.co.kr'
     activation_link = scheme + host + reverse('user:activate') + f'?activation_key={activation_key}'
 
     subject = '[Soundhub] Email Verification'
@@ -69,9 +67,10 @@ def send_verification_mail_after_social_login(data, recipient_list):
     :param recipient_list: 수신자 email list 객체
     :return: send_mail 함수 반환 값
     """
-    scheme = 'http://'
-    # host = 'soundhub-dev.ap-northeast-2.elasticbeanstalk.com'
-    host = 'localhost:8000'
+
+
+    scheme = 'https://'
+    host = 'soundhub.che1.co.kr'
 
     # data 에 전달된 값을 get parameter 로 재구성
     # params = '?key=value&key=value&' 형태
@@ -80,6 +79,7 @@ def send_verification_mail_after_social_login(data, recipient_list):
         params = params + f'{key}={value}&'
 
     # 완성된 회원가입 링크
+
     signup_link = scheme + host + reverse('user:signup') + params[:-1]  # params[:-1]은 맨 뒤에 &를 떼는 로직
 
     subject = '[Soundhub] Email Verification (Signup Soundhub after social login)'

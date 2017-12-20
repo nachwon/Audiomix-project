@@ -1,34 +1,7 @@
 from rest_framework import serializers
 
 from posts.models import Post, CommentTrack
-
-
-class CommentTrackSerializer(serializers.ModelSerializer):
-    author = serializers.SlugRelatedField(
-        read_only=True,
-        slug_field='nickname'
-    )
-    post = serializers.SlugRelatedField(
-        read_only=True,
-        slug_field='title',
-    )
-    comment_track = serializers.FileField(max_length=255, use_url=False, required=False)
-
-    class Meta:
-        model = CommentTrack
-        fields = (
-            'id',
-            'author',
-            'post',
-            'is_mixed',
-            'comment_track',
-            'instrument',
-        )
-        read_only_fields = (
-            'author',
-            'post',
-            'is_mixed',
-        )
+from utils.fields import BypassEmptyStringField
 
 
 class CommentTrackField(serializers.RelatedField):
@@ -64,12 +37,35 @@ class CommentTrackField(serializers.RelatedField):
         return data
 
 
+class CommentTrackSerializer(serializers.ModelSerializer):
+    author = serializers.PrimaryKeyRelatedField(read_only=True)
+    post = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='title',
+    )
+    comment_track = serializers.FileField(max_length=255, use_url=False, required=False)
+
+    class Meta:
+        model = CommentTrack
+        fields = (
+            'id',
+            'author',
+            'post',
+            'is_mixed',
+            'comment_track',
+            'instrument',
+        )
+        read_only_fields = (
+            'author',
+            'post',
+            'is_mixed',
+        )
+
+
 class PostSerializer(serializers.ModelSerializer):
     # 유저 시리얼라이저를 통해 유저 객체 직렬화 후 할당
-    author = serializers.SlugRelatedField(
-        read_only=True,
-        slug_field='nickname'
-    )
+    author = serializers.PrimaryKeyRelatedField(read_only=True)
+    post_img = BypassEmptyStringField(use_url=False)
     author_track = serializers.FileField(max_length=255, use_url=False, required=False)
     liked = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     comment_tracks = CommentTrackField(read_only=True)
@@ -82,6 +78,7 @@ class PostSerializer(serializers.ModelSerializer):
             'id',
             'title',
             'author',
+            'post_img',
             'instrument',
             'genre',
             'liked',

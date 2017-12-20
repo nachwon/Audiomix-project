@@ -3,16 +3,15 @@ from rest_framework import generics
 from rest_framework.mixins import ListModelMixin
 from rest_framework.response import Response
 
+from homepages.serializers import HomePageUserSerializer, HomepagePostSerializer
 from posts.models import Post
-from posts.serializers import PostSerializer
-from users.serializers import UserSerializer
 
 User = get_user_model()
 
 
 class HomePageView(ListModelMixin, generics.GenericAPIView):
-    user_serializer = UserSerializer
-    post_serializer = PostSerializer
+    user_serializer = HomePageUserSerializer
+    post_serializer = HomepagePostSerializer
 
     def list(self, request, *args, **kwargs):
         pop_user_queryset = User.objects.order_by('-total_liked')[:15]
@@ -35,8 +34,8 @@ class HomePageView(ListModelMixin, generics.GenericAPIView):
 
 
 class GenreHomePageView(ListModelMixin, generics.GenericAPIView):
-    user_serializer = UserSerializer
-    post_serializer = PostSerializer
+    user_serializer = HomePageUserSerializer
+    post_serializer = HomepagePostSerializer
     lookup_url_kwarg = 'genre'
 
     def list(self, request, *args, **kwargs):
@@ -53,9 +52,15 @@ class GenreHomePageView(ListModelMixin, generics.GenericAPIView):
         recent_post_serializer = self.post_serializer(recent_post_queryset, many=True)
 
         data = {
-            "pop_users": pop_user_serializer.data,
-            "pop_posts": pop_post_serializer.data,
-            "recent_posts": recent_post_serializer.data
+            "header": {
+                "total_users": user_queryset.count(),
+                "total_posts": post_queryset.count()
+            },
+            "contents": {
+                "pop_users": pop_user_serializer.data,
+                "pop_posts": pop_post_serializer.data,
+                "recent_posts": recent_post_serializer.data
+            },
         }
         return Response(data)
 
@@ -64,8 +69,8 @@ class GenreHomePageView(ListModelMixin, generics.GenericAPIView):
 
 
 class InstrumentHomePageView(ListModelMixin, generics.GenericAPIView):
-    user_serializer = UserSerializer
-    post_serializer = PostSerializer
+    user_serializer = HomePageUserSerializer
+    post_serializer = HomepagePostSerializer
     lookup_url_kwarg = 'instrument'
 
     def list(self, request, *args, **kwargs):
@@ -82,9 +87,15 @@ class InstrumentHomePageView(ListModelMixin, generics.GenericAPIView):
         recent_post_serializer = self.post_serializer(recent_post_queryset, many=True)
 
         data = {
-            "pop_users": pop_user_serializer.data,
-            "pop_posts": pop_post_serializer.data,
-            "recent_posts": recent_post_serializer.data
+            "header": {
+                "total_users": user_queryset.count(),
+                "total_posts": post_queryset.count()
+            },
+            "contents": {
+                "pop_users": pop_user_serializer.data,
+                "pop_posts": pop_post_serializer.data,
+                "recent_posts": recent_post_serializer.data
+            },
         }
         return Response(data)
 

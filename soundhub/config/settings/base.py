@@ -58,7 +58,6 @@ EMAIL_HOST_USER = config_secret['email']['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = config_secret['email']['EMAIL_HOST_PASSWORD']
 DEFAULT_FROM_EMAIL = 'joo2theeon@gmail.com'
 
-# Facebook app
 FACEBOOK_APP_ID = config_secret['facebook']['FACEBOOK_APP_ID']
 FACEBOOK_APP_SECRET_CODE = config_secret['facebook']['FACEBOOK_APP_SECRET_CODE']
 
@@ -71,13 +70,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
 }
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config_secret['django']['SECRET_KEY']
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -109,6 +108,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'storages',
     'django_filters',
+    'raven.contrib.django.raven_compat',
 
     # 커스텀 앱
     'users',
@@ -178,7 +178,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)

@@ -16,13 +16,19 @@ def comment_track_directory_path(instance, filename):
     return f'user_{instance.post.author.id}/Post_{instance.post.id}/comment_tracks/comment_track_{instance.pk}.mp3'
 
 
+def post_img_directory_path(instance, filename):
+    return f'user_{instance.author.id}/Post_{instance.id}/post_img/{filename}'
+
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    post_img = models.ImageField(upload_to=post_img_directory_path, blank=True)
     instrument = models.CharField(max_length=100)
     genre = models.CharField(max_length=100)
     master_track = models.FileField(upload_to=master_track_directory_path, blank=True, null=True)
     author_track = models.FileField(upload_to=author_track_directory_path, max_length=255)
+    bpm = models.IntegerField(default=0)
     liked = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                    through='PostLike',
                                    related_name='liked_posts')

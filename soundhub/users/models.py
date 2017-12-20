@@ -10,8 +10,6 @@ from django.db import models
 from django.utils import timezone
 from rest_framework.authtoken.models import Token
 
-from users.fields import DefaultStaticImageField
-
 
 # 회원 가입시 이메일, 닉네임, 악기, 비밀번호를 받도록 하는 커스텀 매니저 설정
 class CustomUserManager(BaseUserManager):
@@ -72,6 +70,10 @@ def profile_image_directory_path(instance, filename):
     return f'user_{instance.id}/profile_img/{filename}'
 
 
+def profile_bg_directory_path(instance, filename):
+    return f'user_{instance.id}/profile_bg/{filename}'
+
+
 # 이메일을 아이디로 사용하는 커스텀 유저 모델
 # PermissionsMixin 을 상속받아서 권한 관련 메서드들을 포함
 class User(AbstractBaseUser, PermissionsMixin):
@@ -92,9 +94,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField( verbose_name='이메일 주소', max_length=255, unique=True,)
     nickname = models.CharField(max_length=50, unique=True)
-    profile_img = DefaultStaticImageField(
-        blank=True, upload_to=profile_image_directory_path,
-        default='default-profile.png')
+    # 프로필 이미지
+    profile_img = models.ImageField(blank=True, upload_to=profile_image_directory_path)
+    # 프로필 배경 이미지
+    profile_bg = models.ImageField(blank=True, upload_to=profile_bg_directory_path)
     # Guitar, Base, Drum, Vocal, Keyboard, Other 등은 프론트에서 체크박스 value 로 받고,
     # Serializer 에서 문자열로 합쳐줌
     instrument = models.CharField(max_length=255, blank=True, null=True)

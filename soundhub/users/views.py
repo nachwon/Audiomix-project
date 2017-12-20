@@ -2,13 +2,14 @@ from typing import NamedTuple
 
 import requests
 from django.conf import settings
+from django.contrib.auth.models import AnonymousUser
 from django.urls import reverse
 from django.utils import timezone
 
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
 from django.contrib.auth import get_user_model, authenticate
-from rest_framework import status, generics
+from rest_framework import status, generics, filters
 from rest_framework.authtoken.models import Token
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -22,6 +23,7 @@ from users.exceptions import (
     RequestDataInvalid,
 )
 from utils.permissions import IsOwnerOrReadOnly
+from utils.rescale_img import make_profile_img, make_profile_bg
 from utils.tasks.mail import (
     send_verification_mail,
     send_confirm_readmission_mail,
@@ -30,7 +32,7 @@ from utils.tasks.mail import (
 )
 from utils.encryption import encrypt, decrypt
 from .models import ActivationKeyInfo, Relationship
-from .serializers import UserSerializer, SignupSerializer
+from .serializers import UserSerializer, SignupSerializer, ProfileImageSerializer
 
 User = get_user_model()
 
@@ -45,12 +47,53 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     )
 
 
+class ProfileImage(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = ProfileImageSerializer
+    permission_classes = (
+        IsOwnerOrReadOnly,
+    )
+
+    # 패치 요청을 받았을 때
+    # request.data 에 profile_img 가 있으면
+    # 이미지 관련 작업 실행
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        profile_img = request.data.get('profile_img', False)
+        profile_bg = request.data.get('profile_bg', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+
+        if profile_img:
+            make_profile_img(instance, profile_img)
+        elif profile_img == '':
+            instance.profile_img.delete()
+
+        if profile_bg:
+            make_profile_bg(instance, profile_bg)
+        elif profile_bg == '':
+            instance.profile_bg.delete()
+
+        if getattr(instance, '_prefetched_objects_cache', None):
+            # If 'prefetch_related' has been applied to a queryset, we need to
+            # forcibly invalidate the prefetch cache on the instance.
+            instance._prefetched_objects_cache = {}
+
+        return Response(serializer.data)
+
+
 # 유저 목록 조회
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (
         IsAuthenticatedOrReadOnly,
+    )
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = (
+        'total_liked',
+        'num_followers',
     )
 
 
@@ -72,6 +115,17 @@ class Login(APIView):
                 'message': 'Invalid credentials'
             }
             return Response(data, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class Logout(APIView):
+    def post(self, request):
+        if request.user is not AnonymousUser:
+            token = get_object_or_404(Token, user=request.user)
+            token.delete()
+            data = {
+                "detail": "로그아웃 되었습니다."
+            }
+            return Response(data, status=status.HTTP_200_OK)
 
 
 class Signup(APIView):

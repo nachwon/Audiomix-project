@@ -57,7 +57,8 @@ Pygments==2.2.0
 python-dateutil==2.6.1
 pytz==2017.2
 PyYAML==3.12
-requests==2.18.4
+raven==6.4.0
+requests==2.9.1
 requests-oauthlib==0.8.0
 rsa==3.4.2
 s3transfer==0.1.12

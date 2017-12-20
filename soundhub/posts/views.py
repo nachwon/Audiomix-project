@@ -1,6 +1,7 @@
+import os
 from django.core.exceptions import ObjectDoesNotExist
 
-from rest_framework import generics, status
+from rest_framework import generics, status, filters
 from rest_framework import exceptions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
@@ -11,6 +12,7 @@ from posts.serializers import PostSerializer, CommentTrackSerializer
 from posts.tasks import mix_task
 
 from utils.permissions import IsAuthorOrReadOnly
+from utils.rescale_img import make_post_img
 
 
 # 포스트 목록 조회 및 포스트 생성 API
@@ -20,6 +22,12 @@ class PostList(generics.ListCreateAPIView):
     permission_classes = (
         # 회원인 경우만 포스트 작성 가능
         IsAuthenticatedOrReadOnly,
+    )
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = (
+        'num_liked',
+        'num_comments',
+        'created_date',
     )
 
     # author_track 저장 폴더 경로의 동적 생성에 포스트 pk 값을 사용하기 위한 create 메서드 오버라이드
@@ -62,6 +70,34 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
         # 작성자인 경우만 포스트 수정, 삭제 가능
         IsAuthorOrReadOnly,
     )
+
+    # 포스트 수정
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        post_img = request.data.get('post_img', False)
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+
+        # 요청에 포스트 이미지가 있을 경우
+        if post_img:
+            # 포스트 이미지 크기 수정 후 업로드
+            make_post_img(post=instance, post_img=post_img)
+        # 포스트 이미지 필드에 빈 스트링이 오면,
+        elif post_img == "":
+            # 인스턴스의 포스트 이미지 삭제
+            instance.post_img.delete()
+        # 요청에 포스트 이미지 필드가 없는 경우
+        else:
+            # 일반적인 포스트 수정 수행
+            self.perform_update(serializer)
+
+        if getattr(instance, '_prefetched_objects_cache', None):
+            # If 'prefetch_related' has been applied to a queryset, we need to
+            # forcibly invalidate the prefetch cache on the instance.
+            instance._prefetched_objects_cache = {}
+
+        return Response(serializer.data)
 
     # 포스트 객체 삭제시 s3 저장소 내의 파일들도 모두 삭제
     def perform_destroy(self, instance):
@@ -108,7 +144,6 @@ class CommentTrackList(generics.ListCreateAPIView):
             return Post.objects.all()
 
     # POST 요청 받을 시
-
     def create(self, request, *args, **kwargs):
         post = self.get_object()
         data = {
@@ -247,17 +282,23 @@ class MixTracks(generics.UpdateAPIView, generics.GenericAPIView):
             for i in queryset:
                 i.save_is_mixed()
 
+            # 셀러리를 사용한 비동기 처리로 음원 파일 믹스
             mix_task.delay(post.pk)
 
+        # mix_tracks 키로 넘어온 값이 없으면
         else:
+            # 포스트 객체 가져와서
             post = self.get_object()
+            # 객체의 master_track 을 author_track 과 동일하게 만들어 주고
             post.master_track = post.author_track
+            # 저장
             post.save()
-
-            queryset = post.comment_tracks.all()
+            # mixed_tracks 필드를 비워준다
             post.mixed_tracks.clear()
 
-            # 모든 커멘트 트랙들 돌면서 is_mixed 값 업데이트
+            # 포스트에 달린 모든 커멘트 트랙들을 불러와서
+            queryset = post.comment_tracks.all()
+            # 하나씩 돌면서 is_mixed 값 업데이트
             for i in queryset:
                 i.save_is_mixed()
 
