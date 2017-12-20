@@ -1,7 +1,12 @@
+from typing import NamedTuple
+
+import requests
+from django.conf import settings
+from django.urls import reverse
 from django.utils import timezone
 
 from google.oauth2 import id_token
-from google.auth.transport import requests
+from google.auth.transport import requests as google_requests
 from django.contrib.auth import get_user_model, authenticate
 from rest_framework import status, generics
 from rest_framework.authtoken.models import Token
@@ -265,12 +270,10 @@ class GoogleLogin(APIView):
         """
         token = request.data['token']
         client_id = request.data['client_id']
-        nickname = request.data['nickname']
-        instrument = request.data['instrument']
 
         try:
             # token 을 인증하고, 토큰 내부 정보를 가져옴
-            id_info = id_token.verify_oauth2_token(token, requests.Request(), client_id)
+            id_info = id_token.verify_oauth2_token(token, google_requests.Request(), client_id)
             # token 발행정보 확인
             if id_info['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
                 raise ValueError('Wrong issuer.')
@@ -282,8 +285,19 @@ class GoogleLogin(APIView):
             user = User.objects.get(email=id_info['email'])
             user.is_active = True
             user.save()
+            data = {
+                'token': user.token,
+                'user': UserSerializer(user).data,
+                # 'is_active': user.is_active,  # 디버그용
+            }
+            return Response(data, status=status.HTTP_200_OK)
+
+        # 존재하지 않는 유저일 경우만 받음
+        nickname = request.data['nickname']
+        instrument = request.data['instrument']
+
         # 닉네임이 존재할 경우
-        elif User.objects.filter(nickname=nickname).exists():
+        if User.objects.filter(nickname=nickname).exists():
             raise APIException('이미 존재하는 닉네임입니다')
         else:
             # 토큰 정보로 유저 생성. 이메일 인증 생략하고 바로 is_active=True
@@ -303,6 +317,167 @@ class GoogleLogin(APIView):
             # 'is_active': user.is_active,  # 디버그용
         }
         return Response(data, status=status.HTTP_201_CREATED)
+
+
+class FacebookLogin(APIView):
+    # access token 값을 저장하는 클래스
+    class AccessTokenInfo(NamedTuple):
+        access_token: str
+        token_type: str
+        expires_in: str
+
+    # token 값의 유효성을 검사하기 위한 정보를 저장하는 클래스
+    class DebugTokenInfo(NamedTuple):
+        app_id: str
+        application: str
+        expires_at: int
+        is_valid: bool
+        issued_at: int
+        scopes: list
+        type: str
+        user_id: str
+
+    # User 정보를 담는 클래스
+    class UserInfo:
+        def __init__(self, data):
+            self.id = data['id']
+            self.email = data.get('email', '')
+            self.url_picture = data['picture']['data']['url']
+
+    # GET 요청이 들어왔을 때.
+    def get(self, request):
+        # http://developers.facebook.com/ 에서 만든 Facebook 애플리케이션 access 정보.
+        app_id = settings.FACEBOOK_APP_ID
+        app_secret_code = settings.FACEBOOK_APP_SECRET_CODE
+        app_access_token = f'{app_id}|{app_secret_code}'
+        code = request.GET['code']
+
+        # token 을 받아오는 메서드
+        def get_access_token_info(code):
+            params = {
+                'client_id': app_id,
+                'client_secret': app_secret_code,
+                'redirect_uri': '{scheme}://{host}{redirect_url}'.format(
+                    scheme=request.scheme,
+                    host=request.META['HTTP_HOST'],
+                    redirect_url=reverse('homepage')
+                ),
+                'code': code,
+            }
+            response = requests.get('https://graph.facebook.com/v2.10/oauth/access_token', params=params)
+
+            # **response.json()에 대하여
+            # 1. json.loads(response.content) 와 같음
+            # 2. 앞에 붙은 **는, json 정보를 key-value 로 집어 넣는 것을 의미한다.
+            # AccessTokenInfo(access_token=response.json()['access_token'],
+            #    'token_type'=response.json()['token_type.....
+            return self.AccessTokenInfo(**response.json())
+
+        # 받아온 토큰 값이 진짜 토큰인지 확인하는 메서드
+        def get_debug_token_info(access_token):
+            params = {
+                'input_token': access_token,
+                'access_token': app_access_token,
+            }
+            response = requests.get('https://graph.facebook.com/debug_token', params=params)
+            return self.DebugTokenInfo(**response.json()['data'])
+
+        # 토큰을 받아오고 디버그하는 메서드 실행
+        token_info = get_access_token_info(code)
+        access_token = token_info.access_token
+        debug_token_info = get_debug_token_info(token_info.access_token)
+
+        # 토큰을 사용해서 유저 정보 받아옴
+        url_graph_user_info = 'https://graph.facebook.com/me'
+        user_information_fields = ['id', 'name', 'picture', 'email']
+        params_graph = {
+            'fields': ','.join(user_information_fields),
+            'access_token': access_token,
+        }
+        response = requests.get(url_graph_user_info, params_graph)
+        result = response.json()
+        user_info = self.UserInfo(data=result)
+
+        # 현재 클래스는 프론트 측의 작업이므로, 유저 생성 없이 유저 아이디와 토큰만을 전달한다.
+        data = {
+            'facebook_user_id': user_info.id,
+            'access_token': access_token,
+        }
+        return Response(data)
+
+    def post(self, request):
+        # request.data 에 facebook_user_id 와 access_token 이 전달되어 옴
+        print(request.data)
+
+        # token 값의 유효성을 검사하기 위한 정보를 저장하는 클래스
+        class DebugTokenInfo(NamedTuple):
+            app_id: str
+            application: str
+            expires_at: int
+            is_valid: bool
+            issued_at: int
+            scopes: list
+            type: str
+            user_id: str
+
+        # 받아온 토큰 값이 진짜 토큰인지 확인하는 메서드
+        def get_debug_token_info(access_token):
+            app_id = settings.FACEBOOK_APP_ID
+            app_secret_code = settings.FACEBOOK_APP_SECRET_CODE
+            app_access_token = f'{app_id}|{app_secret_code}'
+
+            params = {
+                'input_token': access_token,
+                'access_token': app_access_token,
+            }
+            response = requests.get('https://graph.facebook.com/debug_token', params=params)
+            return DebugTokenInfo(**response.json()['data'])
+
+        debug_token_info = get_debug_token_info(request.data['access_token'])
+
+        if debug_token_info.user_id != request.data['facebook_user_id']:
+            raise APIException('페이스북 토큰의 사용자와 전달받은 facebook_user_id가 일치하지 않음')
+
+        if not debug_token_info.is_valid:
+            raise APIException('페이스북 토큰이 유효하지 않음')
+
+        # FacebookBackend를 사용해서 유저 인증
+        user = authenticate(facebook_user_id=request.data['facebook_user_id'])
+        if user:
+            user.is_active = True
+            user.save()
+            data = {
+                'token': user.token,
+                'user': UserSerializer(user).data,
+                # 'is_active': user.is_active,  # 디버그용
+            }
+            return Response(data, status=status.HTTP_200_OK)
+        else:
+            try:
+                email = request.data['email']
+                nickname = request.data['nickname']
+                instrument = request.data['instrument'] if 'instrument' in request.data else None
+            except User.DoesNotExist:
+                return Response(None)
+            # 인증에 실패한 경우 페이스북유저 타입으로 유저를 만들어줌
+            user = User.objects.create_user(
+                email=email,
+                nickname=nickname,
+                instrument=instrument,
+                is_active=True,
+                user_type=User.USER_TYPE_FACEBOOK,
+            )
+            # 유저 시리얼라이즈 결과를 Response
+            data = {
+                'user': UserSerializer(user).data,
+                'token': user.token,
+            }
+        return Response(data)
+
+# 특정 기능을 테스트 할 때 쓰는 뷰
+# class Test(APIView):
+#     def post(self, request):
+#         return Response(None)
 
 
 class ActivateUser(APIView):

@@ -13,6 +13,7 @@ import json
 import raven
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # 루트 경로
@@ -47,8 +48,9 @@ AWS_STORAGE_BUCKET_NAME = config_secret['aws']['s3_bucket_name']
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_S3_REGION_NAME = 'ap-northeast-2'
 
-
 # Django Mail Information
+# EMAIL_HOST_USER 와 PASSWORD 는 config_secret 모듈에서 관리한다
+# config_secret 모듈은 import 하기 쉽도록 파이썬 모듈로 관리, .gitignore 에 추가해두었다
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
@@ -57,6 +59,8 @@ EMAIL_HOST_USER = config_secret['email']['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = config_secret['email']['EMAIL_HOST_PASSWORD']
 DEFAULT_FROM_EMAIL = 'joo2theeon@gmail.com'
 
+FACEBOOK_APP_ID = config_secret['facebook']['FACEBOOK_APP_ID']
+FACEBOOK_APP_SECRET_CODE = config_secret['facebook']['FACEBOOK_APP_SECRET_CODE']
 
 # Encryption Key
 ENCRYPTION_KEY = config_secret['encrypt']['ENCRYPTION_KEY']
@@ -65,12 +69,11 @@ ENCRYPTION_KEY = config_secret['encrypt']['ENCRYPTION_KEY']
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication'
+        'rest_framework.authentication.TokenAuthentication',
     ),
 }
 
 # SECURITY WARNING: keep the secret key used in production secret!
-
 SECRET_KEY = config_secret['django']['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -91,7 +94,11 @@ ALLOWED_HOSTS = [
 ]
 
 AUTH_USER_MODEL = 'users.User'
-
+# 기본 인증 백엔드에 Facebook Backend 추가함
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'users.backends.FacebookBackend',
+]
 
 # Application definition
 INSTALLED_APPS = [
@@ -102,6 +109,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # 써드파티 앱
     'django_extensions',
     'rest_framework',
@@ -109,6 +117,7 @@ INSTALLED_APPS = [
     'storages',
     'django_filters',
     'raven.contrib.django.raven_compat',
+
     # 커스텀 앱
     'users',
     'utils',

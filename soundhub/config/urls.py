@@ -17,11 +17,17 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from config.views import redirect_to_home
+from utils.search import Search
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', redirect_to_home, name='homepage'),
+    url(r'^search/$', Search.as_view(), name='search'),
     url(r'^user/', include('users.urls', namespace='user')),
     url(r'^post/', include('posts.urls', namespace='post')),
     url(r'^home/', include('homepages.urls', namespace='home')),
+
+    # 특정 기능을 간단히 테스트할 때 쓰는 주소
+    # url(r'^test/$', Test.as_view(), name='test'),
 ]
