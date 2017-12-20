@@ -85,6 +85,10 @@ class UserList(generics.ListAPIView):
         IsAuthenticatedOrReadOnly,
     )
     filter_backends = (filters.OrderingFilter,)
+    ordering_fields = (
+        'total_liked',
+        'num_followers',
+    )
 
 
 # 로그인
