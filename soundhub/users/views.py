@@ -2,6 +2,7 @@ from typing import NamedTuple
 
 import requests
 from django.conf import settings
+from django.contrib.auth.models import AnonymousUser
 from django.urls import reverse
 from django.utils import timezone
 
@@ -110,6 +111,18 @@ class Login(APIView):
                 'message': 'Invalid credentials'
             }
             return Response(data, status=status.HTTP_401_UNAUTHORIZED)
+
+
+# 로그아웃 뷰
+class Logout(APIView):
+    def post(self, request, *args, **kwargs):
+        if request.user is not AnonymousUser:
+            token = get_object_or_404(Token, user=request.user)
+            token.delete()
+            data = {
+                "detail": "로그아웃 되었습니다."
+            }
+            return Response(data, status=status.HTTP_200_OK)
 
 
 # 회원가입
