@@ -71,7 +71,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
 }
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config_secret['django']['SECRET_KEY']
