@@ -65,6 +65,7 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
         IsAuthorOrReadOnly,
     )
 
+    # 포스트 수정
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
@@ -72,11 +73,17 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
 
+        # 요청에 포스트 이미지가 있을 경우
         if post_img:
+            # 포스트 이미지 크기 수정 후 업로드
             make_post_img(post=instance, post_img=post_img)
+        # 포스트 이미지 필드에 빈 스트링이 오면,
         elif post_img == "":
+            # 인스턴스의 포스트 이미지 삭제
             instance.post_img.delete()
+        # 요청에 포스트 이미지 필드가 없는 경우
         else:
+            # 일반적인 포스트 수정 수행
             self.perform_update(serializer)
 
         if getattr(instance, '_prefetched_objects_cache', None):
@@ -131,7 +138,6 @@ class CommentTrackList(generics.ListCreateAPIView):
             return Post.objects.all()
 
     # POST 요청 받을 시
-
     def create(self, request, *args, **kwargs):
         post = self.get_object()
         data = {
