@@ -24,36 +24,14 @@ class PostListField(serializers.RelatedField):
         return data_list
 
 
-# 프로필 이미지를 위한 커스텀 필드
-class ProfileImageField(serializers.ImageField):
-    # 객체 저장을 위한 queryset 지정
-    queryset = User.objects.all()
-
-    # 보여줄 때
-    def to_representation(self, value):
-        # value 는 DefaultStaticImageFieldFile 객체
-        # 상대경로를 보여주기 위한 정규표현식
-        pattern = re.compile(r'.*/che1-soundhub/(.*)[?]')
-        # value.url 을 호출하여 파일이 있으면 파일의 절대경로를 가져오고
-        # 없으면 디폴트 이미지의 절대경로를 가져옴
-        # 받은 절대경로를 잘라서 상대경로로 바꿔준 뒤 리턴
-        result = pattern.match(value.url).group(1)
-        return result
-
-    # 저장할 때
-    def to_internal_value(self, data):
-        # 받은 data(파일 객체) 그대로 넘겨줌
-        return data
-
-
 # 유저 모델 시리얼라이저
 class UserSerializer(serializers.ModelSerializer):
     post_set = PostListField(read_only=True)
     following = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
     followers = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
     liked_posts = PostListField(read_only=True)
-    # 커스팀 필드 ProfileImageField 를 사용해서 profile_img 필드 처리
-    profile_img = ProfileImageField()
+    profile_img = serializers.ImageField(read_only=True, use_url=False)
+    profile_bg = serializers.ImageField(read_only=True, use_url=False)
 
     class Meta:
         model = User
@@ -62,6 +40,7 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'nickname',
             'profile_img',
+            'profile_bg',
             'instrument',
             'user_type',
             'genre',
@@ -78,10 +57,45 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = (
             'email',
             'user_type',
+            'profile_img',
+            'profile_bg',
             'total_liked',
             'is_active',
             'last_login',
             'post_set',
+        )
+
+
+class BypassEmptyStringField(serializers.ImageField):
+    def to_internal_value(self, data):
+        if data == '':
+            return data
+        return super().to_internal_value(data)
+
+
+class ProfileImageField(BypassEmptyStringField):
+    def to_representation(self, value):
+        if not value:
+            return None
+        p = re.compile(r'(user_\d+/profile_img/)')
+        path = p.match(value.name).group(1)
+
+        data = {
+            "profile_img_200": f"{path}profile_img_200.png",
+            "profile_img_400": f"{path}profile_img_400.png",
+        }
+        return data
+
+
+class ProfileImageSerializer(serializers.ModelSerializer):
+    profile_img = ProfileImageField()
+    profile_bg = BypassEmptyStringField(use_url=False)
+
+    class Meta:
+        model = User
+        fields = (
+            'profile_img',
+            'profile_bg'
         )
 
 

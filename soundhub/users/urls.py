@@ -1,7 +1,10 @@
 
 from django.conf.urls import url
 
-from users.views import UserDetail, Login, Signup, ActivateUser, UserList, FollowUserToggle, GoogleLogin, FacebookLogin
+
+
+
+from users.views import UserDetail, Login, Signup, ActivateUser, UserList, FollowUserToggle, GoogleLogin, FacebookLogin, ProfileImage
 
 urlpatterns = [
     # User Object
@@ -9,6 +12,8 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/$', UserDetail.as_view(), name='detail'),
     # User Follow
     url(r'^(?P<pk>\d+)/follow/$', FollowUserToggle.as_view(), name='follow'),
+    # User Profile
+    url(r'^(?P<pk>\d+)/profile-img/$', ProfileImage.as_view(), name='profile-img'),
     # User Login/Signup
     url(r'^login/$', Login.as_view(), name='login'),
     url(r'^signup/$', Signup.as_view(), name='signup'),

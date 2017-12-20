@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 import json
+import raven
 import os
 
 
@@ -58,7 +59,6 @@ EMAIL_HOST_USER = config_secret['email']['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = config_secret['email']['EMAIL_HOST_PASSWORD']
 DEFAULT_FROM_EMAIL = 'joo2theeon@gmail.com'
 
-# Facebook app
 FACEBOOK_APP_ID = config_secret['facebook']['FACEBOOK_APP_ID']
 FACEBOOK_APP_SECRET_CODE = config_secret['facebook']['FACEBOOK_APP_SECRET_CODE']
 
@@ -78,6 +78,13 @@ SECRET_KEY = config_secret['django']['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+RAVEN_CONFIG = {
+    'dsn': 'https://e01ad1cebe374afba306dd30c0c95aec:f188b0f719e24508946c5ab72b4de3c8@sentry.io/259770',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
+}
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -109,6 +116,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'storages',
     'django_filters',
+    'raven.contrib.django.raven_compat',
 
     # 커스텀 앱
     'users',
@@ -178,7 +186,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
