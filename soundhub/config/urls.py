@@ -27,7 +27,4 @@ urlpatterns = [
     url(r'^user/', include('users.urls', namespace='user')),
     url(r'^post/', include('posts.urls', namespace='post')),
     url(r'^home/', include('homepages.urls', namespace='home')),
-
-    # 특정 기능을 간단히 테스트할 때 쓰는 주소
-    # url(r'^test/$', Test.as_view(), name='test'),
 ]
