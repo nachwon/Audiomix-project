@@ -3,16 +3,15 @@ from rest_framework import generics
 from rest_framework.mixins import ListModelMixin
 from rest_framework.response import Response
 
+from homepages.serializers import HomePageUserSerializer, HomepagePostSerializer
 from posts.models import Post
-from posts.serializers import PostSerializer
-from users.serializers import UserSerializer
 
 User = get_user_model()
 
 
 class HomePageView(ListModelMixin, generics.GenericAPIView):
-    user_serializer = UserSerializer
-    post_serializer = PostSerializer
+    user_serializer = HomePageUserSerializer
+    post_serializer = HomepagePostSerializer
 
     def list(self, request, *args, **kwargs):
         pop_user_queryset = User.objects.order_by('-total_liked')[:15]
@@ -35,8 +34,8 @@ class HomePageView(ListModelMixin, generics.GenericAPIView):
 
 
 class GenreHomePageView(ListModelMixin, generics.GenericAPIView):
-    user_serializer = UserSerializer
-    post_serializer = PostSerializer
+    user_serializer = HomePageUserSerializer
+    post_serializer = HomepagePostSerializer
     lookup_url_kwarg = 'genre'
 
     def list(self, request, *args, **kwargs):
@@ -64,8 +63,8 @@ class GenreHomePageView(ListModelMixin, generics.GenericAPIView):
 
 
 class InstrumentHomePageView(ListModelMixin, generics.GenericAPIView):
-    user_serializer = UserSerializer
-    post_serializer = PostSerializer
+    user_serializer = HomePageUserSerializer
+    post_serializer = HomepagePostSerializer
     lookup_url_kwarg = 'instrument'
 
     def list(self, request, *args, **kwargs):

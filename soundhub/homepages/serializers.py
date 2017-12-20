@@ -1,14 +1,16 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from posts.models import Post
 from utils.fields import BypassEmptyStringField
+
+User = get_user_model()
 
 
 class HomepagePostSerializer(serializers.ModelSerializer):
     author = serializers.PrimaryKeyRelatedField(read_only=True)
     post_img = BypassEmptyStringField(use_url=False)
     author_track = serializers.FileField(max_length=255, use_url=False, required=False)
-    liked = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     master_track = serializers.FileField(max_length=255, use_url=False, required=False)
 
     class Meta:
@@ -25,4 +27,25 @@ class HomepagePostSerializer(serializers.ModelSerializer):
             'created_date',
             'master_track',
             'author_track',
+        )
+
+
+class HomePageUserSerializer(serializers.ModelSerializer):
+    profile_img = serializers.ImageField(read_only=True, use_url=False)
+
+    class Meta:
+        model = User
+        fields = (
+            'id',
+            'email',
+            'nickname',
+            'profile_img',
+            'instrument',
+            'user_type',
+            'genre',
+            'total_liked',
+            'num_followings',
+            'num_followers',
+            'is_active',
+            'last_login',
         )
