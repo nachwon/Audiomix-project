@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 import json
-import raven
 import os
 
 
@@ -78,16 +77,6 @@ REST_FRAMEWORK = {
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config_secret['django']['SECRET_KEY']
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-# RAVEN_CONFIG = {
-#     'dsn': 'https://e01ad1cebe374afba306dd30c0c95aec:f188b0f719e24508946c5ab72b4de3c8@sentry.io/259770',
-#     # If you are using git, you can also automatically configure the
-#     # release based on the git info.
-#     'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
-# }
 
 ALLOWED_HOSTS = [
     'localhost',
