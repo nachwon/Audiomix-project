@@ -59,8 +59,8 @@ EMAIL_HOST_USER = config_secret['email']['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = config_secret['email']['EMAIL_HOST_PASSWORD']
 DEFAULT_FROM_EMAIL = 'joo2theeon@gmail.com'
 
-FACEBOOK_APP_ID = config_secret['facebook']['FACEBOOK_APP_ID']
-FACEBOOK_APP_SECRET_CODE = config_secret['facebook']['FACEBOOK_APP_SECRET_CODE']
+# FACEBOOK_APP_ID = config_secret['facebook']['FACEBOOK_APP_ID']
+# FACEBOOK_APP_SECRET_CODE = config_secret['facebook']['FACEBOOK_APP_SECRET_CODE']
 
 # Encryption Key
 ENCRYPTION_KEY = config_secret['encrypt']['ENCRYPTION_KEY']
