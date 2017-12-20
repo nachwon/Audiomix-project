@@ -35,8 +35,10 @@ class LikedPostsField(serializers.RelatedField):
                 profile_img = post.author.profile_img.name
             data = {
                 "id": post.pk,
-                "author": post.author.id,
-                "profile_img": profile_img,
+                "author": {
+                    "id": post.author.id,
+                    "profile_img": profile_img,
+                },
                 "title": post.title,
                 "genre": post.genre,
                 "instrument": post.instrument,
