@@ -12,6 +12,8 @@ class Message(models.Model):
                                 null=True,
                                 on_delete=models.SET_NULL)
     content = models.CharField(max_length=255, blank=True, null=True)
+    sent_deleted = models.BooleanField(default=False)
+    inbox_deleted = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
