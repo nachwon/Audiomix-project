@@ -115,6 +115,7 @@ INSTALLED_APPS = [
     'utils',
     'posts',
     'homepages',
+    'messages',
 ]
 
 MIDDLEWARE = [
