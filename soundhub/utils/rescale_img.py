@@ -1,4 +1,5 @@
 import os
+import random
 import re
 
 from PIL import Image
@@ -118,12 +119,14 @@ def make_post_img(post_img):
         return None
 
     # profile_bg 생성을 위한 로컬 경로
-    directory = os.path.join(settings.MEDIA_ROOT, f'post/post_bg')
+    rand_int = random.randint(1, 100000)
+    directory = os.path.join(settings.MEDIA_ROOT, f'post/{rand_int}/post_bg')
     # 경로가 없으면 만들어줌
     if not os.path.exists(directory):
         os.makedirs(directory)
 
     resized = rescale(img, size)
+
     filename = f'post_img.png'
     post_dir = os.path.join(directory, filename)
     resized.save(post_dir)

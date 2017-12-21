@@ -70,10 +70,10 @@ class PostList(generics.ListCreateAPIView):
             }
             raise exceptions.ValidationError(data)
         post_img = self.request.data.get('post_img', None)
-        print(type(post_img) == TemporaryUploadedFile)
         if post_img is not None and type(post_img) == TemporaryUploadedFile:
             file, post_dir = make_post_img(post_img)
             serializer.save(post_img=file)
+            os.remove(post_dir)
 
         elif post_img is not None and not type(post_img) == TemporaryUploadedFile:
             data = {
