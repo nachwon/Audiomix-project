@@ -36,5 +36,6 @@ class SentSerializer(serializers.ModelSerializer):
             'id',
             'to_user',
             'content',
+            'read_date',
             'created_date'
         )

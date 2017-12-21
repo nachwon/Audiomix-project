@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 from rest_framework import generics, exceptions, status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -47,6 +48,18 @@ class InboxDetail(generics.RetrieveDestroyAPIView):
             raise exceptions.NotAuthenticated
         return user.received_msgs.all()
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.read_date = timezone.now()
+        instance.save()
+        if instance.inbox_deleted:
+            data = {
+                "detail": "받은 메세지함에서 삭제된 메세지 입니다."
+            }
+            raise exceptions.NotFound(data)
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         self.perform_destroy(instance)
@@ -87,6 +100,16 @@ class SentDetail(generics.RetrieveDestroyAPIView):
         if user.is_anonymous:
             raise exceptions.NotAuthenticated
         return user.sent_msgs.all()
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.sent_deleted:
+            data = {
+                "detail": "보낸 메세지함에서 삭제된 메세지 입니다."
+            }
+            raise exceptions.NotFound(data)
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
