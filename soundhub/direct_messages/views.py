@@ -56,8 +56,11 @@ class InboxDetail(generics.RetrieveDestroyAPIView):
         return Response(data, status=status.HTTP_204_NO_CONTENT)
 
     def perform_destroy(self, instance):
-        instance.inbox_deleted = True
-        instance.save()
+        if instance.sent_deleted:
+            instance.delete()
+        else:
+            instance.inbox_deleted = True
+            instance.save()
 
 
 class Sent(generics.ListAPIView):
@@ -70,4 +73,32 @@ class Sent(generics.ListAPIView):
         user = self.request.user
         if user.is_anonymous:
             raise exceptions.NotAuthenticated
+        return user.sent_msgs.filter(sent_deleted=False)
+
+
+class SentDetail(generics.RetrieveDestroyAPIView):
+    serializer_class = InboxSerializer
+    permission_classes = (
+        IsAuthenticatedOrReadOnly,
+    )
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_anonymous:
+            raise exceptions.NotAuthenticated
         return user.sent_msgs.all()
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        data = {
+            "detail": "보낸 메세지함에서 메세지가 삭제 되었습니다."
+        }
+        return Response(data, status=status.HTTP_204_NO_CONTENT)
+
+    def perform_destroy(self, instance):
+        if instance.inbox_deleted:
+            instance.delete()
+        else:
+            instance.sent_deleted = True
+            instance.save()

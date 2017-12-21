@@ -9,7 +9,7 @@ class MessageSerializer(serializers.ModelSerializer):
         model = Message
         fields = (
             'id',
-            'to_user'
+            'to_user',
             'from_user',
             'content',
             'created_date'
