@@ -11,4 +11,5 @@ class MessageSerializer(serializers.ModelSerializer):
             'from_user',
             'to_user',
             'content',
+            'sent_date'
         )
