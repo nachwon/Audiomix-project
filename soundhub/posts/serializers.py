@@ -87,6 +87,7 @@ class PostSerializer(serializers.ModelSerializer):
             'created_date',
             'master_track',
             'author_track',
+            'bpm',
             'mixed_tracks',
             'comment_tracks',
         )
