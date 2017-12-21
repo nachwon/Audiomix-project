@@ -1,5 +1,6 @@
 import os
 from django.core.exceptions import ObjectDoesNotExist
+from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework import generics, status, filters
 from rest_framework import exceptions
@@ -23,7 +24,11 @@ class PostList(generics.ListCreateAPIView):
         # 회원인 경우만 포스트 작성 가능
         IsAuthenticatedOrReadOnly,
     )
-    filter_backends = (filters.OrderingFilter,)
+    filter_backends = (DjangoFilterBackend, filters.OrderingFilter,)
+    filter_fields = (
+        'instrument',
+        'genre',
+    )
     ordering_fields = (
         'num_liked',
         'num_comments',
