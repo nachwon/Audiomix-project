@@ -1,6 +1,5 @@
 import os
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import TemporaryUploadedFile
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -8,7 +7,6 @@ from rest_framework import generics, status, filters
 from rest_framework import exceptions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
-
 
 from posts.models import Post, CommentTrack, PostLike
 from posts.serializers import PostSerializer, CommentTrackSerializer
