@@ -65,7 +65,7 @@ class CommentTrackSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     # 유저 시리얼라이저를 통해 유저 객체 직렬화 후 할당
     author = serializers.PrimaryKeyRelatedField(read_only=True)
-    post_img = BypassEmptyStringField(use_url=False)
+    post_img = BypassEmptyStringField(use_url=False, required=False)
     author_track = serializers.FileField(max_length=255, use_url=False, required=False)
     liked = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     comment_tracks = CommentTrackField(read_only=True)

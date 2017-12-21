@@ -1,5 +1,7 @@
 import os
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import TemporaryUploadedFile
 from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework import generics, status, filters
@@ -41,13 +43,15 @@ class PostList(generics.ListCreateAPIView):
         data = {
             "title": request.data.get('title'),
             "instrument": request.data.get('instrument'),
-            "genre": request.data.get('genre')
+            "genre": request.data.get('genre'),
+            "bpm": request.data.get('bpm'),
         }
         # 정보를 시리얼라이저에 전달하여 객체화
         serializer = self.get_serializer(data=data)
         # is_valid 를 통해 데이터 검증
         # author_track 의 required=False 때문에 author_track 이 없어도 통과함.
         serializer.is_valid(raise_exception=True)
+
         # 저장해서 포스트 pk 값 할당
         serializer.save(author=self.request.user)
         # perform_create 메서드를 호출해서 author_track 포함하여 저장
@@ -63,6 +67,17 @@ class PostList(generics.ListCreateAPIView):
         else:
             data = {
                 "detail": "author_track 파일이 제출되지 않았습니다."
+            }
+            raise exceptions.ValidationError(data)
+        post_img = self.request.data.get('post_img', None)
+        print(type(post_img) == TemporaryUploadedFile)
+        if post_img is not None and type(post_img) == TemporaryUploadedFile:
+            file, post_dir = make_post_img(post_img)
+            serializer.save(post_img=file)
+
+        elif post_img is not None and not type(post_img) == TemporaryUploadedFile:
+            data = {
+                "post_img": "올바른 형식의 파일이 제출되지 않았습니다."
             }
             raise exceptions.ValidationError(data)
 
@@ -87,7 +102,13 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
         # 요청에 포스트 이미지가 있을 경우
         if post_img:
             # 포스트 이미지 크기 수정 후 업로드
-            make_post_img(post=instance, post_img=post_img)
+            file, post_dir = make_post_img(post_img=post_img)
+            instance.post_img.save(
+                'post_bg.png',
+                file,
+            )
+            os.remove(post_dir)
+
         # 포스트 이미지 필드에 빈 스트링이 오면,
         elif post_img == "":
             # 인스턴스의 포스트 이미지 삭제
