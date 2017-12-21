@@ -24,7 +24,6 @@ class InboxSerializer(serializers.ModelSerializer):
             'id',
             'from_user',
             'content',
-            'inbox_deleted',
             'created_date'
         )
 
@@ -37,6 +36,5 @@ class SentSerializer(serializers.ModelSerializer):
             'id',
             'to_user',
             'content',
-            'sent_deleted',
             'created_date'
         )
