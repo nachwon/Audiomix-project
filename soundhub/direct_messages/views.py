@@ -90,7 +90,7 @@ class Sent(generics.ListAPIView):
 
 
 class SentDetail(generics.RetrieveDestroyAPIView):
-    serializer_class = InboxSerializer
+    serializer_class = SentSerializer
     permission_classes = (
         IsAuthenticatedOrReadOnly,
     )
