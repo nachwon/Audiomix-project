@@ -84,6 +84,7 @@ class SignupSerializer(serializers.ModelSerializer):
     #     data['instrument'] = ','.join(data['instrument'])
     #     return data
 
+    # 비밀번호 일치 검사
     def validate(self, data):
         if data['password1'] != data['password2']:
             raise serializers.ValidationError('비밀번호가 일치하지 않습니다.')

@@ -5,6 +5,7 @@ from users.models import FacebookUserInfo
 User = get_user_model()
 
 
+# facebook user id 와 일치하는 유저 반환
 class FacebookBackend:
     def authenticate(self, request, facebook_user_id):
         try:
