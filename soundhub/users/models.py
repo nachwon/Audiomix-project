@@ -1,5 +1,4 @@
 import hashlib
-import re
 
 from random import random
 
@@ -78,11 +77,14 @@ def profile_bg_directory_path(instance, filename):
 # 이메일을 아이디로 사용하는 커스텀 유저 모델
 # PermissionsMixin 을 상속받아서 권한 관련 메서드들을 포함
 class User(AbstractBaseUser, PermissionsMixin):
+
+    # 유저 타입을 저장하는 상수
     USER_TYPE_SOUNDHUB = 'S'
     USER_TYPE_GOOGLE = 'G'
     USER_TYPE_FACEBOOK = 'F'
     USER_TYPE_NAVER = 'N'
 
+    # 유저 타입 선택 튜플
     USER_TYPE = (
         (USER_TYPE_SOUNDHUB, 'Soundhub'),
         (USER_TYPE_GOOGLE, 'Google'),
@@ -90,34 +92,21 @@ class User(AbstractBaseUser, PermissionsMixin):
         (USER_TYPE_NAVER, 'Naver'),
     )
 
-    # 이메일 주소
-    email = models.EmailField(
-        verbose_name='이메일 주소',
-        max_length=255,
-        unique=True,
-    )
-    # 닉네임
+    email = models.EmailField( verbose_name='이메일 주소', max_length=255, unique=True,)
     nickname = models.CharField(max_length=50, unique=True)
-
     # 프로필 이미지
     profile_img = models.ImageField(blank=True, upload_to=profile_image_directory_path)
-
     # 프로필 배경 이미지
     profile_bg = models.ImageField(blank=True, upload_to=profile_bg_directory_path)
-
     # Guitar, Base, Drum, Vocal, Keyboard, Other 등은 프론트에서 체크박스 value 로 받고,
     # Serializer 에서 문자열로 합쳐줌
     instrument = models.CharField(max_length=255, blank=True, null=True)
-
     # 유저 타입. 소셜로그인인가 아니면 그냥 로그인인가.
     user_type = models.CharField(max_length=1, choices=USER_TYPE, default=USER_TYPE_SOUNDHUB)
-
     # 선호하는 장르
     genre = models.CharField(max_length=100, blank=True, null=True)
-
     # 받은 좋아요 수 총합
     total_liked = models.IntegerField(default=0)
-
     # 팔로잉
     following = models.ManyToManyField(
         'self',
@@ -165,6 +154,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         self.num_followings = self.following.count()
         self.save()
 
+    # 토큰 가져오거나 생성하는 메서드
     @property
     def token(self):
         return Token.objects.get_or_create(user=self)[0].key
@@ -247,17 +237,24 @@ class ActivationKeyInfo(models.Model):
         self.save()
 
 
+# 팔로우 관계 모델
 class Relationship(models.Model):
-    from_user = models.ForeignKey(User, on_delete=models.CASCADE,
-                                  related_name='following_set')
-    to_user = models.ForeignKey(User, on_delete=models.CASCADE,
-                                related_name='follower_set')
+    from_user = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+        related_name='following_set'
+    )
+    to_user = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+        related_name='follower_set'
+    )
     related_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.from_user.nickname} is following {self.to_user.nickname}'
 
 
+# 페이스북 유저의 Facebook User ID 를 저장하기 위한 모델
+# Facebook Backend 에 사용된다
 class FacebookUserInfo(models.Model):
     facebook_user_id = models.CharField(max_length=50, unique=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
