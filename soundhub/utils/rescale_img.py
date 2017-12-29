@@ -1,4 +1,5 @@
 import os
+import random
 import re
 
 from PIL import Image
@@ -110,7 +111,7 @@ def make_profile_bg(user, profile_bg):
 
 
 # 포스트 배경이미지 생성
-def make_post_img(post, post_img):
+def make_post_img(post_img):
     size = (750, 750)
     try:
         img = Image.open(post_img)
@@ -118,24 +119,22 @@ def make_post_img(post, post_img):
         return None
 
     # profile_bg 생성을 위한 로컬 경로
-    directory = os.path.join(settings.MEDIA_ROOT, f'user_{post.author.pk}/Post_{post.pk}/post_img')
+    rand_int = random.randint(1, 100000)
+    directory = os.path.join(settings.MEDIA_ROOT, f'post/{rand_int}/post_bg')
     # 경로가 없으면 만들어줌
     if not os.path.exists(directory):
         os.makedirs(directory)
 
     resized = rescale(img, size)
+
     filename = f'post_img.png'
     post_dir = os.path.join(directory, filename)
     resized.save(post_dir)
 
     with open(post_dir, 'rb') as f:
-        file = ContentFile(f.read())
+        file = ContentFile(f.read(), name=filename)
 
-    post.post_img.save(
-        'post_img.png',
-        file,
-    )
-    os.remove(post_dir)
+    return file, post_dir
 
 
 def upload_to_s3(img_list):

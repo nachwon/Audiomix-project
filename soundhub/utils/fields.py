@@ -37,6 +37,7 @@ class LikedPostsField(serializers.RelatedField):
                 "id": post.pk,
                 "author": {
                     "id": post.author.id,
+                    "nickname": post.author.nickname,
                     "profile_img": profile_img,
                 },
                 "title": post.title,
@@ -66,3 +67,18 @@ class PostSetField(serializers.RelatedField):
             }
             data_list.append(data)
         return data_list
+
+
+class AuthorField(serializers.RelatedField):
+    def to_representation(self, value):
+        if value.profile_img.name == "":
+            profile_img = None
+        else:
+            profile_img = value.profile_img.name
+        data = {
+            "id": value.id,
+            "nickname": value.nickname,
+            "profile_img": profile_img
+        }
+
+        return data

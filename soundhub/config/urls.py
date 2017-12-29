@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^user/', include('users.urls', namespace='user')),
     url(r'^post/', include('posts.urls', namespace='post')),
     url(r'^home/', include('homepages.urls', namespace='home')),
+    url(r'^message/', include('direct_messages.urls', namespace='message')),
 ]

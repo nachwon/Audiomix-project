@@ -10,9 +10,8 @@ from django.conf import settings
 
 def save_master_track(self):
     """
-    author_track 과 comment_track 들을 S3 저장소에서 바로 불러와 사용하는 것까지는 성공했지만,
-    master_track 을 S3 저장소에 바로 생성하는 것은 아직 성공하지 못했음.
-    따라서, 로컬에 master_track.mp3 를 생성하고 그것을 다시 읽어서 Post 객체에 전달하는 방식임.
+    author_track 과 comment_track 들을 S3 저장소에서 바로 불러와 Mix 한 뒤
+    로컬에 master_track.mp3 를 생성하고 그것을 다시 읽어서 Post 객체에 전달.
     :return: master_track 의 ContentFile 객체
     """
     # 포스트의 mixed_tracks 필드에 있는 모든 커맨트 트랙 객체들을 가져옴

@@ -52,15 +52,11 @@ class GenreHomePageView(ListModelMixin, generics.GenericAPIView):
         recent_post_serializer = self.post_serializer(recent_post_queryset, many=True)
 
         data = {
-            "header": {
-                "total_users": user_queryset.count(),
-                "total_posts": post_queryset.count()
-            },
-            "contents": {
-                "pop_users": pop_user_serializer.data,
-                "pop_posts": pop_post_serializer.data,
-                "recent_posts": recent_post_serializer.data
-            },
+            "total_users": user_queryset.count(),
+            "total_posts": post_queryset.count(),
+            "pop_users": pop_user_serializer.data,
+            "pop_posts": pop_post_serializer.data,
+            "recent_posts": recent_post_serializer.data
         }
         return Response(data)
 
@@ -87,15 +83,11 @@ class InstrumentHomePageView(ListModelMixin, generics.GenericAPIView):
         recent_post_serializer = self.post_serializer(recent_post_queryset, many=True)
 
         data = {
-            "header": {
-                "total_users": user_queryset.count(),
-                "total_posts": post_queryset.count()
-            },
-            "contents": {
-                "pop_users": pop_user_serializer.data,
-                "pop_posts": pop_post_serializer.data,
-                "recent_posts": recent_post_serializer.data
-            },
+            "total_users": user_queryset.count(),
+            "total_posts": post_queryset.count(),
+            "pop_users": pop_user_serializer.data,
+            "pop_posts": pop_post_serializer.data,
+            "recent_posts": recent_post_serializer.data
         }
         return Response(data)
 

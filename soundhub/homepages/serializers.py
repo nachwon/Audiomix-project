@@ -2,13 +2,13 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from posts.models import Post
-from utils.fields import BypassEmptyStringField
+from utils.fields import BypassEmptyStringField, AuthorField
 
 User = get_user_model()
 
 
 class HomepagePostSerializer(serializers.ModelSerializer):
-    author = serializers.PrimaryKeyRelatedField(read_only=True)
+    author = AuthorField(read_only=True)
     post_img = BypassEmptyStringField(use_url=False)
     author_track = serializers.FileField(max_length=255, use_url=False, required=False)
     master_track = serializers.FileField(max_length=255, use_url=False, required=False)
