@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import HomePageView, GenreHomePageView, InstrumentHomePageView
+from .apis import HomePageView, GenreHomePageView, InstrumentHomePageView
 
 urlpatterns = [
     url(r'^$', HomePageView.as_view(), name='index'),

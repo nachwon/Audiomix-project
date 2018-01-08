@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,9 +6,38 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'index.css' %}">
     <title>SoundHub</title>
 </head>
 <body>
-    <h1>Welcome to SoundHub</h1>
+<div class="header container">
+
+</div>
+    <div class="container">
+        <h1>Welcome to SoundHub</h1>
+        <div class="pop_users">
+            <h3>
+                Popular Users
+            </h3>
+            {% for user in pop_users %}
+            <div class="user-object">
+                <p>{{ user }}</p>
+                <p>{{ user.total_liked }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="pop-posts">
+            <h3>
+                Popular Posts
+            </h3>
+            {% for post in pop_posts %}
+            <div class="post-object">
+                <p>{{ post }}</p>
+                <p>{{ post.num_liked }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </body>
 </html>
