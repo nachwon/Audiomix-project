@@ -20,6 +20,6 @@ from posts.views import index
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^apis/', include('config.apis_urls')),
+    url(r'^apis/', include('config.apis_urls', namespace='api-urls')),
     url(r'^$', index, name='index'),
 ]
