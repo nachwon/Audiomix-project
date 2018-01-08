@@ -8,36 +8,28 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'index.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Merriweather+Sans" rel="stylesheet">
     <title>SoundHub</title>
 </head>
 <body>
 <div class="header container">
-    <img src="{% static 'logos/logo.png' %}" alt="">
-    <h1>Welcome to SoundHub</h1>
+    <div class="wrapper">
+        <a href="/">
+            <img class="title-logo" src="{% static 'logos/logo.png' %}" alt="">
+        </a>
+        <div class="header-buttons">
+            <a class="signin-btn" href="https://www.naver.com">Sign in</a>
+            <a class="signup-btn" href="/">Create Account</a>
+        </div>
+    </div>
+    <div class="jumbotron" style="background-image: url('static/jumbotron.png')">
+        <h1>Welcome to SoundHub!</h1>
+        <span><strong>SoundHub</strong> is a platform where artists from all around the world can get together to create unique style of music!</span><br>
+        <span>Join SoundHub to create your own music and share it to other artists from around the world!</span>
+    </div>
+
 </div>
     <div class="container">
-        <div class="pop_users">
-            <h3>
-                Popular Users
-            </h3>
-            {% for user in pop_users %}
-            <div class="user-object">
-                <p>{{ user }}</p>
-                <p>{{ user.total_liked }}</p>
-            </div>
-            {% endfor %}
-        </div>
-        <div class="pop-posts">
-            <h3>
-                Popular Posts
-            </h3>
-            {% for post in pop_posts %}
-            <div class="post-object">
-                <p>{{ post }}</p>
-                <p>{{ post.num_liked }}</p>
-            </div>
-            {% endfor %}
-        </div>
     </div>
 </body>
 </html>

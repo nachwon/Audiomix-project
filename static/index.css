@@ -1,4 +1,72 @@
 body {
-    background-color: rgb(53, 53, 53);
-    color: white;
+    background-color: #333533;
+    color: #E8EDDF;
+}
+
+a {
+    color: #E8EDDF;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/* header starts */
+
+div.wrapper {
+    border-top: 3px solid #E2B026;
+    height: 80px;
+}
+
+img.title-logo {
+    margin: 15px;
+    height: 50px;
+    float: left;
+}
+
+div.header-buttons {
+    float: right;
+    vertical-align: middle;
+    height: 80px;
+    font-family: 'Merriweather Sans', sans-serif;
+}
+
+a.signin-btn {
+    margin-right: 10px;
+    line-height: 80px;
+    background: transparent;
+    border: 1px solid #E8EDDF;
+    border-radius: 3px;
+    padding: 7px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+a.signup-btn {
+    line-height: 80px;
+    background: #E2B026;
+    color: #333533;
+    border: 1px solid #E2B026;
+    border-radius: 3px;
+    padding: 7px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* header ends */
+
+/* jumbotron starts */
+
+div.jumbotron {
+    background-color: transparent;
+    background-size: cover;
+    font-family: 'Fjalla One', sans-serif;
+}
+
+div.jumbotron span {
+    font-size: 20px;
+}
+
+div.jumbotron strong {
+    color: #E2B026;
 }
