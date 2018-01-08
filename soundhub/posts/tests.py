@@ -9,7 +9,7 @@ from rest_framework import status
 from rest_framework.test import APILiveServerTestCase, APIRequestFactory, force_authenticate
 
 from posts.models import Post, CommentTrack
-from posts.api import PostList, PostDetail, CommentTrackList, CommentTrackDetail, PostLikeToggle
+from posts.apis import PostList, PostDetail, CommentTrackList, CommentTrackDetail, PostLikeToggle
 
 User = get_user_model()
 

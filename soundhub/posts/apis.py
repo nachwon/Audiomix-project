@@ -68,16 +68,10 @@ class PostList(generics.ListCreateAPIView):
             }
             raise exceptions.ValidationError(data)
         post_img = self.request.data.get('post_img', None)
-        if post_img is not None and type(post_img) == TemporaryUploadedFile:
+        if post_img is not None:
             file, post_dir = make_post_img(post_img)
             serializer.save(post_img=file)
             os.remove(post_dir)
-
-        elif post_img is not None and not type(post_img) == TemporaryUploadedFile:
-            data = {
-                "post_img": "올바른 형식의 파일이 제출되지 않았습니다."
-            }
-            raise exceptions.ValidationError(data)
 
 
 # 단일 포스트 조회, 수정, 삭제 API

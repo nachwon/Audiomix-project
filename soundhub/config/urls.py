@@ -16,16 +16,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from config.views import redirect_to_home
-from utils.search import Search
-
+from posts.views import index
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', redirect_to_home, name='homepage'),
-    url(r'^search/$', Search.as_view(), name='search'),
-    url(r'^user/', include('users.urls', namespace='user')),
-    url(r'^post/', include('posts.urls', namespace='post')),
-    url(r'^home/', include('homepages.urls', namespace='home')),
-    url(r'^message/', include('direct_messages.urls', namespace='message')),
+    url(r'^apis/', include('config.apis_urls')),
+    url(r'^$', index, name='index'),
 ]

@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from posts.api import PostList, PostDetail, CommentTrackList, CommentTrackDetail, PostLikeToggle, MixTracks
+from posts.apis import PostList, PostDetail, CommentTrackList, CommentTrackDetail, PostLikeToggle, MixTracks
 
 urlpatterns = [
     # Post
