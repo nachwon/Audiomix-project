@@ -32,6 +32,9 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
+# 템플릿 파일 설정
+TEMPLATE_DIR = os.path.join(ROOT_DIR, 'templates')
+
 # 기본 프로필 이미지 경로
 DEFAULT_IMAGE_PATH = 'default-profile.png'
 
@@ -142,7 +145,9 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            TEMPLATE_DIR,
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
