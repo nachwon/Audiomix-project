@@ -1,0 +1,113 @@
+/* general starts */
+
+body {
+    background-color: #333533;
+    color: #E8EDDF;
+}
+
+a {
+    color: #E8EDDF;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/* general ends */
+
+/* header starts */
+
+div.wrapper {
+    border-top: 3px solid #E2B026;
+    height: 80px;
+}
+
+img.title-logo {
+    margin: 15px;
+    height: 50px;
+    float: left;
+}
+
+div.header-buttons {
+    float: right;
+    vertical-align: middle;
+    height: 80px;
+    font-family: 'Merriweather Sans', sans-serif;
+}
+
+a.signin-btn {
+    margin-right: 10px;
+    line-height: 80px;
+    background: transparent;
+    border: 1px solid #E8EDDF;
+    border-radius: 3px;
+    padding: 7px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+a.signup-btn {
+    line-height: 80px;
+    background: #E2B026;
+    color: #333533;
+    border: 1px solid #E2B026;
+    border-radius: 3px;
+    padding: 7px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+div.jumbotron {
+    background-color: transparent;
+    background-size: cover;
+    font-family: 'Fjalla One', sans-serif;
+}
+
+div.jumbotron span {
+    font-size: 20px;
+}
+
+div.jumbotron strong {
+    color: #E2B026;
+}
+
+/* header ends */
+
+/* contents starts */
+
+div.contents div.pop-posts {
+    background-color: #E8EDDF;
+    overflow: hidden;
+    color: black;
+    padding: 20px;
+
+    h2.pop-posts-title {
+        font-family: 'Merriweather Sans', sans-serif;
+    }
+}
+
+div.pop-posts div.post-obj {
+    width: 200px;
+    height: 250px;
+    float: left;
+    margin-right: 10px;
+
+    div.post-img {
+        background-size: cover;
+        width: 200px;
+        height: 200px;
+        float: left;
+        border: 1px solid #333533;
+    }
+    p.post-title {
+        text-align: left;
+        font-size: 1.1em;
+        margin-bottom: 0px;
+        font-family: 'Catamaran', sans-serif;
+    }
+    p.post-author {
+        font-family: 'Catamaran', sans-serif;
+    }
+}
+
+/* contents ends */

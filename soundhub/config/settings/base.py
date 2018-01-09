@@ -28,6 +28,7 @@ MEDIA_ROOT = os.path.join(ROOT_DIR, 'temp')
 
 
 # 스테틱 파일 설정
+STATIC_ROOT = os.path.join(ROOT_DIR, 'static_files')
 STATIC_DIR = os.path.join(ROOT_DIR, 'static')
 STATICFILES_DIRS = [
     STATIC_DIR,
