@@ -115,6 +115,7 @@ INSTALLED_APPS = [
     'storages',
     'django_filters',
     'raven.contrib.django.raven_compat',
+    'sass_processor',
 
     # 커스텀 앱
     'users',

@@ -15,8 +15,11 @@ click==6.7
 colorama==0.3.7
 decorator==4.1.2
 Django==1.11.6
+django-appconf==1.0.2
+django-compressor==2.2
 django-extensions==1.9.6
 django-filter==1.1.0
+django-sass-processor==0.5.7
 django-storages==1.6.5
 djangorestframework==3.7.3
 docker-py==1.7.2
@@ -38,6 +41,7 @@ jedi==0.11.0
 Jinja2==2.10
 jmespath==0.9.3
 kombu==4.1.0
+libsass==0.13.4
 MarkupSafe==1.0
 oauth2client==4.1.2
 oauthlib==2.0.6
@@ -48,6 +52,7 @@ pexpect==4.2.1
 pickleshare==0.7.4
 Pillow==4.3.0
 prompt-toolkit==1.0.15
+psycopg2==2.7.3.2
 ptyprocess==0.5.2
 pyasn1==0.4.2
 pyasn1-modules==0.2.1
@@ -58,8 +63,10 @@ python-dateutil==2.6.1
 pytz==2017.2
 PyYAML==3.12
 raven==6.4.0
+rcssmin==1.0.6
 requests==2.9.1
 requests-oauthlib==0.8.0
+rjsmin==1.0.12
 rsa==3.4.2
 s3transfer==0.1.12
 semantic-version==2.5.0
