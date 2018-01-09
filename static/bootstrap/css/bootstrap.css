@@ -1579,7 +1579,7 @@ pre code {
 }
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
+    width: 1250px;
   }
 }
 .container-fluid {
@@ -4839,7 +4839,7 @@ a.badge:focus {
 }
 .jumbotron {
   padding: 30px 15px;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   color: inherit;
   background-color: #eee;
 }
@@ -4857,7 +4857,7 @@ a.badge:focus {
 }
 .container .jumbotron,
 .container-fluid .jumbotron {
-  border-radius: 6px;
+  border-radius: 6px 6px 0 0;
 }
 .jumbotron .container {
   max-width: 100%;

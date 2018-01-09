@@ -27,9 +27,24 @@
         <span><strong>SoundHub</strong> is a platform where artists from all around the world can get together to create unique style of music!</span><br>
         <span>Join SoundHub to create your own music and share it to other artists from around the world!</span>
     </div>
-
 </div>
-    <div class="container">
+    <div class="container contents">
+        <div class="pop-users">
+            {% for post in pop_posts %}
+            <div>
+                <span class="post-title">
+                    {{ post.title }}
+                </span>
+                <div class="post-img">
+                    {% if post.post_img is None %}
+                    <img src="{% static 'default-profile.png' %}" alt="">
+                    {% else %}
+                    <img src="{{ post.post_img }}" alt="">
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </body>
 </html>

@@ -1,3 +1,5 @@
+/* general starts */
+
 body {
     background-color: #333533;
     color: #E8EDDF;
@@ -10,6 +12,8 @@ a {
 a:hover {
     text-decoration: none;
 }
+
+/* general ends */
 
 /* header starts */
 
@@ -53,10 +57,6 @@ a.signup-btn {
     vertical-align: middle;
 }
 
-/* header ends */
-
-/* jumbotron starts */
-
 div.jumbotron {
     background-color: transparent;
     background-size: cover;
@@ -70,3 +70,14 @@ div.jumbotron span {
 div.jumbotron strong {
     color: #E2B026;
 }
+
+/* header ends */
+
+/* contents starts */
+
+div.contents div.pop-users {
+    background-color: #CFDBD5;
+}
+
+/* contents ends */
+
