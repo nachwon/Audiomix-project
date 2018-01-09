@@ -26,17 +26,16 @@ CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.j
 # 미디어 파일 설정
 MEDIA_ROOT = os.path.join(ROOT_DIR, 'temp')
 
+
 # 스테틱 파일 설정
 STATIC_DIR = os.path.join(ROOT_DIR, 'static')
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
+STATIC_URL = '/static/'
 
 # 템플릿 파일 설정
 TEMPLATE_DIR = os.path.join(ROOT_DIR, 'templates')
-
-# 기본 프로필 이미지 경로
-DEFAULT_IMAGE_PATH = 'default-profile.png'
 
 
 # AWS S3 Access
@@ -194,6 +193,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = '/static/'
+
 
 

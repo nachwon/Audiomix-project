@@ -75,8 +75,32 @@ div.jumbotron strong {
 
 /* contents starts */
 
-div.contents div.pop-users {
-    background-color: #CFDBD5;
+div.contents div.pop-posts {
+    background-color: #E8EDDF;
+    overflow: hidden;
+    color: black;
+    padding: 20px;
+}
+
+div.pop-posts div.post-obj {
+    width: 200px;
+    height: 250px;
+    float: left;
+    margin-right: 10px;
+}
+
+div.post-obj div.post-img {
+    background-size: cover;
+    width: 200px;
+    height: 200px;
+    float: left;
+    border: 1px solid #333533;
+}
+
+div.post-obj p.post-title {
+    text-align: left;
+    font-size: 1.1em;
+    margin-bottom: 0px;
 }
 
 /* contents ends */

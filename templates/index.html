@@ -28,20 +28,23 @@
         <span>Join SoundHub to create your own music and share it to other artists from around the world!</span>
     </div>
 </div>
-    <div class="container contents">
-        <div class="pop-users">
-            {% for post in pop_posts %}
-            <div>
-                <span class="post-title">
-                    {{ post.title }}
-                </span>
-                <div class="post-img">
-                    {% if post.post_img is None %}
-                    <img src="{% static 'default-profile.png' %}" alt="">
-                    {% else %}
-                    <img src="{{ post.post_img }}" alt="">
-                    {% endif %}
-                </div>
+<div class="container contents">
+    <div class="pop-posts">
+        <h2>Popular Posts</h2>
+        {% for post in pop_posts %}
+        <div class="post-obj">
+            {% if post.post_img.name == '' %}
+            <div class="post-img" style="background-image: url('static/default-profile.png')">
+            {% else %}
+            <div class="post-img" style="background-image: url('{{ post.post_img.url }}')">
+            {% endif %}
+            </div>
+            <p class="post-title">
+                {{ post.title }}
+            </p>
+            <p class="post-author">
+                {{ post.author }}
+            </p>
             </div>
             {% endfor %}
         </div>
