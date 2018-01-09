@@ -14,41 +14,38 @@
     <title>SoundHub</title>
 </head>
 <body>
-<div class="header container">
-    <div class="wrapper">
-        <a href="/">
-            <img class="title-logo" src="{% static 'logos/logo.png' %}" alt="">
-        </a>
-        <div class="header-buttons">
-            <a class="signin-btn" href="https://www.naver.com">Sign in</a>
-            <a class="signup-btn" href="/">Create Account</a>
+    <div class="header container">
+        <div class="wrapper">
+            <a href="/">
+                <img class="title-logo" src="{% static 'logos/logo.png' %}" alt="">
+            </a>
+            <div class="header-buttons">
+                <a class="signin-btn" href="https://www.naver.com">Sign in</a>
+                <a class="signup-btn" href="/">Create Account</a>
+            </div>
+        </div>
+        <div class="jumbotron" style="background-image: url('static/jumbotron.png')">
+            <h1>Welcome to SoundHub!</h1>
+            <span><strong>SoundHub</strong> is a platform where artists from all around the world can get together to create unique style of music!</span><br>
+            <span>Join SoundHub to create your own music and share it to other artists from around the world!</span>
         </div>
     </div>
-    <div class="jumbotron" style="background-image: url('static/jumbotron.png')">
-        <h1>Welcome to SoundHub!</h1>
-        <span><strong>SoundHub</strong> is a platform where artists from all around the world can get together to create unique style of music!</span><br>
-        <span>Join SoundHub to create your own music and share it to other artists from around the world!</span>
-    </div>
-</div>
-<div class="container contents">
-    <div class="pop-posts">
-        <h2 class="pop-posts-title">Popular Posts</h2>
-        {% for post in pop_posts %}
-        <div class="post-obj">
-            {% if post.post_img.name == '' %}
-            <div class="post-img" style="background-image: url('static/default-profile.png')">
-            {% else %}
-            <div class="post-img" style="background-image: url('{{ post.post_img.url }}')">
-            {% endif %}
+    <div class="container contents">
+        <div class="pop-posts">
+            <h2 class="pop-posts-title">Popular Posts</h2>
+            <div class="obj-wrapper">
+                {% for post in pop_posts %}
+                <div class="post-obj">
+                    {% if post.post_img.name == '' %}
+                    <div class="post-img" style="background-image: url('static/default-profile.png')"></div>
+                    {% else %}
+                    <div class="post-img" style="background-image: url('{{ post.post_img.url }}')"></div>
+                    {% endif %}
+                    <p class="post-title">{{ post.title|truncatechars:30 }}</p>
+                    <p class="post-author">{{ post.author }}</p>
+                </div>
+                {% endfor %}
             </div>
-            <p class="post-title">
-                {{ post.title }}
-            </p>
-            <p class="post-author">
-                {{ post.author }}
-            </p>
-            </div>
-            {% endfor %}
         </div>
     </div>
 </body>
