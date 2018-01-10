@@ -58,8 +58,7 @@
             <div class="pop-conts">
                 <form action="{% url 'views:user:sign-in' %}" method="post">
                     {% csrf_token %}
-                    <input name="email" type="email">
-                    <input name="password" type="password">
+                    {{ sign_in }}
                     <input type="submit">
                 </form>
 

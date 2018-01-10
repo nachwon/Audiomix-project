@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect
 
 from posts.models import Post
+from users.forms import SignInForm
 
 User = get_user_model()
 
@@ -9,7 +10,8 @@ User = get_user_model()
 def index(request):
     if request.user.is_anonymous:
         context = {
-            "pop_posts": Post.objects.order_by('-num_liked')[:10]
+            "pop_posts": Post.objects.order_by('-num_liked')[:10],
+            "sign_in": SignInForm()
         }
         return render(request, 'index.html', context)
 
