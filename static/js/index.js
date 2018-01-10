@@ -37,3 +37,22 @@ $(document).ready(function(){
 
     }
 });
+
+
+window.onscroll = function() {myFunction()};
+
+function myFunction() {
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("header").className = "header header-scrolled transition container";
+        document.getElementById("wrapper").className = "wrapper wrapper-scrolled transition";
+        document.getElementById("title-logo").className = "title-logo title-logo-scrolled transition";
+        document.getElementById("signup-btn").className = "signup-btn signup-btn-scrolled transition";
+    } else {
+        document.getElementById("header").className = "header container transition";
+        document.getElementById("wrapper").className = "wrapper transition";
+        document.getElementById("title-logo").className = "title-logo transition";
+        document.getElementById("signup-btn").className = "signup-btn transition";
+    }
+};
+
+

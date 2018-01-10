@@ -16,23 +16,23 @@
     <title>SoundHub</title>
 </head>
 <body>
-    <div class="header container">
-        <div class="wrapper">
+    <div id="header" class="header container">
+        <div id="wrapper" class="wrapper">
             <a href="/">
-                <img class="title-logo" src="{% static 'logos/logo.png' %}" alt="">
+                <img id="title-logo" class="title-logo" src="{% static 'logos/logo.png' %}" alt="">
             </a>
             <div class="header-buttons">
-                <a class="signin-btn" href="#layer2">Sign in</a>
-                <a class="signup-btn" href="#layer2">Create Account</a>
+                <a class="signin-btn" href="#sign-in">Sign in</a>
+                <a id="signup-btn" class="signup-btn" href="#layer2">Create Account</a>
             </div>
         </div>
+    </div>
+    <div class="container contents">
         <div class="jumbotron" style="background-image: url('static/jumbotron.png')">
             <h1>Welcome to SoundHub!</h1>
             <span><strong>SoundHub</strong> is a platform where artists from all around the world can get together to create unique style of music!</span><br>
             <span>Join SoundHub to create your own music and share it to other artists from around the world!</span>
         </div>
-    </div>
-    <div class="container contents">
         <div class="pop-posts">
             <h2 class="pop-posts-title">Popular Posts</h2>
             <div class="obj-wrapper">
@@ -54,15 +54,10 @@
 <!--팝업 레이어-->
 <div id="popup-layer" class="dim-layer">
     <div class="dimBg"></div>
-    <div id="layer2" class="pop-layer">
+    <div id="sign-in" class="pop-layer">
         <div class="pop-container">
             <div class="pop-conts">
                 <!--content //-->
-                <p class="ctxt mb20">Thank you.<br>
-                    Your registration was submitted successfully.<br>
-                    Selected invitees will be notified by e-mail on JANUARY 24th.<br><br>
-                    Hope to see you soon!
-                </p>
 
                 <div class="btn-r">
                     <a href="#" class="btn-layerClose">Close</a>
@@ -73,11 +68,6 @@
     </div>
 </div>
 <!--팝업 레이어 끝-->
-
-<script>
-    $(document).ready(function(){
-    });
-</script>
 
 </body>
 </html>

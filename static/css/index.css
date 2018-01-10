@@ -9,16 +9,44 @@ a {
 a:hover {
   text-decoration: none; }
 
+.transition {
+  transition-duration: 0.2s; }
+
 /* general ends */
 /* header starts */
+div.header {
+  position: fixed;
+  top: 0;
+  background-color: #333533; }
+  @media (min-width: 768px) {
+    div.header {
+      left: calc(50% - 750px/2); } }
+  @media (min-width: 992px) {
+    div.header {
+      left: calc(50% - 970px/2); } }
+  @media (min-width: 1200px) {
+    div.header {
+      left: calc(50% - 1250px/2); } }
+
+div.header-scrolled {
+  height: 50px; }
+
 div.wrapper {
   border-top: 3px solid #E2B026;
   height: 80px; }
+
+div.wrapper-scrolled {
+  height: 50px; }
 
 img.title-logo {
   margin: 15px;
   height: 50px;
   float: left; }
+
+img.title-logo-scrolled {
+  margin: 8px;
+  margin-left: 15px;
+  height: 30px; }
 
 div.header-buttons {
   margin-right: 15px;
@@ -27,8 +55,10 @@ div.header-buttons {
   height: 80px;
   font-family: 'Merriweather Sans', sans-serif; }
 
+div.header-buttons-scrolled {
+  height: 50px; }
+
 a.signin-btn {
-  line-height: 78px;
   margin: 20px 0;
   margin-right: 10px;
   background: transparent;
@@ -54,6 +84,14 @@ a.signup-btn {
   text-align: center;
   vertical-align: middle; }
 
+a.signup-btn-scrolled {
+  line-height: 48px; }
+
+/* header ends */
+/* contents starts */
+div.contents {
+  margin-top: 85px; }
+
 div.jumbotron {
   background-color: transparent;
   background-size: cover;
@@ -65,8 +103,6 @@ div.jumbotron span {
 div.jumbotron strong {
   color: #E2B026; }
 
-/* header ends */
-/* contents starts */
 div.contents div.pop-posts {
   background-color: #E8EDDF;
   overflow: hidden;
