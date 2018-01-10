@@ -21,14 +21,16 @@ img.title-logo {
   float: left; }
 
 div.header-buttons {
+  margin-right: 15px;
   float: right;
   vertical-align: middle;
   height: 80px;
   font-family: 'Merriweather Sans', sans-serif; }
 
 a.signin-btn {
+  line-height: 78px;
+  margin: 20px 0;
   margin-right: 10px;
-  line-height: 80px;
   background: transparent;
   border: 1px solid #E8EDDF;
   border-radius: 3px;
@@ -42,7 +44,8 @@ a.signin-btn {
     transition-duration: 0.1s; }
 
 a.signup-btn {
-  line-height: 80px;
+  line-height: 78px;
+  margin: 20px 0;
   background: #E2B026;
   color: #333533;
   border: 1px solid #E2B026;
@@ -103,6 +106,9 @@ div.pop-posts div.post-obj {
     font-family: 'Catamaran', sans-serif; }
 
 /* contents ends */
+#popup-layer {
+  display: none; }
+
 .pop-layer .pop-container {
   padding: 20px 25px; }
 
@@ -120,7 +126,7 @@ div.pop-posts div.post-obj {
 .pop-layer {
   position: absolute;
   top: 40%;
-  left: calc(50% - 410px/2);
+  left: 50%;
   width: 410px;
   height: auto;
   background-color: #fff;

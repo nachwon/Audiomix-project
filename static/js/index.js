@@ -1,4 +1,5 @@
-$('.btn-example').click(function(){
+$(document).ready(function(){
+    $('.signin-btn').click(function(){
         var $href = $(this).attr('href');
         layer_popup($href);
     });
@@ -35,3 +36,4 @@ $('.btn-example').click(function(){
         });
 
     }
+});

@@ -9,10 +9,10 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% sass_src 'css/index.scss' %}" type="text/css">
+    <link rel="stylesheet" href="{% sass_src 'css/index.scss' %}">
     <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Merriweather+Sans|Catamaran" rel="stylesheet">
-    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
     <title>SoundHub</title>
 </head>
 <body>
@@ -22,8 +22,8 @@
                 <img class="title-logo" src="{% static 'logos/logo.png' %}" alt="">
             </a>
             <div class="header-buttons">
-                <a class="signin-btn" href="https://www.naver.com">Sign in</a>
-                <a class="signup-btn" href="/">Create Account</a>
+                <a class="signin-btn" href="#layer2">Sign in</a>
+                <a class="signup-btn" href="#layer2">Create Account</a>
             </div>
         </div>
         <div class="jumbotron" style="background-image: url('static/jumbotron.png')">
@@ -52,8 +52,7 @@
     </div>
 
 <!--팝업 레이어-->
-<a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a>
-<div class="dim-layer">
+<div id="popup-layer" class="dim-layer">
     <div class="dimBg"></div>
     <div id="layer2" class="pop-layer">
         <div class="pop-container">
@@ -74,5 +73,11 @@
     </div>
 </div>
 <!--팝업 레이어 끝-->
+
+<script>
+    $(document).ready(function(){
+    });
+</script>
+
 </body>
 </html>
