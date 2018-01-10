@@ -1,73 +1,28 @@
+{% extends 'base.html' %}
+
 {% load static %}
-{% load sass_tags %}
-
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% sass_src 'css/index.scss' %}">
-    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Merriweather+Sans|Catamaran" rel="stylesheet">
-    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-    <script src="{% static 'js/index.js' %}"></script>
-    <title>SoundHub</title>
-</head>
-<body>
-    <div id="header" class="header container">
-        <div id="wrapper" class="wrapper">
-            <a href="/">
-                <img id="title-logo" class="title-logo" src="{% static 'logos/logo.png' %}" alt="">
-            </a>
-            <div class="header-buttons">
-                <a class="signin-btn" href="#sign-in">Sign in</a>
-                <a id="signup-btn" class="signup-btn" href="#layer2">Create Account</a>
-            </div>
-        </div>
+{% block home %}
+<div class="container contents">
+    <div class="jumbotron" style="background-image: url('static/jumbotron.png')">
+        <h1>Welcome to SoundHub!</h1>
+        <span><strong>SoundHub</strong> is a platform where artists from all around the world can get together to create unique style of music!</span><br>
+        <span>Join SoundHub to create your own music and share it to other artists from around the world!</span>
     </div>
-    <div class="container contents">
-        <div class="jumbotron" style="background-image: url('static/jumbotron.png')">
-            <h1>Welcome to SoundHub!</h1>
-            <span><strong>SoundHub</strong> is a platform where artists from all around the world can get together to create unique style of music!</span><br>
-            <span>Join SoundHub to create your own music and share it to other artists from around the world!</span>
-        </div>
-        <div class="pop-posts">
-            <h2 class="pop-posts-title">Popular Posts</h2>
-            <div class="obj-wrapper">
-                {% for post in pop_posts %}
-                <div class="post-obj">
-                    {% if post.post_img.name == '' %}
-                    <div class="post-img" style="background-image: url('static/default-profile.png')"></div>
-                    {% else %}
-                    <div class="post-img" style="background-image: url('{{ post.post_img.url }}')"></div>
-                    {% endif %}
-                    <p class="post-title">{{ post.title|truncatechars:30 }}</p>
-                    <p class="post-author">{{ post.author }}</p>
-                </div>
-                {% endfor %}
+    <div class="pop-posts">
+        <h2 class="pop-posts-title">Popular Posts</h2>
+        <div class="obj-wrapper">
+            {% for post in pop_posts %}
+            <div class="post-obj">
+                {% if post.post_img.name == '' %}
+                <div class="post-img" style="background-image: url('static/default-profile.png')"></div>
+                {% else %}
+                <div class="post-img" style="background-image: url('{{ post.post_img.url }}')"></div>
+                {% endif %}
+                <p class="post-title">{{ post.title|truncatechars:30 }}</p>
+                <p class="post-author">{{ post.author }}</p>
             </div>
-        </div>
-    </div>
-
-<!--팝업 레이어-->
-<div id="popup-layer" class="dim-layer">
-    <div class="dimBg"></div>
-    <div id="sign-in" class="pop-layer">
-        <div class="pop-container">
-            <div class="pop-conts">
-                <!--content //-->
-
-                <div class="btn-r">
-                    <a href="#" class="btn-layerClose">Close</a>
-                </div>
-                <!--// content-->
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
-<!--팝업 레이어 끝-->
-
-</body>
-</html>
+{% endblock home %}
