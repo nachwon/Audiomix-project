@@ -22,6 +22,7 @@ from homepages.views import index
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^apis/', include('config.apis_urls', namespace='api-urls')),
+
     url(r'^$', index, name='index'),
+    url(r'^user/', include('users.urls.views', namespace='users')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

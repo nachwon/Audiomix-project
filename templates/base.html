@@ -35,7 +35,12 @@
     <div id="sign-in" class="pop-layer">
         <div class="pop-container">
             <div class="pop-conts">
-                <form action=""></form>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="email">
+                    <input type="password">
+                    <input type="submit">
+                </form>
 
                 <div class="btn-r">
                     <a href="#" class="btn-layerClose">Close</a>

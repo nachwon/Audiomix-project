@@ -1,7 +1,7 @@
 
 from django.conf.urls import url
 
-from users.views import (
+from users.apis import (
     UserDetail, UserList,
     Login, GoogleLogin, FacebookLogin,
     Logout,
