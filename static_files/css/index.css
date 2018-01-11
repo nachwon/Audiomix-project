@@ -253,13 +253,14 @@ div.contents div.post-list {
     width: 1100px;
     margin: 20px auto 0 auto; }
 
+div.post-obj.title {
+  text-align: justify; }
+
 div.post-list div.post-obj {
   width: 200px;
   height: 270px;
   float: left;
   margin-right: 25px; }
-  div.post-list div.post-obj:first-child {
-    text-align: justify; }
   div.post-list div.post-obj:nth-child(5n) {
     margin-right: 0px; }
   div.post-list div.post-obj div.post-img {

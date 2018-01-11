@@ -318,14 +318,15 @@ div.contents div.post-list {
     }
 }
 
+div.post-obj.title {
+    text-align: justify;
+}
+
 div.post-list div.post-obj {
     width: 200px;
     height: 270px;
     float: left;
     margin-right: 25px;
-    &:first-child{
-        text-align: justify;
-    }
     &:nth-child(5n) {
         margin-right: 0px;
     }
