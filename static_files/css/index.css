@@ -15,6 +15,7 @@ a:hover {
 /* general ends */
 /* header starts */
 div.header {
+  z-index: 1;
   position: fixed;
   top: 0;
   background-color: #333533; }
