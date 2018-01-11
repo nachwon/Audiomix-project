@@ -14,7 +14,7 @@ from rest_framework.authtoken.models import Token
 # 회원 가입시 이메일, 닉네임, 악기, 비밀번호를 받도록 하는 커스텀 매니저 설정
 class CustomUserManager(BaseUserManager):
     # 유저 생성 공통 메서드
-    def _create_user(self, email, nickname, password, is_active=False, is_staff=False, genre=None, instrument=None):
+    def _create_user(self, email, nickname, password, is_active=False, is_staff=False, is_superuser=False, genre=None, instrument=None):
         # 이메일을 입력하지 않은 경우 에러 발생
         if not email:
             raise ValueError('이메일을 반드시 입력해야 합니다.')
@@ -25,6 +25,7 @@ class CustomUserManager(BaseUserManager):
             nickname=nickname,
             is_active=is_active,
             is_staff=is_staff,
+            is_superuser=is_superuser,
             genre=genre,
             instrument=instrument,
         )
@@ -47,6 +48,7 @@ class CustomUserManager(BaseUserManager):
             password=password,
             is_active=True,
             is_staff=True,
+            is_superuser=True,
             genre=genre,
             instrument=instrument,
         )
