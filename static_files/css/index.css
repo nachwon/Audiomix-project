@@ -150,6 +150,9 @@ div.jumbotron {
       div.jumbotron div.signup-btn-wrapper button.signup-btn:hover {
         background-color: #E2B026;
         color: white; }
+      div.jumbotron div.signup-btn-wrapper button.signup-btn:focus {
+        outline-color: #ffbe00e8;
+        transition-duration: 0.2s; }
 
 div.jumbotron span {
   font-size: 20px; }
@@ -163,18 +166,34 @@ div.contents div.pop-posts {
   color: black;
   padding: 20px; }
   div.contents div.pop-posts h2.pop-posts-title {
-    margin-left: 15px;
-    margin-bottom: 20px;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #bbb;
+    font-family: 'Merriweather Sans', sans-serif;
+    font-size: 40px; }
+  div.contents div.pop-posts h3.pop-posts-title {
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    margin-top: 130px;
+    border-bottom: 1px solid #bbb;
+    font-family: 'Merriweather Sans', sans-serif;
+    font-size: 20px; }
+    div.contents div.pop-posts h3.pop-posts-title a {
+      color: black; }
+  div.contents div.pop-posts span.pop-posts-p {
+    font-size: 14px;
     font-family: 'Merriweather Sans', sans-serif; }
   div.contents div.pop-posts div.obj-wrapper {
     width: 1100px;
-    margin: 0 auto; }
+    margin: 20px auto 0 auto; }
 
 div.pop-posts div.post-obj {
   width: 200px;
   height: 270px;
   float: left;
   margin-right: 25px; }
+  div.pop-posts div.post-obj:first-child {
+    text-align: justify; }
   div.pop-posts div.post-obj:nth-child(5n) {
     margin-right: 0px; }
   div.pop-posts div.post-obj div.post-img {

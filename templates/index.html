@@ -45,8 +45,11 @@
 
     </div>
     <div class="pop-posts">
-        <h2 class="pop-posts-title">Popular Posts</h2>
         <div class="obj-wrapper">
+            <div class="post-obj">
+                <h2 class="pop-posts-title">Popular<br>Posts</h2>
+                <span class="pop-posts-p">Check out some of the most popular tracks in SoundHub community!</span>
+            </div>
             {% for post in pop_posts %}
             <div class="post-obj">
                 {% if post.post_img.name == '' %}
@@ -58,6 +61,9 @@
                 <p class="post-author">{{ post.author }}</p>
             </div>
             {% endfor %}
+            <div class="post-obj">
+                <h3 class="pop-posts-title"><a href="">More<br>Posts...</a></h3>
+            </div>
         </div>
     </div>
 </div>
