@@ -162,7 +162,8 @@ div.jumbotron strong {
   color: #E2B026; }
 
 div.contents div.pop-posts {
-  background-color: #E8EDDF;
+  background-image: url("/static/img/crowd.jpg");
+  background-size: cover;
   overflow: hidden;
   color: black;
   padding: 20px; }
@@ -199,6 +200,8 @@ div.pop-posts div.post-obj {
     margin-right: 0px; }
   div.pop-posts div.post-obj div.post-img {
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     width: 200px;
     height: 200px;
     margin-bottom: 5px;
@@ -208,10 +211,11 @@ div.pop-posts div.post-obj {
     text-align: left;
     font-size: 1.1em;
     margin: 0 5px;
-    font-family: 'Catamaran', sans-serif; }
+    font-family: 'Catamaran', sans-serif;
+    color: black; }
   div.pop-posts div.post-obj p.post-author {
     text-align: left;
-    color: #777777;
+    color: #4c4c4c;
     margin: 0 5px;
     font-family: 'Catamaran', sans-serif; }
 

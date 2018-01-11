@@ -49,6 +49,7 @@
     <!--End of jumbotron-->
     <!--Popular posts-->
     <div class="pop-posts">
+
         <div class="obj-wrapper">
             <div class="post-obj">
                 <h2 class="pop-posts-title">Popular<br>Posts</h2>
@@ -57,7 +58,7 @@
             {% for post in pop_posts %}
             <div class="post-obj">
                 {% if post.post_img.name == '' %}
-                <div class="post-img" style="background-image: url('static/img/default-profile.png')"></div>
+                <div class="post-img" style="background-image: url('static/img/default-post-img.png'); background-size:unset;"></div>
                 {% else %}
                 <div class="post-img" style="background-image: url('{{ post.post_img.url }}')"></div>
                 {% endif %}
@@ -69,8 +70,12 @@
                 <h3 class="pop-posts-title"><a href="">More<br>Popular Posts...</a></h3>
             </div>
         </div>
+        <div class="mask"></div>
     </div>
     <!--End of Popular Posts-->
+    <div class="recent-posts">
+
+    </div>
 </div>
 <!--End of content body-->
 <!--Sign-in pop-up layer-->
