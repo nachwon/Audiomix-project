@@ -41,6 +41,7 @@ class UserChangeForm(forms.ModelForm):
             'instrument',
             'is_active',
             'is_staff',
+            'profile_img',
         )
 
     def clean_password(self):
@@ -55,14 +56,14 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ('is_staff', 'is_active',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('nickname', 'instrument',)}),
+        ('Personal info', {'fields': ('nickname', 'instrument', 'profile_img',)}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
     )
 
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'nickname', 'instrument', 'password1', 'password2',)
+            'fields': ('email', 'nickname', 'instrument', 'is_staff', 'is_active', 'password1', 'password2',)
         }),
     )
     search_fields = ('email',)

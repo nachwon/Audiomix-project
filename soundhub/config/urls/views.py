@@ -16,13 +16,10 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
-from django.contrib import admin
 
 from homepages.views import index, home
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-
     url(r'^$', index, name='index'),
     url(r'^home/$', home, name='home'),
     url(r'^user/', include('users.urls.views', namespace='user')),
