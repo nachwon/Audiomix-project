@@ -185,10 +185,16 @@ div.pop-posts div.post-obj {
 
 #popup-layer {
   display: none;
+  font-family: 'Dosis', sans-serif;
 }
 
 .pop-layer .pop-container {
   padding: 20px 25px;
+}
+
+.pop-container {
+  background-color: #333533;
+  box-shadow: 4px 4px 20px 0px black;
 }
 
 .pop-layer p.ctxt {
@@ -198,21 +204,25 @@ div.pop-posts div.post-obj {
 
 .pop-layer .btn-r {
   width: 100%;
-  margin: 10px 0 20px;
+  margin: 20px 0 20px;
   padding-top: 10px;
-  border-top: 1px solid #DDD;
+  border-top: 1px solid #777;
   text-align: right;
+  h3.social-signin {
+    text-align: left;
+    margin: 0px;
+  }
 }
 
 .pop-layer {
-
   position: absolute;
   top: 40%;
   left: 50%;
   width: 410px;
   height: auto;
   background-color: #fff;
-  border: 5px solid #3571B5;
+  border: 1px solid #333533;
+  border-radius: 3px;
   z-index: 10;
 }
 
@@ -245,8 +255,8 @@ a.btn-layerClose {
   display: inline-block;
   height: 25px;
   padding: 0 14px 0;
-  border: 1px solid #304a8a;
-  background-color: #3f5a9d;
+  border: 1px solid white;
+  border-radius: 2px;
   font-size: 13px;
   color: #fff;
   line-height: 25px;
@@ -254,8 +264,48 @@ a.btn-layerClose {
 
 a.btn-layerClose:hover {
   border: 1px solid #091940;
-  background-color: #1f326a;
-  color: #fff;
+  background-color: white;
+  color: #333533;
+}
+
+div.pop-conts {
+  text-align: center;
+
+  form {
+    text-align: center;
+
+    div.form-field {
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    input.signin-field {
+      background-color: white;
+      color: #333533;
+      border: 1px solid #ddd;
+      border-radius: 2px;
+      width: 300px;
+      height: 40px;
+      font-size: 20px;
+      padding: 6px;
+
+    }
+
+    input.submit-btn {
+      background: transparent;
+      color: #E2B026;
+      border: 1px solid #E2B026;
+      border-radius: 2px;
+      width: 300px;
+      height: 35px;
+      font-size: 15px;
+
+      &:hover {
+        background-color: #E2B026;
+        color: #333533;
+      }
+    }
+  }
 }
 
 // pop-up layer ends

@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% sass_src 'css/index.scss' %}">
-    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Merriweather+Sans|Catamaran" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Merriweather+Sans|Catamaran|Dosis" rel="stylesheet">
     <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'js/index.js' %}"></script>
     <title>SoundHub</title>
@@ -56,14 +56,21 @@
     <div id="sign-in" class="pop-layer">
         <div class="pop-container">
             <div class="pop-conts">
+                <img class="soundhub-logo" src="{% static 'soundhub-logo.png' %}" alt="">
+                <h3 class="signin-title">Sign in</h3>
                 <form action="{% url 'views:user:sign-in' %}" method="post">
                     {% csrf_token %}
-                    {{ sign_in }}
-                    <input type="submit">
+                    {% for field in sign_in %}
+                    <div class="form-field">
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    <input type="submit" class="submit-btn transition" value="Sign in">
                 </form>
 
                 <div class="btn-r">
-                    <a href="#" class="btn-layerClose">Close</a>
+                    <h3 class="social-signin">Or Continue with...</h3>
+                    <a href="#" class="btn-layerClose transition">Close</a>
                 </div>
                 <!--// content-->
             </div>
