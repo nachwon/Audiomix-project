@@ -160,17 +160,33 @@ div.pop-posts div.post-obj {
 
 .pop-layer .btn-r {
   width: 100%;
-  margin: 10px 0 20px;
+  margin: 20px 0 20px;
   padding-top: 10px;
   border-top: 1px solid #777;
   text-align: right; }
   .pop-layer .btn-r h3.social-signin {
     text-align: left;
-    margin: 0px; }
+    margin: 0px;
+    margin-bottom: 15px; }
+  .pop-layer .btn-r div.social-wrapper {
+    height: 40px;
+    width: 300px;
+    text-align: left;
+    margin: 0 auto; }
+    .pop-layer .btn-r div.social-wrapper img.fb-btn {
+      width: 40px; }
+    .pop-layer .btn-r div.social-wrapper span.fb-text {
+      font-size: 25px;
+      vertical-align: middle;
+      margin-left: 10px;
+      margin-right: 20px; }
+    .pop-layer .btn-r div.social-wrapper img.gg-btn {
+      width: 40px;
+      border-radius: 2px; }
 
 .pop-layer {
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   width: 410px;
   height: auto;
@@ -209,15 +225,19 @@ a.btn-layerClose {
   border-radius: 2px;
   font-size: 13px;
   color: #fff;
-  line-height: 25px; }
+  line-height: 25px;
+  margin-top: 15px; }
 
 a.btn-layerClose:hover {
-  border: 1px solid #091940;
+  border: 1px solid white;
   background-color: white;
   color: #333533; }
 
 div.pop-conts {
   text-align: center; }
+  div.pop-conts h3.signin-title {
+    text-align: left;
+    margin-bottom: 15px; }
   div.pop-conts form {
     text-align: center; }
     div.pop-conts form div.form-field {

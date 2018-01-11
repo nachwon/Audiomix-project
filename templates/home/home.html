@@ -18,7 +18,7 @@
 <body>
 <div id="header" class="header container">
     <div id="wrapper" class="wrapper">
-        <a href="/"><img id="title-logo" class="title-logo" src="{% static 'logos/logo.png' %}" alt=""></a>
+        <a href="/"><img id="title-logo" class="title-logo" src="{% static 'img/logo.png' %}" alt=""></a>
         <div class="current-user">{{ request.user }}</div>
         <div class="header-buttons">
             <form action="{% url 'views:user:sign-out' %}" method="post">
