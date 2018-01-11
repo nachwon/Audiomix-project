@@ -10,12 +10,12 @@ a:hover {
   text-decoration: none; }
 
 .transition {
-  transition-duration: 0.2s; }
+  transition: 0.2s ease; }
 
 /* general ends */
 /* header starts */
 div.header {
-  z-index: 1;
+  z-index: 100;
   position: fixed;
   top: 0;
   background-color: #333533; }
@@ -154,6 +154,20 @@ div.jumbotron {
       div.jumbotron div.signup-btn-wrapper button.signup-btn:focus {
         outline-color: #ffbe00e8;
         transition-duration: 0.2s; }
+  div.jumbotron .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 4px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+    position: relative;
+    float: right;
+    text-align: center;
+    top: 20px;
+    left: 45px; }
 
 div.jumbotron span {
   font-size: 20px; }
@@ -161,12 +175,42 @@ div.jumbotron span {
 div.jumbotron strong {
   color: #E2B026; }
 
+div.slideshow-container {
+  width: 1220px;
+  height: 600px; }
+  div.slideshow-container a.prev {
+    font-size: 30px;
+    position: relative;
+    top: 300px;
+    float: left;
+    left: 10px;
+    color: #ddd;
+    cursor: pointer;
+    z-index: 2; }
+    div.slideshow-container a.prev:hover {
+      color: #333533; }
+  div.slideshow-container a.next {
+    font-size: 30px;
+    position: relative;
+    top: 300px;
+    float: right;
+    right: 10px;
+    color: #ddd;
+    cursor: pointer;
+    z-index: 2; }
+    div.slideshow-container a.next:hover {
+      color: #333533; }
+
 div.contents div.pop-posts {
+  position: absolute;
+  z-index: 1;
   background-image: url("/static/img/crowd.jpg");
   background-size: cover;
   overflow: hidden;
   color: black;
-  padding: 20px; }
+  padding: 20px;
+  height: 600px;
+  width: 1220px; }
   div.contents div.pop-posts h2.pop-posts-title {
     padding-bottom: 25px;
     margin-bottom: 25px;

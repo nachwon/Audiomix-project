@@ -45,34 +45,43 @@
         <div class="signup-btn-wrapper">
             <button class="signup-btn transition">Sign up for free</button>
         </div>
+        <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
     </div>
     <!--End of jumbotron-->
-    <!--Popular posts-->
-    <div class="pop-posts">
-
-        <div class="obj-wrapper">
-            <div class="post-obj">
-                <h2 class="pop-posts-title">Popular<br>Posts</h2>
-                <span class="pop-posts-p">Check out some of the most popular tracks in SoundHub community!</span>
+    <div class="slideshow-container">
+        <a class="prev transition" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next transition" onclick="plusSlides(1)">&#10095;</a>
+        <!--Popular posts-->
+        <div class="pop-posts">
+            <div class="obj-wrapper">
+                <div class="post-obj">
+                    <h2 class="pop-posts-title">Popular<br>Posts</h2>
+                    <span class="pop-posts-p">Check out some of the most popular tracks in SoundHub community!</span>
+                </div>
+                {% for post in pop_posts %}
+                <div class="post-obj">
+                    {% if post.post_img.name == '' %}
+                    <div class="post-img" style="background-image: url('static/img/default-post-img.png'); background-size:unset;"></div>
+                    {% else %}
+                    <div class="post-img" style="background-image: url('{{ post.post_img.url }}')"></div>
+                    {% endif %}
+                    <p class="post-title">{{ post.title|truncatechars:30 }}</p>
+                    <p class="post-author">{{ post.author }}</p>
+                </div>
+                {% endfor %}
+                <div class="post-obj">
+                    <h3 class="pop-posts-title"><a href="">More<br>Popular Posts...</a></h3>
+                </div>
             </div>
-            {% for post in pop_posts %}
-            <div class="post-obj">
-                {% if post.post_img.name == '' %}
-                <div class="post-img" style="background-image: url('static/img/default-post-img.png'); background-size:unset;"></div>
-                {% else %}
-                <div class="post-img" style="background-image: url('{{ post.post_img.url }}')"></div>
-                {% endif %}
-                <p class="post-title">{{ post.title|truncatechars:30 }}</p>
-                <p class="post-author">{{ post.author }}</p>
-            </div>
-            {% endfor %}
-            <div class="post-obj">
-                <h3 class="pop-posts-title"><a href="">More<br>Popular Posts...</a></h3>
-            </div>
+            <div class="mask"></div>
         </div>
-        <div class="mask"></div>
+        <!--End of Popular Posts-->
     </div>
-    <!--End of Popular Posts-->
+
     <div class="recent-posts">
 
     </div>
