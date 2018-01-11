@@ -119,6 +119,67 @@ div.jumbotron {
   background-color: transparent;
   background-size: cover;
   font-family: 'Fjalla One', sans-serif;
+
+  div.search-bar {
+    margin-top: 80px;
+    font-family: 'Merriweather Sans', sans-serif;
+
+    form.search-form {
+      margin: 0 auto;
+      height: 40px;
+      width: 600px;
+    }
+
+    input.search-field {
+      border-radius: 3px 0 0 3px;
+      border: 0;
+      height: 100%;
+      width: 85%;
+      vertical-align: middle;
+      float: left;
+      opacity: 0.8;
+      color: black;
+      font-size: 15px;
+      padding: 10px;
+    }
+
+    input.search-btn {
+      border-radius: 0 3px 3px 0;
+      height: 100%;
+      width: 15%;
+      vertical-align: middle;
+      border: 0px;
+      background-image: url('../img/search-icon.png');
+      color: white;
+      font-size: 18px;
+      background-color: #333533;
+      opacity: 0.8;
+    }
+  }
+  p {
+    text-align: center;
+    &:first-of-type {
+      margin: 15px 0 10px 0;
+    }
+  }
+  div.signup-btn-wrapper {
+    width: 100%;
+    text-align: center;
+    button.signup-btn {
+      color: #E2B026;
+      font-family: 'Merriweather Sans', sans-serif;
+      border: 1px solid #E2B026;
+      border-radius: 2px;
+      background-color: transparent;
+      font-size: 15px;
+      padding: 7px 20px;
+
+      &:hover {
+        background-color: #E2B026;
+        color: white;
+      }
+    }
+  }
 }
 
 div.jumbotron span {
