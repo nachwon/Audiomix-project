@@ -252,7 +252,7 @@ div.slideshow-container {
         top: 300px;
         float: left;
         left: 10px;
-        color: #ddd;
+        color: #bbbbbb;
         cursor: pointer;
         z-index: 2;
 
@@ -266,7 +266,7 @@ div.slideshow-container {
         top: 300px;
         float: right;
         right: 10px;
-        color: #ddd;
+        color: #bbb;
         cursor: pointer;
         z-index: 2;
 
@@ -276,10 +276,10 @@ div.slideshow-container {
     }
 }
 
-div.contents div.pop-posts {
+
+div.contents div.post-list {
     position: absolute;
     z-index: 1;
-    background-image: url("/static/img/crowd.jpg");
     background-size: cover;
     overflow: hidden;
     color: black;
@@ -318,7 +318,7 @@ div.contents div.pop-posts {
     }
 }
 
-div.pop-posts div.post-obj {
+div.post-list div.post-obj {
     width: 200px;
     height: 270px;
     float: left;
@@ -338,7 +338,8 @@ div.pop-posts div.post-obj {
         height: 200px;
         margin-bottom: 5px;
         float: left;
-        border: 1px solid #CFDBD5;
+        border: 1px solid #8a9791;
+        border-radius: 2px;
     }
 
     p.post-title {
@@ -355,6 +356,18 @@ div.pop-posts div.post-obj {
         margin: 0 5px;
         font-family: 'Catamaran', sans-serif;
     }
+}
+
+div.pop-users {
+    background-image: url("/static/img/pop-users.jpg");
+}
+
+div.pop-posts {
+    background-image: url("/static/img/crowd.jpg");
+}
+
+div.recent-posts {
+    background-image: url("/static/img/recent-posts.jpg");
 }
 
 /* contents ends */
