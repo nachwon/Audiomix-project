@@ -16,6 +16,7 @@
     <title>SoundHub</title>
 </head>
 <body>
+<!--header-->
 <div id="header" class="header container">
     <div id="wrapper" class="wrapper">
         <a href="/"><img id="title-logo" class="title-logo" src="{% static 'img/logo.png' %}" alt=""></a>
@@ -25,8 +26,10 @@
         </div>
     </div>
 </div>
-
+<!--End of header-->
+<!--content body-->
 <div class="container contents">
+    <!--Jumbotron-->
     <div class="jumbotron" style="background-image: url('static/img/jumbotron.png')">
         <h1>Welcome to SoundHub!</h1>
         <span><strong>SoundHub</strong> is a platform where artists from all around the world can get together to create unique style of music!</span><br>
@@ -42,8 +45,9 @@
         <div class="signup-btn-wrapper">
             <button class="signup-btn transition">Sign up for free</button>
         </div>
-
     </div>
+    <!--End of jumbotron-->
+    <!--Popular posts-->
     <div class="pop-posts">
         <div class="obj-wrapper">
             <div class="post-obj">
@@ -66,14 +70,16 @@
             </div>
         </div>
     </div>
+    <!--End of Popular Posts-->
 </div>
-
-<!--팝업 레이어-->
+<!--End of content body-->
+<!--Sign-in pop-up layer-->
 <div id="popup-layer" class="dim-layer">
     <div class="dimBg"></div>
     <div id="sign-in" class="pop-layer">
         <div class="pop-container">
             <div class="pop-conts">
+                <!--Sign-in contents-->
                 <img class="soundhub-logo" src="{% static 'img/soundhub-logo.png' %}" alt="">
                 <h3 class="signin-title">Sign in</h3>
                 <form action="{% url 'views:user:sign-in' %}" method="post">
@@ -85,7 +91,6 @@
                     {% endfor %}
                     <input type="submit" class="submit-btn transition" value="Sign in">
                 </form>
-
                 <div class="btn-r">
                     <h3 class="social-signin">Or continue with...</h3>
                     <div class="social-wrapper">
@@ -94,12 +99,12 @@
                     </div>
                     <a href="#" class="btn-layerClose transition">Close</a>
                 </div>
-                <!--// content-->
+                <!--End of sign-in contents-->
             </div>
         </div>
     </div>
 </div>
-<!--팝업 레이어 끝-->
+<!--End of sign-in pop-up layer-->
 
 </body>
 </html>
