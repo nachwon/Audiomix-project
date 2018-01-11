@@ -10,7 +10,9 @@ User = get_user_model()
 def index(request):
     if request.user.is_anonymous:
         context = {
+            "pop_users": User.objects.order_by('-total_liked')[:8],
             "pop_posts": Post.objects.order_by('-num_liked')[:8],
+            "recent_posts": Post.objects.order_by('-created_date')[:8],
             "sign_in": SignInForm()
         }
         return render(request, 'index.html', context)

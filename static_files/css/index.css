@@ -12,6 +12,24 @@ a:hover {
 .transition {
   transition: 0.2s ease; }
 
+.slide-fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 0.5s;
+  animation-name: fade;
+  animation-duration: 0.5s; }
+
+@-webkit-keyframes fade {
+  from {
+    opacity: .4; }
+  to {
+    opacity: 1; } }
+
+@keyframes fade {
+  from {
+    opacity: .4; }
+  to {
+    opacity: 1; } }
+
 /* general ends */
 /* header starts */
 div.header {
@@ -168,6 +186,8 @@ div.jumbotron {
     text-align: center;
     top: 20px;
     left: 45px; }
+  div.jumbotron .active, div.jumbotron .dot:hover {
+    background-color: #717171; }
 
 div.jumbotron span {
   font-size: 20px; }
@@ -177,7 +197,8 @@ div.jumbotron strong {
 
 div.slideshow-container {
   width: 1220px;
-  height: 600px; }
+  height: 600px;
+  background-color: white; }
   div.slideshow-container a.prev {
     font-size: 30px;
     position: relative;

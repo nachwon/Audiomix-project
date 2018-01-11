@@ -17,6 +17,24 @@ a:hover {
     transition: 0.2s ease;
 }
 
+// Fading animation
+.slide-fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 0.5s;
+    animation-name: fade;
+    animation-duration: 0.5s;
+}
+
+@-webkit-keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
 /* general ends */
 
 /* header starts */
@@ -211,6 +229,9 @@ div.jumbotron {
         top: 20px;
         left: 45px;
     }
+    .active, .dot:hover {
+        background-color: #717171;
+    }
 }
 
 div.jumbotron span {
@@ -224,6 +245,7 @@ div.jumbotron strong {
 div.slideshow-container {
     width: 1220px;
     height: 600px;
+    background-color: white;
     a.prev {
         font-size: 30px;
         position: relative;
@@ -496,3 +518,5 @@ div.pop-conts {
 }
 
 // pop-up layer ends
+
+
