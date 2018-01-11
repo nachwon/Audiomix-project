@@ -115,6 +115,9 @@ div.jumbotron {
       color: black;
       font-size: 15px;
       padding: 10px; }
+      div.jumbotron div.search-bar input.search-field:focus {
+        outline: none;
+        opacity: 1; }
     div.jumbotron div.search-bar input.search-btn {
       border-radius: 0 3px 3px 0;
       height: 100%;
@@ -126,6 +129,9 @@ div.jumbotron {
       font-size: 18px;
       background-color: #333533;
       opacity: 0.8; }
+      div.jumbotron div.search-bar input.search-btn:focus {
+        outline: none;
+        box-shadow: inset 1px 1px 20px 1px black; }
   div.jumbotron p {
     text-align: center; }
     div.jumbotron p:first-of-type {

@@ -141,6 +141,11 @@ div.jumbotron {
       color: black;
       font-size: 15px;
       padding: 10px;
+
+      &:focus {
+        outline: none;
+        opacity: 1;
+      }
     }
 
     input.search-btn {
@@ -154,6 +159,11 @@ div.jumbotron {
       font-size: 18px;
       background-color: #333533;
       opacity: 0.8;
+
+      &:focus {
+        outline: none;
+        box-shadow: inset 1px 1px 20px 1px black;
+      }
     }
   }
   p {
