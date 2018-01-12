@@ -60,8 +60,13 @@ EMAIL_HOST_USER = config_secret['email']['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = config_secret['email']['EMAIL_HOST_PASSWORD']
 DEFAULT_FROM_EMAIL = 'joo2theeon@gmail.com'
 
+# Facebook 로그인 REST API
 FACEBOOK_APP_ID = config_secret['facebook']['FACEBOOK_APP_ID']
 FACEBOOK_APP_SECRET_CODE = config_secret['facebook']['FACEBOOK_APP_SECRET_CODE']
+
+# Facebook 로그인 TEMPLATE
+FB_APP_ID = config_secret['facebook_login']['APP_ID']
+FB_SECRET_CODE = config_secret['facebook_login']['SECRET_CODE']
 
 # Encryption Key
 ENCRYPTION_KEY = config_secret['encrypt']['ENCRYPTION_KEY']
@@ -99,6 +104,7 @@ AUTH_USER_MODEL = 'users.User'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'users.backends.FacebookBackend',
+    'users.backends.FBAuthBackend',
 ]
 
 # Application definition

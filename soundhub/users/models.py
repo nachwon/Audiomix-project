@@ -63,6 +63,8 @@ class CustomUserManager(BaseUserManager):
             password=password,
             genre=genre,
             instrument=instrument,
+            is_staff=False,
+            is_active=True,
         )
         return user
 
@@ -123,9 +125,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     num_followers = models.IntegerField(default=0)
 
     # 관리자 여부
-    is_staff = models.BooleanField()
+    is_staff = models.BooleanField(default=False)
     # 활성화 여부
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=True)
     # 계정생성 날짜
     created_at = models.DateField(auto_now_add=True)
 

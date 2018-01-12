@@ -19,3 +19,17 @@ class FacebookBackend:
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:
             return None
+
+
+class FBAuthBackend:
+    def authenticate(self, request, email):
+        try:
+            return User.objects.get(email=email, user_type='Facebook')
+        except User.DoesNotExist:
+            return None
+
+    def get_user(self, user_id):
+        try:
+            return User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return None
