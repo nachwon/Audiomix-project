@@ -17,6 +17,10 @@ a:hover {
     transition: 0.2s ease;
 }
 
+.show {
+    display: block;
+}
+
 // general ends
 // header start
 div.header {
@@ -62,7 +66,7 @@ img.title-logo-scrolled {
 }
 
 div.current-user {
-    line-height: 80px;
+    line-height: 77px;
     display: inline-block;
 }
 
@@ -123,7 +127,7 @@ a.signup-btn-scrolled {
 }
 
 .dropdown-content {
-    display: block;
+    display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 100%;

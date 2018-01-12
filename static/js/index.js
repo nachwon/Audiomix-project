@@ -42,7 +42,7 @@ $(document).ready(function(){
 window.onscroll = function() {myFunction()};
 
 function myFunction() {
-    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+    if (document.body.scrollTop > 30 || document.documentElement.scrollTop > 30) {
         document.getElementById("header").className = "header header-scrolled transition container";
         document.getElementById("wrapper").className = "wrapper wrapper-scrolled transition";
         document.getElementById("title-logo").className = "title-logo title-logo-scrolled transition";

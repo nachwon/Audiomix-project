@@ -10,7 +10,7 @@ a:hover {
   text-decoration: none; }
 
 .transition {
-  transition: 0.2s ease; }
+  transition: 0.1s ease; }
 
 .slide-fade {
   -webkit-animation-name: fade;
