@@ -25,7 +25,10 @@
             <div id="myDropdown" class="dropdown-content" >
                 <a href="#">Link 1</a>
                 <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+                <form action="{% url 'views:user:sign-out' %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Sing out">
+                </form>
             </div>
         </div>
 
