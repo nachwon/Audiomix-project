@@ -1,20 +1,3 @@
-/* general starts */
-body {
-  background-color: #333533;
-  color: #E8EDDF; }
-
-a {
-  color: #E8EDDF; }
-
-a:hover {
-  text-decoration: none; }
-
-.transition {
-  transition: 0.2s ease; }
-
-.appear {
-  display: block !important; }
-
 div.header {
   font-family: 'Merriweather Sans', sans-serif;
   z-index: 100;
@@ -77,9 +60,6 @@ div.current-user-scrolled {
   height: 100%; }
   .dropbtn:hover {
     box-shadow: 0px 2px 3px 0px black; }
-  .dropbtn:focus {
-    outline: none;
-    box-shadow: inset 0px 0px 10px 0px black; }
 
 .dropdown-content {
   font-size: 12px;
@@ -89,6 +69,7 @@ div.current-user-scrolled {
   background-color: #f9f9f9;
   min-width: 110px;
   right: 0;
+  top: 100%;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   animation-name: fade;
