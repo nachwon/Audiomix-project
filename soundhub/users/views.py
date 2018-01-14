@@ -23,8 +23,7 @@ def sign_in(request):
 
 def facebook_login(request):
     user_info = get_facebook_user_info(request)
-    email = user_info.get('email')
-    nickname = user_info.get('name')
+    id = user_info.get('id')
 
     # 유저 생성
     obj, created = User.objects.get_or_create(

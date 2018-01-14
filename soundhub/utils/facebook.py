@@ -35,7 +35,7 @@ def get_facebook_user_info(request):
         url_user_info = 'https://graph.facebook.com/me'
         user_info_fields = [
             'id',  # 아이디
-            'name', # 이름
+            'name',  # 이름
             'picture',  # 프로필 사진
             'email',  # 이메일
         ]
