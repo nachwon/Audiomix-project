@@ -1,25 +1,18 @@
+{% extends 'base.html' %}
+
 {% load static %}
 {% load sass_tags %}
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% sass_src 'css/home.scss' %}">
-    <link rel="stylesheet" href="{% sass_src 'css/header.scss' %}">
-    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Merriweather+Sans|Catamaran" rel="stylesheet">
-    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-    <script src="{% static 'js/home.js' %}"></script>
-    <title>SoundHub</title>
-</head>
-<body>
-{% include 'header.html' %}
+{% block links %}
+<link rel="stylesheet" href="{% sass_src 'css/home.scss' %}">
+{% endblock links %}
+{% block scripts %}
+<script src="{% static 'js/header.js' %}"></script>
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock scripts %}
 
-{% include 'home/body.html' %}
-
-</body>
-</html>
+{% block content %}
+<div class="contents container">
+    {% include 'home/body.html' %}
+</div>
+{% endblock content %}

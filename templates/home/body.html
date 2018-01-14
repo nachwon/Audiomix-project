@@ -1,11 +1,9 @@
-<div class="home-content-body container">
-    <div class="following-posts">
-        {% if request.user.following is None %}
-        <p>No Followings</p>
-        {% else %}
-        {% for following in request.user.following.all %}
-            {% include 'home/following.html' %}
-        {% endfor %}
-        {% endif %}
-    </div>
+<div class="following-posts">
+    {% if request.user.following is None %}
+    <p>No Followings</p>
+    {% else %}
+    {% for following in request.user.following.all %}
+    {% include 'home/following.html' %}
+    {% endfor %}
+    {% endif %}
 </div>

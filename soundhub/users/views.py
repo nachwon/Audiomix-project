@@ -51,8 +51,7 @@ def facebook_login(request):
         url_user_info = 'https://graph.facebook.com/me'
         user_info_fields = [
             'id',  # 아이디
-            'first_name',  # 이름
-            'last_name',  # 성
+            'name', # 이름
             'picture',  # 프로필 사진
             'email',  # 이메일
         ]
@@ -64,13 +63,13 @@ def facebook_login(request):
         user_info = result.json()
 
         email = user_info.get('email')
-        nickname = user_info.get('first_name') + ' ' + user_info.get('last_name')
+        nickname = user_info.get('name')
 
         # 유저 생성
         obj, created = User.objects.get_or_create(
             email=email,
             nickname=nickname,
-            user_type='Facebook'
+            user_type='F'
         )
 
         # 유저 인증 및 로그인
@@ -86,3 +85,13 @@ def sign_out(request):
         if request.user.is_authenticated:
             logout(request)
     return redirect('views:index')
+
+
+def user_detail(request, pk):
+    if request.method == 'GET':
+        user = User.objects.get(pk=pk)
+
+        context = {
+            "user": user,
+        }
+        return render(request, 'profile/profile.html', context)

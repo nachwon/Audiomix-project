@@ -1,43 +1,4 @@
-/* general starts */
-body {
-  background-color: #333533;
-  color: #E8EDDF; }
-
-a {
-  color: #E8EDDF; }
-
-a:hover {
-  text-decoration: none; }
-
-.transition {
-  transition: 0.1s ease; }
-
-:focus {
-  outline: none; }
-
-.slide-fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 0.5s;
-  animation-name: fade;
-  animation-duration: 0.5s; }
-
-@-webkit-keyframes fade {
-  from {
-    opacity: .4; }
-  to {
-    opacity: 1; } }
-
-@keyframes fade {
-  from {
-    opacity: .4; }
-  to {
-    opacity: 1; } }
-
-/* general ends */
 /* contents starts */
-div.contents {
-  margin-top: 85px; }
-
 div.jumbotron {
   background-color: transparent;
   background-size: cover;
@@ -192,6 +153,7 @@ div.post-list div.post-obj {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-color: #696969;
     width: 200px;
     height: 200px;
     margin-bottom: 5px;

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load sass_tags %}
+
+{% block links %}
+<link rel="stylesheet" href="{% sass_src 'css/profile.scss' %}">
+{% endblock links %}
+{% block scripts %}
+{% endblock scripts %}
+
+{% block content %}
+<div class="profile-body container contents">
+    {% if user.profile_img.name == '' %}
+    <div class="profile-img img-circle" style="background-image: url('/static/img/default-profile.png')"></div>
+    {% else %}
+    <div class="profile-img img-circle" style="background-image: url('{{ user.profile_img.url }}')"></div>
+    {% endif %}
+    <div class="user-info">
+        <h2 class="nickname">{{ user.nickname }}</h2>
+        <span class="email">{{ user.email }}</span>
+    </div>
+
+</div>
+{% endblock content %}
