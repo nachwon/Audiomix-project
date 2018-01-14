@@ -1,9 +1,11 @@
 <div class="home-content-body container">
     <div class="following-posts">
-        {% if request.user.followings is None %}
+        {% if request.user.following is None %}
         <p>No Followings</p>
         {% else %}
-        {{ request.user.followings}}
+        {% for following in request.user.following.all %}
+            {% include 'home/following.html' %}
+        {% endfor %}
         {% endif %}
     </div>
 </div>

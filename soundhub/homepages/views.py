@@ -23,6 +23,9 @@ def index(request):
 
 def home(request):
     if request.user.is_authenticated:
-        return render(request, 'home/home.html')
+        context = {
+            "followings": request.user.following,
+        }
+        return render(request, 'home/home.html', context)
     else:
         return redirect('views:index')

@@ -144,6 +144,20 @@ div.header-buttons-scrolled {
       .dropdown-content form.signout-form input.signout-btn:hover {
         background-color: #ddd; }
 
+div.following-posts {
+  width: 100%;
+  height: 1000px;
+  background-color: white; }
+
+.profile-img-50 {
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  border-radius: 100%;
+  background-position: center;
+  margin: 0;
+  display: inline-block; }
+
 div.home-content-body {
   margin-top: 85px; }
 
