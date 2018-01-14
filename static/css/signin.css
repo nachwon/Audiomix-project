@@ -1,0 +1,78 @@
+div.background {
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 730px;
+  background-image: url("/static/img/signin.png");
+  display: inline-block; }
+
+div.signin-body {
+  width: 400px;
+  margin: 10% auto;
+  padding: 20px 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 6px; }
+  div.signin-body h2.signin-title {
+    font-family: 'Fjalla One', sans-serif;
+    text-align: center;
+    font-size: 40px; }
+  div.signin-body form {
+    font-family: 'Merriweather Sans', sans-serif;
+    text-align: center;
+    position: relative; }
+    div.signin-body form .signin-field {
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid white;
+      border-radius: 3px;
+      width: 280px;
+      height: 40px;
+      padding: 0 10px;
+      font-size: 15px;
+      color: white;
+      margin: 10px 0; }
+      div.signin-body form .signin-field:focus {
+        background-color: white;
+        color: black; }
+      div.signin-body form .signin-field::placeholder {
+        color: white; }
+    div.signin-body form p.error-msg {
+      font-size: 14px;
+      color: red;
+      display: inline-block;
+      margin: 0 auto;
+      width: 100%; }
+    div.signin-body form input.signin-btn {
+      background-color: transparent;
+      border: 1px solid #E2B026;
+      border-radius: 3px;
+      width: 280px;
+      height: 40px;
+      padding: 0 10px;
+      font-size: 15px;
+      color: #E2B026;
+      margin-top: 10px;
+      margin-bottom: 30px; }
+      div.signin-body form input.signin-btn:hover {
+        background-color: #E2B026;
+        color: #333533; }
+  div.signin-body div.border h3 {
+    font-family: 'Fjalla One', sans-serif;
+    overflow: hidden;
+    text-align: center;
+    width: 300px;
+    font-size: 20px;
+    margin: 0 auto; }
+    div.signin-body div.border h3:before, div.signin-body div.border h3:after {
+      background-color: #7a7a7a;
+      content: "";
+      display: inline-block;
+      height: 1px;
+      position: relative;
+      vertical-align: middle;
+      width: 50%; }
+    div.signin-body div.border h3:before {
+      right: 0.5em;
+      margin-left: -50%; }
+    div.signin-body div.border h3:after {
+      left: 0.5em;
+      margin-right: -50%; }

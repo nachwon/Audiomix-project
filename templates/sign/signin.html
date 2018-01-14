@@ -4,23 +4,36 @@
 {% load sass_tags %}
 
 {% block links %}
+<link rel="stylesheet" href="{% sass_src 'css/signin.scss' %}">
 {% endblock links %}
 {% block scripts %}
 {% endblock scripts %}
 
 {% block content %}
-<div class="contents">
-    <form action="{% url 'views:user:sign-in' %}" method="post">
-        {% csrf_token %}
-        {% for field in sign_in %}
-        {{ field }}
-        {% if field.errors %}
-        {{ field.errors }}
-        {% endif %}
-        {% endfor %}
-
-        <input type="submit" value="submit">
-    </form>
-
+<div class="background">
+    <div class="contents container">
+        <div class="signin-body">
+            <h2 class="signin-title">
+                Sign in
+            </h2>
+            <div class="signin-form">
+                <form action="{% url 'views:user:sign-in' %}" method="post">
+                    {% csrf_token %}
+                    {% for field in sign_in %}
+                    {{ field }}
+                    {% endfor %}
+                    {% if sign_in.non_field_errors %}
+                    {% for error in sign_in.non_field_errors %}
+                    <p class="error-msg">{{ error }}</p>
+                    {% endfor %}
+                    {% endif %}
+                    <input class="signin-btn transition" type="submit" value="Sign in">
+                </form>
+                <div class="border">
+                    <h3>or continue with</h3>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock content %}
