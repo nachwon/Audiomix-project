@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "../../home/che1/Projects/Django/django_audiomix/static/css/profile.css",
+	"sources": [
+		"../../home/che1/Projects/Django/django_audiomix/static/css/profile.scss"
+	],
+	"names": [],
+	"mappings": "AAEA,AAAA,GAAG,AAAA,aAAa,CAAC;EACb,MAAM,EAAE,MAAM,GACjB"
+}

@@ -39,15 +39,15 @@ $(document).ready(function(){
 });
 
 
-window.onscroll = function() {myFunction()};
+window.onscroll = function() {header_scroll()};
 
-function myFunction() {
+function header_scroll() {
     if (document.body.scrollTop > 30 || document.documentElement.scrollTop > 30) {
-        document.getElementById("header").className = "header header-scrolled transition";
-        document.getElementById("wrapper").className = "wrapper wrapper-scrolled transition";
-        document.getElementById("title-logo").className = "title-logo title-logo-scrolled transition";
-        document.getElementById("header-btns").className = "header-buttons header-buttons-scrolled";
-        document.getElementById("signup-btn").className = "signup-btn signup-btn-scrolled transition";
+        document.getElementById("header").classList.add("header-scrolled");
+        document.getElementById("wrapper").classList.add("wrapper-scrolled");
+        document.getElementById("title-logo").classList.add("title-logo-scrolled");
+        document.getElementById("header-btns").classList.add("header-buttons-scrolled");
+        document.getElementById("signup-btn").classList.add("signup-btn-scrolled");
     } else {
         document.getElementById("header").className = "header transition";
         document.getElementById("wrapper").className = "wrapper transition";
