@@ -1,0 +1,33 @@
+<div class="pop-users post-list slide slide-fade">
+    <div class="obj-wrapper">
+        {% for user in pop_users|slice:":4" %}
+        <div class="post-obj">
+            {% if user.profile_img.name == '' %}
+            <div class="post-img" style="background-image: url('static/img/default-profile.png');"></div>
+            {% else %}
+            <div class="post-img" style="background-image: url('{{ user.profile_img.url }}')"></div>
+            {% endif %}
+            <p class="post-title">{{ user.nickname }}</p>
+            <p class="post-author">{{ user.instrument }}</p>
+        </div>
+        {% endfor %}
+        <div class="post-obj">
+            <h3 class="pop-posts-title"><a href="">More<br>Artists...</a></h3>
+        </div>
+        <div class="post-obj title">
+            <h2 class="pop-posts-title">Top<br>Artists</h2>
+            <span class="pop-posts-p">Check out some of the most famous artists in SoundHub community!</span>
+        </div>
+        {% for user in pop_users|slice:"4:8" %}
+        <div class="post-obj">
+            {% if user.profile_img.name == '' %}
+            <div class="post-img" style="background-image: url('static/img/default-profile.png');"></div>
+            {% else %}
+            <div class="post-img" style="background-image: url('{{ user.profile_img.url }}')"></div>
+            {% endif %}
+            <p class="post-title">{{ user.nickname }}</p>
+            <p class="post-author">{{ user.instrument }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>

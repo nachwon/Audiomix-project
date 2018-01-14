@@ -46,9 +46,9 @@
             <button class="signup-btn transition">Sign up for free</button>
         </div>
         <div style="text-align:center">
-            <span class="dot" onclick="currentSlide(3)"></span>
-            <span class="dot" onclick="currentSlide(2)"></span>
             <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
         </div>
     </div>
     <!--End of jumbotron-->
@@ -56,144 +56,19 @@
         <a class="prev transition" onclick="plusSlides(1)">&#10094;</a>
         <a class="next transition" onclick="plusSlides(-1)">&#10095;</a>
         <!--Recent Posts-->
-        <div class="recent-posts post-list slide slide-fade">
-            <div class="obj-wrapper">
-                {% for post in recent_posts|slice:":2" %}
-                <div class="post-obj">
-                    {% if post.post_img.name == '' %}
-                    <div class="post-img" style="background-image: url('static/img/default-post-img.png'); background-size:unset;"></div>
-                    {% else %}
-                    <div class="post-img" style="background-image: url('{{ post.post_img.url }}')"></div>
-                    {% endif %}
-                    <p class="post-title">{{ post.title|truncatechars:30 }}</p>
-                    <p class="post-author">{{ post.author }}</p>
-                </div>
-                {% endfor %}
-                <div class="post-obj title">
-                    <h2 class="pop-posts-title">Recent<br>Posts</h2>
-                    <span class="pop-posts-p">Check out some of the most recently uploaded tracks in SoundHub community!</span>
-                </div>
-                {% for post in recent_posts|slice:"2:6" %}
-                <div class="post-obj">
-                    {% if post.post_img.name == '' %}
-                    <div class="post-img" style="background-image: url('static/img/default-post-img.png'); background-size:unset;"></div>
-                    {% else %}
-                    <div class="post-img" style="background-image: url('{{ post.post_img.url }}')"></div>
-                    {% endif %}
-                    <p class="post-title">{{ post.title|truncatechars:30 }}</p>
-                    <p class="post-author">{{ post.author }}</p>
-                </div>
-                {% endfor %}
-                <div class="post-obj">
-                    <h3 class="pop-posts-title"><a href="">More<br>Recent Posts...</a></h3>
-                </div>
-                {% for post in recent_posts|slice:"6:8" %}
-                <div class="post-obj">
-                    {% if post.post_img.name == '' %}
-                    <div class="post-img" style="background-image: url('static/img/default-post-img.png'); background-size:unset;"></div>
-                    {% else %}
-                    <div class="post-img" style="background-image: url('{{ post.post_img.url }}')"></div>
-                    {% endif %}
-                    <p class="post-title">{{ post.title|truncatechars:30 }}</p>
-                    <p class="post-author">{{ post.author }}</p>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
+        {% include 'index/recent-posts.html' %}
         <!--End of recent posts-->
         <!--Pop users-->
-        <div class="pop-users post-list slide slide-fade">
-            <div class="obj-wrapper">
-                {% for user in pop_users|slice:":4" %}
-                <div class="post-obj">
-                    {% if user.profile_img.name == '' %}
-                    <div class="post-img" style="background-image: url('static/img/default-profile.png');"></div>
-                    {% else %}
-                    <div class="post-img" style="background-image: url('{{ user.profile_img.url }}')"></div>
-                    {% endif %}
-                    <p class="post-title">{{ user.nickname }}</p>
-                    <p class="post-author">{{ user.instrument }}</p>
-                </div>
-                {% endfor %}
-                <div class="post-obj">
-                    <h3 class="pop-posts-title"><a href="">More<br>Artists...</a></h3>
-                </div>
-                <div class="post-obj title">
-                    <h2 class="pop-posts-title">Top<br>Artists</h2>
-                    <span class="pop-posts-p">Check out some of the most famous artists in SoundHub community!</span>
-                </div>
-                {% for user in pop_users|slice:"4:8" %}
-                <div class="post-obj">
-                    {% if user.profile_img.name == '' %}
-                    <div class="post-img" style="background-image: url('static/img/default-profile.png');"></div>
-                    {% else %}
-                    <div class="post-img" style="background-image: url('{{ user.profile_img.url }}')"></div>
-                    {% endif %}
-                    <p class="post-title">{{ user.nickname }}</p>
-                    <p class="post-author">{{ user.instrument }}</p>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
+        {% include 'index/pop-users.html' %}
         <!--End of pop users-->
         <!--Popular posts-->
-        <div class="pop-posts post-list slide slide-fade">
-            <div class="obj-wrapper">
-                <div class="post-obj title">
-                    <h2 class="pop-posts-title">Popular<br>Posts</h2>
-                    <span class="pop-posts-p">Check out some of the most popular tracks in SoundHub community!</span>
-                </div>
-                {% for post in pop_posts %}
-                <div class="post-obj">
-                    {% if post.post_img.name == '' %}
-                    <div class="post-img" style="background-image: url('static/img/default-post-img.png'); background-size:unset;"></div>
-                    {% else %}
-                    <div class="post-img" style="background-image: url('{{ post.post_img.url }}')"></div>
-                    {% endif %}
-                    <p class="post-title">{{ post.title|truncatechars:30 }}</p>
-                    <p class="post-author">{{ post.author }}</p>
-                </div>
-                {% endfor %}
-                <div class="post-obj">
-                    <h3 class="pop-posts-title"><a href="">More<br>Popular Posts...</a></h3>
-                </div>
-            </div>
-        </div>
+        {% include 'index/pop-posts.html' %}
         <!--End of Popular Posts-->
     </div>
 </div>
 <!--End of content body-->
 <!--Sign-in pop-up layer-->
-<div id="popup-layer" class="dim-layer">
-    <div class="dimBg"></div>
-    <div id="sign-in" class="pop-layer">
-        <div class="pop-container">
-            <div class="pop-conts">
-                <!--Sign-in contents-->
-                <img class="soundhub-logo" src="{% static 'img/soundhub-logo.png' %}" alt="">
-                <h3 class="signin-title">Sign in</h3>
-                <form action="{% url 'views:user:sign-in' %}" method="post">
-                    {% csrf_token %}
-                    {% for field in sign_in %}
-                    <div class="form-field">
-                        {{ field }}
-                    </div>
-                    {% endfor %}
-                    <input type="submit" class="submit-btn transition" value="Sign in">
-                </form>
-                <div class="btn-r">
-                    <h3 class="social-signin">Or continue with...</h3>
-                    <div class="social-wrapper">
-                        <a href="https://www.facebook.com/v2.11/dialog/oauth?client_id=188997225020523&scope=user_friends,email,public_profile&redirect_uri={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'views:user:fb-login' %}"><img class="fb-btn" src="{% static 'img/facebook.png' %}" alt=""><span class="fb-text">Facebook</span></a>
-                        <a href=""><img class="gg-btn" src="{% static 'img/google.png' %}" alt=""><span class="fb-text">Google</span></a>
-                    </div>
-                    <a href="#" class="btn-layerClose transition">Close</a>
-                </div>
-                <!--End of sign-in contents-->
-            </div>
-        </div>
-    </div>
-</div>
+{% include 'index/popup-signin.html' %}
 <!--End of sign-in pop-up layer-->
 
 </body>

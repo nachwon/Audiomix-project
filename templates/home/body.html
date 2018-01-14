@@ -1,0 +1,9 @@
+<div class="home-content-body container">
+    <div class="following-posts">
+        {% if request.user.followings is None %}
+        <p>No Followings</p>
+        {% else %}
+        {{ request.user.followings}}
+        {% endif %}
+    </div>
+</div>

@@ -12,6 +12,9 @@ a:hover {
 .transition {
   transition: 0.1s ease; }
 
+:focus {
+  outline: none; }
+
 .slide-fade {
   -webkit-animation-name: fade;
   -webkit-animation-duration: 0.5s;

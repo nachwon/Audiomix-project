@@ -17,6 +17,10 @@ a:hover {
     transition: 0.1s ease;
 }
 
+:focus {
+    outline: none;
+}
+
 // Fading animation
 .slide-fade {
     -webkit-animation-name: fade;
