@@ -1,41 +1,3 @@
-/* general starts */
-
-body {
-    background-color: #333533;
-    color: #E8EDDF;
-}
-
-a {
-    color: #E8EDDF;
-}
-
-a:hover {
-    text-decoration: none;
-}
-
-:focus {
-    outline: none;
-}
-
-.focused {
-    box-shadow: inset 0px 0px 10px 0px black;
-    &:hover {
-        box-shadow: inset 0px 0px 10px 0px black !important;
-    }
-}
-
-.appear {
-    display: block !important;
-}
-
-.transition {
-    transition: 0.2s ease;
-}
-
-
-// general ends
-
-
 // Body starts
 
 div.following-posts {
@@ -52,9 +14,4 @@ div.following-posts {
     margin: 0;
     display: inline-block;
 }
-
-div.home-content-body {
-    margin-top: 85px;
-}
-
 // Body ends
