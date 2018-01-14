@@ -19,20 +19,21 @@
 <div id="header" class="header container">
     <div id="wrapper" class="wrapper">
         <a href="/"><img id="title-logo" class="title-logo" src="{% static 'img/logo.png' %}" alt=""></a>
-        <div class="current-user">{{ request.user }}</div>
-        <div class="dropdown">
-            <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-            <div id="myDropdown" class="dropdown-content" >
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <form class="signout-form" action="{% url 'views:user:sign-out' %}" method="post">
-                    {% csrf_token %}
-                    <img class="signout-img" src="{% static 'img/signout.png' %}" alt="">
-                    <input class="signout-btn" type="submit" value="Sign out">
-                </form>
+        <div class="btn-wrapper">
+            <div class="current-user">{{ request.user }}</div>
+            <div class="dropdown">
+                <button onclick="myFunction()" class="dropbtn"></button>
+                <div id="myDropdown" class="dropdown-content" >
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <form class="signout-form" action="{% url 'views:user:sign-out' %}" method="post">
+                        {% csrf_token %}
+                        <img class="signout-img" src="{% static 'img/signout.png' %}" alt="">
+                        <input class="signout-btn" type="submit" value="Sign out">
+                    </form>
+                </div>
             </div>
         </div>
-
     </div>
 </div>
 
