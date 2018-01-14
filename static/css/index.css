@@ -184,7 +184,7 @@ div.recent-posts {
 /* contents ends */
 #popup-layer {
   display: none;
-  font-family: 'Dosis', sans-serif; }
+  font-family: 'Merriweather Sans', sans-serif; }
 
 .pop-layer .pop-container {
   padding: 20px 25px; }
@@ -206,7 +206,8 @@ div.recent-posts {
   .pop-layer .btn-r h3.social-signin {
     text-align: left;
     margin: 0px;
-    margin-bottom: 15px; }
+    margin-bottom: 15px;
+    font-size: 15px; }
   .pop-layer .btn-r div.social-wrapper {
     height: 40px;
     width: 300px;
@@ -215,7 +216,7 @@ div.recent-posts {
     .pop-layer .btn-r div.social-wrapper img.fb-btn {
       width: 40px; }
     .pop-layer .btn-r div.social-wrapper span.fb-text {
-      font-size: 25px;
+      font-size: 19px;
       vertical-align: middle;
       margin-left: 10px;
       margin-right: 20px; }
