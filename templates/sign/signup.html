@@ -12,18 +12,21 @@
 {% block content %}
 <div class="background">
     <div class="mask"></div>
-    <div class="signup-body contents container">
-        <h1 class="signup-title">Create Account</h1>
-        <div class="signup-box">
-            <form action="{% url 'views:user:sign-up' %}" method="post">
+    <form action="{% url 'views:user:sign-up' %}" method="post">
+        <div class="signup-body contents container">
+            {% include 'sign/terms-of-use.html' %}
+            <div class="signup-box">
+                <h1 class="signup-title">Create Account</h1>
+
                 {% csrf_token %}
+
                 {% for field in sign_up %}
                 {{ field }}
                 {% endfor %}
-                <input type="submit" value="Sign up">
-            </form>
+                <!--<input type="submit" value="Sign up">-->
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 
 {% endblock content %}

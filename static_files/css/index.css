@@ -187,7 +187,8 @@ div.recent-posts {
   font-family: 'Merriweather Sans', sans-serif; }
 
 .pop-layer .pop-container {
-  padding: 20px 25px; }
+  padding: 20px 25px;
+  padding-top: 50px; }
 
 .pop-container {
   background-color: #333533;
