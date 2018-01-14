@@ -153,7 +153,7 @@ div.post-list div.post-obj {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #696969;
+    background-color: rgba(53, 51, 53, 0.6);
     width: 200px;
     height: 200px;
     margin-bottom: 5px;

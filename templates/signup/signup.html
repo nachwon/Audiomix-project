@@ -10,9 +10,15 @@
 {% endblock scripts %}
 
 {% block content %}
-<div class="contents background">
-    <div class="container">
-        {{ sign_up }}
+<div class="background">
+    <div class="mask"></div>
+    <div class="signup-body contents container">
+        <h1 class="signup-title">Create Account</h1>
+        <div class="signup-box">
+            {% for field in sign_up %}
+                {{ field }}
+            {% endfor %}
+        </div>
     </div>
 </div>
 

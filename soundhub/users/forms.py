@@ -13,15 +13,22 @@ class SignInForm(forms.Form):
                                  }
                              ))
     password = forms.CharField(widget=forms.PasswordInput(
-                                   attrs={
-                                       'class': 'signin-field'
-                                   }
-                               ))
+        attrs={
+            'class': 'signin-field'
+        }
+    ))
 
 
 class SignUpForm(forms.ModelForm):
-    password1 = forms.CharField(widget=forms.PasswordInput)
-    password2 = forms.CharField(widget=forms.PasswordInput)
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={
+        'class': 'signup-field',
+        'placeholder': 'Password',
+    }))
+    password2 = forms.CharField(widget=forms.PasswordInput(
+        attrs={
+            'class': 'signup-field',
+            'placeholder': 'Password Confirmation'
+        }))
 
     class Meta:
         model = User
@@ -31,3 +38,17 @@ class SignUpForm(forms.ModelForm):
             'password1',
             'password2',
         )
+        widgets = {
+            'email': forms.EmailInput(
+                attrs={
+                    'class': 'signup-field',
+                    'placeholder': 'E-mail Address',
+                }
+            ),
+            'nickname': forms.TextInput(
+                attrs={
+                    'class': 'signup-field',
+                    'placeholder': 'Nickname',
+                }
+            ),
+        }
