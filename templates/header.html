@@ -1,0 +1,29 @@
+{% load static %}
+<div id="header" class="header">
+    <div id="wrapper" class="wrapper">
+        <a href="/"><img id="title-logo" class="title-logo" src="{% static 'img/logo.png' %}" alt=""></a>
+        {% if request.user.is_authenticated %}
+        <div class="btn-wrapper">
+            <div class="current-user">{{ request.user }}</div>
+            <div class="dropdown">
+                <button onclick="dropdown()" class="dropbtn"></button>
+                <div id="myDropdown" class="dropdown-content" >
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <form class="signout-form" action="{% url 'views:user:sign-out' %}" method="post">
+                        {% csrf_token %}
+                        <img class="signout-img" src="{% static 'img/signout.png' %}" alt="">
+                        <input class="signout-btn" type="submit" value="Sign out">
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div id="header-btns" class="header-buttons">
+            <a class="signin-btn" href="#sign-in">Sign in</a>
+            <a id="signup-btn" class="signup-btn" href="#layer2">Create Account</a>
+        </div>
+
+        {% endif %}
+    </div>
+</div>

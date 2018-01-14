@@ -10,32 +10,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% sass_src 'css/home.scss' %}">
+    <link rel="stylesheet" href="{% sass_src 'css/header.scss' %}">
     <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Merriweather+Sans|Catamaran" rel="stylesheet">
     <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'js/home.js' %}"></script>
     <title>SoundHub</title>
 </head>
 <body>
-<div id="header" class="header container">
-    <div id="wrapper" class="wrapper">
-        <a href="/"><img id="title-logo" class="title-logo" src="{% static 'img/logo.png' %}" alt=""></a>
-        <div class="btn-wrapper">
-            <div class="current-user">{{ request.user }}</div>
-            <div class="dropdown">
-                <button onclick="dropdown()" class="dropbtn"></button>
-                <div id="myDropdown" class="dropdown-content" >
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <form class="signout-form" action="{% url 'views:user:sign-out' %}" method="post">
-                        {% csrf_token %}
-                        <img class="signout-img" src="{% static 'img/signout.png' %}" alt="">
-                        <input class="signout-btn" type="submit" value="Sign out">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{% include 'header.html' %}
 
 {% include 'home/body.html' %}
 

@@ -2,11 +2,11 @@ window.onscroll = function() {header_scroll()};
 
 function header_scroll() {
     if (document.body.scrollTop > 30 || document.documentElement.scrollTop > 30) {
-        document.getElementById("header").className = "header header-scrolled transition container";
+        document.getElementById("header").className = "header header-scrolled transition";
         document.getElementById("wrapper").className = "wrapper wrapper-scrolled transition";
         document.getElementById("title-logo").className = "title-logo title-logo-scrolled transition";
     } else {
-        document.getElementById("header").className = "header container transition";
+        document.getElementById("header").className = "header transition";
         document.getElementById("wrapper").className = "wrapper transition";
         document.getElementById("title-logo").className = "title-logo transition";
     }

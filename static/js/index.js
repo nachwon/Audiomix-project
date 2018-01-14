@@ -43,14 +43,16 @@ window.onscroll = function() {myFunction()};
 
 function myFunction() {
     if (document.body.scrollTop > 30 || document.documentElement.scrollTop > 30) {
-        document.getElementById("header").className = "header header-scrolled transition container";
+        document.getElementById("header").className = "header header-scrolled transition";
         document.getElementById("wrapper").className = "wrapper wrapper-scrolled transition";
         document.getElementById("title-logo").className = "title-logo title-logo-scrolled transition";
+        document.getElementById("header-btns").className = "header-buttons header-buttons-scrolled";
         document.getElementById("signup-btn").className = "signup-btn signup-btn-scrolled transition";
     } else {
-        document.getElementById("header").className = "header container transition";
+        document.getElementById("header").className = "header transition";
         document.getElementById("wrapper").className = "wrapper transition";
         document.getElementById("title-logo").className = "title-logo transition";
+        document.getElementById("header-btns").className = "header-buttons transition";
         document.getElementById("signup-btn").className = "signup-btn transition";
     }
 };

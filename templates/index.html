@@ -10,6 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% sass_src 'css/index.scss' %}">
+    <link rel="stylesheet" href="{% sass_src 'css/header.scss' %}">
     <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Merriweather+Sans|Catamaran|Dosis" rel="stylesheet">
     <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'js/index.js' %}"></script>
@@ -17,15 +18,7 @@
 </head>
 <body>
 <!--header-->
-<div id="header" class="header container">
-    <div id="wrapper" class="wrapper">
-        <a href="/"><img id="title-logo" class="title-logo" src="{% static 'img/logo.png' %}" alt=""></a>
-        <div class="header-buttons">
-            <a class="signin-btn" href="#sign-in">Sign in</a>
-            <a id="signup-btn" class="signup-btn" href="#layer2">Create Account</a>
-        </div>
-    </div>
-</div>
+{% include 'header.html' %}
 <!--End of header-->
 <!--content body-->
 <div class="container contents">
