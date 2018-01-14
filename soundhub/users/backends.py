@@ -22,9 +22,9 @@ class FacebookBackend:
 
 
 class FBAuthBackend:
-    def authenticate(self, request, email):
+    def authenticate(self, request, fb_id):
         try:
-            return User.objects.get(email=email, user_type='F')
+            return User.objects.get(fb_id=fb_id, user_type='F')
         except User.DoesNotExist:
             return None
 
