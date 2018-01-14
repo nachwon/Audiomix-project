@@ -55,12 +55,12 @@ function myFunction() {
         document.getElementById("header-btns").className = "header-buttons transition";
         document.getElementById("signup-btn").className = "signup-btn transition";
     }
-};
+}
+
 
 // slide show
+var slideIndex = 3;
 
-var slideIndex = 1;
-showSlides(slideIndex);
 
 // Next/previous controls
 function plusSlides(n) {
@@ -85,5 +85,11 @@ function showSlides(n) {
         dots[i].className = dots[i].className.replace(" active", "");
     }
     slides[slideIndex-1].style.display = "block";
-    dots[slideIndex-1].className += " active";
+    dots[slideIndex-1].classList.add("active");
 }
+
+$(document).ready(function() {showSlides(3);});
+
+
+
+

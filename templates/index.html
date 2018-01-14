@@ -1,25 +1,16 @@
+{% extends 'base.html' %}
+
 {% load static %}
 {% load sass_tags %}
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% sass_src 'css/index.scss' %}">
-    <link rel="stylesheet" href="{% sass_src 'css/header.scss' %}">
-    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Merriweather+Sans|Catamaran|Dosis" rel="stylesheet">
-    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-    <script src="{% static 'js/index.js' %}"></script>
-    <title>SoundHub</title>
-</head>
-<body>
-<!--header-->
-{% include 'header.html' %}
-<!--End of header-->
+{% block links %}
+<link rel="stylesheet" href="{% sass_src 'css/index.scss' %}">
+{% endblock links %}
+{% block scripts %}
+<script src="{% static 'js/index.js' %}"></script>
+{% endblock scripts %}
+
+{% block content %}
 <!--content body-->
 <div class="container contents">
     <!--Jumbotron-->
@@ -39,9 +30,9 @@
             <button class="signup-btn transition">Sign up for free</button>
         </div>
         <div style="text-align:center">
-            <span class="dot" onclick="currentSlide(1)"></span>
-            <span class="dot" onclick="currentSlide(2)"></span>
             <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(1)"></span>
         </div>
     </div>
     <!--End of jumbotron-->
@@ -63,5 +54,5 @@
 <!--Sign-in pop-up layer-->
 {% include 'index/popup-signin.html' %}
 <!--End of sign-in pop-up layer-->
-</body>
-</html>
+
+{% endblock content %}

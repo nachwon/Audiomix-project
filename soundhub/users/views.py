@@ -86,3 +86,13 @@ def sign_out(request):
         if request.user.is_authenticated:
             logout(request)
     return redirect('views:index')
+
+
+def user_detail(request, pk):
+    if request.method == 'GET':
+        user = User.objects.get(pk=pk)
+
+        context = {
+            "user": user,
+        }
+        return render(request, 'profile/profile.html', context)
