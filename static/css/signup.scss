@@ -6,7 +6,7 @@ div.mask {
     height: 100%;
     background-color: black;
     z-index: 1;
-    opacity: 0.7;
+    opacity: 0.6;
 }
 
 div.background {
@@ -21,7 +21,7 @@ div.background {
 }
 
 div.signup-body {
-    margin-left: 50px;
+    padding-left: 50px;
     position: absolute;
     z-index: 3;
     .signup-title {
@@ -33,12 +33,18 @@ div.signup-body {
             background-color: rgba(255, 255, 255, 0.2);
             border: 1px solid white;
             border-radius: 3px;
-            width: 250px;
+            width: 280px;
             height: 40px;
             padding: 0 10px;
-            font-size: 20px;
+            font-size: 15px;
             color: white;
             margin: 10px 0;
+            font-family: 'Merriweather Sans', sans-serif;
+
+            &:focus {
+                background-color: white;
+                color: black;
+            }
         }
     }
 }

@@ -21,12 +21,12 @@ class SignInForm(forms.Form):
 
 class SignUpForm(forms.ModelForm):
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'signup-field',
+        'class': 'signup-field transition',
         'placeholder': 'Password',
     }))
     password2 = forms.CharField(widget=forms.PasswordInput(
         attrs={
-            'class': 'signup-field',
+            'class': 'signup-field transition',
             'placeholder': 'Password Confirmation'
         }))
 
@@ -41,13 +41,13 @@ class SignUpForm(forms.ModelForm):
         widgets = {
             'email': forms.EmailInput(
                 attrs={
-                    'class': 'signup-field',
+                    'class': 'signup-field transition',
                     'placeholder': 'E-mail Address',
                 }
             ),
             'nickname': forms.TextInput(
                 attrs={
-                    'class': 'signup-field',
+                    'class': 'signup-field transition',
                     'placeholder': 'Nickname',
                 }
             ),
