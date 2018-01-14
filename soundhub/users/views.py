@@ -10,12 +10,22 @@ User = get_user_model()
 
 def sign_up(request):
     if request.method == 'GET':
+        if request.user.is_authenticated:
+            return redirect('views:home')
         form = SignUpForm()
+        context = {
+            "sign_up": form,
+        }
+        return render(request, 'signup/signup.html', context)
 
-    context = {
-        "sign_up": form,
-    }
-    return render(request, 'signup/signup.html', context)
+    elif request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+        return redirect('views:home')
+
+
 
 
 def sign_in(request):

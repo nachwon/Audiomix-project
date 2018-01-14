@@ -15,9 +15,13 @@
     <div class="signup-body contents container">
         <h1 class="signup-title">Create Account</h1>
         <div class="signup-box">
-            {% for field in sign_up %}
+            <form action="{% url 'views:user:sign-up' %}" method="post">
+                {% csrf_token %}
+                {% for field in sign_up %}
                 {{ field }}
-            {% endfor %}
+                {% endfor %}
+                <input type="submit" value="Sign up">
+            </form>
         </div>
     </div>
 </div>
