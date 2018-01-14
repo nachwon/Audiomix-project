@@ -1,2 +1,26 @@
 div.profile-body {
-  height: 1000px; }
+  background-color: white;
+  height: 300px;
+  position: relative;
+  font-family: 'Merriweather Sans', sans-serif; }
+
+div.profile-img {
+  box-shadow: 1px 1px 6px 0px black;
+  background-color: grey;
+  background-position: center;
+  width: 250px;
+  height: 250px;
+  display: inline-block;
+  margin-left: 15px;
+  background-size: cover;
+  position: absolute;
+  top: 60%; }
+
+div.user-info {
+  position: absolute;
+  top: 100%;
+  left: 24%; }
+  div.user-info h2.nickname {
+    font-size: 40px; }
+  div.user-info span.email {
+    font-size: 15px; }

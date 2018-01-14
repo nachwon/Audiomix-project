@@ -15,7 +15,10 @@
     {% endblock links %}
     <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Merriweather+Sans|Catamaran|Dosis" rel="stylesheet">
     <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    {% if request.user.is_authenticated %}
     <script src="{% static 'js/header.js' %}"></script>
+    {% else %}
+    {% endif %}
     {% block scripts %}
     {% endblock scripts %}
 
