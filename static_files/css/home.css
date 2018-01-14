@@ -78,7 +78,6 @@ div.header-buttons-scrolled {
 
 .dropbtn {
   background-image: url("/static/img/hamburger.png");
-  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   background-color: transparent;
@@ -87,7 +86,7 @@ div.header-buttons-scrolled {
   font-size: 16px;
   border: none;
   cursor: pointer;
-  width: 100%;
+  width: 50px;
   height: 100%; }
   .dropbtn:hover {
     box-shadow: 0px 2px 3px 0px black; }
