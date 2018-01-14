@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load sass_tags %}
+
+{% block links %}
+<link rel="stylesheet" href="{% sass_src 'css/signup.scss' %}">
+{% endblock links %}
+{% block scripts %}
+{% endblock scripts %}
+
+{% block content %}
+<div class="contents background">
+    <div class="container">
+        {{ sign_up }}
+    </div>
+</div>
+
+{% endblock content %}

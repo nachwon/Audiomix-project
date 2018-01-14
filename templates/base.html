@@ -18,6 +18,7 @@
     {% if request.user.is_authenticated %}
     <script src="{% static 'js/header.js' %}"></script>
     {% else %}
+    <script src="{% static 'js/header-no-auth.js' %}"></script>
     {% endif %}
     {% block scripts %}
     {% endblock scripts %}

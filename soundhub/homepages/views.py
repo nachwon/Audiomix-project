@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect
 
 from posts.models import Post
-from users.forms import SignInForm
+from users.forms import SignInForm, SignUpForm
 
 User = get_user_model()
 
@@ -13,7 +13,7 @@ def index(request):
             "pop_users": User.objects.order_by('-total_liked')[:8],
             "pop_posts": Post.objects.order_by('-num_liked')[:8],
             "recent_posts": Post.objects.order_by('-created_date')[:8],
-            "sign_in": SignInForm()
+            "sign_in": SignInForm(),
         }
         return render(request, 'index.html', context)
 

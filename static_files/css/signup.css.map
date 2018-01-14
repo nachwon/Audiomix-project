@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "../../home/che1/Projects/Django/django_audiomix/static/css/signup.css",
+	"sources": [
+		"../../home/che1/Projects/Django/django_audiomix/static/css/signup.scss"
+	],
+	"names": [],
+	"mappings": "AAEA,AAAA,GAAG,AAAA,WAAW,CAAC;EACX,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,MAAM;EACd,gBAAgB,EAAE,6BAA6B;EAC/C,eAAe,EAAE,KAAK;EACtB,mBAAmB,EAAE,UAAU;EAC/B,iBAAiB,EAAE,SAAS,GAC/B"
+}

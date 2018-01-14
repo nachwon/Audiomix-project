@@ -1,13 +1,21 @@
-import requests
-from django.conf import settings
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from django.urls import reverse
 
+from users.forms import SignUpForm
 from utils.facebook import get_facebook_user_info
 
 User = get_user_model()
+
+
+def sign_up(request):
+    if request.method == 'GET':
+        form = SignUpForm()
+
+    context = {
+        "sign_up": form,
+    }
+    return render(request, 'signup/signup.html', context)
 
 
 def sign_in(request):
