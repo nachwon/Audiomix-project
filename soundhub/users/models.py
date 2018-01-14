@@ -107,6 +107,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     instrument = models.CharField(max_length=255, blank=True, null=True)
     # 유저 타입. 소셜로그인인가 아니면 그냥 로그인인가.
     user_type = models.CharField(max_length=1, choices=USER_TYPE, default=USER_TYPE_SOUNDHUB)
+    # Facebook 유저 로그인 시 id 값
+    fb_id = models.CharField(max_length=255, blank=True, null=True)
     # 선호하는 장르
     genre = models.CharField(max_length=100, blank=True, null=True)
     # 받은 좋아요 수 총합
