@@ -48,6 +48,9 @@ div.current-user {
   line-height: 77px;
   display: inline-block; }
 
+div.current-user-scrolled {
+  line-height: 47px; }
+
 .btn-wrapper {
   width: 300px;
   float: right;
@@ -58,13 +61,15 @@ div.current-user {
   height: 77px;
   float: right; }
 
+.dropdown-scrolled {
+  height: 47px; }
+
 .dropbtn {
   background-image: url("/static/img/hamburger.png");
   background-position: center;
   background-repeat: no-repeat;
   background-color: transparent;
   color: white;
-  padding: 16px;
   font-size: 16px;
   border: none;
   cursor: pointer;
@@ -126,7 +131,6 @@ div.current-user {
       .dropdown-content form.signout-form input.signout-btn:hover {
         background-color: #ddd; }
 
-/* header starts */
 div.header-buttons {
   margin-right: 15px;
   float: right;
@@ -165,7 +169,5 @@ a.signup-btn {
 
 a.signup-btn-scrolled {
   line-height: 48px; }
-
-/* header ends */
 
 /*# sourceMappingURL=../../../../../../../static/css/header.css.map */

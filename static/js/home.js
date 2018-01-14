@@ -5,10 +5,15 @@ function header_scroll() {
         document.getElementById("header").className = "header header-scrolled transition";
         document.getElementById("wrapper").className = "wrapper wrapper-scrolled transition";
         document.getElementById("title-logo").className = "title-logo title-logo-scrolled transition";
+        document.getElementById("current-user").className = "current-user current-user-scrolled transition";
+        document.getElementById("dropdown").className = "dropdown dropdown-scrolled transition";
+
     } else {
         document.getElementById("header").className = "header transition";
         document.getElementById("wrapper").className = "wrapper transition";
         document.getElementById("title-logo").className = "title-logo transition";
+        document.getElementById("current-user").className = "current-user transition";
+        document.getElementById("dropdown").className = "dropdown  transition";
     }
 };
 

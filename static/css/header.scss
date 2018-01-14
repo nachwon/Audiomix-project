@@ -69,6 +69,10 @@ div.current-user {
     display: inline-block;
 }
 
+div.current-user-scrolled {
+    line-height: 47px;
+}
+
 
 .btn-wrapper {
     width: 300px;
@@ -82,13 +86,16 @@ div.current-user {
     float: right;
 }
 
+.dropdown-scrolled {
+    height: 47px;
+}
+
 .dropbtn {
     background-image: url("/static/img/hamburger.png");
     background-position: center;
     background-repeat: no-repeat;
     background-color: transparent;
     color: white;
-    padding: 16px;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -103,6 +110,7 @@ div.current-user {
         box-shadow: inset 0px 0px 10px 0px black;
     }
 }
+
 
 .dropdown-content {
     font-size: 12px;
