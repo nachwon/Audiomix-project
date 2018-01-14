@@ -20,7 +20,12 @@
                 <div class="btn-r">
                     <h3 class="social-signin">Or continue with...</h3>
                     <div class="social-wrapper">
-                        <a href="https://www.facebook.com/v2.11/dialog/oauth?client_id=188997225020523&scope=user_friends,email,public_profile&redirect_uri={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'views:user:fb-login' %}"><img class="fb-btn" src="{% static 'img/facebook.png' %}" alt=""><span class="fb-text">Facebook</span></a>
+                        <a href="https://www.facebook.com/v2.11/dialog/oauth?client_id=188997225020523
+                        &scope=user_friends,email,public_profile
+                        &redirect_uri={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'views:user:fb-login' %}">
+                            <img class="fb-btn" src="{% static 'img/facebook.png' %}" alt="">
+                            <span class="fb-text">Facebook</span>
+                        </a>
                         <a href=""><img class="gg-btn" src="{% static 'img/google.png' %}" alt=""><span class="fb-text">Google</span></a>
                     </div>
                     <a href="#" class="btn-layerClose transition">Close</a>

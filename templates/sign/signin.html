@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load sass_tags %}
+
+{% block links %}
+{% endblock links %}
+{% block scripts %}
+{% endblock scripts %}
+
+{% block content %}
+<div class="contents">
+    <form action="{% url 'views:user:sign-in' %}" method="post">
+        {% csrf_token %}
+        {% for field in sign_in %}
+        {{ field }}
+        {% if field.errors %}
+        {{ field.errors }}
+        {% endif %}
+        {% endfor %}
+
+        <input type="submit" value="submit">
+    </form>
+
+</div>
+{% endblock content %}

@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
-from users.forms import SignUpForm
+from users.forms import SignUpForm, SignInForm
 from utils.facebook import get_facebook_user_info
 
 User = get_user_model()
@@ -16,7 +16,7 @@ def sign_up(request):
         context = {
             "sign_up": form,
         }
-        return render(request, 'signup/signup.html', context)
+        return render(request, 'sign/signup.html', context)
 
     elif request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -26,17 +26,20 @@ def sign_up(request):
         return redirect('views:home')
 
 
-
-
 def sign_in(request):
     if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-        user = authenticate(email=email, password=password)
-        if user:
-            login(request, user)
+        form = SignInForm(request.POST)
+        if form.is_valid():
+            form.login(request)
+            return redirect('views:home')
 
-    return redirect('views:home')
+    else:
+        form = SignInForm()
+
+    context = {
+        "sign_in": form,
+    }
+    return render(request, 'sign/signin.html', context)
 
 
 def facebook_login(request):
