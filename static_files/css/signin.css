@@ -76,5 +76,21 @@ div.signin-body {
     div.signin-body div.border h3:after {
       left: 0.5em;
       margin-right: -50%; }
+  div.signin-body div.social-wrapper {
+    font-family: 'Merriweather Sans', sans-serif;
+    height: 40px;
+    width: 300px;
+    text-align: center;
+    margin: 25px auto; }
+    div.signin-body div.social-wrapper img.fb-btn {
+      width: 40px; }
+    div.signin-body div.social-wrapper span.fb-text {
+      font-size: 18px;
+      vertical-align: middle;
+      margin-left: 10px;
+      margin-right: 20px; }
+    div.signin-body div.social-wrapper img.gg-btn {
+      width: 40px;
+      border-radius: 2px; }
 
 /*# sourceMappingURL=../../../../../../../static/css/signin.css.map */
