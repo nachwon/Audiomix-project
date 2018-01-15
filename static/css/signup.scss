@@ -1,5 +1,9 @@
 // signup body starts
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 div.mask {
     position: absolute;
     width: 100%;
@@ -87,5 +91,25 @@ div.signup-body {
         }
     }
 }
+
+.carousel-inner {
+    overflow: unset;
+}
+
+a.carousel-control {
+    z-index: 100;
+    top: 75%;
+}
+
+.carousel-indicators {
+    bottom: -65%;
+}
+
+@media screen and (min-width: 768px){
+    .carousel-indicators {
+        bottom: -65%;
+    }
+}
+
 
 // signup body ends
