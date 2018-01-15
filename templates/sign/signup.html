@@ -30,8 +30,7 @@
                         <div class="signup-box">
                             <h1 class="signup-title">Create Account</h1>
                             {% csrf_token %}
-
-                            {% for field in sign_up %}
+                            {% for field in required %}
                             {{ field }}
                             {% endfor %}
                             <!--<input type="submit" value="Sign up">-->
@@ -40,8 +39,9 @@
                     <div class="item">
                         <div class="signup-box">
                             <h1 class="signup-title">More Information</h1>
-                            {% csrf_token %}
-                            <!--<input type="submit" value="Sign up">-->
+                            {% for field in more_info %}
+                            {{ field }}
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="item">

@@ -96,6 +96,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         (USER_TYPE_NAVER, 'Naver'),
     )
 
+    #
+
     email = models.EmailField( verbose_name='이메일 주소', max_length=255, unique=True,)
     nickname = models.CharField(max_length=50, unique=True)
     # 프로필 이미지

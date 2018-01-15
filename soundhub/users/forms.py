@@ -60,6 +60,8 @@ class SignUpForm(forms.ModelForm):
             'nickname',
             'password1',
             'password2',
+            'genre',
+            'instrument',
         )
         widgets = {
             'email': forms.EmailInput(
@@ -72,6 +74,16 @@ class SignUpForm(forms.ModelForm):
                 attrs={
                     'class': 'signup-field transition',
                     'placeholder': 'Nickname',
+                }
+            ),
+            'genre': forms.CheckboxSelectMultiple(
+                attrs={
+                    'class': 'signup-choice-field transition',
+                }
+            ),
+            'instrument': forms.CheckboxSelectMultiple(
+                attrs={
+                    'class': 'signup-choice-field transition',
                 }
             ),
         }

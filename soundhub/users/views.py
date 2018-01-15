@@ -13,8 +13,10 @@ def sign_up(request):
         if request.user.is_authenticated:
             return redirect('views:home')
         form = SignUpForm()
+        fields = list(form)
         context = {
-            "sign_up": form,
+            "required": fields[:4],
+            "more_info": fields[4:]
         }
         return render(request, 'sign/signup.html', context)
 
