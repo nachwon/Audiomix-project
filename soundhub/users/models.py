@@ -96,23 +96,42 @@ class User(AbstractBaseUser, PermissionsMixin):
         (USER_TYPE_NAVER, 'Naver'),
     )
 
-    #
+    # 악기 선택
+    INSTRUMENT_CHOICES = (
+        ('V', 'Vocal'),
+        ('G', 'Guitar'),
+        ('B', 'Bass'),
+        ('D', 'Drums'),
+        ('K', 'Keyboards'),
+        ('O', 'Others')
+    )
 
+    # 장르 선택
+    GENRE_CHOICES = (
+        ('R', 'Rock'),
+        ('P', 'Pop'),
+        ('H', 'Hiphop'),
+        ('J', 'Jazz'),
+        ('E', 'Electronic'),
+        ('C', 'Classic'),
+        ('O', 'Others')
+    )
+    # 이메일
     email = models.EmailField( verbose_name='이메일 주소', max_length=255, unique=True,)
+    # 닉네임
     nickname = models.CharField(max_length=50, unique=True)
     # 프로필 이미지
     profile_img = models.ImageField(blank=True, upload_to=profile_image_directory_path)
     # 프로필 배경 이미지
     profile_bg = models.ImageField(blank=True, upload_to=profile_bg_directory_path)
-    # Guitar, Base, Drum, Vocal, Keyboard, Other 등은 프론트에서 체크박스 value 로 받고,
-    # Serializer 에서 문자열로 합쳐줌
-    instrument = models.CharField(max_length=255, blank=True, null=True)
+    # 선호 악기
+    instrument = models.CharField(max_length=1, choices=INSTRUMENT_CHOICES, blank=True, null=True)
+    # 선호하는 장르
+    genre = models.CharField(max_length=1, choices=GENRE_CHOICES, blank=True, null=True)
     # 유저 타입. 소셜로그인인가 아니면 그냥 로그인인가.
     user_type = models.CharField(max_length=1, choices=USER_TYPE, default=USER_TYPE_SOUNDHUB)
     # Facebook 유저 로그인 시 id 값
     fb_id = models.CharField(max_length=255, blank=True, null=True)
-    # 선호하는 장르
-    genre = models.CharField(max_length=100, blank=True, null=True)
     # 받은 좋아요 수 총합
     total_liked = models.IntegerField(default=0)
     # 팔로잉
