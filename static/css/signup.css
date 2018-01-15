@@ -71,14 +71,17 @@ div.signup-body {
 
 .carousel-inner {
   overflow: unset; }
+  .carousel-inner .item {
+    height: 408px;
+    width: 100%; }
 
 a.carousel-control {
   z-index: 100;
   top: 75%; }
 
 .carousel-indicators {
-  bottom: -65%; }
+  bottom: -27%; }
 
 @media screen and (min-width: 768px) {
   .carousel-indicators {
-    bottom: -65%; } }
+    bottom: -27%; } }
