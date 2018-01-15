@@ -104,7 +104,18 @@ div.signup-body {
 a.carousel-control {
     z-index: 100;
     top: 76%;
+    animation-name: fade-out;
+    animation-duration: 0.5s;
 }
+
+@keyframes fade-out {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
 
 .carousel-indicators {
     bottom: -27%;
