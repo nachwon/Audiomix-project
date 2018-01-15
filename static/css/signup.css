@@ -43,11 +43,14 @@ div.signup-body {
         display: none; }
   div.signup-body .signup-box {
     position: relative;
-    left: 50px;
+    left: 70px;
     display: inline-block;
-    width: 300px; }
+    width: 300px;
+    text-align: center; }
     div.signup-body .signup-box .signup-title {
-      font-family: 'Fjalla One', sans-serif; }
+      font-family: 'Fjalla One', sans-serif;
+      text-align: left;
+      margin-left: 10px; }
     div.signup-body .signup-box .signup-field {
       background-color: rgba(255, 255, 255, 0.2);
       border: 1px solid white;

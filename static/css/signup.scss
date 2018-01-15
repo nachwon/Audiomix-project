@@ -57,12 +57,15 @@ div.signup-body {
 
     .signup-box {
         position: relative;
-        left: 50px;
+        left: 70px;
         display: inline-block;
         width: 300px;
+        text-align: center;
 
         .signup-title {
             font-family: 'Fjalla One', sans-serif;
+            text-align: left;
+            margin-left: 10px;
         }
 
         .signup-field {
