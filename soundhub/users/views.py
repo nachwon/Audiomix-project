@@ -16,7 +16,8 @@ def sign_up(request):
         fields = list(form)
         context = {
             "required": fields[:4],
-            "more_info": fields[4:]
+            "genre": fields[4],
+            "instrument": fields[5],
         }
         return render(request, 'sign/signup.html', context)
 

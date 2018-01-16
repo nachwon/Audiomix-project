@@ -37,11 +37,30 @@
                         </div>
                     </div>
                     <div class="item">
-                        <div class="signup-box">
+                        <div class="signup-box more-info">
                             <h1 class="signup-title">More Information</h1>
-                            {% for field in more_info %}
-                            {{ field }}
-                            {% endfor %}
+                            <div class="select-wrapper">
+                                <div class="genre select-box">
+                                    <h3>Choose Your Favorite Genre</h3>
+                                    <div class="choices">
+                                        {% for choice in genre %}
+
+                                        {{ choice.tag }}
+                                        <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="instrument select-box">
+                                    <h3>Choose Your Instrument</h3>
+                                    <div class="choices">
+                                        {% for choice in instrument %}
+
+                                        {{ choice.tag }}
+                                        <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="item">

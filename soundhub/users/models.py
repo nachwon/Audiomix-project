@@ -98,6 +98,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # 악기 선택
     INSTRUMENT_CHOICES = (
+        ('', ''),
         ('V', 'Vocal'),
         ('G', 'Guitar'),
         ('B', 'Bass'),
@@ -108,6 +109,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # 장르 선택
     GENRE_CHOICES = (
+        ('', ''),
         ('R', 'Rock'),
         ('P', 'Pop'),
         ('H', 'Hiphop'),
