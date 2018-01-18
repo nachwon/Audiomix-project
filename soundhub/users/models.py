@@ -78,6 +78,20 @@ def profile_bg_directory_path(instance, filename):
     return f'user_{instance.id}/profile_bg/{filename}'
 
 
+class Genre(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
+class Instrument(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
 # 이메일을 아이디로 사용하는 커스텀 유저 모델
 # PermissionsMixin 을 상속받아서 권한 관련 메서드들을 포함
 class User(AbstractBaseUser, PermissionsMixin):
@@ -96,28 +110,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         (USER_TYPE_NAVER, 'Naver'),
     )
 
-    # 악기 선택
-    INSTRUMENT_CHOICES = (
-        ('', ''),
-        ('V', 'Vocal'),
-        ('G', 'Guitar'),
-        ('B', 'Bass'),
-        ('D', 'Drums'),
-        ('K', 'Keyboards'),
-        ('O', 'Others')
-    )
-
-    # 장르 선택
-    GENRE_CHOICES = (
-        ('', ''),
-        ('R', 'Rock'),
-        ('P', 'Pop'),
-        ('H', 'Hiphop'),
-        ('J', 'Jazz'),
-        ('E', 'Electronic'),
-        ('C', 'Classic'),
-        ('O', 'Others')
-    )
     # 이메일
     email = models.EmailField( verbose_name='이메일 주소', max_length=255, unique=True,)
     # 닉네임
@@ -127,9 +119,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     # 프로필 배경 이미지
     profile_bg = models.ImageField(blank=True, upload_to=profile_bg_directory_path)
     # 선호 악기
-    instrument = models.CharField(max_length=1, choices=INSTRUMENT_CHOICES, blank=True, null=True)
+    instrument = models.ManyToManyField(Instrument, related_name='instrument', blank=True)
     # 선호하는 장르
-    genre = models.CharField(max_length=1, choices=GENRE_CHOICES, blank=True, null=True)
+    genre = models.ManyToManyField(Genre, related_name='genre', blank=True)
     # 유저 타입. 소셜로그인인가 아니면 그냥 로그인인가.
     user_type = models.CharField(max_length=1, choices=USER_TYPE, default=USER_TYPE_SOUNDHUB)
     # Facebook 유저 로그인 시 id 값

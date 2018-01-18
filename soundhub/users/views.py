@@ -23,15 +23,27 @@ def sign_up(request):
 
     elif request.method == 'POST':
         form = SignUpForm(request.POST)
+        print(form)
+
         if form.is_valid():
             user = form.save()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-        return redirect('views:home')
+            return redirect('views:home')
+        else:
+            form = SignUpForm(request.POST)
+            fields = list(form)
+            context = {
+                "required": fields[:4],
+                "genre": fields[4],
+                "instrument": fields[5],
+            }
+            return render(request, 'sign/signup.html', context)
 
 
 def sign_in(request):
     if request.method == 'POST':
         form = SignInForm(request.POST)
+        print(request.POST)
         if form.is_valid():
             form.login(request)
             return redirect('views:home')

@@ -33,7 +33,7 @@
                             {% for field in required %}
                             {{ field }}
                             {% endfor %}
-                            <!--<input type="submit" value="Sign up">-->
+                            {{ non_field_errors }}
                         </div>
                     </div>
                     <div class="item">
@@ -65,13 +65,8 @@
                     </div>
                     <div class="item">
                         <div class="signup-box">
-                            <h1 class="signup-title">Create Account</h1>
-                            {% csrf_token %}
-
-                            {% for field in sign_up %}
-                            {{ field }}
-                            {% endfor %}
-                            <!--<input type="submit" value="Sign up">-->
+                            <h1 class="signup-title">Done!</h1>
+                            <input type="submit" value="Sign up">
                         </div>
                     </div>
                 </div>

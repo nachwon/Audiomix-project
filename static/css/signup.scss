@@ -122,9 +122,6 @@ div.signup-body {
                 }
 
                 input[type="checkbox"] ~ label {
-                    &:first-of-type {
-                        display: none;
-                    }
                     background-color: red;
                     width: 110px;
                     height: 110px;
@@ -133,12 +130,12 @@ div.signup-body {
                 input[type="checkbox"]:checked + label {
                     background-color: blue;
                 }
-                input#id_genre_1 + label {
+                input#id_genre_0 + label {
                     background-image: url("http://www.metalinjection.net/wp-content/uploads/2015/07/metallica-james-hetfield.jpg");
                     background-size: cover;
                     background-position: right;
                 }
-                input#id_genre_1:checked + label {
+                input#id_genre_0:checked + label {
                     background-position: left;
                 }
             }

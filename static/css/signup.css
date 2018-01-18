@@ -90,15 +90,13 @@ div.signup-body {
         background-color: red;
         width: 110px;
         height: 110px; }
-        div.signup-body div.signup-box.more-info div.select-box .choices input[type="checkbox"] ~ label:first-of-type {
-          display: none; }
       div.signup-body div.signup-box.more-info div.select-box .choices input[type="checkbox"]:checked + label {
         background-color: blue; }
-      div.signup-body div.signup-box.more-info div.select-box .choices input#id_genre_1 + label {
+      div.signup-body div.signup-box.more-info div.select-box .choices input#id_genre_0 + label {
         background-image: url("http://www.metalinjection.net/wp-content/uploads/2015/07/metallica-james-hetfield.jpg");
         background-size: cover;
         background-position: right; }
-      div.signup-body div.signup-box.more-info div.select-box .choices input#id_genre_1:checked + label {
+      div.signup-body div.signup-box.more-info div.select-box .choices input#id_genre_0:checked + label {
         background-position: left; }
 
 .carousel-inner {

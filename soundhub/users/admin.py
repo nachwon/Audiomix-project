@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from users.models import Relationship
+from users.models import Relationship, Genre, Instrument
 
 User = get_user_model()
 
@@ -54,7 +54,7 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ('email', 'nickname', 'instrument', 'user_type', 'is_staff', 'is_active',)
+    list_display = ('email', 'nickname', 'user_type', 'is_staff', 'is_active',)
     list_filter = ('is_staff', 'is_active',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
@@ -75,4 +75,6 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Relationship)
+admin.site.register(Genre)
+admin.site.register(Instrument)
 

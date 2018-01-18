@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model, authenticate, login
-from django.contrib.auth.forms import UserCreationForm
+
+from users.models import Instrument, Genre
 
 User = get_user_model()
 
@@ -52,6 +53,24 @@ class SignUpForm(forms.ModelForm):
             'class': 'signup-field transition',
             'placeholder': 'Password Confirmation'
         }))
+    genre = forms.ModelMultipleChoiceField(
+        queryset=Genre.objects.all(),
+        required=False,
+        widget=forms.CheckboxSelectMultiple(
+            attrs={
+                'class': 'signup-choice-field transition'
+            }
+        )
+    )
+    instrument = forms.ModelMultipleChoiceField(
+        queryset=Instrument.objects.all(),
+        required=False,
+        widget=forms.CheckboxSelectMultiple(
+            attrs={
+                'class': 'signup-choice-field transition'
+            }
+        )
+    )
 
     class Meta:
         model = User
@@ -75,15 +94,6 @@ class SignUpForm(forms.ModelForm):
                     'class': 'signup-field transition',
                     'placeholder': 'Nickname',
                 }
-            ),
-            'genre': forms.CheckboxSelectMultiple(
-                attrs={
-                    'class': 'signup-choice-field transition',
-                }
-            ),
-            'instrument': forms.CheckboxSelectMultiple(
-                attrs={
-                    'class': 'signup-choice-field transition',
-                }
-            ),
+            )
         }
+
