@@ -72,13 +72,14 @@ div.signup-body {
     left: 0;
     width: 100%;
     top: 50px; }
-    div.signup-body div.signup-box.signup-index div.swiper-slide {
+    div.signup-body div.signup-box.signup-index a div.swiper-slide {
       border-radius: 15px; }
-      div.signup-body div.signup-box.signup-index div.swiper-slide:last-of-type {
-        background-size: 250px;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-color: white; }
+    div.signup-body div.signup-box.signup-index a:last-of-type div.swiper-slide {
+      border-radius: 15px;
+      background-size: 250px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: white; }
   div.signup-body div.signup-box.more-info {
     width: 100%;
     left: 0; }

@@ -35,8 +35,8 @@
                                     &redirect_uri={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'views:user:fb-login' %}">
                                         <div class="swiper-slide" style="background-image:url('/static/img/facebook.png')"></div>
                                     </a>
-                                    <div class="swiper-slide" style="background-image:url('/static/img/google.png')"></div>
-                                    <div class="swiper-slide" style="background-image:url('/static/img/soundhub-logo.png')"></div>
+                                    <a class="swiper-slide" href=""><div class="swiper-slide" style="background-image:url('/static/img/google.png')"></div></a>
+                                    <a class="swiper-slide" onclick="setTimeout(function(){hideBtn()}, 500)" href="#carousel-example-generic" data-slide="next"><div class="swiper-slide" style="background-image:url('/static/img/soundhub-logo.png')"></div></a>
                                 </div>
                                 <!-- Add Pagination -->
                                 <div class="swiper-pagination"></div>

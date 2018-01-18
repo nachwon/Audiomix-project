@@ -97,14 +97,18 @@ div.signup-body {
         left: 0;
         width: 100%;
         top: 50px;
-
-        div.swiper-slide {
-            border-radius: 15px;
+        a {
+            div.swiper-slide {
+                border-radius: 15px;
+            }
             &:last-of-type {
-                background-size: 250px;
-                background-repeat: no-repeat;
-                background-position: center;
-                background-color: white;
+                div.swiper-slide {
+                    border-radius: 15px;
+                    background-size: 250px;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-color: white;
+                }
             }
         }
     }
