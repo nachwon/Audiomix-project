@@ -1,0 +1,138 @@
+body::-webkit-scrollbar {
+  display: none; }
+
+div.mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 1;
+  opacity: 0.6; }
+
+div.background {
+  position: relative;
+  width: 100%;
+  height: 649px;
+  background-image: url("/static/img/signup-1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 0; }
+
+div.signup-body {
+  padding-left: 50px;
+  position: absolute;
+  z-index: 3; }
+  div.signup-body div.terms-of-use {
+    position: relative;
+    right: 0;
+    float: right;
+    width: 700px;
+    height: 310px; }
+    div.signup-body div.terms-of-use .tou-title {
+      font-family: 'Fjalla One', sans-serif; }
+    div.signup-body div.terms-of-use div.tou-body {
+      font-family: 'Merriweather Sans', sans-serif;
+      background-color: rgba(0, 0, 0, 0.8);
+      font-size: 12px;
+      overflow: auto;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      padding: 25px;
+      text-align: justify; }
+      div.signup-body div.terms-of-use div.tou-body ul {
+        padding-left: 17px; }
+      div.signup-body div.terms-of-use div.tou-body::-webkit-scrollbar {
+        display: none; }
+  div.signup-body .signup-box {
+    position: relative;
+    left: 70px;
+    display: inline-block;
+    width: 300px;
+    text-align: center; }
+    div.signup-body .signup-box .signup-title {
+      font-family: 'Fjalla One', sans-serif;
+      text-align: left;
+      margin-left: 10px; }
+    div.signup-body .signup-box .signup-field {
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid white;
+      border-radius: 3px;
+      width: 280px;
+      height: 40px;
+      padding: 0 10px;
+      font-size: 15px;
+      color: white;
+      margin: 10px 0;
+      font-family: 'Merriweather Sans', sans-serif; }
+      div.signup-body .signup-box .signup-field:focus {
+        background-color: white;
+        color: black; }
+  div.signup-body div.signup-box.signup-index {
+    left: 0;
+    width: 100%;
+    top: 50px; }
+    div.signup-body div.signup-box.signup-index div.swiper-slide {
+      border-radius: 15px; }
+      div.signup-body div.signup-box.signup-index div.swiper-slide:last-of-type {
+        background-size: 250px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: white; }
+  div.signup-body div.signup-box.more-info {
+    width: 100%;
+    left: 0; }
+    div.signup-body div.signup-box.more-info div.genre {
+      width: 454px; }
+    div.signup-body div.signup-box.more-info div.instrument {
+      width: 339px; }
+    div.signup-body div.signup-box.more-info .signup-title {
+      margin-left: 70px; }
+    div.signup-body div.signup-box.more-info .select-wrapper {
+      display: inline-block; }
+    div.signup-body div.signup-box.more-info div.select-box {
+      font-family: 'Merriweather Sans', sans-serif;
+      display: inline-block;
+      float: left;
+      margin: 0 50px; }
+      div.signup-body div.signup-box.more-info div.select-box .choices input[type="checkbox"] {
+        display: none; }
+      div.signup-body div.signup-box.more-info div.select-box .choices input[type="checkbox"] ~ label {
+        background-color: red;
+        width: 110px;
+        height: 110px; }
+      div.signup-body div.signup-box.more-info div.select-box .choices input[type="checkbox"]:checked + label {
+        background-color: blue; }
+      div.signup-body div.signup-box.more-info div.select-box .choices input#id_genre_0 + label {
+        background-image: url("http://www.metalinjection.net/wp-content/uploads/2015/07/metallica-james-hetfield.jpg");
+        background-size: cover;
+        background-position: right; }
+      div.signup-body div.signup-box.more-info div.select-box .choices input#id_genre_0:checked + label {
+        background-position: left; }
+
+.carousel-inner {
+  overflow: unset; }
+  .carousel-inner .item {
+    height: 408px;
+    width: 100%; }
+
+a.carousel-control {
+  z-index: 100;
+  top: 76%;
+  animation-name: fade-out;
+  animation-duration: 0.5s; }
+
+@keyframes fade-out {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+.carousel-indicators {
+  bottom: -27%; }
+
+@media screen and (min-width: 768px) {
+  .carousel-indicators {
+    bottom: -27%; } }
+
+/*# sourceMappingURL=../../../../../../../static/css/signup.css.map */

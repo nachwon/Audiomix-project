@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "../../home/che1/Projects/Django/django_audiomix/static/css/home.css",
+	"sources": [
+		"../../home/che1/Projects/Django/django_audiomix/static/css/home.scss"
+	],
+	"names": [],
+	"mappings": "AAEA,AAAA,GAAG,AAAA,gBAAgB,CAAC;EAChB,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,MAAM,GACjB;;AAED,AAAA,eAAe,CAAC;EACZ,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI;EACZ,eAAe,EAAE,KAAK;EACtB,aAAa,EAAE,IAAI;EACnB,mBAAmB,EAAE,MAAM;EAC3B,MAAM,EAAE,CAAC;EACT,OAAO,EAAE,YAAY,GACxB"
+}
