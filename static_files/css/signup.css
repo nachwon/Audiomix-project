@@ -74,7 +74,7 @@ div.signup-body {
     top: 50px; }
     div.signup-body div.signup-box.signup-index a div.swiper-slide {
       border-radius: 15px; }
-    div.signup-body div.signup-box.signup-index a:last-of-type div.swiper-slide {
+    div.signup-body div.signup-box.signup-index a:first-of-type div.swiper-slide {
       border-radius: 15px;
       background-size: 250px;
       background-repeat: no-repeat;
@@ -92,24 +92,37 @@ div.signup-body {
     div.signup-body div.signup-box.more-info .select-wrapper {
       display: inline-block; }
     div.signup-body div.signup-box.more-info div.select-box {
-      font-family: 'Merriweather Sans', sans-serif;
+      font-family: 'Fjalla One', sans-serif;
       display: inline-block;
       float: left;
       margin: 0 50px; }
-      div.signup-body div.signup-box.more-info div.select-box .choices input[type="checkbox"] {
-        display: none; }
-      div.signup-body div.signup-box.more-info div.select-box .choices input[type="checkbox"] ~ label {
-        background-color: red;
-        width: 110px;
-        height: 110px; }
-      div.signup-body div.signup-box.more-info div.select-box .choices input[type="checkbox"]:checked + label {
-        background-color: blue; }
-      div.signup-body div.signup-box.more-info div.select-box .choices input#id_genre_0 + label {
-        background-image: url("http://www.metalinjection.net/wp-content/uploads/2015/07/metallica-james-hetfield.jpg");
-        background-size: cover;
-        background-position: right; }
-      div.signup-body div.signup-box.more-info div.select-box .choices input#id_genre_0:checked + label {
-        background-position: left; }
+      div.signup-body div.signup-box.more-info div.select-box .choices {
+        font-family: 'Merriweather Sans', sans-serif; }
+        div.signup-body div.signup-box.more-info div.select-box .choices input[type="checkbox"] {
+          display: none; }
+        div.signup-body div.signup-box.more-info div.select-box .choices input[type="checkbox"] ~ label {
+          background-color: red;
+          width: 110px;
+          height: 110px; }
+        div.signup-body div.signup-box.more-info div.select-box .choices input[type="checkbox"]:checked + label {
+          background-color: blue; }
+        div.signup-body div.signup-box.more-info div.select-box .choices input#id_genre_0 + label {
+          background-image: url("http://www.metalinjection.net/wp-content/uploads/2015/07/metallica-james-hetfield.jpg");
+          background-size: cover;
+          background-position: right; }
+        div.signup-body div.signup-box.more-info div.select-box .choices input#id_genre_0:checked + label {
+          background-position: left; }
+
+input.signup-submit-btn {
+  position: absolute;
+  bottom: -44%;
+  right: 0;
+  border: 0;
+  background-color: rgba(111, 111, 111, 0.2);
+  width: 100px;
+  height: 50px;
+  border-radius: 5px;
+  font-size: 15px; }
 
 .carousel-inner {
   overflow: unset; }

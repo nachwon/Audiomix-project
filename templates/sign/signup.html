@@ -4,6 +4,7 @@
 {% load sass_tags %}
 
 {% block links %}
+<link rel="stylesheet" href="{%sass_src 'css/index.scss' %}">
 <link rel="stylesheet" href="{% sass_src 'css/signup.scss' %}">
 <link rel="stylesheet" href="{% static 'css/swiper/swiper.css' %}">
 {% endblock links %}
@@ -30,13 +31,13 @@
                         <div class="signup-box signup-index">
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
+                                    <a class="swiper-slide" onclick="setTimeout(function(){hideBtn()}, 500)" href="#carousel-example-generic" data-slide="next"><div class="swiper-slide" style="background-image:url('/static/img/soundhub-logo.png')"></div></a>
                                     <a class="swiper-slide" href="https://www.facebook.com/v2.11/dialog/oauth?client_id=188997225020523
                                     &scope=user_friends,email,public_profile
                                     &redirect_uri={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'views:user:fb-login' %}">
                                         <div class="swiper-slide" style="background-image:url('/static/img/facebook.png')"></div>
                                     </a>
                                     <a class="swiper-slide" href=""><div class="swiper-slide" style="background-image:url('/static/img/google.png')"></div></a>
-                                    <a class="swiper-slide" onclick="setTimeout(function(){hideBtn()}, 500)" href="#carousel-example-generic" data-slide="next"><div class="swiper-slide" style="background-image:url('/static/img/soundhub-logo.png')"></div></a>
                                 </div>
                                 <!-- Add Pagination -->
                                 <div class="swiper-pagination"></div>
@@ -45,7 +46,7 @@
                     </div>
                     <div class="item">
                         {% include 'sign/terms-of-use.html' %}
-                        <div class="signup-box">
+                        <div id="create-soundhub" class="signup-box">
                             <h1 class="signup-title">Create Account</h1>
                             {% csrf_token %}
                             {% for field in required %}
@@ -76,7 +77,7 @@
                                         {{ choice.tag }}
                                         <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
                                         {% endfor %}
-                                        <input type="submit" value="Sign up">
+                                        <input class="signup-submit-btn" type="submit" value="Sign up">
                                     </div>
                                 </div>
                             </div>
@@ -96,6 +97,8 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
+
+{% include 'index/popup-signin.html' %}
 
 <script src="{% static 'js/swiper/swiper.min.js' %}"></script>
 <script>

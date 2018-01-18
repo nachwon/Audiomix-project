@@ -21,6 +21,10 @@ a:hover {
     transition: 0.1s ease;
 }
 
+:focus {
+    outline: none;
+}
+
 a:focus {
     outline: none;
     text-decoration: none;

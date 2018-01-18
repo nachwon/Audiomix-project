@@ -18,6 +18,7 @@ def sign_up(request):
             "required": fields[:4],
             "genre": fields[4],
             "instrument": fields[5],
+            "sign_in": SignInForm()
         }
         return render(request, 'sign/signup.html', context)
 
@@ -26,7 +27,10 @@ def sign_up(request):
         print(form)
 
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data.get('password1'))
+            user.save()
+
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('views:home')
         else:
@@ -36,6 +40,7 @@ def sign_up(request):
                 "required": fields[:4],
                 "genre": fields[4],
                 "instrument": fields[5],
+                "sign_in": SignInForm()
             }
             return render(request, 'sign/signup.html', context)
 
@@ -44,6 +49,7 @@ def sign_in(request):
     if request.method == 'POST':
         form = SignInForm(request.POST)
         print(request.POST)
+        print(form.is_valid())
         if form.is_valid():
             form.login(request)
             return redirect('views:home')
