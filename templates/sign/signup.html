@@ -5,6 +5,7 @@
 
 {% block links %}
 <link rel="stylesheet" href="{% sass_src 'css/signup.scss' %}">
+<link rel="stylesheet" href="{% static 'css/swiper/swiper.css' %}">
 {% endblock links %}
 {% block scripts %}
 <script src="{% static 'js/signup.js' %}"></script>
@@ -26,6 +27,23 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox">
                     <div class="item active">
+                        <div class="signup-box signup-index">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    <a class="swiper-slide" href="https://www.facebook.com/v2.11/dialog/oauth?client_id=188997225020523
+                                    &scope=user_friends,email,public_profile
+                                    &redirect_uri={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'views:user:fb-login' %}">
+                                        <div class="swiper-slide" style="background-image:url('/static/img/facebook.png')"></div>
+                                    </a>
+                                    <div class="swiper-slide" style="background-image:url('/static/img/google.png')"></div>
+                                    <div class="swiper-slide" style="background-image:url('/static/img/soundhub-logo.png')"></div>
+                                </div>
+                                <!-- Add Pagination -->
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
                         {% include 'sign/terms-of-use.html' %}
                         <div class="signup-box">
                             <h1 class="signup-title">Create Account</h1>
@@ -58,15 +76,10 @@
                                         {{ choice.tag }}
                                         <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
                                         {% endfor %}
+                                        <input type="submit" value="Sign up">
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="signup-box">
-                            <h1 class="signup-title">Done!</h1>
-                            <input type="submit" value="Sign up">
                         </div>
                     </div>
                 </div>
@@ -84,5 +97,23 @@
     </a>
 </div>
 
-
+<script src="{% static 'js/swiper/swiper.min.js' %}"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        effect: 'coverflow',
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: 'auto',
+        coverflowEffect: {
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows : true,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+        },
+    });
+</script>
 {% endblock content %}

@@ -64,8 +64,21 @@ def facebook_login(request):
     # 유저 인증 및 로그인
     # authenticate 를 거치면 user.backend 속성에 인증에 사용된 벡엔드가 부여됨.
     user = authenticate(fb_id=fb_id)
-    # 여러개의 인증 벡엔드 사용 중일 경우 user.backend 속성으로 어떤 벡엔드로 인증되었는지 알려주어야 함.
-    login(request, user, backend=user.backend)
+
+    if user:
+        pass
+
+    else:
+        email = user_info.get('email', f'fb_{fb_id}')
+        nickname = user_info.get('name')
+        user = User.objects.create(
+            email=email,
+            nickname=nickname,
+            fb_id=fb_id,
+            user_type='F'
+        )
+
+    login(request, user, backend='users.backends.FBAuthBackend')
     return redirect('views:home')
 
 

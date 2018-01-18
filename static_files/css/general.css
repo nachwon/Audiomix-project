@@ -15,8 +15,9 @@ a:hover {
 .transition {
   transition: 0.1s ease; }
 
-:focus {
-  outline: none; }
+a:focus {
+  outline: none;
+  text-decoration: none; }
 
 .focused {
   box-shadow: inset 0 0 10px 0 black; }
