@@ -9,6 +9,7 @@ User = get_user_model()
 class SignInForm(forms.Form):
     email = forms.EmailField(max_length=255, widget=forms.EmailInput(
         attrs={
+            'id': 'id_signup_email',
             'class': 'signin-field',
             'placeholder': 'Email Address'
         }
@@ -99,3 +100,12 @@ class SignUpForm(forms.ModelForm):
             )
         }
 
+    def clean_password2(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError(
+                'Passwords did not match'
+            )
+        return password2

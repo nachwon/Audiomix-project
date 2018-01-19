@@ -68,6 +68,12 @@ div.signup-body {
       div.signup-body .signup-box .signup-field:focus {
         background-color: white;
         color: black; }
+    div.signup-body .signup-box ul.errorlist {
+      margin: 5px;
+      padding: 0;
+      text-align: center; }
+      div.signup-body .signup-box ul.errorlist li {
+        list-style: none; }
   div.signup-body div.signup-box.signup-index {
     left: 0;
     width: 100%;

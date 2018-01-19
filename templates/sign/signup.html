@@ -33,8 +33,9 @@
                             {% csrf_token %}
                             {% for field in required %}
                             {{ field }}
+                            {{ field.errors }}
                             {% endfor %}
-                            {{ non_field_errors }}
+                            {{ required.non_field_errors }}
                         </div>
                     </div>
                     <div class="item">
@@ -45,7 +46,6 @@
                                     <h3>Choose Your Favorite Genre</h3>
                                     <div class="choices">
                                         {% for choice in genre %}
-
                                         {{ choice.tag }}
                                         <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
                                         {% endfor %}
@@ -55,7 +55,6 @@
                                     <h3>Choose Your Instrument</h3>
                                     <div class="choices">
                                         {% for choice in instrument %}
-
                                         {{ choice.tag }}
                                         <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
                                         {% endfor %}

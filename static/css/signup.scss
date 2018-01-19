@@ -89,8 +89,14 @@ div.signup-body {
                 color: black;
             }
         }
-
-
+        ul.errorlist {
+            margin: 5px;
+            padding: 0;
+            text-align: center;
+            li {
+                list-style: none;
+            }
+        }
     }
 
     div.signup-box.signup-index {
