@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -56,6 +57,7 @@ def sign_in(request):
 
     context = {
         "sign_in": form,
+        "google_client_id": settings.GOOGLE_CLIENT_ID,
     }
     return render(request, 'sign/signin.html', context)
 

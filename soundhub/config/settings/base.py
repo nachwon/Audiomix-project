@@ -26,7 +26,6 @@ CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.j
 # 미디어 파일 설정
 MEDIA_ROOT = os.path.join(ROOT_DIR, 'temp')
 
-
 # 스테틱 파일 설정
 STATIC_ROOT = os.path.join(ROOT_DIR, 'static_files')
 STATIC_DIR = os.path.join(ROOT_DIR, 'static')
@@ -39,7 +38,6 @@ SASS_PROCESSOR_ENABLED = True
 
 # 템플릿 파일 설정
 TEMPLATE_DIR = os.path.join(ROOT_DIR, 'templates')
-
 
 # AWS S3 Access
 config_secret = json.loads(open(CONFIG_SETTINGS_COMMON_FILE).read())
@@ -67,6 +65,9 @@ FACEBOOK_APP_SECRET_CODE = config_secret['facebook']['FACEBOOK_APP_SECRET_CODE']
 # Facebook 로그인 TEMPLATE
 FB_APP_ID = config_secret['facebook_login']['APP_ID']
 FB_SECRET_CODE = config_secret['facebook_login']['SECRET_CODE']
+
+# Google 로그인 TEMPLATE
+GOOGLE_CLIENT_ID = config_secret['google_login']['client_id']
 
 # Encryption Key
 ENCRYPTION_KEY = config_secret['encrypt']['ENCRYPTION_KEY']
