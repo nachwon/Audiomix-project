@@ -23,7 +23,7 @@
         {% for user in pop_users|slice:"4:8" %}
         <div class="post-obj">
             {% if user.profile_img.name == '' %}
-            <div class="post-img" style="background-image: url({% static 'img/default-profile.png' %});"></div>
+            <div class="post-img" style="background-image: url('static/img/default-profile-img.png');"></div>
             {% else %}
             <div class="post-img" style="background-image: url('{{ user.profile_img.url }}')"></div>
             {% endif %}
