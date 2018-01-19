@@ -29,4 +29,4 @@ def get_google_user_info(request):
         'access_token': access_token
     }
     user_info = requests.get(user_info_request_uri, headers=headers, params=params)
-    return user_info
+    return user_info.json()

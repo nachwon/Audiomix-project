@@ -21,10 +21,10 @@ class FacebookBackend:
             return None
 
 
-class FBAuthBackend:
-    def authenticate(self, request, fb_id):
+class OAuthBackend:
+    def authenticate(self, request, oauth_id, user_type):
         try:
-            return User.objects.get(fb_id=fb_id, user_type='F')
+            return User.objects.get(oauth_id=oauth_id, user_type=user_type)
         except User.DoesNotExist:
             return None
 
