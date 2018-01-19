@@ -10,7 +10,7 @@ STATICFILES_STORAGE = 'config.storages.StaticStorage'
 MEDIAFILES_LOCATION = 'media'
 STATICFILES_LOCATION = 'static'
 
-DEBUG = False
+DEBUG = True
 
 RAVEN_CONFIG = {
     'dsn': 'https://e01ad1cebe374afba306dd30c0c95aec:f188b0f719e24508946c5ab72b4de3c8@sentry.io/259770',
