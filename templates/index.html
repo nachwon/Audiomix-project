@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 
 {% load static %}
-{% load sass_tags %}
 
 {% block links %}
-<link rel="stylesheet" href="{% sass_src 'css/index.scss' %}">
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock links %}
 {% block scripts %}
 <script src="{% static 'js/index.js' %}"></script>
