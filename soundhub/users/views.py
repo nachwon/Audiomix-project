@@ -20,7 +20,8 @@ def sign_up(request):
             "required": fields[:4],
             "genre": fields[4],
             "instrument": fields[5],
-            "sign_in": SignInForm()
+            "sign_in": SignInForm(),
+            "google_client_id": settings.GOOGLE_CLIENT_ID,
         }
         return render(request, 'sign/signup.html', context)
 
@@ -41,7 +42,7 @@ def sign_up(request):
                 "required": fields[:4],
                 "genre": fields[4],
                 "instrument": fields[5],
-                "sign_in": SignInForm()
+                "sign_in": SignInForm(),
             }
             return render(request, 'sign/signup.html', context)
 
