@@ -33,8 +33,6 @@ STATICFILES_DIRS = [
 ]
 STATIC_URL = '/static/'
 
-SASS_PROCESSOR_ENABLED = True
-
 # 템플릿 파일 설정
 TEMPLATE_DIR = os.path.join(ROOT_DIR, 'templates')
 
