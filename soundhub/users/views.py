@@ -24,7 +24,6 @@ def sign_up(request):
 
     elif request.method == 'POST':
         form = SignUpForm(request.POST)
-        print(form)
 
         if form.is_valid():
             user = form.save(commit=False)
@@ -48,8 +47,6 @@ def sign_up(request):
 def sign_in(request):
     if request.method == 'POST':
         form = SignInForm(request.POST)
-        print(request.POST)
-        print(form.is_valid())
         if form.is_valid():
             form.login(request)
             return redirect('views:home')
