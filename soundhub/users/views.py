@@ -41,6 +41,7 @@ def sign_up(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data.get('password1'))
             user.save()
+            form.save_m2m()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('views:home')
         else:
