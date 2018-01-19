@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect
 
@@ -14,6 +15,7 @@ def index(request):
             "pop_posts": Post.objects.order_by('-num_liked')[:8],
             "recent_posts": Post.objects.order_by('-created_date')[:8],
             "sign_in": SignInForm(),
+            "google_client_id": settings.GOOGLE_CLIENT_ID,
         }
         return render(request, 'index.html', context)
 

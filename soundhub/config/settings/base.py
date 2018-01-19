@@ -68,6 +68,8 @@ FB_SECRET_CODE = config_secret['facebook_login']['SECRET_CODE']
 
 # Google 로그인 TEMPLATE
 GOOGLE_CLIENT_ID = config_secret['google_login']['client_id']
+GOOGLE_CLIENT_SECRET = config_secret['google_login']['client_secret']
+GOOGLE_TOKEN_URI = config_secret['google_login']['token_uri']
 
 # Encryption Key
 ENCRYPTION_KEY = config_secret['encrypt']['ENCRYPTION_KEY']

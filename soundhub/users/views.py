@@ -87,6 +87,10 @@ def facebook_login(request):
     return redirect('views:home')
 
 
+def google_login(request):
+    return HttpResponse(request.GET['code'])
+
+
 def sign_out(request):
     if request.method == 'POST':
         if request.user.is_authenticated:

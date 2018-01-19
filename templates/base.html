@@ -20,6 +20,7 @@
     <script src="{% static 'js/header.js' %}"></script>
     {% else %}
     <script src="{% static 'js/header-no-auth.js' %}"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     {% endif %}
     {% block scripts %}
     {% endblock scripts %}
