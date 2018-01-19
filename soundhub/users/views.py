@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render
 
 from users.forms import SignUpForm, SignInForm
 from utils.facebook import get_facebook_user_info
+from utils.google import get_google_user_info
 
 User = get_user_model()
 
@@ -74,8 +75,9 @@ def facebook_login(request):
         pass
 
     else:
-        email = user_info.get('email', f'fb_{fb_id}')
-        nickname = user_info.get('name')
+        fb_username = f'fb_{fb_id}'
+        email = user_info.get('email', fb_username)
+        nickname = user_info.get('name', fb_username)
         user = User.objects.create(
             email=email,
             nickname=nickname,
@@ -88,7 +90,12 @@ def facebook_login(request):
 
 
 def google_login(request):
-    return HttpResponse(request.GET['code'])
+    user_info = get_google_user_info(request)
+    gg_id = user_info.get('id')
+
+    user = authenticate(request, gg_id=gg_id)
+
+    return HttpResponse()
 
 
 def sign_out(request):
