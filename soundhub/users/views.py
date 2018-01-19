@@ -41,6 +41,7 @@ def sign_up(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data.get('password1'))
             user.save()
+            # m2m 관계 필드 폼으로 받아서 저장
             form.save_m2m()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('views:home')
