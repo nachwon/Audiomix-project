@@ -10,6 +10,16 @@ from utils.google import get_google_user_info
 User = get_user_model()
 
 
+def sign_up_index(request):
+    if request.method == 'GET':
+        if request.user.is_authenticated:
+            return redirect('views:home')
+        context = {
+            "google_client_id": settings.GOOGLE_CLIENT_ID,
+        }
+        return render(request, 'sign/signup-index.html', context)
+
+
 def sign_up(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
@@ -21,7 +31,6 @@ def sign_up(request):
             "genre": fields[4],
             "instrument": fields[5],
             "sign_in": SignInForm(),
-            "google_client_id": settings.GOOGLE_CLIENT_ID,
         }
         return render(request, 'sign/signup.html', context)
 

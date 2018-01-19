@@ -22,31 +22,11 @@
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
                 <ol class="carousel-indicators">
                     <li id="first-slide" data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                    <li id="last-slide" data-target="#carousel-example-generic" data-slide-to="2"></li>
+                    <li id="last-slide" data-target="#carousel-example-generic" data-slide-to="1"></li>
                 </ol>
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox">
                     <div class="item active">
-                        <div class="signup-box signup-index">
-                            <div class="swiper-container">
-                                <div class="swiper-wrapper">
-                                    <a class="swiper-slide" onclick="setTimeout(function(){hideBtn()}, 500)" href="#carousel-example-generic" data-slide="next"><div class="swiper-slide" style="background-image:url('/static/img/soundhub-logo.png')"></div></a>
-                                    <a class="swiper-slide" href="https://www.facebook.com/v2.11/dialog/oauth?client_id=188997225020523
-                                    &scope=user_friends,email,public_profile
-                                    &redirect_uri={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'views:user:fb-login' %}">
-                                        <div class="swiper-slide" style="background-image:url('/static/img/facebook.png')"></div>
-                                    </a>
-                                    <a class="swiper-slide" href="https://accounts.google.com/o/oauth2/v2/auth?scope=profile email openid&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'views:user:google-login' %}&response_type=code&client_id={{ google_client_id }}">
-                                        <div class="swiper-slide" style="background-image:url('/static/img/google.png')"></div>
-                                    </a>
-                                </div>
-                                <!-- Add Pagination -->
-                                <div class="swiper-pagination"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
                         {% include 'sign/terms-of-use.html' %}
                         <div id="create-soundhub" class="signup-box">
                             <h1 class="signup-title">Create Account</h1>
@@ -102,23 +82,4 @@
 
 {% include 'index/popup-signin.html' %}
 
-<script src="{% static 'js/swiper/swiper.min.js' %}"></script>
-<script>
-    var swiper = new Swiper('.swiper-container', {
-        effect: 'coverflow',
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: 'auto',
-        coverflowEffect: {
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows : true,
-        },
-        pagination: {
-            el: '.swiper-pagination',
-        },
-    });
-</script>
 {% endblock content %}
