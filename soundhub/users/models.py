@@ -119,9 +119,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     # 프로필 배경 이미지
     profile_bg = models.ImageField(blank=True, upload_to=profile_bg_directory_path)
     # 선호 악기
-    instrument = models.ManyToManyField(Instrument, related_name='instrument', blank=True)
+    instrument = models.ManyToManyField(Instrument, related_name='user_instrument', blank=True)
     # 선호하는 장르
-    genre = models.ManyToManyField(Genre, related_name='genre', blank=True)
+    genre = models.ManyToManyField(Genre, related_name='user_genre', blank=True)
     # 유저 타입. 소셜로그인인가 아니면 그냥 로그인인가.
     user_type = models.CharField(max_length=1, choices=USER_TYPE, default=USER_TYPE_SOUNDHUB)
     # Facebook 유저 로그인 시 id 값

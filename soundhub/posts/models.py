@@ -4,6 +4,8 @@ from django.db import models
 
 from django.conf import settings
 
+from users.models import Instrument, Genre
+
 
 def extension(filename):
     p = re.compile(r'.*[.](.*)')
@@ -34,8 +36,8 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     post_img = models.ImageField(upload_to=post_img_directory_path, blank=True)
-    instrument = models.CharField(max_length=100)
-    genre = models.CharField(max_length=100)
+    instrument = models.ManyToManyField(Instrument, related_name='post_instrument', blank=True)
+    genre = models.ManyToManyField(Genre, related_name='post_genre', blank=True)
     master_track = models.FileField(upload_to=master_track_directory_path, blank=True, null=True)
     author_track = models.FileField(upload_to=author_track_directory_path, max_length=255)
     bpm = models.IntegerField(default=0)
