@@ -1,16 +1,18 @@
-div.profile-body {
+div.profile-content {
   padding: 0; }
-  div.profile-body div.profile-cover {
+  div.profile-content div.profile-head {
     background-color: white;
     height: 300px;
-    position: relative; }
-  div.profile-body div.user-info {
+    position: relative;
+    background-size: 100%;
+    background-position: center; }
+  div.profile-content div.user-info {
     font-family: 'Merriweather Sans', sans-serif;
     position: absolute;
     width: 100%;
     top: 57%;
     left: 0; }
-    div.profile-body div.user-info div.profile-img {
+    div.profile-content div.user-info div.profile-img {
       box-shadow: 1px 1px 6px 0px black;
       background-color: grey;
       background-position: center;
@@ -21,12 +23,35 @@ div.profile-body {
       background-size: cover;
       position: relative;
       float: left; }
-    div.profile-body div.user-info div.username-info {
+    div.profile-content div.user-info div.username-info {
       display: inline-block;
       margin: 0 40px;
       position: relative;
       top: 129px; }
-      div.profile-body div.user-info div.username-info h2.nickname {
+      div.profile-content div.user-info div.username-info h2.nickname {
         font-size: 40px; }
-      div.profile-body div.user-info div.username-info span.email {
+      div.profile-content div.user-info div.username-info span.email {
         font-size: 15px; }
+  div.profile-content div.social-info {
+    padding-top: 20px;
+    width: 400px;
+    height: 100%;
+    display: inline-block;
+    top: 129px;
+    float: right;
+    position: relative; }
+    div.profile-content div.social-info div.social-count {
+      float: right;
+      display: inline-block;
+      margin-right: 15px;
+      font-family: 'Fjalla One', sans-serif;
+      padding-right: 15px;
+      border-right: 1px solid #464646; }
+      div.profile-content div.social-info div.social-count:first-child {
+        margin-right: 0; }
+      div.profile-content div.social-info div.social-count p {
+        margin: 0; }
+      div.profile-content div.social-info div.social-count p.social-count-title {
+        font-size: 20px; }
+      div.profile-content div.social-info div.social-count p.social-count-num {
+        font-size: 25px; }

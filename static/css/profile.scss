@@ -1,13 +1,14 @@
 // profile body starts
 
-div.profile-body {
+div.profile-content {
     padding: 0;
 
-    div.profile-cover {
+    div.profile-head {
         background-color: white;
         height: 300px;
         position: relative;
-
+        background-size: 100%;
+        background-position: center;
     }
 
     div.user-info {
@@ -40,6 +41,39 @@ div.profile-body {
             }
             span.email {
                 font-size: 15px;
+            }
+        }
+    }
+    div.social-info {
+        padding-top: 20px;
+        width: 400px;
+        height: 100%;
+        display: inline-block;
+        top: 129px;
+        float: right;
+        position: relative;
+
+        div.social-count {
+            float: right;
+            display: inline-block;
+            margin-right: 15px;
+            font-family: 'Fjalla One', sans-serif;
+            padding-right: 15px;
+            border-right: 1px solid #464646;
+
+            &:first-child {
+                margin-right: 0;
+            }
+
+            p {
+                margin: 0;
+            }
+
+            p.social-count-title {
+                font-size: 20px;
+            }
+            p.social-count-num {
+                font-size: 25px;
             }
         }
     }
