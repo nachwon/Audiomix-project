@@ -1,0 +1,404 @@
+/* contents starts */
+div.jumbotron {
+    background-color: transparent;
+    background-size: cover;
+    font-family: 'Fjalla One', sans-serif;
+
+    div.search-bar {
+        margin-top: 80px;
+        font-family: 'Merriweather Sans', sans-serif;
+
+        form.search-form {
+            margin: 0 auto;
+            height: 40px;
+            width: 600px;
+        }
+
+        input.search-field {
+            border-radius: 3px 0 0 3px;
+            border: 0;
+            height: 100%;
+            width: 85%;
+            vertical-align: middle;
+            float: left;
+            opacity: 0.8;
+            color: black;
+            font-size: 15px;
+            padding: 10px;
+
+            &:focus {
+                outline: none;
+                opacity: 1;
+            }
+        }
+
+        input.search-btn {
+            border-radius: 0 3px 3px 0;
+            height: 100%;
+            width: 15%;
+            vertical-align: middle;
+            border: 0px;
+            background-image: url('../img/search-icon.png');
+            color: white;
+            font-size: 18px;
+            background-color: #333533;
+            opacity: 0.8;
+
+            &:focus {
+                outline: none;
+                box-shadow: inset 1px 1px 20px 1px black;
+            }
+        }
+    }
+    p {
+        text-align: center;
+        &:first-of-type {
+            margin: 15px 0 10px 0;
+        }
+    }
+    div.signup-btn-wrapper {
+        width: 100%;
+        text-align: center;
+        button.signup-btn {
+            color: #E2B026;
+            font-family: 'Merriweather Sans', sans-serif;
+            border: 1px solid #E2B026;
+            border-radius: 2px;
+            background-color: transparent;
+            font-size: 15px;
+            padding: 7px 20px;
+
+            &:hover {
+                background-color: #E2B026;
+                color: white;
+            }
+
+            &:focus {
+                outline-color: #ffbe00e8;
+                transition-duration: 0.2s;
+            }
+        }
+    }
+    .dot {
+        cursor:pointer;
+        height: 15px;
+        width: 15px;
+        margin: 0 4px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+        position: relative;
+        float: right;
+        text-align: center;
+        top: 20px;
+        left: 45px;
+    }
+    .active, .dot:hover {
+        background-color: #717171;
+    }
+}
+
+div.jumbotron span {
+    font-size: 20px;
+}
+
+div.jumbotron strong {
+    color: #E2B026;
+}
+
+div.slideshow-container {
+    width: 1220px;
+    height: 600px;
+
+    a.prev {
+        font-size: 30px;
+        position: relative;
+        top: 300px;
+        float: left;
+        left: 10px;
+        color: #bbbbbb;
+        cursor: pointer;
+        z-index: 2;
+
+        &:hover {
+            color: #333533;
+        }
+    }
+    a.next {
+        font-size: 30px;
+        position: relative;
+        top: 300px;
+        float: right;
+        right: 10px;
+        color: #bbb;
+        cursor: pointer;
+        z-index: 2;
+
+        &:hover {
+            color: #333533;
+        }
+    }
+}
+
+
+div.contents div.post-list {
+    position: absolute;
+    z-index: 1;
+    background-size: cover;
+    overflow: hidden;
+    color: black;
+    padding: 20px;
+    height: 600px;
+    width: 1220px;
+
+    h2.pop-posts-title {
+        padding-bottom: 25px;
+        margin-bottom: 25px;
+        border-bottom: 1px solid #bbb;
+        font-family: 'Merriweather Sans', sans-serif;
+        font-size: 40px;
+    }
+
+    h3.pop-posts-title {
+        padding-bottom: 25px;
+        margin-bottom: 25px;
+        margin-top: 130px;
+        border-bottom: 1px solid #bbb;
+        font-family: 'Merriweather Sans', sans-serif;
+        font-size: 20px;
+        a {
+            color: black;
+        }
+    }
+
+    span.pop-posts-p {
+        font-size: 14px;
+        font-family: 'Merriweather Sans', sans-serif;
+    }
+
+    div.obj-wrapper {
+        width: 1100px;
+        margin: 20px auto 0 auto;
+    }
+}
+
+div.post-obj.title {
+    text-align: justify;
+}
+
+div.post-list div.post-obj {
+    width: 200px;
+    height: 270px;
+    float: left;
+    margin-right: 25px;
+    &:nth-child(5n) {
+        margin-right: 0px;
+    }
+
+    div.post-img {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: rgba(53, 51, 53, 0.6);
+        width: 200px;
+        height: 200px;
+        margin-bottom: 5px;
+        float: left;
+        border: 1px solid #8a9791;
+        border-radius: 2px;
+    }
+
+    p.post-title {
+        text-align: left;
+        font-size: 1.1em;
+        margin: 0 5px;
+        font-family: 'Catamaran', sans-serif;
+        color: black;
+    }
+
+    p.post-author {
+        text-align: left;
+        color: #4c4c4c;
+        margin: 0 5px;
+        font-family: 'Catamaran', sans-serif;
+    }
+}
+
+div.pop-users {
+    background-image: url("/static/img/pop-users.jpg");
+}
+
+div.pop-posts {
+    background-image: url("/static/img/crowd.jpg");
+}
+
+div.recent-posts {
+    background-image: url("/static/img/recent-posts.jpg");
+}
+
+/* contents ends */
+
+// pop-up layer starts
+
+#popup-layer {
+    display: none;
+    font-family: 'Merriweather Sans', sans-serif;
+}
+
+.pop-layer .pop-container {
+    padding: 20px 25px;
+    padding-top: 50px;
+}
+
+.pop-container {
+    background-color: #333533;
+    box-shadow: 4px 4px 20px 0px black;
+}
+
+.pop-layer p.ctxt {
+    color: #666;
+    line-height: 25px;
+}
+
+.pop-layer .btn-r {
+    width: 100%;
+    margin: 20px 0 20px;
+    padding-top: 10px;
+    border-top: 1px solid #777;
+    text-align: right;
+
+    h3.social-signin {
+        text-align: left;
+        margin: 0px;
+        margin-bottom: 15px;
+        font-size: 15px;
+    }
+
+    div.social-wrapper {
+        height: 40px;
+        width: 300px;
+        text-align: left;
+        margin:0 auto;
+
+        img.fb-btn {
+            width: 40px;
+        }
+
+        span.fb-text {
+            font-size: 19px;
+            vertical-align: middle;
+            margin-left: 10px;
+            margin-right: 20px;
+        }
+
+        img.gg-btn {
+            width: 40px;
+            border-radius: 2px;
+        }
+    }
+}
+
+.pop-layer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 410px;
+    height: auto;
+    background-color: #fff;
+    border: 1px solid #333533;
+    border-radius: 3px;
+    z-index: 10;
+}
+
+.dim-layer {
+    position: fixed;
+    _position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+}
+
+.dim-layer .dimBg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: .7;
+    filter: alpha(opacity=50);
+}
+
+.dim-layer .pop-layer {
+    display: block;
+}
+
+a.btn-layerClose {
+    display: inline-block;
+    height: 25px;
+    padding: 0 14px 0;
+    border: 1px solid white;
+    border-radius: 2px;
+    font-size: 13px;
+    color: #fff;
+    line-height: 25px;
+    margin-top: 15px;
+}
+
+a.btn-layerClose:hover {
+    border: 1px solid white;
+    background-color: white;
+    color: #333533;
+}
+
+div.pop-conts {
+    text-align: center;
+
+    h3.signin-title {
+        text-align: left;
+        margin-bottom: 15px;
+    }
+
+    form {
+        text-align: center;
+
+        div.form-field {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        input.signin-field {
+            background-color: white;
+            color: #333533;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            width: 300px;
+            height: 40px;
+            font-size: 20px;
+            padding: 6px;
+
+        }
+
+        input.submit-btn {
+            background: transparent;
+            color: #E2B026;
+            border: 1px solid #E2B026;
+            border-radius: 2px;
+            width: 300px;
+            height: 35px;
+            font-size: 15px;
+
+            &:hover {
+                background-color: #E2B026;
+                color: #333533;
+            }
+        }
+    }
+}
+
+// pop-up layer ends
+
+
