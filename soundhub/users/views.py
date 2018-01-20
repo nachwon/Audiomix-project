@@ -16,6 +16,7 @@ def sign_up_index(request):
             return redirect('views:home')
         context = {
             "google_client_id": settings.GOOGLE_CLIENT_ID,
+            "sign_in": SignInForm(),
         }
         return render(request, 'sign/signup-index.html', context)
 

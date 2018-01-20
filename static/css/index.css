@@ -281,7 +281,8 @@ a.btn-layerClose:hover {
 div.pop-conts {
   text-align: center; }
   div.pop-conts h3.signin-title {
-    text-align: left;
+    font-family: 'Fjalla One', sans-serif;
+    text-align: center;
     margin-bottom: 15px; }
   div.pop-conts form {
     text-align: center; }
