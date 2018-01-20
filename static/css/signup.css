@@ -10,19 +10,17 @@ div.mask {
   opacity: 0.6; }
 
 div.background {
-  position: fixed;
-  min-width: 100%;
-  min-height: 100%;
-  top: 0;
-  left: 0;
+  position: relative;
+  width: 100%;
+  height: 649px;
+  background-image: url("/static/img/signup-1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   z-index: 0; }
 
 div.signup-body {
-  padding: 0 50px;
-  padding-top: 83px;
-  position: relative;
+  padding-left: 50px;
+  position: absolute;
   z-index: 3; }
   div.signup-body div.terms-of-use {
     position: relative;
