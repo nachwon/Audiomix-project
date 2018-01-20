@@ -9,7 +9,7 @@
         {% for post in pop_posts %}
         <div class="post-obj">
             {% if post.post_img.name == '' %}
-            <div class="post-img" style="background-image: url('static/img/default-post-img.png'); background-size:unset;"></div>
+            <div class="post-img" style="background-image: url({% static 'img/default-post-img.png' %}); background-size:unset;"></div>
             {% else %}
             <div class="post-img" style="background-image: url('{{ post.post_img.url }}')"></div>
             {% endif %}

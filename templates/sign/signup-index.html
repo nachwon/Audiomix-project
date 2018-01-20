@@ -20,14 +20,14 @@
             <div class="signup-box signup-index">
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
-                        <a class="swiper-slide" href="{% url 'views:user:sign-up' %}"><div class="swiper-slide" style="background-image:url('/static/img/soundhub-logo.png')"></div></a>
+                        <a class="swiper-slide" href="{% url 'views:user:sign-up' %}"><div class="swiper-slide" style="background-image:url({% static 'img/soundhub-logo.png' %})"></div></a>
                         <a class="swiper-slide" href="https://www.facebook.com/v2.11/dialog/oauth?client_id=188997225020523
                                     &scope=user_friends,email,public_profile
                                     &redirect_uri={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'views:user:fb-login' %}">
-                            <div class="swiper-slide" style="background-image:url('/static/img/facebook.png')"></div>
+                            <div class="swiper-slide" style="background-image:url({% static 'img/facebook.png' %})"></div>
                         </a>
                         <a class="swiper-slide" href="https://accounts.google.com/o/oauth2/v2/auth?scope=profile email openid&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'views:user:google-login' %}&response_type=code&client_id={{ google_client_id }}">
-                            <div class="swiper-slide" style="background-image:url('/static/img/google.png')"></div>
+                            <div class="swiper-slide" style="background-image:url({% static 'img/google.png' %})"></div>
                         </a>
                     </div>
                     <!-- Add Pagination -->

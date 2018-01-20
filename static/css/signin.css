@@ -1,17 +1,20 @@
 div.background {
-  width: 100%;
+  min-width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 730px;
-  background-image: url("/static/img/signin.png");
-  display: inline-block; }
+  min-height: 100%;
+  background-image: url(/static/img/signin.png);
+  display: inline-block;
+  position: fixed; }
 
 div.signin-body {
+  position: fixed;
   width: 400px;
-  margin: 5% auto;
+  top: calc(50% - 200px);
   padding: 20px 0;
   background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 6px; }
+  border-radius: 6px;
+  left: calc(50% - 200px); }
   div.signin-body h2.signin-title {
     font-family: 'Fjalla One', sans-serif;
     text-align: center;
