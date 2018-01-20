@@ -1,26 +1,32 @@
 div.profile-body {
-  background-color: white;
-  height: 300px;
-  position: relative;
-  font-family: 'Merriweather Sans', sans-serif; }
-
-div.profile-img {
-  box-shadow: 1px 1px 6px 0px black;
-  background-color: grey;
-  background-position: center;
-  width: 250px;
-  height: 250px;
-  display: inline-block;
-  margin-left: 15px;
-  background-size: cover;
-  position: absolute;
-  top: 60%; }
-
-div.user-info {
-  position: absolute;
-  top: 100%;
-  left: 24%; }
-  div.user-info h2.nickname {
-    font-size: 40px; }
-  div.user-info span.email {
-    font-size: 15px; }
+  padding: 0; }
+  div.profile-body div.profile-cover {
+    background-color: white;
+    height: 300px;
+    position: relative; }
+  div.profile-body div.user-info {
+    font-family: 'Merriweather Sans', sans-serif;
+    position: absolute;
+    width: 100%;
+    top: 57%;
+    left: 0; }
+    div.profile-body div.user-info div.profile-img {
+      box-shadow: 1px 1px 6px 0px black;
+      background-color: grey;
+      background-position: center;
+      width: 250px;
+      height: 250px;
+      display: inline-block;
+      margin-left: 50px;
+      background-size: cover;
+      position: relative;
+      float: left; }
+    div.profile-body div.user-info div.username-info {
+      display: inline-block;
+      margin: 0 40px;
+      position: relative;
+      top: 129px; }
+      div.profile-body div.user-info div.username-info h2.nickname {
+        font-size: 40px; }
+      div.profile-body div.user-info div.username-info span.email {
+        font-size: 15px; }
