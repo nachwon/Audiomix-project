@@ -5,12 +5,12 @@ div.header {
   top: 0;
   background-color: transparent;
   width: 100%;
-  border-top: 3px solid #E2B026;
-  box-shadow: 3px 2px 20px 0px black; }
+  border-top: 3px solid #E2B026; }
 
 div.header-scrolled {
   height: 50px;
-  background-color: rgba(255, 255, 255, 0.2); }
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 3px 2px 20px 0px black; }
 
 div.wrapper {
   margin: 0 auto;

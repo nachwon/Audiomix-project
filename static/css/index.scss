@@ -1,3 +1,25 @@
+// index general starts
+
+@media (min-width: 768px) {
+    .responsive {
+        width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .responsive {
+        width: 940px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .responsive {
+        width: 1220px;
+    }
+}
+
+// index general ends
+
 /* contents starts */
 div.jumbotron {
     background-color: transparent;
@@ -107,50 +129,53 @@ div.jumbotron strong {
     color: #E2B026;
 }
 
+
 div.slideshow-container {
-    width: 1220px;
     height: 600px;
 
-    a.prev {
-        font-size: 30px;
+    .slide-btn-wrapper {
         position: relative;
-        top: 300px;
-        float: left;
-        left: 10px;
-        color: #bbbbbb;
-        cursor: pointer;
-        z-index: 2;
 
-        &:hover {
-            color: #333533;
+        a.prev {
+            font-size: 30px;
+            position: absolute;
+            bottom: 300px;
+            float: left;
+            left: 10px;
+            color: #bbbbbb;
+            cursor: pointer;
+            z-index: 2;
+
+            &:hover {
+                color: #333533;
+            }
         }
-    }
-    a.next {
-        font-size: 30px;
-        position: relative;
-        top: 300px;
-        float: right;
-        right: 10px;
-        color: #bbb;
-        cursor: pointer;
-        z-index: 2;
+        a.next {
+            font-size: 30px;
+            position: absolute;
+            bottom: 300px;
+            float: right;
+            right: 10px;
+            color: #bbb;
+            cursor: pointer;
+            z-index: 2;
 
-        &:hover {
-            color: #333533;
+            &:hover {
+                color: #333533;
+            }
         }
     }
 }
 
-
 div.contents div.post-list {
-    position: absolute;
+    position: relative;
     z-index: 1;
     background-size: cover;
     overflow: hidden;
     color: black;
     padding: 20px;
     height: 600px;
-    width: 1220px;
+    width: 100%;
 
     h2.pop-posts-title {
         padding-bottom: 25px;
