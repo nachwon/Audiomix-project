@@ -1,4 +1,6 @@
-<div class="recent-posts post-list slide slide-fade">
+{% load static %}
+
+<div class="recent-posts post-list slide slide-fade" style="background-image: url({% static 'img/recent-posts.jpg' %});">
     <div class="obj-wrapper">
         {% for post in recent_posts|slice:":2" %}
         <div class="post-obj">

@@ -35,8 +35,6 @@ class SignInForm(forms.Form):
             password=password,
         )
 
-        print(email, password)
-
         if not self.user:
             raise forms.ValidationError('Incorrect email address or password')
         else:

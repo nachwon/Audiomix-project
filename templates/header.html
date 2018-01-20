@@ -1,12 +1,13 @@
 {% load static %}
-<div id="header" class="header">
+
+<div id="header" class="header container">
     <div id="wrapper" class="wrapper">
         <a href="/"><img id="title-logo" class="title-logo" src="{% static 'img/logo.png' %}" alt=""></a>
         {% if request.user.is_authenticated %}
         <div class="btn-wrapper">
             <a href="{% url 'views:user:user-detail' pk=request.user.pk %}"><div id="current-user" class="current-user">{{ request.user }}</div></a>
             <div id="dropdown" class="dropdown">
-                <button id="drop-btn" onclick="dropdown()" class="dropbtn"></button>
+                <button id="drop-btn" onclick="dropdown()" class="dropbtn" style="background-image: url({% static 'img/hamburger.png' %});"></button>
                 <div id="myDropdown" class="dropdown-content" >
                     <a href="#">Link 1</a>
                     <a href="#">Link 2</a>

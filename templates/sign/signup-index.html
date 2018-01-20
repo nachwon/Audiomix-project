@@ -1,23 +1,22 @@
 {% extends 'base.html' %}
 
 {% load static %}
-{% load sass_tags %}
 
 {% block links %}
-<link rel="stylesheet" href="{%sass_src 'css/index.scss' %}">
-<link rel="stylesheet" href="{% sass_src 'css/signup.scss' %}">
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
 <link rel="stylesheet" href="{% static 'css/swiper/swiper.css' %}">
 {% endblock links %}
 {% block scripts %}
 {% endblock scripts %}
 
 {% block content %}
-<div class="background">
+<div class="background" style="background-image: url({% static 'img/signup-1.jpg' %});">
     <div class="mask"></div>
     <!-- Indicators -->
 
     <form action="{% url 'views:user:sign-up' %}" method="post">
-        <div class="signup-body contents container">
+        <div class="signup-body container">
             <div class="signup-box signup-index">
                 <div class="swiper-container">
                     <div class="swiper-wrapper">

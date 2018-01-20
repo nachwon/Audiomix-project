@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 
 {% load static %}
-{% load sass_tags %}
 
 {% block links %}
-<link rel="stylesheet" href="{% sass_src 'css/index.scss' %}">
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock links %}
 {% block scripts %}
 <script src="{% static 'js/index.js' %}"></script>
@@ -36,9 +35,7 @@
         </div>
     </div>
     <!--End of jumbotron-->
-    <div class="slideshow-container">
-        <a class="prev transition" onclick="plusSlides(1)">&#10094;</a>
-        <a class="next transition" onclick="plusSlides(-1)">&#10095;</a>
+    <div class="slideshow-container responsive">
         <!--Recent Posts-->
         {% include 'index/recent-posts.html' %}
         <!--End of recent posts-->
@@ -48,6 +45,10 @@
         <!--Popular posts-->
         {% include 'index/pop-posts.html' %}
         <!--End of Popular Posts-->
+        <div class="slide-btn-wrapper responsive">
+            <a class="prev transition" onclick="plusSlides(1)">&#10094;</a>
+            <a class="next transition" onclick="plusSlides(-1)">&#10095;</a>
+        </div>
     </div>
 </div>
 <!--End of content body-->

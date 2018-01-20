@@ -1,25 +1,44 @@
 {% extends 'base.html' %}
 
 {% load static %}
-{% load sass_tags %}
 
 {% block links %}
-<link rel="stylesheet" href="{% sass_src 'css/profile.scss' %}">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock links %}
 {% block scripts %}
 {% endblock scripts %}
 
 {% block content %}
-<div class="profile-body container contents">
-    {% if user.profile_img.name == '' %}
-    <div class="profile-img img-circle" style="background-image: url('/static/img/default-profile.png')"></div>
-    {% else %}
-    <div class="profile-img img-circle" style="background-image: url('{{ user.profile_img.url }}')"></div>
-    {% endif %}
-    <div class="user-info">
-        <h2 class="nickname">{{ user.nickname }}</h2>
-        <span class="email">{{ user.email }}</span>
+<div class="profile-content container contents">
+    <div class="profile-head" style="background-image: url({% static 'img/default-profile-cover.jpg' %})">
+        <div class="user-info">
+            {% if user.profile_img.name == '' %}
+            <div class="profile-img img-circle" style="background-image: url('/static/img/default-profile.png')"></div>
+            {% else %}
+            <div class="profile-img img-circle" style="background-image: url('{{ user.profile_img.url }}')"></div>
+            {% endif %}
+            <div class="username-info">
+                <h2 class="nickname">{{ user.nickname }}</h2>
+                <span class="email">{{ user.email }}</span>
+            </div>
+            <div class="social-info">
+                <div class="social-count" >
+                    <p class="social-count-title">Total Likes</p>
+                    <p class="social-count-num">{{ user.total_liked }}</p>
+                </div>
+                <div class="social-count" >
+                    <p class="social-count-title">Following</p>
+                    <p class="social-count-num">{{ user.following.count }}</p>
+                </div>
+                <div class="social-count" >
+                    <p class="social-count-title">Followers</p>
+                    <p class="social-count-num">{{ user.followers.count }}</p>
+                </div>
+            </div>
+        </div>
     </div>
-
+    <div class="profile-body">
+        <h1></h1>
+    </div>
 </div>
 {% endblock content %}

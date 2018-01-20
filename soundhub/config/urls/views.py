@@ -23,4 +23,6 @@ urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^home/$', home, name='home'),
     url(r'^user/', include('users.urls.views', namespace='user')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,4 +1,6 @@
-<div class="pop-users post-list slide slide-fade">
+{% load static %}
+
+<div class="pop-users post-list slide slide-fade" style="background-image: url({% static 'img/pop-users.jpg' %});">
     <div class="obj-wrapper">
         {% for user in pop_users|slice:":4" %}
         <div class="post-obj">
@@ -8,7 +10,7 @@
             <div class="post-img" style="background-image: url('{{ user.profile_img.url }}')"></div>
             {% endif %}
             <p class="post-title">{{ user.nickname }}</p>
-            <p class="post-author">{{ user.instrument }}</p>
+            <p class="post-author">{{ user.instrument.first }}</p>
         </div>
         {% endfor %}
         <div class="post-obj">
@@ -21,12 +23,12 @@
         {% for user in pop_users|slice:"4:8" %}
         <div class="post-obj">
             {% if user.profile_img.name == '' %}
-            <div class="post-img" style="background-image: url('static/img/default-profile.png');"></div>
+            <div class="post-img" style="background-image: url('static/img/default-profile-img.png');"></div>
             {% else %}
             <div class="post-img" style="background-image: url('{{ user.profile_img.url }}')"></div>
             {% endif %}
             <p class="post-title">{{ user.nickname }}</p>
-            <p class="post-author">{{ user.instrument }}</p>
+            <p class="post-author">{{ user.instrument.first }}</p>
         </div>
         {% endfor %}
     </div>

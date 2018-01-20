@@ -16,6 +16,7 @@ def sign_up_index(request):
             return redirect('views:home')
         context = {
             "google_client_id": settings.GOOGLE_CLIENT_ID,
+            "sign_in": SignInForm(),
         }
         return render(request, 'sign/signup-index.html', context)
 
@@ -41,6 +42,8 @@ def sign_up(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data.get('password1'))
             user.save()
+            # m2m 관계 필드 폼으로 받아서 저장
+            form.save_m2m()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('views:home')
         else:

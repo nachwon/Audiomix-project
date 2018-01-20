@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 
 {% load static %}
-{% load sass_tags %}
 
 {% block links %}
-<link rel="stylesheet" href="{%sass_src 'css/index.scss' %}">
-<link rel="stylesheet" href="{% sass_src 'css/signup.scss' %}">
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
 <link rel="stylesheet" href="{% static 'css/swiper/swiper.css' %}">
 {% endblock links %}
 {% block scripts %}
@@ -13,16 +12,16 @@
 {% endblock scripts %}
 
 {% block content %}
-<div class="background">
+<div class="background" style="background-image: url({% static 'img/signup-1.jpg' %});">
     <div class="mask"></div>
     <!-- Indicators -->
 
     <form action="{% url 'views:user:sign-up' %}" method="post">
-        <div class="signup-body contents container">
+        <div class="signup-body container">
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
                 <ol class="carousel-indicators">
-                    <li id="first-slide" data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                    <li id="last-slide" data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li id="first-slide" onclick="setTimeout(function(){hideBtn()}, 500)" data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li id="last-slide" onclick="setTimeout(function(){hideBtn()}, 500)" data-target="#carousel-example-generic" data-slide-to="1"></li>
                 </ol>
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox">

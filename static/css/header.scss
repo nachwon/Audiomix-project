@@ -7,21 +7,23 @@ div.header {
     top: 0;
     background-color: transparent;
     width: 100%;
+    border-top: 3px solid #E2B026;
 }
 
 div.header-scrolled {
     height: 50px;
     background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 3px 2px 20px 0px black;
 }
 
 div.wrapper {
-    border-top: 3px solid #E2B026;
+    margin: 0 auto;
     height: 80px;
+    max-width: 1250px;
 }
 
 div.wrapper-scrolled {
     height: 50px;
-    box-shadow: 3px 2px 20px 0px black;
 }
 
 img.title-logo {
@@ -41,7 +43,7 @@ img.title-logo-scrolled {
 // authenticated css starts
 
 div.current-user {
-    line-height: 77px;
+    line-height: 80px;
     display: inline-block;
 }
 
@@ -67,7 +69,6 @@ div.current-user-scrolled {
 }
 
 .dropbtn {
-    background-image: url("/static/img/hamburger.png");
     background-position: center;
     background-repeat: no-repeat;
     background-color: transparent;

@@ -1,3 +1,15 @@
+@media (min-width: 768px) {
+  .responsive {
+    width: 720px; } }
+
+@media (min-width: 992px) {
+  .responsive {
+    width: 940px; } }
+
+@media (min-width: 1200px) {
+  .responsive {
+    width: 1220px; } }
+
 /* contents starts */
 div.jumbotron {
   background-color: transparent;
@@ -83,40 +95,41 @@ div.jumbotron strong {
   color: #E2B026; }
 
 div.slideshow-container {
-  width: 1220px;
   height: 600px; }
-  div.slideshow-container a.prev {
-    font-size: 30px;
-    position: relative;
-    top: 300px;
-    float: left;
-    left: 10px;
-    color: #bbbbbb;
-    cursor: pointer;
-    z-index: 2; }
-    div.slideshow-container a.prev:hover {
-      color: #333533; }
-  div.slideshow-container a.next {
-    font-size: 30px;
-    position: relative;
-    top: 300px;
-    float: right;
-    right: 10px;
-    color: #bbb;
-    cursor: pointer;
-    z-index: 2; }
-    div.slideshow-container a.next:hover {
-      color: #333533; }
+  div.slideshow-container .slide-btn-wrapper {
+    position: relative; }
+    div.slideshow-container .slide-btn-wrapper a.prev {
+      font-size: 30px;
+      position: absolute;
+      bottom: 300px;
+      float: left;
+      left: 10px;
+      color: #bbbbbb;
+      cursor: pointer;
+      z-index: 2; }
+      div.slideshow-container .slide-btn-wrapper a.prev:hover {
+        color: #333533; }
+    div.slideshow-container .slide-btn-wrapper a.next {
+      font-size: 30px;
+      position: absolute;
+      bottom: 300px;
+      float: right;
+      right: 10px;
+      color: #bbb;
+      cursor: pointer;
+      z-index: 2; }
+      div.slideshow-container .slide-btn-wrapper a.next:hover {
+        color: #333533; }
 
 div.contents div.post-list {
-  position: absolute;
+  position: relative;
   z-index: 1;
   background-size: cover;
   overflow: hidden;
   color: black;
   padding: 20px;
   height: 600px;
-  width: 1220px; }
+  width: 100%; }
   div.contents div.post-list h2.pop-posts-title {
     padding-bottom: 25px;
     margin-bottom: 25px;
@@ -171,15 +184,6 @@ div.post-list div.post-obj {
     color: #4c4c4c;
     margin: 0 5px;
     font-family: 'Catamaran', sans-serif; }
-
-div.pop-users {
-  background-image: url("/static/img/pop-users.jpg"); }
-
-div.pop-posts {
-  background-image: url("/static/img/crowd.jpg"); }
-
-div.recent-posts {
-  background-image: url("/static/img/recent-posts.jpg"); }
 
 /* contents ends */
 #popup-layer {
@@ -277,7 +281,8 @@ a.btn-layerClose:hover {
 div.pop-conts {
   text-align: center; }
   div.pop-conts h3.signin-title {
-    text-align: left;
+    font-family: 'Fjalla One', sans-serif;
+    text-align: center;
     margin-bottom: 15px; }
   div.pop-conts form {
     text-align: center; }
