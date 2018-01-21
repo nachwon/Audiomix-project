@@ -59,8 +59,8 @@ class PostSetField(serializers.RelatedField):
             data = {
                 "id": post.pk,
                 "title": post.title,
-                "genre": post.genre.first().name,
-                "instrument": post.instrument.first().name,
+                # "genre": post.genre.first().name,
+                # "instrument": post.instrument.first().name,
                 "num_liked": post.num_liked,
                 "num_comments": post.num_comments,
                 "created_date": post.created_date,
