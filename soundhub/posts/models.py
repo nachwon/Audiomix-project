@@ -73,7 +73,7 @@ class CommentTrack(models.Model):
                                  blank=True, null=True)
     is_mixed = models.NullBooleanField(default=False)
     comment_track = models.FileField(upload_to=comment_track_directory_path, max_length=255)
-    instrument = models.CharField(max_length=100)
+    instrument = models.ManyToManyField(Instrument, related_name='comment_instrument', blank=True)
     created_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):

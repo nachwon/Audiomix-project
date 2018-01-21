@@ -16,19 +16,19 @@ class CommentTrackField(serializers.RelatedField):
         data = dict()
         for i in value.all():
             list_item = CommentTrackSerializer(i).data
-            if i.instrument in ('Bass', 'B'):
+            if i.instrument.first() in ('Bass', 'B'):
                 bass_list.append(list_item)
                 data['Bass'] = bass_list
-            elif i.instrument in ('Vocal', 'V'):
+            elif i.instrument.first() in ('Vocal', 'V'):
                 vocal_list.append(list_item)
                 data['Vocal'] = vocal_list
-            elif i.instrument in ('Guitar', 'G'):
+            elif i.instrument.first() in ('Guitar', 'G'):
                 guitar_list.append(list_item)
                 data['Guitar'] = guitar_list
-            elif i.instrument in ('Drums', 'D'):
+            elif i.instrument.first() in ('Drums', 'D'):
                 drums_list.append(list_item)
                 data['Drums'] = drums_list
-            elif i.instrument in ('Keyboard', 'K'):
+            elif i.instrument.first() in ('Keyboard', 'K'):
                 keys_list.append(list_item)
                 data['Keyboard'] = keys_list
             else:
@@ -44,6 +44,11 @@ class CommentTrackSerializer(serializers.ModelSerializer):
         slug_field='title',
     )
     comment_track = serializers.FileField(max_length=255, use_url=False, required=False)
+    instrument = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='name'
+    )
 
     class Meta:
         model = CommentTrack
@@ -66,6 +71,16 @@ class PostSerializer(serializers.ModelSerializer):
     # 유저 시리얼라이저를 통해 유저 객체 직렬화 후 할당
     author = AuthorField(read_only=True)
     post_img = BypassEmptyStringField(use_url=False, required=False)
+    genre = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='name'
+    )
+    instrument = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='name'
+    )
     author_track = serializers.FileField(max_length=255, use_url=False, required=False)
     liked = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     comment_tracks = CommentTrackField(read_only=True)
@@ -79,8 +94,8 @@ class PostSerializer(serializers.ModelSerializer):
             'title',
             'author',
             'post_img',
-            'instrument',
             'genre',
+            'instrument',
             'liked',
             'num_liked',
             'num_comments',

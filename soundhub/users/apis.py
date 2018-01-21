@@ -92,10 +92,10 @@ class UserList(generics.ListAPIView):
         IsAuthenticatedOrReadOnly,
     )
     filter_backends = (DjangoFilterBackend, filters.OrderingFilter,)
-    filter_fields = (
-        'instrument',
-        'genre',
-    )
+    # filter_fields = (
+    #     'instrument',
+    #     'genre',
+    # )
     ordering_fields = (
         'total_liked',
         'num_followers',
