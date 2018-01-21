@@ -37,10 +37,13 @@
                 </div>
             </div>
         </div>
+        {% if user == request.user %}
+        {% else %}
         {% csrf_token %}
         <button id="follow-btn">
             Follow
         </button>
+        {% endif %}
     </div>
     <div class="profile-body">
         <h1></h1>
