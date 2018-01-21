@@ -92,7 +92,6 @@
                 }
             };
 
-
             // /user/pk/follow로 POST 요청을 비동기로 보냄
             xhttp.open("POST", "{% url 'views:user:follow' pk=user.pk %}", true);
             // 요청의 헤더에 CSRF 토큰 포함
@@ -101,6 +100,5 @@
             xhttp.send({"user": "{{ request.user }}"});
         }
     });
-
 </script>
 {% endblock content %}
