@@ -14,6 +14,14 @@ class UserSerializer(serializers.ModelSerializer):
     followers = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
     profile_img = serializers.ImageField(read_only=True, use_url=False)
     profile_bg = serializers.ImageField(read_only=True, use_url=False)
+    genre = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='name')
+    instrument = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='name')
 
     class Meta:
         model = User
