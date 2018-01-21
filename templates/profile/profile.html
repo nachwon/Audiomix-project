@@ -29,11 +29,11 @@
                 </div>
                 <div class="social-count" >
                     <p class="social-count-title">Following</p>
-                    <p class="social-count-num">{{ user.following.count }}</p>
+                    <p id="following-count" class="social-count-num">{{ user.following.count }}</p>
                 </div>
                 <div class="social-count" >
                     <p class="social-count-title">Followers</p>
-                    <p class="social-count-num">{{ user.followers.count }}</p>
+                    <p id="follower-count" class="social-count-num">{{ user.followers.count }}</p>
                 </div>
             </div>
         </div>
@@ -74,6 +74,10 @@
             xhttp.send()
         }
 
+        function change_follower_count(count) {
+            document.getElementById("follower-count").innerHTML = count
+        }
+
         // follow 함수
         function follow() {
             // 새로운 HttpRequest 객체 생성
@@ -82,15 +86,26 @@
             var csrf_token = $('[name=csrfmiddlewaretoken]').val();
             // readyState가 변할 때 마다 실행할 함수 설정
             xhttp.onreadystatechange = function() {
-                // 요청의 readyState가 4(complete) 이고 요청 결과의 status code가 201인 경우 함수 실행
+                // 요청의 readyState가 4(complete)인 경우 함수 실행
                 if (this.readyState === 4) {
+
+                    // 요청 결과의 status code가 201인 경우
                     if (this.status === 201) {
                         // 버튼의 텍스트를 Following으로 변경
                         document.getElementById("follow-btn").innerHTML = "Following";
+                        // change_follower_count 함수에 응답으로 받은 count 입력
+                        var count = JSON.parse(xhttp.responseText).count;
+                        change_follower_count(count);
                     }
+
+                    // 요청 결과의 status code가 204인 경우
                     else if (this.status === 204) {
                         // 버튼의 텍스트를 Follow로 변경
                         document.getElementById("follow-btn").innerHTML = "Follow";
+                        // count 변수에 현재 follower-count 저장
+                        var count = document.getElementById("follower-count").innerText;
+                        // change_follower_count 함수에 count -1 입력
+                        change_follower_count(count - 1);
                     }
                 }
             };

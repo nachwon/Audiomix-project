@@ -168,10 +168,8 @@ def follow_toggle(request, pk):
             )
             relation.delete()
             response = {
-                "msg": f"Unfollowed {to_user.nickname}!",
                 "status": 204
             }
-            json_response = json.dumps(response)
 
         else:
             Relationship.objects.create(
@@ -179,15 +177,16 @@ def follow_toggle(request, pk):
                 to_user_id=to_user.pk
             )
             response = {
-                "msg": f"Following {to_user.nickname}!",
                 "status": 201
             }
-            json_response = json.dumps(response)
 
+        response["count"] = f"{to_user.followers.count()}"
+        json_response = json.dumps(response)
         header = {
             "Content-Type": "application/json",
             "charset": "utf-8"
         }
+
         return HttpResponse(json_response,
                             content_type=header["Content-Type"],
                             charset=header["charset"],
