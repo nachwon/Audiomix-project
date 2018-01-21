@@ -146,10 +146,17 @@ def user_detail(request, pk):
 
 
 def follow_toggle(request, pk):
-    if request.method == 'POST' and request.user.is_authenticated:
-        from_user = request.user
-        to_user = User.objects.get(pk=pk)
+    from_user = request.user
+    to_user = User.objects.get(pk=pk)
 
+    if request.method == 'GET' and request.user.is_authenticated:
+        response = Relationship.objects \
+            .filter(from_user_id=from_user.pk) \
+            .filter(to_user_id=to_user.pk) \
+            .exists()
+        return HttpResponse(response)
+
+    elif request.method == 'POST' and request.user.is_authenticated:
         if Relationship.objects\
                 .filter(from_user_id=from_user.pk)\
                 .filter(to_user_id=to_user.pk)\
@@ -173,13 +180,15 @@ def follow_toggle(request, pk):
             )
             response = {
                 "msg": f"Following {to_user.nickname}!",
-                "status": 200
+                "status": 201
             }
             json_response = json.dumps(response)
+
         header = {
             "Content-Type": "application/json",
             "charset": "utf-8"
         }
         return HttpResponse(json_response,
                             content_type=header["Content-Type"],
-                            charset=header["charset"])
+                            charset=header["charset"],
+                            status=response["status"])
