@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
 from users.forms import SignUpForm, SignInForm
+from users.models import Relationship
 from utils.facebook import get_facebook_user_info
 from utils.google import get_google_user_info
 
@@ -140,3 +141,28 @@ def user_detail(request, pk):
             "user": user,
         }
         return render(request, 'profile/profile.html', context)
+
+
+def follow_toggle(request, pk):
+    if request.method == 'POST' and request.user.is_authenticated:
+        from_user = request.user
+        to_user = User.objects.get(pk=pk)
+
+        if Relationship.objects\
+                .filter(from_user_id=from_user.pk)\
+                .filter(to_user_id=to_user.pk)\
+                .exists():
+
+            relation = Relationship.objects.get(
+                from_user_id=from_user.pk,
+                to_user_id=to_user.pk
+            )
+            relation.delete()
+            return HttpResponse('deleted')
+
+        else:
+            Relationship.objects.create(
+                from_user_id=from_user.pk,
+                to_user_id=to_user.pk
+            )
+            return HttpResponse('created')

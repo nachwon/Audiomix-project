@@ -4,6 +4,7 @@
 
 {% block links %}
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
 {% endblock links %}
 {% block scripts %}
 {% endblock scripts %}
@@ -36,6 +37,7 @@
                 </div>
             </div>
         </div>
+        {% csrf_token %}
         <button id="follow-btn">
             Follow
         </button>
@@ -46,6 +48,25 @@
 </div>
 
 <script>
+    $(document).ready(function() {
+
+        document.getElementById("follow-btn").onclick = function() {
+            follow();
+        };
+
+        function follow() {
+            var xhttp = new XMLHttpRequest();
+            var csrf_token = $('[name=csrfmiddlewaretoken]').val();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    document.getElementById("follow-btn").innerHTML = "Following"
+                }
+            };
+            xhttp.open("POST", "{% url 'views:user:follow' pk=user.pk %}", true);
+            xhttp.setRequestHeader('X-CSRFToken', csrf_token);
+            xhttp.send({"user": "{{ request.user }}"});
+        }
+    });
 
 </script>
 {% endblock content %}
