@@ -1,6 +1,8 @@
+import json
+
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout, get_user_model
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 
 from users.forms import SignUpForm, SignInForm
@@ -158,11 +160,26 @@ def follow_toggle(request, pk):
                 to_user_id=to_user.pk
             )
             relation.delete()
-            return HttpResponse('deleted')
+            response = {
+                "msg": f"Unfollowed {to_user.nickname}!",
+                "status": 204
+            }
+            json_response = json.dumps(response)
 
         else:
             Relationship.objects.create(
                 from_user_id=from_user.pk,
                 to_user_id=to_user.pk
             )
-            return HttpResponse('created')
+            response = {
+                "msg": f"Following {to_user.nickname}!",
+                "status": 200
+            }
+            json_response = json.dumps(response)
+        header = {
+            "Content-Type": "application/json",
+            "charset": "utf-8"
+        }
+        return HttpResponse(json_response,
+                            content_type=header["Content-Type"],
+                            charset=header["charset"])
