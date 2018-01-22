@@ -94,7 +94,16 @@ class UserViewTest(TestCase):
         user.set_password("password")
         user.save()
 
+        user2 = User(email="user2_test@test.com",
+                     nickname="user2_testuser",
+                     )
+        user2.set_password("password")
+        user2.save()
+
         self.client = Client()
+
+    def tearDown(self):
+        User.objects.all().delete()
 
     def test_get_user_detail_page(self):
         logged_in = self.client.login(email="user_test@test.com", password="password")
@@ -106,3 +115,13 @@ class UserViewTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.resolver_match.func, user_detail)
+
+    def test_follow_user_toggle(self):
+        from_user = User.objects.get(email="user_test@test.com")
+        to_user = User.objects.get(email="user2_test@test.com")
+
+        self.client.login(email="user_test@test.com", password="password")
+
+        response = self.client.post(f"/user/{to_user.pk}/follow/")
+
+        self.assertEqual(response.status_code, 201)
