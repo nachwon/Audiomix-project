@@ -2,9 +2,10 @@ from unittest import TestCase
 
 from django.contrib.auth import get_user_model
 from django.test import Client
+from django.test.utils import setup_test_environment
 
 from users.models import Genre, Instrument
-from users.views import sign_up
+from users.views import sign_up, sign_in
 
 User = get_user_model()
 
@@ -18,9 +19,9 @@ class SignupViewTest(TestCase):
         Instrument.objects.create(name="Bass")
         Instrument.objects.create(name="Drums")
 
-    def test_sign_up_using_password(self):
-        c = Client()
+        self.client = Client()
 
+    def test_sign_up_using_password(self):
         email = "signup_test@test.com"
         nickname = "signup_testuser"
         password1 = "password"
@@ -34,7 +35,7 @@ class SignupViewTest(TestCase):
             "genre": ["1", "3"],
             "instrument": ["2"]
         }
-        response = c.post('/user/signup/', context)
+        response = self.client.post('/user/signup/', context)
 
         user = User.objects.get(email=email)
 
@@ -68,9 +69,9 @@ class LoginViewTest(TestCase):
         user.set_password("password")
         user.save()
 
-    def test_login_using_password(self):
-        c = Client()
+        self.client = Client()
 
+    def test_login_using_password(self):
         email = "login_test@test.com"
         password = "password"
 
@@ -79,10 +80,8 @@ class LoginViewTest(TestCase):
             "password": password
         }
 
-        response = c.post('/user/signin/', context)
-
-        # print(response.content)
+        response = self.client.post('/user/signin/', context)
 
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, "/home/")
-
+        self.assertEqual(response.resolver_match.func, sign_in)
