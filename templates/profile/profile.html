@@ -46,9 +46,20 @@
         {% endif %}
     </div>
     <div class="profile-body">
-        <h1></h1>
+        <div class="profile-body-wrapper">
+            <div class="section section-left">
+                <h1>section 1</h1>
+            </div>
+            <div class="section section-right">
+                <h1>section 2</h1>
+            </div>
+        </div>
     </div>
 </div>
+
+{% if user == request.user or request.user.is_anonymous %}
+
+{% else %}
 
 <script>
     // 페이지 로딩이 끝난 후 함수 실행
@@ -119,4 +130,8 @@
         }
     });
 </script>
+
+
+{% endif %}
+
 {% endblock content %}

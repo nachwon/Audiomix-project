@@ -1,6 +1,8 @@
-// profile body starts
+// profile head starts
 
 div.profile-content {
+    color: black;
+    box-shadow: 1px 1px 8px 0px black;
     padding: 0;
 
     div.profile-head {
@@ -15,6 +17,7 @@ div.profile-content {
             width: 100%;
             top: 57%;
             left: 0;
+            z-index: 10;
 
             div.profile-img {
                 box-shadow: 1px 1px 6px 0px black;
@@ -54,13 +57,13 @@ div.profile-content {
             div.social-count {
                 float: right;
                 display: inline-block;
-                margin-right: 15px;
+                margin-left: 15px;
                 font-family: 'Fjalla One', sans-serif;
-                padding-right: 15px;
-                border-right: 1px solid #464646;
+                padding-left: 15px;
+                border-left: 1px solid #ddd;
 
                 &:first-child {
-                    margin-right: 0;
+                    margin-right: 15px;
                 }
 
                 p {
@@ -91,8 +94,36 @@ div.profile-content {
     }
 }
 
+// profile head ends
+
+// profile body starts
+
+div.profile-body {
+    background-color: whitesmoke;
+    width: 100%;
+    height: 1000px;
+
+    div.profile-body-wrapper {
+        padding: 140px 20px 10px 20px;
+        display: inline-block;
+        width: 100%;
+
+        div.section {
+            display: inline-block;
+            border: 1px solid black;
+
+            &.section-left {
+                width: 69%;
+                float: left;
+            }
+            &.section-right {
+                width: 30%;
+                float: right;
+            }
+        }
+    }
 
 
-
+}
 
 // profile body ends
