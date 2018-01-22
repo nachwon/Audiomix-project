@@ -9,7 +9,7 @@
             {% else %}
             <div class="post-img" style="background-image: url('{{ user.profile_img.url }}')"></div>
             {% endif %}
-            <p class="post-title">{{ user.nickname }}</p>
+            <a href="{% url 'views:user:user-detail' pk=user.pk %}"><p class="post-title">{{ user.nickname }}</p></a>
             <p class="post-author">{{ user.instrument.first }}</p>
         </div>
         {% endfor %}
@@ -27,7 +27,7 @@
             {% else %}
             <div class="post-img" style="background-image: url('{{ user.profile_img.url }}')"></div>
             {% endif %}
-            <p class="post-title">{{ user.nickname }}</p>
+            <a href="{% url 'views:user:user-detail' pk=user.pk %}"><p class="post-title">{{ user.nickname }}</p></a>
             <p class="post-author">{{ user.instrument.first }}</p>
         </div>
         {% endfor %}

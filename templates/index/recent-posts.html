@@ -10,7 +10,7 @@
             <div class="post-img" style="background-image: url('{{ post.post_img.url }}')"></div>
             {% endif %}
             <p class="post-title">{{ post.title|truncatechars:30 }}</p>
-            <p class="post-author">{{ post.author }}</p>
+            <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="post-author">{{ post.author }}</p></a>
         </div>
         {% endfor %}
         <div class="post-obj title">
@@ -25,7 +25,7 @@
             <div class="post-img" style="background-image: url('{{ post.post_img.url }}')"></div>
             {% endif %}
             <p class="post-title">{{ post.title|truncatechars:30 }}</p>
-            <p class="post-author">{{ post.author }}</p>
+            <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="post-author">{{ post.author }}</p></a>
         </div>
         {% endfor %}
         <div class="post-obj">
@@ -39,7 +39,7 @@
             <div class="post-img" style="background-image: url('{{ post.post_img.url }}')"></div>
             {% endif %}
             <p class="post-title">{{ post.title|truncatechars:30 }}</p>
-            <p class="post-author">{{ post.author }}</p>
+            <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="post-author">{{ post.author }}</p></a>
         </div>
         {% endfor %}
     </div>
