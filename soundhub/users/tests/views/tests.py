@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.test import Client
 
 from users.models import Genre, Instrument
-from users.views import sign_up, sign_in
+from users.views import sign_up, sign_in, user_detail
 
 User = get_user_model()
 
@@ -97,8 +97,12 @@ class UserViewTest(TestCase):
         self.client = Client()
 
     def test_get_user_detail_page(self):
-        user = User.objects.get(email="user_test@test.com")
+        logged_in = self.client.login(email="user_test@test.com", password="password")
 
-        response = self.client.get(f"/user/{user.pk}")
+        if logged_in:
+            user = User.objects.get(email="user_test@test.com")
+
+        response = self.client.get(f"/user/{user.pk}/")
 
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.resolver_match.func, user_detail)
