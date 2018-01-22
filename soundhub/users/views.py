@@ -141,6 +141,7 @@ def user_detail(request, pk):
     if request.method == 'GET' and user_exists:
         user = User.objects.get(pk=pk)
         context = {
+            "sign_in": SignInForm,
             "user": user,
         }
         return render(request, 'profile/profile.html', context)
