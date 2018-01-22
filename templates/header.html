@@ -21,7 +21,7 @@
         </div>
         {% else %}
         <div id="header-btns" class="header-buttons">
-            {% if request.path == '/404/' %}
+            {% if status_code != 200 %}
             <a class="signin-btn" href="{% url 'views:user:sign-in' %}">Sign in</a>
             {% else %}
             <a class="signin-btn" href="#sign-in">Sign in</a>

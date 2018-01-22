@@ -148,7 +148,12 @@ def user_detail(request, pk):
         return render(request, 'profile/profile.html', context)
 
     else:
-        return redirect('views:404')
+        context = {
+            "status_code": 401,
+            "message": "Unauthorized!"
+        }
+
+        return render(request, 'error.html', context, status=401)
 
 
 def follow_toggle(request, pk):

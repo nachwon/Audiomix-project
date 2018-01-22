@@ -2,14 +2,16 @@
 {% load static %}
 
 {% block links %}
-<link rel="stylesheet" href="{% static 'css/404.css' %}">
+<link rel="stylesheet" href="{% static 'css/error.css' %}">
 {% endblock links %}
 
 {% block content %}
 
 <div class="container contents">
-    <h1>404 Not Found!</h1>
+    <h1>{{ status_code }} {{ message }}</h1>
 </div>
+
+
 
 {% endblock content %}
 
