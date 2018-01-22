@@ -125,7 +125,9 @@ class UserViewTest(TestCase):
         response = self.client.post(f"/user/{to_user.pk}/follow/")
 
         self.assertEqual(response.status_code, 201)
+        self.assertIn(from_user, to_user.followers.all())
 
         response2 = self.client.post(f"/user/{to_user.pk}/follow/")
 
         self.assertEqual(response2.status_code, 204)
+        self.assertNotIn(from_user, to_user.followers.all())
