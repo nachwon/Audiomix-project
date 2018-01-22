@@ -2,7 +2,6 @@ from unittest import TestCase
 
 from django.contrib.auth import get_user_model
 from django.test import Client
-from django.test.utils import setup_test_environment
 
 from users.models import Genre, Instrument
 from users.views import sign_up, sign_in
@@ -85,3 +84,21 @@ class LoginViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, "/home/")
         self.assertEqual(response.resolver_match.func, sign_in)
+
+
+class UserViewTest(TestCase):
+    def setUp(self):
+        user = User(email="user_test@test.com",
+                    nickname="user_testuser",
+                    )
+        user.set_password("password")
+        user.save()
+
+        self.client = Client()
+
+    def test_get_user_detail_page(self):
+        user = User.objects.get(email="user_test@test.com")
+
+        response = self.client.get(f"/user/{user.pk}")
+
+        self.assertEqual(response.status_code, 200)
