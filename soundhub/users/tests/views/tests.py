@@ -70,6 +70,9 @@ class LoginViewTest(TestCase):
 
         self.client = Client()
 
+    def tearDown(self):
+        User.objects.all().delete()
+
     def test_login_using_password(self):
         email = "login_test@test.com"
         password = "password"
@@ -84,6 +87,14 @@ class LoginViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, "/home/")
         self.assertEqual(response.resolver_match.func, sign_in)
+
+    def test_logout(self):
+        logged_in = self.client.login(email="login_test@test.com", password="password")
+
+        user = User.objects.get(email="login_test@test.com")
+
+        if logged_in:
+            self.client.logout()
 
 
 class UserViewTest(TestCase):

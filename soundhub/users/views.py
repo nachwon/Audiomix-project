@@ -138,19 +138,12 @@ def sign_out(request):
 def user_detail(request, pk):
     user_exists = User.objects.all().filter(pk=pk).exists()
 
-    if request.method == 'GET' and request.user.is_authenticated and user_exists:
+    if request.method == 'GET' and user_exists:
         user = User.objects.get(pk=pk)
         context = {
             "user": user,
         }
         return render(request, 'profile/profile.html', context)
-
-    elif user_exists and request.user.is_anonymous:
-        context = {
-            "status_code": 401,
-            "message": "Unauthorized!"
-        }
-        return render(request, 'error.html', context, status=401)
 
     else:
         context = {
