@@ -125,3 +125,7 @@ class UserViewTest(TestCase):
         response = self.client.post(f"/user/{to_user.pk}/follow/")
 
         self.assertEqual(response.status_code, 201)
+
+        response2 = self.client.post(f"/user/{to_user.pk}/follow/")
+
+        self.assertEqual(response2.status_code, 204)
