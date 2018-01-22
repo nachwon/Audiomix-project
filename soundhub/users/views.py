@@ -138,15 +138,13 @@ def sign_out(request):
 def user_detail(request, pk):
     user_exists = User.objects.all().filter(pk=pk).exists()
 
-    if request.method == 'GET' and \
-            request.user.is_authenticated and \
-            user_exists:
-
+    if request.method == 'GET' and request.user.is_authenticated and user_exists:
         user = User.objects.get(pk=pk)
 
         context = {
             "user": user,
         }
+
         return render(request, 'profile/profile.html', context)
 
     else:
