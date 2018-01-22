@@ -19,7 +19,6 @@ div.profile-content {
             left: 0;
 
             div.profile-img {
-                box-shadow: 1px 1px 6px 0px black;
                 background-color: grey;
                 background-position: center;
                 width: 250px;
@@ -109,19 +108,46 @@ div.profile-body {
     height: 1000px;
 
     div.profile-body-wrapper {
-        padding: 140px 20px 10px 20px;
+        padding: 150px 20px 10px 20px;
         display: inline-block;
         width: 100%;
 
         div.section {
             display: inline-block;
-            border: 1px solid black;
 
             &.section-left {
                 width: 69%;
                 float: left;
+
+                div.menu-wrapper {
+                    border-bottom: 1px solid #ddd;
+                    display: inline-block;
+                    width: 100%;
+
+                    button.profile-body-menu {
+                        font-family: 'Roboto Condensed', sans-serif;
+                        display: inline-block;
+                        padding: 0 10px;
+                        margin: 10px 0;
+                        float: left;
+                        background: transparent;
+                        font-size: 20px;
+                        border: none;
+                        border-right: 1px solid #ddd;
+
+                        &:first-of-type {
+                            border-left: 1px solid #ddd;
+                        };
+
+
+                        &:focus {
+                            border-bottom: 3px solid #E2B026;
+                        }
+                    }
+                }
             }
             &.section-right {
+                border: 1px solid black;
                 width: 30%;
                 float: right;
             }
