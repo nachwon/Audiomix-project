@@ -17,7 +17,6 @@ div.profile-content {
             width: 100%;
             top: 57%;
             left: 0;
-            z-index: 10;
 
             div.profile-img {
                 box-shadow: 1px 1px 6px 0px black;
@@ -79,6 +78,7 @@ div.profile-content {
             }
         }
         #follow-btn {
+            color: white;
             font-family: 'Roboto Condensed', sans-serif;
             position: absolute;
             bottom: 10px;
@@ -90,6 +90,11 @@ div.profile-content {
             font-size: 20px;
             border-radius: 3px;
             padding: 0;
+
+            &:hover {
+                background-color: white;
+                color: black;
+            }
         }
     }
 }

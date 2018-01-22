@@ -13,8 +13,7 @@ div.profile-content {
       position: absolute;
       width: 100%;
       top: 57%;
-      left: 0;
-      z-index: 10; }
+      left: 0; }
       div.profile-content div.profile-head div.user-info div.profile-img {
         box-shadow: 1px 1px 6px 0px black;
         background-color: grey;
@@ -59,6 +58,7 @@ div.profile-content {
         div.profile-content div.profile-head div.social-info div.social-count p.social-count-num {
           font-size: 25px; }
     div.profile-content div.profile-head #follow-btn {
+      color: white;
       font-family: 'Roboto Condensed', sans-serif;
       position: absolute;
       bottom: 10px;
@@ -70,6 +70,9 @@ div.profile-content {
       font-size: 20px;
       border-radius: 3px;
       padding: 0; }
+      div.profile-content div.profile-head #follow-btn:hover {
+        background-color: white;
+        color: black; }
 
 div.profile-body {
   background-color: whitesmoke;
