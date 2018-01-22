@@ -140,20 +140,24 @@ def user_detail(request, pk):
 
     if request.method == 'GET' and request.user.is_authenticated and user_exists:
         user = User.objects.get(pk=pk)
-
         context = {
             "user": user,
         }
-
         return render(request, 'profile/profile.html', context)
 
-    else:
+    elif user_exists and request.user.is_anonymous:
         context = {
             "status_code": 401,
             "message": "Unauthorized!"
         }
-
         return render(request, 'error.html', context, status=401)
+
+    else:
+        context = {
+            "status_code": 404,
+            "message": "Not Found!"
+        }
+        return render(request, 'error.html', context, status=404)
 
 
 def follow_toggle(request, pk):
