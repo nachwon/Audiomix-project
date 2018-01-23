@@ -1,12 +1,8 @@
-import json
-
 from django.conf import settings
-from django.contrib.auth import authenticate, login, logout, get_user_model
-from django.http import HttpResponse, JsonResponse
+from django.contrib.auth import get_user_model, login, authenticate, logout
 from django.shortcuts import redirect, render
 
-from users.forms import SignUpForm, SignInForm
-from users.models import Relationship
+from users.forms import SignInForm, SignUpForm
 from utils.facebook import get_facebook_user_info
 from utils.google import get_google_user_info
 
@@ -133,70 +129,3 @@ def sign_out(request):
         if request.user.is_authenticated:
             logout(request)
     return redirect('views:index')
-
-
-def user_detail(request, pk):
-    user_exists = User.objects.all().filter(pk=pk).exists()
-
-    if request.method == 'GET' and user_exists:
-        user = User.objects.get(pk=pk)
-        context = {
-            "sign_in": SignInForm,
-            "user": user,
-        }
-        return render(request, 'profile/profile.html', context)
-
-    else:
-        context = {
-            "status_code": 404,
-            "message": "Not Found!"
-        }
-        return render(request, 'error.html', context, status=404)
-
-
-def follow_toggle(request, pk):
-    from_user = request.user
-    to_user = User.objects.get(pk=pk)
-
-    if request.method == 'GET' and request.user.is_authenticated:
-        response = Relationship.objects \
-            .filter(from_user_id=from_user.pk) \
-            .filter(to_user_id=to_user.pk) \
-            .exists()
-        return HttpResponse(response)
-
-    elif request.method == 'POST' and request.user.is_authenticated:
-        if Relationship.objects\
-                .filter(from_user_id=from_user.pk)\
-                .filter(to_user_id=to_user.pk)\
-                .exists():
-
-            relation = Relationship.objects.get(
-                from_user_id=from_user.pk,
-                to_user_id=to_user.pk
-            )
-            relation.delete()
-            response = {
-                "status": 204
-            }
-
-        else:
-            Relationship.objects.create(
-                from_user_id=from_user.pk,
-                to_user_id=to_user.pk
-            )
-            response = {
-                "status": 201
-            }
-
-        response["count"] = f"{to_user.followers.count()}"
-        json_response = json.dumps(response)
-        header = {
-            "Content-Type": "application/json",
-            "charset": "utf-8"
-        }
-
-        return HttpResponse(json_response,
-                            content_type=header["Content-Type"],
-                            charset=header["charset"],
-                            status=response["status"])
