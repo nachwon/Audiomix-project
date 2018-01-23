@@ -17,7 +17,7 @@
 <body>
 
 <audio id="test" controls>
-    <source id="myaudio" src="/home/che1/Projects/Django/django_audiomix/temp/test/test.mp3">
+    <source id="myaudio" src="/home/che1/Projects/Django/django_audiomix/temp/test/test.mp3" type="audio/mp3">
 </audio>
 
 <canvas></canvas>
@@ -27,8 +27,8 @@
     var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     var analyser = audioCtx.createAnalyser();
     var source;
-    var audio = document.getElementById("myaudio");
-    var stream = new MediaStream();
+    var audio = document.getElementById("test");
+    var stream = new MediaStream(audio);
 
     source = audioCtx.createMediaStreamSource(stream);
     source.connect(analyser);
