@@ -94,11 +94,15 @@ div.profile-body {
           div.profile-body div.profile-body-wrapper div.section.section-left div.menu-wrapper button.profile-body-menu {
             font-family: 'Source Sans Pro', sans-serif;
             display: inline-block;
-            padding: 10px 10px;
+            padding: 10px 0;
             float: left;
             background: transparent;
             font-size: 20px;
-            border: 0; }
+            border: 0;
+            width: 110px; }
+            div.profile-body div.profile-body-wrapper div.section.section-left div.menu-wrapper button.profile-body-menu span {
+              border-right: 1px solid #ddd;
+              display: inherit; }
             div.profile-body div.profile-body-wrapper div.section.section-left div.menu-wrapper button.profile-body-menu:hover {
               font-weight: bold; }
             div.profile-body div.profile-body-wrapper div.section.section-left div.menu-wrapper button.profile-body-menu:focus {

@@ -16,9 +16,13 @@ def user_detail(request, pk):
 
     if request.method == 'GET' and user_exists:
         user = User.objects.get(pk=pk)
+
+        all_tracks = None
+
         context = {
             "sign_in": SignInForm,
             "user": user,
+            "all-tracks": all_tracks,
         }
         return render(request, 'profile/profile.html', context)
 

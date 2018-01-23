@@ -128,11 +128,17 @@ div.profile-body {
                     button.profile-body-menu {
                         font-family: 'Source Sans Pro', sans-serif;
                         display: inline-block;
-                        padding: 10px 10px;
+                        padding: 10px 0;
                         float: left;
                         background: transparent;
                         font-size: 20px;
                         border: 0;
+                        width: 110px;
+
+                        span {
+                            border-right: 1px solid #ddd;
+                            display: inherit;
+                        }
 
                         &:hover {
                             font-weight: bold;
