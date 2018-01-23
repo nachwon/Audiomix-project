@@ -58,14 +58,15 @@ div.profile-content {
           font-size: 25px; }
     div.profile-content div.profile-head #follow-btn {
       color: white;
-      font-family: 'Roboto Condensed', sans-serif;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-weight: bold;
       position: absolute;
       bottom: 10px;
       right: 15px;
       background-color: transparent;
       border: 1px solid white;
       width: 100px;
-      height: 30px;
+      height: 31px;
       font-size: 20px;
       border-radius: 3px;
       padding: 0; }
@@ -91,19 +92,20 @@ div.profile-body {
           display: inline-block;
           width: 100%; }
           div.profile-body div.profile-body-wrapper div.section.section-left div.menu-wrapper button.profile-body-menu {
-            font-family: 'Roboto Condensed', sans-serif;
+            font-family: 'Source Sans Pro', sans-serif;
             display: inline-block;
-            padding: 0 10px;
-            margin: 10px 0;
+            padding: 10px 10px;
             float: left;
             background: transparent;
             font-size: 20px;
-            border: none;
-            border-right: 1px solid #ddd; }
-            div.profile-body div.profile-body-wrapper div.section.section-left div.menu-wrapper button.profile-body-menu:first-of-type {
-              border-left: 1px solid #ddd; }
+            border: 0; }
+            div.profile-body div.profile-body-wrapper div.section.section-left div.menu-wrapper button.profile-body-menu:hover {
+              font-weight: bold; }
             div.profile-body div.profile-body-wrapper div.section.section-left div.menu-wrapper button.profile-body-menu:focus {
-              border-bottom: 3px solid #E2B026; }
+              border-bottom: 3px solid #E2B026;
+              margin-bottom: 0;
+              font-weight: bold;
+              padding-bottom: 7px; }
       div.profile-body div.profile-body-wrapper div.section.section-right {
         border: 1px solid black;
         width: 30%;

@@ -78,14 +78,15 @@ div.profile-content {
         }
         #follow-btn {
             color: white;
-            font-family: 'Roboto Condensed', sans-serif;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: bold;
             position: absolute;
             bottom: 10px;
             right: 15px;
             background-color: transparent;
             border: 1px solid white;
             width: 100px;
-            height: 30px;
+            height: 31px;
             font-size: 20px;
             border-radius: 3px;
             padding: 0;
@@ -125,23 +126,23 @@ div.profile-body {
                     width: 100%;
 
                     button.profile-body-menu {
-                        font-family: 'Roboto Condensed', sans-serif;
+                        font-family: 'Source Sans Pro', sans-serif;
                         display: inline-block;
-                        padding: 0 10px;
-                        margin: 10px 0;
+                        padding: 10px 10px;
                         float: left;
                         background: transparent;
                         font-size: 20px;
-                        border: none;
-                        border-right: 1px solid #ddd;
+                        border: 0;
 
-                        &:first-of-type {
-                            border-left: 1px solid #ddd;
-                        };
-
+                        &:hover {
+                            font-weight: bold;
+                        }
 
                         &:focus {
                             border-bottom: 3px solid #E2B026;
+                            margin-bottom: 0;
+                            font-weight: bold;
+                            padding-bottom: 7px;
                         }
                     }
                 }
