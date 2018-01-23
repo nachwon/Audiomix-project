@@ -114,3 +114,14 @@ div.profile-body {
         border: 1px solid black;
         width: 30%;
         float: right; }
+
+div.track-obj {
+  width: 100%;
+  display: inline-block; }
+  div.track-obj img.track-post-img {
+    width: 140px;
+    float: left; }
+  div.track-obj p {
+    margin: 0; }
+  div.track-obj p.track-title {
+    font-size: 25px; }

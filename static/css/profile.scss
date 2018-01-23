@@ -160,7 +160,26 @@ div.profile-body {
             }
         }
     }
+}
 
+div.track-obj {
+    width: 100%;
+    display: inline-block;
+
+    img.track-post-img {
+        width: 140px;
+        float: left;
+    }
+
+    p {
+        margin: 0;
+    }
+    p.track-title {
+        font-size: 25px;
+
+    }
+    p.track-author {
+    }
 
 }
 

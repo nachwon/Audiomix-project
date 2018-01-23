@@ -1,4 +1,5 @@
 import json
+from itertools import chain
 
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse
@@ -17,12 +18,14 @@ def user_detail(request, pk):
     if request.method == 'GET' and user_exists:
         user = User.objects.get(pk=pk)
 
-        all_tracks = None
+        user_posts = user.post_set.all()[:5]
+        user_comments = user.commenttrack_set.all()[:5]
+        all_tracks = list(chain(user_posts, user_comments))
 
         context = {
             "sign_in": SignInForm,
             "user": user,
-            "all-tracks": all_tracks,
+            "all_tracks": all_tracks,
         }
         return render(request, 'profile/profile.html', context)
 

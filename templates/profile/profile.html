@@ -55,8 +55,27 @@
                     <button class="profile-body-menu transition"><span>Playlist</span></button>
                 </div>
                 <div class="profile-body-content">
-                    <div class="all-tracks">
+                    <div class="all-tracks tracklist">
+                        {% for track in all_tracks %}
+                        <div class="track-obj">
+                            {% if track.title %}
 
+                            <!--post img-->
+                            {% if track.post_img.name == '' %}
+                            <img class="track-post-img" src="{% static 'img/default-post-img.png' %}" alt="">
+                            {% else %}
+                            <img class="track-post-img" src="{{ track.post_img.url }}" alt="">
+                            {% endif %}
+                            <!--post img-->
+                            <p class="track-title">{{ track.title }}</p>
+                            <p class="track-author">{{ track.author }}</p>
+                            <span class="track-liked">{{ track.liked.count }}</span>
+                            <span class="track-commented">{{ track.comment_tracks.count }}</span>
+                            {% else %}
+                            <p class="track-title">{{ track.post.title }}</p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
