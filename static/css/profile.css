@@ -42,10 +42,11 @@ div.profile-content {
       float: right;
       position: relative; }
       div.profile-content div.profile-head div.social-info div.social-count {
+        font-weight: bold;
         float: right;
         display: inline-block;
         margin-left: 15px;
-        font-family: 'Fjalla One', sans-serif;
+        font-family: 'Source Sans Pro', sans-serif;
         padding-left: 15px;
         border-left: 1px solid #ddd; }
         div.profile-content div.profile-head div.social-info div.social-count:first-child {
