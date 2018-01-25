@@ -69,11 +69,18 @@
                             {% endif %}
                             <!--post img-->
                             <div class="track-social-count">
-                                <span class="track-liked">{{ track.liked.count }}</span>
-                                <span class="track-commented">{{ track.comment_tracks.count }}</span>
+                                <div class="item">
+                                    <span class="glyphicon glyphicon-heart-empty"></span>
+                                    <span class="track-liked">{{ track.liked.count }}</span>
+                                </div>
+                                <div class="item">
+                                    <span class="glyphicon glyphicon-music"></span>
+                                    <span class="track-commented">{{ track.comment_tracks.count }}</span>
+                                </div>
+
                             </div>
                             <p class="track-title">{{ track.title }}</p>
-                            <p class="track-author">{{ track.author }}</p>
+                            <a href="{% url 'views:user:user-detail' pk=track.author.pk %}"><p class="track-author">{{ track.author }}</p></a>
 
                             <div class="waveform-wrapper" >
                                 <div class="waveform-loader"></div>
