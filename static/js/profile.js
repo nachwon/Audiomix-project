@@ -18,9 +18,9 @@ $(document).ready(function() {
             // 대상 객체 id값(필수)
             container: element_id,
             // 막대 넓이
-            barWidth: 4,
+            barWidth: 3,
             // 막대 높이
-            barHeight: 0.8,
+            barHeight: 0.7,
             // 커서 이전 부분 색상
             progressColor: '#E2B026',
             // 커서 색상
@@ -36,6 +36,14 @@ $(document).ready(function() {
             waveformLoader();
         });
     }
+
+    var btn_list = document.getElementsByClassName("like-btn");
+    for (var i = 0; i < btn_list.length; i++) {
+        var el = btn_list[i];
+        el.onclick = function(el) {
+            console.log(el.target.getAttribute('data-post-pk'))};
+    }
+
 });
 
 // loader를 없애주는 함수
@@ -47,4 +55,9 @@ function waveformLoader() {
     for (var i = 0; i < loader.length; i++) {
         loader[i].style.display = 'none';
     }
+}
+
+
+function like() {
+
 }
