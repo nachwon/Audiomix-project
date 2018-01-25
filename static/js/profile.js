@@ -40,9 +40,15 @@ $(document).ready(function() {
     var btn_list = document.getElementsByClassName("like-btn");
     for (var i = 0; i < btn_list.length; i++) {
         var el = btn_list[i];
+        get_like_status(el);
         el.onclick = function(el) {
-            var post_pk = el.target.getAttribute('data-post-pk');
-            like(post_pk)
+            like(el);
+            if (this.className === "like-btn glyphicon glyphicon-heart") {
+                this.className = "like-btn glyphicon glyphicon-heart-empty"
+            }
+            else {
+                this.className = "like-btn glyphicon glyphicon-heart"
+            }
         };
     }
 });
@@ -58,11 +64,30 @@ function waveformLoader() {
     }
 }
 
-
-function like(post_pk) {
+function like(el) {
+    var post_pk = el.target.getAttribute('data-post-pk');
     var xhttp = new XMLHttpRequest();
     var csrf_token = $('[name=csrfmiddlewaretoken]').val();
+
     xhttp.open("POST", "/post/" + post_pk + "/like/", true);
     xhttp.setRequestHeader('X-CSRFToken', csrf_token);
     xhttp.send({"user": "{{ request.user }}"})
+}
+
+function get_like_status(el) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState === 4) {
+            if (xhttp.response === "True") {
+                el.className = "like-btn glyphicon glyphicon-heart"
+            }
+            else {
+                el.className = "like-btn glyphicon glyphicon-heart-empty"
+            }
+        }
+    };
+
+    var pk = el.getAttribute('data-post-pk');
+    xhttp.open("GET", "/post/" + pk + "/like/", true);
+    xhttp.send()
 }
