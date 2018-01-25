@@ -41,9 +41,10 @@ $(document).ready(function() {
     for (var i = 0; i < btn_list.length; i++) {
         var el = btn_list[i];
         el.onclick = function(el) {
-            console.log(el.target.getAttribute('data-post-pk'))};
+            var post_pk = el.target.getAttribute('data-post-pk');
+            like(post_pk)
+        };
     }
-
 });
 
 // loader를 없애주는 함수
@@ -58,6 +59,10 @@ function waveformLoader() {
 }
 
 
-function like() {
-
+function like(post_pk) {
+    var xhttp = new XMLHttpRequest();
+    var csrf_token = $('[name=csrfmiddlewaretoken]').val();
+    xhttp.open("POST", "/post/" + post_pk + "/like/", true);
+    xhttp.setRequestHeader('X-CSRFToken', csrf_token);
+    xhttp.send({"user": "{{ request.user }}"})
 }
