@@ -192,6 +192,9 @@ div.track-obj {
         font-size: 18px;
         margin-left: 10px;
     }
+    div.track-social-count {
+        float: right;
+    }
     div.track-genre {
         float: left;
         width: 100%;
@@ -213,12 +216,34 @@ div.track-obj {
         width: 630px;
         float: left;
         padding-left: 15px;
-    }
 
-    div.track-social-count {
-        float: right;
-    }
+        div.waveform-loader {
+            left: 58%;
+            position: absolute;
+            top: 83%;
+            z-index: 1;
+            margin: -75px 0 0 -75px;
+            border: 10px solid #333533;
+            border-radius: 50%;
+            border-top: 10px solid #E2B026;
+            width: 70px;
+            height: 70px;
+            -webkit-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
 
+            @-webkit-keyframes spin {
+                0% { -webkit-transform: rotate(0deg); }
+                100% { -webkit-transform: rotate(360deg); }
+            }
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        }
+
+
+    }
 }
 
 // profile body ends
