@@ -8,6 +8,7 @@
 {% endblock links %}
 {% block scripts %}
 <script src="{% static 'js/wavesurfer/wavesurfur.min.js' %}"></script>
+<script src="{% static 'js/string-formatting.js' %}"></script>
 {% endblock scripts %}
 
 {% block content %}
@@ -70,7 +71,7 @@
                             <!--post img-->
                             <div class="track-social-count">
                                 <div class="item">
-                                    <span id="like-btn" class="glyphicon glyphicon-heart-empty"></span>
+                                    <span id="like-btn-{{ track.pk }}" class="like-btn glyphicon glyphicon-heart-empty" data-post-pk="{{ track.pk }}" ></span>
                                     <span class="track-liked">{{ track.liked.count }}</span>
                                 </div>
                                 <div class="item">
@@ -116,9 +117,6 @@
         // follow-btn 을 클릭했을 때 follow 함수 실행
         document.getElementById("follow-btn").onclick = function() {
             follow();
-        };
-        document.getElementById("like-btn").onclick = function() {
-            like()
         };
 
         get_follow_status();
@@ -184,32 +182,11 @@
             // user키의 값으로 요청 보내는 유저 객체 전달
             xhttp.send({"user": "{{ request.user }}"});
         }
-
-        function like() {
-            var xhttp = new XMLHttpRequest();
-            var csrf_token = $('[name=csrfmiddlewaretoken]').val();
-
-            xhttp.onreadystatechange = function() {
-                if(this.readyState === 4) {
-                    if(this.status === 200) {
-                        document.getElementById("like-btn").classList.toggle("glyphicon-heart-empty", false)
-                        document.getElementById("like-btn").classList.toggle("glyphicon-heart", true)
-                    }
-                }
-            };
-
-            // xhttp.open("POST", "{% url 'views:user:like' pk=user.pk %}", true);
-            xhttp.setRequestHeader('X-CSRFToken', csrf_token);
-            xhttp.send({"user": "{{ request.user }}"});
-        }
     });
 
 
 </script>
 
-<script>
-
-</script>
 
 {% endif %}
 

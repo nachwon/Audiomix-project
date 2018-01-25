@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from users.views.auth import sign_in, sign_out, facebook_login, sign_up, google_login, sign_up_index
-from users.views.user import user_detail, follow_toggle, like_toggle
+from users.views.user import user_detail, follow_toggle
 
 urlpatterns = [
     url(r'^signup-index', sign_up_index, name='signup-index'),
@@ -13,5 +13,4 @@ urlpatterns = [
 
     url(r'^(?P<pk>\d+)/$', user_detail, name='user-detail'),
     url(r'^(?P<pk>\d+)/follow/$', follow_toggle, name='follow'),
-    url(r'^(?P<pk>\d+)/like/$', like_toggle, name='like')
 ]
