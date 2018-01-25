@@ -6,11 +6,18 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        div.wrapper {
+            width: 500px;
+        }
+    </style>
 </head>
 <body>
+<div class="wrapper">
+    <div class="waveform"></div>
+    <h1>test</h1>
+</div>
 
-<div class="waveform"></div>
-<div class="waveform"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
 <script>
@@ -23,6 +30,10 @@
     });
 
     wavesurfer.load('https://s3.ap-northeast-2.amazonaws.com/che1-soundhub/media/user_1/Post_8/author_track/author_track.mp3')
+
+    wavesurfer.on('ready', function () {
+        wavesurfer.play();
+    });
 </script>
 
 
