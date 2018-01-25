@@ -154,6 +154,8 @@ div.track-obj {
     div.track-obj div.track-social-count .item {
       margin-right: 3px;
       font-size: 25px; }
+      div.track-obj div.track-social-count .item #like-btn {
+        cursor: pointer; }
       div.track-obj div.track-social-count .item span {
         margin: 0 3px;
         vertical-align: middle; }

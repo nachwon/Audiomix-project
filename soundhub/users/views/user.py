@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from posts.models import Post, PostLike
 from users.forms import SignInForm
 from users.models import Relationship
 
@@ -83,3 +84,6 @@ def follow_toggle(request, pk):
                             content_type=header["Content-Type"],
                             charset=header["charset"],
                             status=response["status"])
+
+
+

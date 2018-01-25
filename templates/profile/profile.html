@@ -7,7 +7,7 @@
 
 {% endblock links %}
 {% block scripts %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
+<script src="{% static 'js/wavesurfer/wavesurfur.min.js' %}"></script>
 {% endblock scripts %}
 
 {% block content %}
@@ -70,7 +70,7 @@
                             <!--post img-->
                             <div class="track-social-count">
                                 <div class="item">
-                                    <span class="glyphicon glyphicon-heart-empty"></span>
+                                    <span id="like-btn" class="glyphicon glyphicon-heart-empty"></span>
                                     <span class="track-liked">{{ track.liked.count }}</span>
                                 </div>
                                 <div class="item">
@@ -117,9 +117,13 @@
         document.getElementById("follow-btn").onclick = function() {
             follow();
         };
+        document.getElementById("like-btn").onclick = function() {
+            like()
+        };
 
         get_follow_status();
 
+        // 팔로우 버튼 텍스트 바꿔주는 함수
         function get_follow_status() {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
@@ -130,10 +134,13 @@
                     document.getElementById("follow-btn").innerHTML = "Follow";
                 }
             };
+            // views:user:follow 뷰에 요청보내서 결과를 가져옴
+            // follow 뷰는 현재 유저가 보고있는 유저를 팔로우하고 있으면 True, 아니면 False
             xhttp.open("GET", "{% url 'views:user:follow' pk=user.pk %}", true);
             xhttp.send()
         }
 
+        // count를 받아서 follower-count의 텍스트에 넣어줌
         function change_follower_count(count) {
             document.getElementById("follower-count").innerHTML = count
         }
@@ -177,8 +184,30 @@
             // user키의 값으로 요청 보내는 유저 객체 전달
             xhttp.send({"user": "{{ request.user }}"});
         }
+
+        function like() {
+            var xhttp = new XMLHttpRequest();
+            var csrf_token = $('[name=csrfmiddlewaretoken]').val();
+
+            xhttp.onreadystatechange = function() {
+                if(this.readyState === 4) {
+                    if(this.status === 200) {
+                        document.getElementById("like-btn").classList.toggle("glyphicon-heart-empty", false)
+                        document.getElementById("like-btn").classList.toggle("glyphicon-heart", true)
+                    }
+                }
+            };
+
+            // xhttp.open("POST", "{% url 'views:user:like' pk=user.pk %}", true);
+            xhttp.setRequestHeader('X-CSRFToken', csrf_token);
+            xhttp.send({"user": "{{ request.user }}"});
+        }
     });
 
+
+</script>
+
+<script>
 
 </script>
 
