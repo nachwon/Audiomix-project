@@ -6,111 +6,25 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <style>
-        canvas {
-            width: 100px;
-            height: 100px;
-            background: red;
-        }
-    </style>
 </head>
 <body>
-<button onclick="loadDogSound('https://s3.ap-northeast-2.amazonaws.com/che1-soundhub/media/user_1/Post_8/author_track/author_track.mp3');
-">load</button>
-<button onclick="playSound(dogBarkingBuffer)">play</button>
 
-<audio controls>
-    <source src="https://s3.ap-northeast-2.amazonaws.com/che1-soundhub/media/user_1/Post_8/author_track/author_track.mp3">
-</audio>
+<div class="waveform"></div>
+<div class="waveform"></div>
 
-<canvas></canvas>
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
 <script>
+    var wavesurfer = WaveSurfer.create({
+        container: '.waveform',
+        barWidth: 5,
+        progressColor: '#E2B026',
+        cursorColor: 'transparent',
+        waveColor: '#333533'
+    });
 
-    var dogBarkingBuffer = null;
-    // Fix up prefixing
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    var context = new AudioContext();
-
-    function loadDogSound(url) {
-        var request = new XMLHttpRequest();
-        request.open('GET', url, true);
-        request.responseType = 'arraybuffer';
-
-        // Decode asynchronously
-        request.onload = function() {
-            context.decodeAudioData(request.response, function(buffer) {
-                console.log(request.response);
-                dogBarkingBuffer = buffer;
-            });
-        };
-        request.send();
-    }
-
-    function playSound(buffer) {
-
-        var source = context.createBufferSource(); // creates a sound source
-        source.buffer = buffer;                    // tell the source which sound to play
-        source.connect(context.destination);       // connect the source to the context's destination (the speakers)
-        source.start(0);                           // play the source now
-                                                   // note: on older systems, may have to use deprecated noteOn(time);
-    }
-
-    // var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    // var analyser = audioCtx.createAnalyser();
-    // var source;
-    // var audio = document.getElementById("test");
-    // var stream = new MediaStream();
-    //
-    //
-    //
-    // source = audioCtx.createMediaStreamSource(stream);
-    // source.connect(analyser);
-    // analyser.connect(distortion);
-    // distortion.connect(audioCtx.destination);
-    //
-    // analyser.fftSize = 2048;
-    // var bufferLength = analyser.frequencyBinCount;
-    // var dataArray = new Uint8Array(bufferLength);
-    //
-    // analyser.getByteTimeDomainData(dataArray);
-    //
-    // canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
-    //
-    //
-    // function draw() {
-    //     drawVisual = requestAnimationFrame(draw);
-    //     analyser.getByteTimeDomainData(dataArray);
-    //     canvasCtx.fillStyle = 'rgb(200, 200, 200)';
-    //     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
-    //     canvasCtx.lineWidth = 2;
-    //     canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
-    //
-    //     canvasCtx.beginPath();
-    //
-    //     var sliceWidth = WIDTH * 1.0 / bufferLength;
-    //     var x = 0;
-    //
-    //     for(var i = 0; i < bufferLength; i++) {
-    //
-    //         var v = dataArray[i] / 128.0;
-    //         var y = v * HEIGHT/2;
-    //
-    //         if(i === 0) {
-    //             canvasCtx.moveTo(x, y);
-    //         } else {
-    //             canvasCtx.lineTo(x, y);
-    //         }
-    //
-    //         x += sliceWidth;
-    //     }
-    //
-    //     canvasCtx.lineTo(canvas.width, canvas.height/2);
-    //     canvasCtx.stroke();
-    // };
-    // draw();
+    wavesurfer.load('https://s3.ap-northeast-2.amazonaws.com/che1-soundhub/media/user_1/Post_8/author_track/author_track.mp3')
 </script>
+
 
 </body>
 </html>

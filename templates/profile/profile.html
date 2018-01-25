@@ -7,6 +7,7 @@
 
 {% endblock links %}
 {% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
 {% endblock scripts %}
 
 {% block content %}
@@ -69,6 +70,10 @@
                             <!--post img-->
                             <p class="track-title">{{ track.title }}</p>
                             <p class="track-author">{{ track.author }}</p>
+
+                            <div id="waveform-{{ forloop.counter }}" class="waveform" datasrc="{{ track.author_track.url }}"></div>
+
+
                             <span class="track-liked">{{ track.liked.count }}</span>
                             <span class="track-commented">{{ track.comment_tracks.count }}</span>
                             {% else %}
@@ -158,9 +163,31 @@
             xhttp.send({"user": "{{ request.user }}"});
         }
     });
+
+
 </script>
 
-
 {% endif %}
+
+<script>
+    var div_list = document.getElementsByClassName('waveform');
+    for (var i = 0; i < div_list.length; i++) {
+        var track_url = div_list[i].getAttribute('datasrc');
+        var waveform_id = '#waveform-' + (i + 1);
+        console.log(waveform_id);
+        drawTrack(track_url, waveform_id)
+    }
+    function drawTrack(url, element_id) {
+        var wavesurfer = WaveSurfer.create({
+            container: element_id,
+            barWidth: 5,
+            progressColor: '#E2B026',
+            cursorColor: 'transparent',
+            waveColor: '#333533'
+        });
+
+        wavesurfer.load(url)
+    }
+</script>
 
 {% endblock content %}
