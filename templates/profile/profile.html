@@ -78,6 +78,11 @@
                             <div class="waveform-wrapper">
                                 <div id="waveform-{{ forloop.counter }}" class="waveform" datasrc="{{ track.author_track.url }}"></div>
                             </div>
+                            <div class="track-genre">
+                                {% for item in track.genre.all %}
+                                <span class="track-genre-item">#{{ item }}</span>
+                                {% endfor %}
+                            </div>
                             {% else %}
                             <p class="track-title">{{ track.post.title }}</p>
                             {% endif %}
@@ -183,7 +188,7 @@
         function drawTrack(url, element_id) {
             var wavesurfer = WaveSurfer.create({
                 container: element_id,
-                barWidth: 3,
+                barWidth: 4,
                 progressColor: '#E2B026',
                 cursorColor: 'transparent',
                 waveColor: '#333533',
