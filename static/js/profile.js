@@ -69,6 +69,19 @@ function like(el) {
     var xhttp = new XMLHttpRequest();
     var csrf_token = $('[name=csrfmiddlewaretoken]').val();
 
+    xhttp.onreadystatechange = function() {
+        if (this.readyState === 4) {
+            if (this.status === 201) {
+                var count = JSON.parse(xhttp.responseText).count;
+                change_like_count(post_pk, count)
+            }
+            else if (this.status === 204) {
+                var count = document.getElementById("like-count-" + post_pk).innerText;
+                change_like_count(post_pk, count - 1)
+            }
+        }
+    };
+
     xhttp.open("POST", "/post/" + post_pk + "/like/", true);
     xhttp.setRequestHeader('X-CSRFToken', csrf_token);
     xhttp.send({"user": "{{ request.user }}"})
@@ -90,4 +103,8 @@ function get_like_status(el) {
     var pk = el.getAttribute('data-post-pk');
     xhttp.open("GET", "/post/" + pk + "/like/", true);
     xhttp.send()
+}
+
+function change_like_count(id, count) {
+    document.getElementById("like-count-" + id).innerHTML = count
 }

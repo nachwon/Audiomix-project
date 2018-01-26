@@ -71,7 +71,7 @@
                             <div class="track-social-count">
                                 <div class="item">
                                     <span id="like-btn-{{ track.pk }}" class="like-btn glyphicon glyphicon-heart-empty" data-post-pk="{{ track.pk }}" ></span>
-                                    <span class="track-liked">{{ track.liked.count }}</span>
+                                    <span id="like-count-{{ track.pk }}" class="track-liked">{{ track.liked.count }}</span>
                                 </div>
                                 <div class="item">
                                     <span class="glyphicon glyphicon-music"></span>
@@ -181,13 +181,7 @@
             // user키의 값으로 요청 보내는 유저 객체 전달
             xhttp.send({"user": "{{ request.user }}"});
         }
-
-
-
     });
-
-
-
 </script>
 
 
