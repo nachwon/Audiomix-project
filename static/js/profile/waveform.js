@@ -35,6 +35,7 @@ for (var i = 0; i < div_list.length; i++) {
     wavesurfer.on("ready", function() {
         // loader를 없애주는 함수
         waveformLoader();
+        playBtnLoader();
     });
 }
 
@@ -107,5 +108,15 @@ function waveformLoader() {
     // 리스트를 순회하면서 display 속성을 none으로 변경
     for (var i = 0; i < loader.length; i++) {
         loader[i].style.display = 'none';
+    }
+}
+
+function playBtnLoader() {
+    var loader = $('.play-btn-loader');
+    var playbtn = $('.play-btn');
+
+    for (var i = 0; i < loader.length; i++) {
+        loader[i].style.display = 'none';
+        playbtn[i].style.display = 'inline-block';
     }
 }

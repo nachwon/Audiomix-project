@@ -197,6 +197,10 @@ div.track-obj {
     div.title-author-wrapper {
         display: inline-block;
         margin-left: 15px;
+        position: absolute;
+        top: 0;
+        left: 240px;
+
         .track-title {
             margin-top: 7px;
             font-size: 25px;
@@ -210,19 +214,37 @@ div.track-obj {
         }
     }
 
-    div.play-btn {
+    div.play-btn-wrapper {
+        position: relative;
         display: inline-block;
-        top: 0;
-        float: left;
-        margin-top: 18px;
-        margin-left: 20px;
-        color: #333533;
-        transition: 0.2s ease;
+        width: 42px;
+        height: 42px;
 
-        &:hover {
-            color: #E2B026;
+        div.play-btn-loader {
+            position: absolute;
+            top: 11px;
+            color: #333533;
+            margin-top: 18px;
+            margin-left: 20px;
+            width: 100%;
+            height: 100%;
+        }
+
+        div.play-btn {
+            display: none;
+            top: 0;
+            margin-top: 18px;
+            margin-left: 20px;
+            color: #333533;
+            transition: 0.2s ease;
+
+            &:hover {
+                color: #E2B026;
+            }
         }
     }
+
+
 
     div.track-social-count {
         position: relative;
@@ -295,14 +317,14 @@ div.track-obj {
         div.waveform-loader {
             left: 58%;
             position: absolute;
-            top: 83%;
+            top: 114%;
             z-index: 1;
             margin: -75px 0 0 -75px;
-            border: 10px solid #333533;
+            border: 8px solid #333533;
             border-radius: 50%;
-            border-top: 10px solid #E2B026;
-            width: 70px;
-            height: 70px;
+            border-top: 8px solid #E2B026;
+            width: 50px;
+            height: 50px;
             -webkit-animation: spin 1s linear infinite;
             animation: spin 1s linear infinite;
 

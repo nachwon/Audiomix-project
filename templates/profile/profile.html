@@ -80,7 +80,16 @@
                                 </div>
 
                             </div>
-                            <div id="play-btn-{{ forloop.counter }}" class="play-btn" datasrc="{{ forloop.counter }}"><i class="fas fa-play-circle fa-3x"></i></div>
+                            <div class="play-btn-wrapper">
+                                <div class="play-btn-loader">
+                                <span class="fa-layers fa-fw">
+                                    <i class="fas fa-circle fa-3x"></i>
+                                    <i class="fas fa-circle-notch fa-spin fa-2x" data-fa-transform="right-4" style="color: #E2B026;"></i>
+                                </span>
+                                </div>
+                                <div id="play-btn-{{ forloop.counter }}" class="play-btn" datasrc="{{ forloop.counter }}"><i class="fas fa-play-circle fa-3x"></i></div>
+                            </div>
+
                             <div class="title-author-wrapper">
                                 <p class="track-title">{{ track.title }}</p>
                                 <a href="{% url 'views:user:user-detail' pk=track.author.pk %}"><p class="track-author">{{ track.author }}</p></a>
