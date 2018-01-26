@@ -55,18 +55,25 @@ for (var i = 0; i < div_list.length; i++) {
     });
 }
 
-// 플레이 버튼 동작 설정
-document.addEventListener('DOMContentLoaded', function () {
-    var play_btn_list = $(".play-btn");
-    for (var i = 0; i < play_btn_list.length; i++) {
-        play_btn_list[i].onclick = function() {
+
+
+var play_btn_list = $(".play-btn");
+for (i = 0; i < play_btn_list.length; i++) {
+    play_btn_list[i].onclick = (function (j) {
+        return function () {
             $(this)
                 .find('[data-fa-processed]')
                 .toggleClass('fas fa-pause-circle fa-3x')
-                .toggleClass('fas fa-play-circle fa-3x')
+                .toggleClass('fas fa-play-circle fa-3x');
+            if (surfer_list[j].isPlaying()) {
+                surfer_list[j].pause()
+            }
+            else {
+                surfer_list[j].play()
+            }
         }
-    }
-});
+    }(i))
+}
 
 // loader를 없애주는 함수
 function waveformLoader() {
