@@ -20,12 +20,17 @@ def like_toggle(request, pk):
             response = {
                 "status": 204
             }
+            post.save_num_liked()  # Post의 num_liked 업데이트
+            post.author.save_total_liked()  # User의 total_liked 업데이트
 
         else:
             PostLike.objects.create(author=user, post=post)
             response = {
                 "status": 201
             }
+            post.save_num_liked()  # Post의 num_liked 업데이트
+            post.author.save_total_liked()  # User의 total_liked 업데이트
+
         response["count"] = f"{post.liked.count()}"
         json_response = json.dumps(response)
         header = {

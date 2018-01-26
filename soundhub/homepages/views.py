@@ -17,6 +17,8 @@ def index(request):
             "sign_in": SignInForm(),
             "google_client_id": settings.GOOGLE_CLIENT_ID,
         }
+        for i in Post.objects.order_by('-num_liked')[:8]:
+            print(i.num_liked)
         return render(request, 'index.html', context)
 
     else:
