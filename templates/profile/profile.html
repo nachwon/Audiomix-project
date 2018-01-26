@@ -118,11 +118,12 @@
     </div>
 </div>
 
-{% if user == request.user or request.user.is_anonymous %}
+{% if request.user.is_anonymous %}
 
+{% elif user == request.user %}
+<script src="{% static 'js/profile/post-like.js' %}" ></script>
 {% else %}
 <script src="{% static 'js/profile/follow.js' %}"></script>
-<script src="{% static 'js/profile/post-like.js' %}" ></script>
 {% endif %}
 <script src="{% static 'js/profile/waveform.js' %}" ></script>
 
