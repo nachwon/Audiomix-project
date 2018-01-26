@@ -40,6 +40,7 @@ for (var i = 0; i < div_list.length; i++) {
 
 // 플레이 버튼 설정
 var play_btn_list = $(".play-btn");
+var waveform_list = $(".waveform-wrapper");
 for (i = 0; i < play_btn_list.length; i++) {
     play_btn_list[i].onclick = (function (j) {
         return function () {
@@ -49,10 +50,13 @@ for (i = 0; i < play_btn_list.length; i++) {
                 .toggleClass('fas fa-play-circle fa-3x');
 
             if (surfer_list[j].isPlaying()) {
-                surfer_list[j].pause()
+                surfer_list[j].pause();
+                waveform_list[j].style.opacity = null
+
             }
             else {
-                surfer_list[j].play()
+                surfer_list[j].play();
+                waveform_list[j].style.opacity = 1
             }
         }
     }(i))
