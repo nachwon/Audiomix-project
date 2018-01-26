@@ -220,7 +220,7 @@ div.track-obj {
             }
 
             .glyphicon-heart {
-                color: red;
+                color: #E2B026;
             }
 
             span {
@@ -251,6 +251,12 @@ div.track-obj {
         height: 100px;
         float: left;
         padding-left: 15px;
+        opacity: 0.5;
+        transition: 0.2s;
+
+        &:hover {
+            opacity: 1;
+        }
 
         div.waveform-loader {
             left: 58%;

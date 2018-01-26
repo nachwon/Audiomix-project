@@ -159,7 +159,7 @@ div.track-obj {
       div.track-obj div.track-social-count .item .like-btn {
         cursor: pointer; }
       div.track-obj div.track-social-count .item .glyphicon-heart {
-        color: red; }
+        color: #E2B026; }
       div.track-obj div.track-social-count .item span {
         margin: 0 3px;
         vertical-align: middle; }
@@ -180,7 +180,11 @@ div.track-obj {
     width: 630px;
     height: 100px;
     float: left;
-    padding-left: 15px; }
+    padding-left: 15px;
+    opacity: 0.5;
+    transition: 0.2s; }
+    div.track-obj div.waveform-wrapper:hover {
+      opacity: 1; }
     div.track-obj div.waveform-wrapper div.waveform-loader {
       left: 58%;
       position: absolute;
