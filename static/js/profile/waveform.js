@@ -59,6 +59,14 @@ for (i = 0; i < play_btn_list.length; i++) {
                 waveform_list[j].style.opacity = 1
             }
         }
+    }(i));
+
+    surfer_list[i].on('finish', function (j) {
+        return function () {
+            $('#play-btn-' + (j + 1))
+                .find('[data-fa-processed]')
+                .toggleClass('fas fa-play-circle');
+        }
     }(i))
 }
 
@@ -74,7 +82,6 @@ for (i = 0; i < surfer_list.length; i++) {
     surfer_list[i].on('audioprocess', function(j) {
         return function () {
             var current = parseInt(surfer_list[j].getCurrentTime());
-            console.log(current);
             document.getElementById("playtime-current-" + (j + 1)).innerText = format_time(current);
         }
     }(i))

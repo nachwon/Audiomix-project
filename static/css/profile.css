@@ -204,7 +204,7 @@ div.track-obj {
     width: 630px;
     height: 100px;
     float: left;
-    padding-left: 15px;
+    margin-left: 15px;
     opacity: 0.5;
     transition: 0.2s; }
     div.track-obj div.waveform-wrapper:hover {
