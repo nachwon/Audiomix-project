@@ -26,7 +26,9 @@ $(document).ready(function() {
             // 커서 색상
             cursorColor: 'transparent',
             // 커서 이후 부분 색상
-            waveColor: '#333533'
+            waveColor: '#333533',
+            // 스크롤바 숨기기
+            hideScrollbar: true
         });
         // waveform 객체 로드
         wavesurfer.load(url);

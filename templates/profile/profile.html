@@ -4,9 +4,10 @@
 
 {% block links %}
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-
 {% endblock links %}
+
 {% block scripts %}
+<script src="{% static 'fontawesome/fontawesome-all.js' %}"></script>
 <script src="{% static 'js/wavesurfer/wavesurfur.min.js' %}"></script>
 {% endblock scripts %}
 
@@ -79,12 +80,17 @@
                                 </div>
 
                             </div>
-                            <p class="track-title">{{ track.title }}</p>
+                            <div class="play-btn"><i class="fas fa-play-circle fa-3x"></i></div>
+                            <div class="title-author-wrapper">
+                                <p class="track-title">{{ track.title }}</p>
+                                <a href="{% url 'views:user:user-detail' pk=track.author.pk %}"><p class="track-author">{{ track.author }}</p></a>
+                            </div>
+
                             <div class="playtime">
                                 <span class="current">0:00</span> |
                                 <span class="total">0:00</span>
                             </div>
-                            <a href="{% url 'views:user:user-detail' pk=track.author.pk %}"><p class="track-author">{{ track.author }}</p></a>
+
 
                             <div class="waveform-wrapper" >
                                 <div class="waveform-loader"></div>
@@ -96,6 +102,7 @@
                                 <span class="track-genre-item">#{{ item }}</span>
                                 {% endfor %}
                             </div>
+
                             {% else %}
                             <p class="track-title">{{ track.post.title }}</p>
                             {% endif %}

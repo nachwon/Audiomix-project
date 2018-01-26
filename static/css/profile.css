@@ -140,14 +140,27 @@ div.track-obj {
     margin: 0; }
   div.track-obj a {
     display: inline-block; }
-  div.track-obj .track-title {
-    margin-top: 7px;
-    font-size: 25px; }
-  div.track-obj .track-author {
-    font-size: 18px;
-    color: black; }
-    div.track-obj .track-author:hover {
-      font-weight: bold; }
+  div.track-obj div.title-author-wrapper {
+    display: inline-block;
+    margin-left: 15px; }
+    div.track-obj div.title-author-wrapper .track-title {
+      margin-top: 7px;
+      font-size: 25px; }
+    div.track-obj div.title-author-wrapper .track-author {
+      font-size: 18px;
+      color: black; }
+      div.track-obj div.title-author-wrapper .track-author:hover {
+        font-weight: bold; }
+  div.track-obj div.play-btn {
+    display: inline-block;
+    top: 0;
+    float: left;
+    margin-top: 18px;
+    margin-left: 20px;
+    color: #333533;
+    transition: 0.2s ease; }
+    div.track-obj div.play-btn:hover {
+      color: #E2B026; }
   div.track-obj div.track-social-count {
     position: relative;
     top: 10px;
@@ -156,9 +169,13 @@ div.track-obj {
     div.track-obj div.track-social-count .item {
       margin-right: 3px;
       font-size: 25px;
-      display: inline; }
+      display: inline;
+      color: #333533; }
       div.track-obj div.track-social-count .item .like-btn {
-        cursor: pointer; }
+        cursor: pointer;
+        transition: 0.3s; }
+        div.track-obj div.track-social-count .item .like-btn:hover {
+          color: #E2B026; }
       div.track-obj div.track-social-count .item .glyphicon-heart {
         color: #E2B026; }
       div.track-obj div.track-social-count .item span {

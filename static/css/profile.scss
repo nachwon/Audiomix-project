@@ -194,17 +194,36 @@ div.track-obj {
     a {
         display: inline-block;
     }
-    .track-title {
-        margin-top: 7px;
-        font-size: 25px;
-    }
-    .track-author {
-        font-size: 18px;
-        color: black;
-        &:hover {
-            font-weight: bold;
+    div.title-author-wrapper {
+        display: inline-block;
+        margin-left: 15px;
+        .track-title {
+            margin-top: 7px;
+            font-size: 25px;
+        }
+        .track-author {
+            font-size: 18px;
+            color: black;
+            &:hover {
+                font-weight: bold;
+            }
         }
     }
+
+    div.play-btn {
+        display: inline-block;
+        top: 0;
+        float: left;
+        margin-top: 18px;
+        margin-left: 20px;
+        color: #333533;
+        transition: 0.2s ease;
+
+        &:hover {
+            color: #E2B026;
+        }
+    }
+
     div.track-social-count {
         position: relative;
         top: 10px;
@@ -215,9 +234,15 @@ div.track-obj {
             margin-right: 3px;
             font-size: 25px;
             display: inline;
+            color: #333533;
 
             .like-btn {
                 cursor: pointer;
+                transition: 0.3s;
+
+                &:hover {
+                    color: #E2B026;
+                }
             }
 
             .glyphicon-heart {
