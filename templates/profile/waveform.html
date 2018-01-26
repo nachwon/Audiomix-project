@@ -13,10 +13,11 @@
     </style>
 </head>
 <body>
+<h1>test</h1>
 <div class="wrapper">
     <div class="waveform"></div>
-    <h1>test</h1>
-    <button id="pause-btn">Pause</button>
+    <h3 id="timer"><span id="current">0:00</span>/<span id="total">0:00</span></h3>
+    <button id="pause-btn">Play</button>
 </div>
 
 
@@ -44,7 +45,24 @@
             this.innerText = "Pause";
             wavesurfer.play()
         }
-    }
+    };
+
+    wavesurfer.on('ready', function() {
+        var total = parseInt(wavesurfer.getDuration());
+        var min = parseInt(total/60);
+        var sec = parseInt(total%60);
+        document.getElementById("total").innerText = min + ":" + sec;
+
+    });
+    wavesurfer.on('audioprocess', function() {
+        var current = parseInt(wavesurfer.getCurrentTime());
+        var min = parseInt(current/60);
+        var sec = parseInt(current%60);
+        if (String(sec).length === 1) {
+            sec = "0" + sec
+        }
+        document.getElementById("current").innerText = min + ":" + sec;
+    })
 
 </script>
 
