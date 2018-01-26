@@ -38,6 +38,7 @@ for (var i = 0; i < div_list.length; i++) {
     });
 }
 
+// 플레이 버튼 설정
 var play_btn_list = $(".play-btn");
 for (i = 0; i < play_btn_list.length; i++) {
     play_btn_list[i].onclick = (function (j) {
@@ -45,7 +46,7 @@ for (i = 0; i < play_btn_list.length; i++) {
             $(this)
                 .find('[data-fa-processed]')
                 .toggleClass('fas fa-pause-circle fa-3x')
-                .toggleClass('fas fa-play-circle fa-3x')
+                .toggleClass('fas fa-play-circle fa-3x');
 
             if (surfer_list[j].isPlaying()) {
                 surfer_list[j].pause()
@@ -55,6 +56,36 @@ for (i = 0; i < play_btn_list.length; i++) {
             }
         }
     }(i))
+}
+
+// Track 길이 설정
+for (i = 0; i < surfer_list.length; i++) {
+    surfer_list[i].on('ready', function (j) {
+        return function () {
+            var total = parseInt(surfer_list[j].getDuration());
+            document.getElementById("playtime-total-" + (j + 1)).innerText = format_time(total);
+        }
+    }(i));
+
+    surfer_list[i].on('audioprocess', function(j) {
+        return function () {
+            var current = parseInt(surfer_list[j].getCurrentTime());
+            console.log(current);
+            document.getElementById("playtime-current-" + (j + 1)).innerText = format_time(current);
+        }
+    }(i))
+}
+
+function format_time (duration) {
+    var min = parseInt(duration/60);
+    var sec = parseInt(duration%60);
+    if (String(min).length === 1) {
+        min = "0" + min
+    }
+    if (String(sec).length === 1) {
+        sec = "0" + sec
+    }
+    return min + ":" + sec
 }
 
 // loader를 없애주는 함수

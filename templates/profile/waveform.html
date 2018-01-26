@@ -16,7 +16,7 @@
 <h1>test</h1>
 <div class="wrapper">
     <div class="waveform"></div>
-    <h3 id="timer"><span id="current">0:00</span>/<span id="total">0:00</span></h3>
+    <h3 id="timer"><span id="current">00:00</span>/<span id="total">00:00</span></h3>
     <button id="pause-btn">Play</button>
 </div>
 
@@ -52,7 +52,6 @@
         var min = parseInt(total/60);
         var sec = parseInt(total%60);
         document.getElementById("total").innerText = min + ":" + sec;
-
     });
     wavesurfer.on('audioprocess', function() {
         var current = parseInt(wavesurfer.getCurrentTime());
