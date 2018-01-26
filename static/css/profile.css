@@ -127,8 +127,8 @@ div.track-obj {
   div.track-obj:hover {
     box-shadow: 0px 0px 4px black; }
   div.track-obj div.track-post-img {
-    height: 180px;
-    width: 180px;
+    height: 160px;
+    width: 160px;
     float: left;
     border: 1px solid #ddd;
     margin: 10px 10px;
@@ -140,7 +140,8 @@ div.track-obj {
   div.track-obj a {
     display: inline-block; }
   div.track-obj .track-title {
-    font-size: 35px; }
+    margin-top: 7px;
+    font-size: 25px; }
   div.track-obj .track-author {
     font-size: 18px;
     color: black; }
@@ -153,12 +154,14 @@ div.track-obj {
     float: right; }
     div.track-obj div.track-social-count .item {
       margin-right: 3px;
-      font-size: 25px; }
+      font-size: 25px;
+      display: inline; }
       div.track-obj div.track-social-count .item .like-btn {
         cursor: pointer; }
       div.track-obj div.track-social-count .item .glyphicon-heart {
         color: red; }
       div.track-obj div.track-social-count .item span {
+        font-size: 30px;
         margin: 0 3px;
         vertical-align: middle; }
   div.track-obj div.track-genre {
@@ -176,6 +179,7 @@ div.track-obj {
   div.track-obj div.waveform-wrapper {
     position: relative;
     width: 630px;
+    height: 100px;
     float: left;
     padding-left: 15px; }
     div.track-obj div.waveform-wrapper div.waveform-loader {

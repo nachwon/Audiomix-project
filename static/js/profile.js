@@ -18,9 +18,9 @@ $(document).ready(function() {
             // 대상 객체 id값(필수)
             container: element_id,
             // 막대 넓이
-            barWidth: 3,
+            barWidth: 2,
             // 막대 높이
-            barHeight: 0.7,
+            barHeight: 0.6,
             // 커서 이전 부분 색상
             progressColor: '#E2B026',
             // 커서 색상

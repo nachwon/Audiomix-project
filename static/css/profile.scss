@@ -177,8 +177,8 @@ div.track-obj {
     }
 
     div.track-post-img {
-        height: 180px;
-        width: 180px;
+        height: 160px;
+        width: 160px;
         float: left;
         border: 1px solid #ddd;
         margin: 10px 10px;
@@ -194,7 +194,8 @@ div.track-obj {
         display: inline-block;
     }
     .track-title {
-        font-size: 35px;
+        margin-top: 7px;
+        font-size: 25px;
     }
     .track-author {
         font-size: 18px;
@@ -212,6 +213,7 @@ div.track-obj {
         .item {
             margin-right: 3px;
             font-size: 25px;
+            display: inline;
 
             .like-btn {
                 cursor: pointer;
@@ -222,6 +224,7 @@ div.track-obj {
             }
 
             span {
+                font-size: 30px;
                 margin: 0 3px;
                 vertical-align: middle;
             }
@@ -246,6 +249,7 @@ div.track-obj {
     div.waveform-wrapper {
         position: relative;
         width: 630px;
+        height: 100px;
         float: left;
         padding-left: 15px;
 
