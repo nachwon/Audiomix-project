@@ -80,10 +80,15 @@
 
                             </div>
                             <p class="track-title">{{ track.title }}</p>
+                            <div class="playtime">
+                                <span class="current">0:00</span> |
+                                <span class="total">0:00</span>
+                            </div>
                             <a href="{% url 'views:user:user-detail' pk=track.author.pk %}"><p class="track-author">{{ track.author }}</p></a>
 
                             <div class="waveform-wrapper" >
                                 <div class="waveform-loader"></div>
+
                                 <div id="waveform-{{ forloop.counter }}" class="waveform" datasrc="{{ track.author_track.url }}"></div>
                             </div>
                             <div class="track-genre">
