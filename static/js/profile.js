@@ -1,47 +1,8 @@
 $(document).ready(function() {
-    // waveform 클래스를 가진 div 목록 가져옴
-    var div_list = document.getElementsByClassName('waveform');
-    // 목록을 순회하면서
-    for (var i = 0; i < div_list.length; i++) {
-        // div의 datasrc 속성의 값을 track_url 변수에 저장
-        var track_url = div_list[i].getAttribute('datasrc');
-        // waveform을 그려줄 각각의 div에 부여할 id값 생성
-        var waveform_id = '#waveform-' + (i + 1);
-        // track_url와 waveform_id를 drawTrack 함수에 전달
-        drawTrack(track_url, waveform_id)
-    }
-
-    // 파일 위치 url과 waveform을 그려줄 div를 지정하는 element_id 인자를 받음
-    function drawTrack(url, element_id) {
-        // waveform 객체 생성
-        var wavesurfer = WaveSurfer.create({
-            // 대상 객체 id값(필수)
-            container: element_id,
-            // 막대 넓이
-            barWidth: 2,
-            // 막대 높이
-            barHeight: 0.6,
-            // 커서 이전 부분 색상
-            progressColor: '#E2B026',
-            // 커서 색상
-            cursorColor: 'transparent',
-            // 커서 이후 부분 색상
-            waveColor: '#333533',
-            // 스크롤바 숨기기
-            hideScrollbar: true
-        });
-        // waveform 객체 로드
-        wavesurfer.load(url);
-        // waveform 로딩이 끝나면 함수 실행
-        wavesurfer.on("ready", function() {
-            // loader를 없애주는 함수
-            waveformLoader();
-        });
-    }
-
-    var btn_list = document.getElementsByClassName("like-btn");
-    for (var i = 0; i < btn_list.length; i++) {
-        var el = btn_list[i];
+    // like 버튼의 초기 상태 설정 및 클릭시 클래스 바꿔주는 함수 실행
+    var like_btn_list = document.getElementsByClassName("like-btn");
+    for (var i = 0; i < like_btn_list.length; i++) {
+        var el = like_btn_list[i];
         get_like_status(el);
         el.onclick = function(el) {
             like(el);
@@ -52,6 +13,58 @@ $(document).ready(function() {
                 this.className = "like-btn glyphicon glyphicon-heart"
             }
         };
+    }
+});
+
+// waveform 클래스를 가진 div 목록 가져옴
+var div_list = document.getElementsByClassName('waveform');
+var surfer_list = [];
+
+// 목록을 순회하면서
+for (var i = 0; i < div_list.length; i++) {
+    // div의 datasrc 속성의 값을 track_url 변수에 저장
+    var track_url = div_list[i].getAttribute('datasrc');
+    // waveform을 그려줄 각각의 div에 부여할 id값 생성
+    var waveform_id = '#waveform-' + (i + 1);
+
+    // waveform 객체 생성
+    var wavesurfer = WaveSurfer.create({
+        // 대상 객체 id값(필수)
+        container: waveform_id,
+        // 막대 넓이
+        barWidth: 2,
+        // 막대 높이
+        barHeight: 0.6,
+        // 커서 이전 부분 색상
+        progressColor: '#E2B026',
+        // 커서 색상
+        cursorColor: 'transparent',
+        // 커서 이후 부분 색상
+        waveColor: '#333533',
+        // 스크롤바 숨기기
+        hideScrollbar: true
+    });
+
+    // waveform 객체 로드
+    wavesurfer.load(track_url);
+    surfer_list.push(wavesurfer);
+
+    wavesurfer.on("ready", function() {
+        // loader를 없애주는 함수
+        waveformLoader();
+    });
+}
+
+// 플레이 버튼 동작 설정
+document.addEventListener('DOMContentLoaded', function () {
+    var play_btn_list = $(".play-btn");
+    for (var i = 0; i < play_btn_list.length; i++) {
+        play_btn_list[i].onclick = function() {
+            $(this)
+                .find('[data-fa-processed]')
+                .toggleClass('fas fa-pause-circle fa-3x')
+                .toggleClass('fas fa-play-circle fa-3x')
+        }
     }
 });
 

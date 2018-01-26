@@ -80,7 +80,7 @@
                                 </div>
 
                             </div>
-                            <div class="play-btn"><i class="fas fa-play-circle fa-3x"></i></div>
+                            <div id="play-btn-{{ forloop.counter }}" class="play-btn" datasrc="{{ forloop.counter }}"><i class="fas fa-play-circle fa-3x"></i></div>
                             <div class="title-author-wrapper">
                                 <p class="track-title">{{ track.title }}</p>
                                 <a href="{% url 'views:user:user-detail' pk=track.author.pk %}"><p class="track-author">{{ track.author }}</p></a>
