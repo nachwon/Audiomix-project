@@ -16,9 +16,11 @@
 <div class="wrapper">
     <div class="waveform"></div>
     <h1>test</h1>
+    <button id="pause-btn">Pause</button>
 </div>
 
 
+<script src="/home/che1/Projects/Django/django_audiomix/static/js/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
 <script>
     var wavesurfer = WaveSurfer.create({
@@ -29,11 +31,21 @@
         waveColor: '#333533'
     });
 
-    wavesurfer.load('https://s3.ap-northeast-2.amazonaws.com/che1-soundhub/media/user_1/Post_8/author_track/author_track.mp3')
+    wavesurfer.load('https://s3.ap-northeast-2.amazonaws.com/che1-soundhub/media/user_1/Post_8/author_track/author_track.mp3');
 
-    wavesurfer.on('ready', function () {
-        wavesurfer.play();
-    });
+    var el = document.getElementById("pause-btn");
+
+    el.onclick = function() {
+        if (wavesurfer.isPlaying()) {
+            this.innerText = "Play";
+            wavesurfer.pause()
+        }
+        else {
+            this.innerText = "Pause";
+            wavesurfer.play()
+        }
+    }
+
 </script>
 
 
