@@ -37,7 +37,7 @@
     <button onclick="console.log(wavesurfer.exportPCM(1024, 1, false, 1))" >PCM</button>
 </div>
 
-<div class="wrap">
+<div id="container" class="wrap">
     <img src="/home/che1/Projects/Django/django_audiomix/static/img/test.png" alt="">
     <div class="cutter">
         <img src="/home/che1/Projects/Django/django_audiomix/static/img/test2.png" alt="">
@@ -60,34 +60,43 @@
 
     wavesurfer.load('https://s3.ap-northeast-2.amazonaws.com/che1-soundhub/media/user_1/Post_8/author_track/author_track.mp3');
 
-    var el = document.getElementById("pause-btn");
+    var box = document.getElementById("container");
 
-    el.onclick = function() {
-        if (wavesurfer.isPlaying()) {
-            this.innerText = "Play";
-            wavesurfer.pause()
-        }
-        else {
-            this.innerText = "Pause";
-            wavesurfer.play()
-        }
-    };
+    box.addEventListener('click', getClickPosition, false);
 
-    wavesurfer.on('ready', function() {
-        var total = parseInt(wavesurfer.getDuration());
-        var min = parseInt(total/60);
-        var sec = parseInt(total%60);
-        document.getElementById("total").innerText = min + ":" + sec;
-    });
-    wavesurfer.on('audioprocess', function() {
-        var current = parseInt(wavesurfer.getCurrentTime());
-        var min = parseInt(current/60);
-        var sec = parseInt(current%60);
-        if (String(sec).length === 1) {
-            sec = "0" + sec
-        }
-        document.getElementById("current").innerText = min + ":" + sec;
-    })
+    function getClickPosition(e) {
+        var x = e.pageX - box.offsetLeft;
+        console.log(x)
+    }
+
+    // var el = document.getElementById("pause-btn");
+    //
+    // el.onclick = function() {
+    //     if (wavesurfer.isPlaying()) {
+    //         this.innerText = "Play";
+    //         wavesurfer.pause()
+    //     }
+    //     else {
+    //         this.innerText = "Pause";
+    //         wavesurfer.play()
+    //     }
+    // };
+    //
+    // wavesurfer.on('ready', function() {
+    //     var total = parseInt(wavesurfer.getDuration());
+    //     var min = parseInt(total/60);
+    //     var sec = parseInt(total%60);
+    //     document.getElementById("total").innerText = min + ":" + sec;
+    // });
+    // wavesurfer.on('audioprocess', function() {
+    //     var current = parseInt(wavesurfer.getCurrentTime());
+    //     var min = parseInt(current/60);
+    //     var sec = parseInt(current%60);
+    //     if (String(sec).length === 1) {
+    //         sec = "0" + sec
+    //     }
+    //     document.getElementById("current").innerText = min + ":" + sec;
+    // })
 
 </script>
 
