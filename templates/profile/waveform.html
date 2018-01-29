@@ -76,11 +76,15 @@
         var percent_position = x / box_width;
         // console.log(percent_position);
         var rel_duration = audio.duration * percent_position;
-        console.log(rel_duration);
+        // console.log(rel_duration);
         audio.currentTime = rel_duration
     }
 
+    audio.addEventListener('timeupdate', getCurrentTime, false);
 
+    function getCurrentTime(e) {
+        console.log(e);
+    }
 
 
     // var el = document.getElementById("pause-btn");
