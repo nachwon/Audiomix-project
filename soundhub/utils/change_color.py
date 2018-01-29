@@ -5,6 +5,7 @@ newImagePath = '/home/che1/Projects/Django/django_audiomix/static/img/test2.png'
 im = Image.open(imagePath)
 
 
+# 이미지의 색을 바꿔주는 함수
 def redOrBlack (im):
     newimdata = []
     black1 = (51, 53, 51, 255)
