@@ -37,6 +37,8 @@
     <button onclick="console.log(wavesurfer.exportPCM(1024, 1, false, 1))" >PCM</button>
 </div>
 
+<audio id="file" src="https://s3.ap-northeast-2.amazonaws.com/che1-soundhub/media/user_1/Post_8/author_track/author_track.mp3"></audio>
+
 <div id="container" class="wrap">
     <img draggable="false" src="/home/che1/Projects/Django/django_audiomix/static/img/test.png" alt="">
     <div id="cutter" class="cutter">
@@ -50,25 +52,36 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
 
 <script>
-    var wavesurfer = WaveSurfer.create({
-        container: '.waveform',
-        barWidth: 5,
-        progressColor: '#E2B026',
-        cursorColor: 'transparent',
-        waveColor: '#333533'
-    });
-
-    wavesurfer.load('https://s3.ap-northeast-2.amazonaws.com/che1-soundhub/media/user_1/Post_8/author_track/author_track.mp3');
+    // var wavesurfer = WaveSurfer.create({
+    //     container: '.waveform',
+    //     barWidth: 5,
+    //     progressColor: '#E2B026',
+    //     cursorColor: 'transparent',
+    //     waveColor: '#333533'
+    // });
+    //
+    // wavesurfer.load('https://s3.ap-northeast-2.amazonaws.com/che1-soundhub/media/user_1/Post_8/author_track/author_track.mp3');
 
     var box = document.getElementById("container");
     var cutter = document.getElementById("cutter");
+    var audio = document.getElementById("file");
 
     box.addEventListener('click', getClickPosition, false);
+    // box.addEventListener('drag', getClickPosition, false);
 
     function getClickPosition(e) {
+        var box_width = document.getElementById('container').offsetWidth;
         var x = e.pageX - box.offsetLeft;
         cutter.style.width = x + 'px';
+        var percent_position = x / box_width;
+        // console.log(percent_position);
+        var rel_duration = audio.duration * percent_position;
+        console.log(rel_duration);
+        audio.currentTime = rel_duration
     }
+
+
+
 
     // var el = document.getElementById("pause-btn");
     //
