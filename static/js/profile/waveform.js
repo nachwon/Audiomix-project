@@ -31,14 +31,32 @@ for (var i = 0; i < div_list.length; i++) {
     wavesurfer.load(track_url);
     // 로드된 wavesurfer 객체를 리스트에 저장
     surfer_list.push(wavesurfer);
-
-    //
-    wavesurfer.on("ready", function() {
-        // loader를 없애주는 함수
-        waveformLoader();
-        playBtnLoader();
-    });
 }
+
+// Track 길이 표시 설정
+for (i = 0; i < surfer_list.length; i++) {
+    surfer_list[i].on('ready', function (j) {
+        return function () {
+            // 로더 숨김
+            waveformLoader();
+            playBtnLoader();
+
+            // 전체 길이 출력
+            var total = parseInt(surfer_list[j].getDuration());
+            document.getElementById("playtime-total-" + (j + 1)).innerText = format_time(total);
+        }
+    }(i));
+
+
+    // 재생 위치 실시간 갱신
+    surfer_list[i].on('audioprocess', function(j) {
+        return function () {
+            var current = parseInt(surfer_list[j].getCurrentTime());
+            document.getElementById("playtime-current-" + (j + 1)).innerText = format_time(current);
+        }
+    }(i))
+}
+
 
 // 플레이 버튼 설정
 var play_btn_list = $(".play-btn");
@@ -46,6 +64,7 @@ var waveform_list = $(".waveform-wrapper");
 for (i = 0; i < play_btn_list.length; i++) {
     play_btn_list[i].onclick = (function (j) {
         return function () {
+            // 플레이 버튼 모양 변경
             $('#play-btn-' + (j + 1))
                 .find('[data-fa-processed]')
                 .toggleClass('fa-play-circle')
@@ -60,13 +79,14 @@ for (i = 0; i < play_btn_list.length; i++) {
             }
             // 재생중이 아니면 재생
             else {
+                // pause_all();
                 surfer_list[j].play();
                 waveform_list[j].style.opacity = 1
             }
         }
     }(i));
 
-    // 재생이 끝까지 간 경우 play 버튼 모양
+    // 재생이 끝까지 간 경우 play 버튼 모양으로 변경
     surfer_list[i].on('finish', function (j) {
         return function () {
             $('#play-btn-' + (j + 1))
@@ -76,24 +96,13 @@ for (i = 0; i < play_btn_list.length; i++) {
     }(i))
 }
 
-// Track 길이 표시 설정
-for (i = 0; i < surfer_list.length; i++) {
-    surfer_list[i].on('ready', function (j) {
-        return function () {
-            // 전체 길이 출력
-            var total = parseInt(surfer_list[j].getDuration());
-            document.getElementById("playtime-total-" + (j + 1)).innerText = format_time(total);
-        }
-    }(i));
-
-    // 재생 위치 실시간 갱신
-    surfer_list[i].on('audioprocess', function(j) {
-        return function () {
-            var current = parseInt(surfer_list[j].getCurrentTime());
-            document.getElementById("playtime-current-" + (j + 1)).innerText = format_time(current);
-        }
-    }(i))
+function pause_all() {
+    for (i = 0; i < surfer_list.length; i++) {
+        surfer_list[i].pause();
+    }
 }
+
+
 
 // 초 -> 분:초 로 바꿔주는 함수
 function format_time (duration) {
