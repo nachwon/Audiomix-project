@@ -39,6 +39,9 @@
 
 <audio id="file" src="https://s3.ap-northeast-2.amazonaws.com/che1-soundhub/media/user_1/Post_8/author_track/author_track.mp3"></audio>
 
+<button onclick="audio.play()">Play</button>
+<button onclick="audio.pause()">Pause</button>
+
 <div id="container" class="wrap">
     <img draggable="false" src="/home/che1/Projects/Django/django_audiomix/static/img/test.png" alt="">
     <div id="cutter" class="cutter">
@@ -65,12 +68,12 @@
     var box = document.getElementById("container");
     var cutter = document.getElementById("cutter");
     var audio = document.getElementById("file");
+    var box_width = document.getElementById('container').offsetWidth;
 
     box.addEventListener('click', getClickPosition, false);
     // box.addEventListener('drag', getClickPosition, false);
 
     function getClickPosition(e) {
-        var box_width = document.getElementById('container').offsetWidth;
         var x = e.pageX - box.offsetLeft;
         cutter.style.width = x + 'px';
         var percent_position = x / box_width;
@@ -83,7 +86,8 @@
     audio.addEventListener('timeupdate', getCurrentTime, false);
 
     function getCurrentTime(e) {
-        console.log(e);
+        var re_current = audio.currentTime / audio.duration;
+        cutter.style.width = (box_width * re_current) +'px'
     }
 
 
