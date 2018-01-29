@@ -45,16 +45,15 @@ var waveform_list = $(".waveform-wrapper");
 for (i = 0; i < play_btn_list.length; i++) {
     play_btn_list[i].onclick = (function (j) {
         return function () {
-            $(this)
-                .find('[data-fa-processed]')
-                .toggleClass('fas fa-pause-circle fa-3x')
-                .toggleClass('fas fa-play-circle fa-3x');
 
+            // 플레이 버튼 토글 동작 설정
+            // 재생중이면 일시정지
             if (surfer_list[j].isPlaying()) {
                 surfer_list[j].pause();
                 waveform_list[j].style.opacity = null
 
             }
+            // 재생중이 아니면 재생
             else {
                 surfer_list[j].play();
                 waveform_list[j].style.opacity = 1
@@ -62,6 +61,25 @@ for (i = 0; i < play_btn_list.length; i++) {
         }
     }(i));
 
+    // play 시작되면 pause 버튼 모양
+    surfer_list[i].on('play', function (j) {
+        return function () {
+            $('#play-btn-' + (j + 1))
+                .find('[data-fa-processed]')
+                .toggleClass('fas fa-pause-circle');
+        }
+    }(i));
+
+    // pause 되면 play 버튼 모양
+    surfer_list[i].on('pause', function (j) {
+        return function () {
+            $('#play-btn-' + (j + 1))
+                .find('[data-fa-processed]')
+                .toggleClass('fas fa-play-circle');
+        }
+    }(i));
+
+    // 재생이 끝까지 간 경우 play 버튼 모양
     surfer_list[i].on('finish', function (j) {
         return function () {
             $('#play-btn-' + (j + 1))
@@ -75,11 +93,13 @@ for (i = 0; i < play_btn_list.length; i++) {
 for (i = 0; i < surfer_list.length; i++) {
     surfer_list[i].on('ready', function (j) {
         return function () {
+            // 전체 길이 출력
             var total = parseInt(surfer_list[j].getDuration());
             document.getElementById("playtime-total-" + (j + 1)).innerText = format_time(total);
         }
     }(i));
 
+    // 재생 위치 실시간 갱신
     surfer_list[i].on('audioprocess', function(j) {
         return function () {
             var current = parseInt(surfer_list[j].getCurrentTime());
@@ -88,6 +108,7 @@ for (i = 0; i < surfer_list.length; i++) {
     }(i))
 }
 
+// 초 -> 분:초 로 바꿔주는 함수
 function format_time (duration) {
     var min = parseInt(duration/60);
     var sec = parseInt(duration%60);
@@ -111,6 +132,7 @@ function waveformLoader() {
     }
 }
 
+// 웨이브폼이 로딩 되었을 때 재생 버튼을 보여줌
 function playBtnLoader() {
     var loader = $('.play-btn-loader');
     var playbtn = $('.play-btn');

@@ -11,7 +11,6 @@ def like_toggle(request, pk):
 
     if request.method == "GET":
         is_liked = user.liked_posts.filter(id=post.pk).exists()
-        print(is_liked)
         return HttpResponse(is_liked)
 
     elif request.method == "POST" and request.user.is_authenticated:
