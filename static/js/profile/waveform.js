@@ -1,3 +1,4 @@
+// Waveform 생성
 // waveform 클래스를 가진 div 목록 가져옴
 var div_list = document.getElementsByClassName('waveform');
 var surfer_list = [];
@@ -45,6 +46,10 @@ var waveform_list = $(".waveform-wrapper");
 for (i = 0; i < play_btn_list.length; i++) {
     play_btn_list[i].onclick = (function (j) {
         return function () {
+            $('#play-btn-' + (j + 1))
+                .find('[data-fa-processed]')
+                .toggleClass('fa-play-circle')
+                .toggleClass('fa-pause-circle');
 
             // 플레이 버튼 토글 동작 설정
             // 재생중이면 일시정지
@@ -61,24 +66,6 @@ for (i = 0; i < play_btn_list.length; i++) {
         }
     }(i));
 
-    // play 시작되면 pause 버튼 모양
-    surfer_list[i].on('play', function (j) {
-        return function () {
-            $('#play-btn-' + (j + 1))
-                .find('[data-fa-processed]')
-                .toggleClass('fas fa-pause-circle');
-        }
-    }(i));
-
-    // pause 되면 play 버튼 모양
-    surfer_list[i].on('pause', function (j) {
-        return function () {
-            $('#play-btn-' + (j + 1))
-                .find('[data-fa-processed]')
-                .toggleClass('fas fa-play-circle');
-        }
-    }(i));
-
     // 재생이 끝까지 간 경우 play 버튼 모양
     surfer_list[i].on('finish', function (j) {
         return function () {
@@ -89,7 +76,7 @@ for (i = 0; i < play_btn_list.length; i++) {
     }(i))
 }
 
-// Track 길이 설정
+// Track 길이 표시 설정
 for (i = 0; i < surfer_list.length; i++) {
     surfer_list[i].on('ready', function (j) {
         return function () {
@@ -121,7 +108,7 @@ function format_time (duration) {
     return min + ":" + sec
 }
 
-// loader를 없애주는 함수
+// 웨이브폼 로더를 없애주는 함수
 function waveformLoader() {
     // waveform-loader라는 클래스명을 가진 객체 리스트 저장
     var loader = document.getElementsByClassName('waveform-loader');
@@ -132,7 +119,7 @@ function waveformLoader() {
     }
 }
 
-// 웨이브폼이 로딩 되었을 때 재생 버튼을 보여줌
+// 재생버튼 로더를 없애주는 함수
 function playBtnLoader() {
     var loader = $('.play-btn-loader');
     var playbtn = $('.play-btn');
