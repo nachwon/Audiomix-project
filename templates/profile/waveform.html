@@ -10,6 +10,21 @@
         div.wrapper {
             width: 500px;
         }
+        .wrap {
+            position: relative;
+            width: 500px;
+            height: 133px;
+            margin: 0 auto;
+        }
+        .cutter {
+            position: absolute;
+            width: 183px;
+            height: 100%;
+            overflow: hidden;
+        }
+        img {
+            position: absolute;
+        }
     </style>
 </head>
 <body>
@@ -18,7 +33,17 @@
     <div class="waveform"></div>
     <h3 id="timer"><span id="current">00:00</span>/<span id="total">00:00</span></h3>
     <button id="pause-btn">Play</button>
+    <button onclick="console.log(wavesurfer.exportImage(1))" >Image</button>
+    <button onclick="console.log(wavesurfer.exportPCM(1024, 1, false, 1))" >PCM</button>
 </div>
+
+<div class="wrap">
+    <img src="/home/che1/Projects/Django/django_audiomix/static/img/test.png" alt="">
+    <div class="cutter">
+        <img src="/home/che1/Projects/Django/django_audiomix/static/img/test2.png" alt="">
+    </div>
+</div>
+
 
 
 <script src="/home/che1/Projects/Django/django_audiomix/static/js/jquery-3.2.1.min.js"></script>
