@@ -65,28 +65,42 @@
     //
     // wavesurfer.load('https://s3.ap-northeast-2.amazonaws.com/che1-soundhub/media/user_1/Post_8/author_track/author_track.mp3');
 
+    // 웨이브폼을 담고있는 div
     var box = document.getElementById("container");
+    // 웨이브폼을 덮어씌워 색을 입혀주는 div
     var cutter = document.getElementById("cutter");
+    // 오디오 객체
     var audio = document.getElementById("file");
+    // 웨이브폼을 담고있는 div의 가로 길이
     var box_width = document.getElementById('container').offsetWidth;
 
+    // 웨이브폼을 클릭할 경우 getClickPosition 실행
     box.addEventListener('click', getClickPosition, false);
     // box.addEventListener('drag', getClickPosition, false);
 
+    // 웨이브폼을 클릭한 위치로 오디오 탐색
     function getClickPosition(e) {
+        // div 내의 클릭 위치를 계산
         var x = e.pageX - box.offsetLeft;
+        // 덮어씌우는 div의 길이를 클릭위치만큼의 픽셀로 변경
         cutter.style.width = x + 'px';
+        // 클릭 위치를 박스 전체 길이로 나누어서 클릭 위치의 비율 계산
         var percent_position = x / box_width;
-        // console.log(percent_position);
+        // 오디오 전체 길이에 클릭 위치 비율을 곱해서 같은 비율의 오디오 재생 위치 계산
         var rel_duration = audio.duration * percent_position;
-        // console.log(rel_duration);
+        // 계산한 상대 위치를 오디오 현재 위치로 지정
         audio.currentTime = rel_duration
     }
 
+    // 오디오 재생시 웨이브폼 업데이트
+    // timeupdate 리스너를 등록해서 지속적인 이벤트 발생 캐치
     audio.addEventListener('timeupdate', getCurrentTime, false);
 
+    // timeupdate 이벤트 발생시 웨이브폼을 업데이트 해주는 함수
     function getCurrentTime(e) {
+        // 현재 오디오 재생 위치의 비율 값을 계산
         var re_current = audio.currentTime / audio.duration;
+        // 계산한 비율을 div의 전체 넓이에 곱해서 구해진 비례 넓이를 덮는 div의 넓이로 설정
         cutter.style.width = (box_width * re_current) +'px'
     }
 
