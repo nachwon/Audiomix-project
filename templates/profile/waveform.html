@@ -25,13 +25,6 @@
         img {
             position: absolute;
         }
-        .no-drag {
-            -WEBKIT-USER-SELECT: NONE; /* SAFARI, CHROME */
-            -KHTML-USER-SELECT: NONE; /* KONQUEROR */
-            -MOZ-USER-SELECT: NONE; /* FIREFOX */
-            -MS-USER-SELECT: NONE; /* IE */
-            USER-SELECT: NONE; /* CSS3 */
-        }
     </style>
 </head>
 <body>
@@ -44,7 +37,7 @@
     <button onclick="console.log(wavesurfer.exportPCM(1024, 1, false, 1))" >PCM</button>
 </div>
 
-<div id="container" class="wrap no-drag">
+<div id="container" class="wrap">
     <img draggable="false" src="/home/che1/Projects/Django/django_audiomix/static/img/test.png" alt="">
     <div id="cutter" class="cutter">
         <img draggable="false" src="/home/che1/Projects/Django/django_audiomix/static/img/test2.png" alt="">
