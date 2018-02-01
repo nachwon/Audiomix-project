@@ -71,8 +71,6 @@ class Waveform(object):
         yellow1 = (226, 176, 38, 255)
         blank = (255, 255, 255, 0)
         for color in im.getdata():
-            if color != (255, 255, 255, 0):
-                print(color)
             if color == black1:
                 newimdata.append(yellow1)
             else:
@@ -81,8 +79,8 @@ class Waveform(object):
         newim.putdata(newimdata)
 
         out_dir = base_png.replace('.' + base_png.split('.')[-1], '_cover.png')
-        print(out_dir)
         newim.save(out_dir)
+        return out_dir
 
 
 if __name__ == '__main__':
