@@ -25,7 +25,7 @@ def author_track_waveform_base_directory_path(instance, filename):
 
 def author_track_waveform_cover_directory_path(instance, filename):
     ext = extension(filename)
-    return f'user_{instance.author.id}/Post_{instance.id}/author_track/waveform_dover.{ext}'
+    return f'user_{instance.author.id}/Post_{instance.id}/author_track/waveform_cover.{ext}'
 
 
 def master_track_directory_path(instance, filename):

@@ -8,12 +8,12 @@
     <title>Document</title>
     <style>
         div.wrapper {
-            width: 500px;
+            width: 600px;
         }
         .wrap {
             position: relative;
             display: inline-block;
-             width: 1000px;
+            width: 1000px;
             height: 150px;
             margin: 0 auto;
         }
@@ -29,6 +29,12 @@
         }
         #cover-image {
             pointer-events: none;
+        }
+
+        #container2 > div {
+            height: 100px;
+            width: 1000px;
+            background-repeat: no-repeat;
         }
 
     </style>
@@ -56,6 +62,12 @@
 </div>
 
 
+<div id="container2" class="wrap">
+    <div style="background-image: url('/home/che1/Projects/Django/django_audiomix/static/img/test2.png');"></div>
+    <div style="background-image: url('/home/che1/Projects/Django/django_audiomix/static/img/test.png');"></div>
+</div>
+
+
 
 <script src="/home/che1/Projects/Django/django_audiomix/static/js/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
@@ -65,7 +77,7 @@
         container: '.waveform',
         barWidth: 2,
         // 막대 높이
-        barHeight: 0.6,
+        barHeight: 1,
         // 커서 이전 부분 색상
         progressColor: '#E2B026',
         // 커서 색상
