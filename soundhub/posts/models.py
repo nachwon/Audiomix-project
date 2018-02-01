@@ -18,9 +18,29 @@ def author_track_directory_path(instance, filename):
     return f'user_{instance.author.id}/Post_{instance.id}/author_track/author_track.{ext}'
 
 
+def author_track_waveform_base_directory_path(instance, filename):
+    ext = extension(filename)
+    return f'user_{instance.author.id}/Post_{instance.id}/author_track/waveform_base.{ext}'
+
+
+def author_track_waveform_cover_directory_path(instance, filename):
+    ext = extension(filename)
+    return f'user_{instance.author.id}/Post_{instance.id}/author_track/waveform_dover.{ext}'
+
+
 def master_track_directory_path(instance, filename):
     ext = extension(filename)
     return f'user_{instance.author.id}/Post_{instance.id}/master_track/master_track.{ext}'
+
+
+def master_track_waveform_base_directory_path(instance, filename):
+    ext = extension(filename)
+    return f'user_{instance.author.id}/Post_{instance.id}/master_track/waveform_base.{ext}'
+
+
+def master_track_waveform_cover_directory_path(instance, filename):
+    ext = extension(filename)
+    return f'user_{instance.author.id}/Post_{instance.id}/master_track/waveform_cover.{ext}'
 
 
 def comment_track_directory_path(instance, filename):
@@ -38,8 +58,23 @@ class Post(models.Model):
     post_img = models.ImageField(upload_to=post_img_directory_path, blank=True)
     instrument = models.ManyToManyField(Instrument, related_name='post_instrument', blank=True)
     genre = models.ManyToManyField(Genre, related_name='post_genre', blank=True)
+
     master_track = models.FileField(upload_to=master_track_directory_path, blank=True, null=True)
+    master_waveform_base = models.ImageField(
+        upload_to=master_track_waveform_base_directory_path, blank=True, null=True
+    )
+    master_waveform_cover = models.ImageField(
+        upload_to=master_track_waveform_cover_directory_path, blank=True, null=True
+    )
+
     author_track = models.FileField(upload_to=author_track_directory_path, max_length=255)
+    author_track_waveform_base = models.ImageField(
+        upload_to=author_track_waveform_base_directory_path, blank=True, null=True
+    )
+    author_track_waveform_cover = models.ImageField(
+        upload_to=author_track_waveform_cover_directory_path, blank=True, null=True
+    )
+
     bpm = models.IntegerField(default=0)
     liked = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                    through='PostLike',
