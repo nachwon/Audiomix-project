@@ -249,3 +249,19 @@ div.track-obj {
     transform: rotate(0deg); }
   100% {
     transform: rotate(360deg); } }
+    div.track-obj div.waveform-wrapper div.waveform-container {
+      position: relative;
+      display: inline-block;
+      width: 1000px;
+      height: 150px;
+      margin: 0 auto; }
+      div.track-obj div.waveform-wrapper div.waveform-container img {
+        position: absolute; }
+      div.track-obj div.waveform-wrapper div.waveform-container #cover-image {
+        pointer-events: none; }
+      div.track-obj div.waveform-wrapper div.waveform-container .cutter {
+        pointer-events: none;
+        position: absolute;
+        width: 0px;
+        height: 100%;
+        overflow: hidden; }

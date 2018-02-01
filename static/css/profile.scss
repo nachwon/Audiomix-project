@@ -339,6 +339,26 @@ div.track-obj {
             }
         }
 
+        div.waveform-container {
+            position: relative;
+            display: inline-block;
+            width: 1000px;
+            height: 150px;
+            margin: 0 auto;
+            img {
+                position: absolute;
+            }
+            #cover-image {
+                pointer-events: none;
+            }
+            .cutter {
+                pointer-events: none;
+                position: absolute;
+                width: 0px;
+                height: 100%;
+                overflow: hidden;
+            }
+        }
 
     }
 }

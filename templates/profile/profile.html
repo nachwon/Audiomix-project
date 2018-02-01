@@ -104,7 +104,12 @@
                             <div id="waveform-wrapper-{{ forloop.counter }}" class="waveform-wrapper" >
                                 <div class="waveform-loader"></div>
 
-                                <div id="waveform-{{ forloop.counter }}" class="waveform" datasrc="{{ track.author_track.url }}"></div>
+                                <div id="waveform-container" class="waveform-container">
+                                    <img id="back-image" draggable="false" src="{{ track.waveform_base.url }}" alt="">
+                                    <div id="cutter" class="cutter">
+                                        <img id="cover-image" draggable="false" src="{{ track.waveform_base.url }}" alt="">
+                                    </div>
+                                </div>
                             </div>
                             <div class="track-genre">
                                 {% for item in track.genre.all %}
