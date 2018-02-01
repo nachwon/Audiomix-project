@@ -45,12 +45,12 @@ class Waveform(object):
 
     def _generate_waveform_image(self):
         """ Returns the full waveform image """
-        im = Image.new('RGB', (750, 128), '#f5f5f5')
+        im = Image.new('RGBA', (750, 128), '#ffffff00')
         for index, value in enumerate(self.peaks, start=0):
             column = index * 5 + 4
             upper_endpoint = 64 - value
 
-            im.paste(self._get_bar_image((4, value * 2), '#424242'),
+            im.paste(self._get_bar_image((4, value * 2), '#333533'),
                      (column, upper_endpoint))
 
         return im
@@ -61,9 +61,32 @@ class Waveform(object):
             self.filename.split('.')[-1], 'png')
         with open(png_filename, 'wb') as imfile:
             self._generate_waveform_image().save(imfile, 'PNG')
+        return png_filename
+
+    @staticmethod
+    def change_color(base_png):
+        im = Image.open(base_png)
+        newimdata = []
+        black1 = (51, 53, 51, 255)
+        yellow1 = (226, 176, 38, 255)
+        blank = (255, 255, 255, 0)
+        for color in im.getdata():
+            if color != (255, 255, 255, 0):
+                print(color)
+            if color == black1:
+                newimdata.append(yellow1)
+            else:
+                newimdata.append(blank)
+        newim = Image.new(im.mode, im.size)
+        newim.putdata(newimdata)
+
+        out_dir = base_png.replace('.' + base_png.split('.')[-1], '_cover.png')
+        print(out_dir)
+        newim.save(out_dir)
 
 
 if __name__ == '__main__':
     filename = sys.argv[1]
     waveform = Waveform(filename)
-    waveform.save()
+    base = waveform.save()
+    waveform.change_color(base)
