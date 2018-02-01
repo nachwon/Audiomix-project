@@ -9,39 +9,21 @@ from utils.pywave import Waveform
 class Command(BaseCommand):
     help = 'Creates waveform image from an audio file source'
 
-    def add_arguments(self, parser):
-        # parser.add_argument('filename', type=str)
-
-        parser.add_argument(
-            '--all',
-            action='store_true',
-            dest='all',
-            help='Draw waveform for all the tracks.'
-        )
-
     def handle(self, *args, **options):
-        filename = options.get('filename', False)
-        _all = options.get('all')
-
-        if filename:
-            waveform = Waveform(filename)
+        posts = Post.objects.all()
+        for post in posts:
+            audio_dir = settings.ROOT_DIR + post.author_track.url
+            waveform = Waveform(audio_dir)
             waveform_base = waveform.save()
-            waveform.change_color(waveform_base)
-        if _all:
-            posts = Post.objects.all()
-            for post in posts:
-                audio_dir = settings.ROOT_DIR + post.author_track.url
-                waveform = Waveform(audio_dir)
-                waveform_base = waveform.save()
-                waveform_cover = waveform.change_color(waveform_base)
+            waveform_cover = waveform.change_color(waveform_base)
 
-                with open(waveform_base, 'rb') as f1:
-                    base = ContentFile(f1.read())
+            with open(waveform_base, 'rb') as f1:
+                base = ContentFile(f1.read())
 
-                with open(waveform_cover, 'rb') as f2:
-                    cover = ContentFile(f2.read())
+            with open(waveform_cover, 'rb') as f2:
+                cover = ContentFile(f2.read())
 
-                post.author_track_waveform_base = base
-                post.author_track_waveform_cover = cover
+            post.author_track_waveform_base.save('author_track.png', base)
+            post.author_track_waveform_cover.save('author_track_cover.png', cover)
 
-                post.save()
+            post.save()
