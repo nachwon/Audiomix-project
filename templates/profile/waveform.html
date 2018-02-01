@@ -12,11 +12,13 @@
         }
         .wrap {
             position: relative;
-            width: 500px;
-            height: 133px;
+            display: inline-block;
+             width: 1000px;
+            height: 150px;
             margin: 0 auto;
         }
         .cutter {
+            pointer-events: none;
             position: absolute;
             width: 0px;
             height: 100%;
@@ -25,6 +27,10 @@
         img {
             position: absolute;
         }
+        #cover-image {
+            pointer-events: none;
+        }
+
     </style>
 </head>
 <body>
@@ -37,15 +43,15 @@
     <button onclick="console.log(wavesurfer.exportPCM(1024, 1, false, 1))" >PCM</button>
 </div>
 
-<audio id="file" src="https://s3.ap-northeast-2.amazonaws.com/che1-soundhub/media/user_1/Post_8/author_track/author_track.mp3"></audio>
+<audio id="file" src="/home/che1/Projects/Django/django_audiomix/temp/test/test.mp3"></audio>
 
 <button onclick="audio.play()">Play</button>
 <button onclick="audio.pause()">Pause</button>
 
 <div id="container" class="wrap">
-    <img draggable="false" src="/home/che1/Projects/Django/django_audiomix/static/img/test.png" alt="">
+    <img id="back-image" draggable="false" src="/home/che1/Projects/Django/django_audiomix/static/img/test.png" alt="">
     <div id="cutter" class="cutter">
-        <img draggable="false" src="/home/che1/Projects/Django/django_audiomix/static/img/test2.png" alt="">
+        <img id="cover-image" draggable="false" src="/home/che1/Projects/Django/django_audiomix/static/img/test2.png" alt="">
     </div>
 </div>
 
@@ -55,24 +61,31 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
 
 <script>
-    // var wavesurfer = WaveSurfer.create({
-    //     container: '.waveform',
-    //     barWidth: 5,
-    //     progressColor: '#E2B026',
-    //     cursorColor: 'transparent',
-    //     waveColor: '#333533'
-    // });
-    //
-    // wavesurfer.load('https://s3.ap-northeast-2.amazonaws.com/che1-soundhub/media/user_1/Post_8/author_track/author_track.mp3');
+    var wavesurfer = WaveSurfer.create({
+        container: '.waveform',
+        barWidth: 2,
+        // 막대 높이
+        barHeight: 0.6,
+        // 커서 이전 부분 색상
+        progressColor: '#E2B026',
+        // 커서 색상
+        cursorColor: 'transparent',
+        // 커서 이후 부분 색상
+        waveColor: '#333533',
+        // 스크롤바 숨기기
+        hideScrollbar: true
+    });
 
-    // 웨이브폼을 담고있는 div
-    var box = document.getElementById("container");
+    wavesurfer.load('https://s3.ap-northeast-2.amazonaws.com/che1-soundhub/media/user_1/Post_8/author_track/author_track.mp3');
+
+    // 웨이브폼 이미지
+    var box = document.getElementById("back-image");
     // 웨이브폼을 덮어씌워 색을 입혀주는 div
     var cutter = document.getElementById("cutter");
     // 오디오 객체
     var audio = document.getElementById("file");
     // 웨이브폼을 담고있는 div의 가로 길이
-    var box_width = document.getElementById('container').offsetWidth;
+    var box_width = document.getElementById("back-image").offsetWidth;
 
     // 웨이브폼을 클릭할 경우 getClickPosition 실행
     box.addEventListener('click', getClickPosition, false);
@@ -80,8 +93,11 @@
 
     // 웨이브폼을 클릭한 위치로 오디오 탐색
     function getClickPosition(e) {
-        // div 내의 클릭 위치를 계산
-        var x = e.pageX - box.offsetLeft;
+        // 이미지 내의 클릭 위치를 계산
+        // pageX: 스크린 왼쪽 끝에서부터 클릭 위치까지의 값
+        // offsetParent.offsetLeft: 클릭한 요소의 부모 요소가 스크린 왼쪽끝에서부터 떨어져있는 거리 값
+        var x = e.pageX - box.offsetParent.offsetLeft;
+        console.log(e.pageX, box.offsetParent.offsetLeft);
         // 덮어씌우는 div의 길이를 클릭위치만큼의 픽셀로 변경
         cutter.style.width = x + 'px';
         // 클릭 위치를 박스 전체 길이로 나누어서 클릭 위치의 비율 계산
@@ -105,34 +121,34 @@
     }
 
 
-    // var el = document.getElementById("pause-btn");
-    //
-    // el.onclick = function() {
-    //     if (wavesurfer.isPlaying()) {
-    //         this.innerText = "Play";
-    //         wavesurfer.pause()
-    //     }
-    //     else {
-    //         this.innerText = "Pause";
-    //         wavesurfer.play()
-    //     }
-    // };
-    //
-    // wavesurfer.on('ready', function() {
-    //     var total = parseInt(wavesurfer.getDuration());
-    //     var min = parseInt(total/60);
-    //     var sec = parseInt(total%60);
-    //     document.getElementById("total").innerText = min + ":" + sec;
-    // });
-    // wavesurfer.on('audioprocess', function() {
-    //     var current = parseInt(wavesurfer.getCurrentTime());
-    //     var min = parseInt(current/60);
-    //     var sec = parseInt(current%60);
-    //     if (String(sec).length === 1) {
-    //         sec = "0" + sec
-    //     }
-    //     document.getElementById("current").innerText = min + ":" + sec;
-    // })
+    var el = document.getElementById("pause-btn");
+
+    el.onclick = function() {
+        if (wavesurfer.isPlaying()) {
+            this.innerText = "Play";
+            wavesurfer.pause()
+        }
+        else {
+            this.innerText = "Pause";
+            wavesurfer.play()
+        }
+    };
+
+    wavesurfer.on('ready', function() {
+        var total = parseInt(wavesurfer.getDuration());
+        var min = parseInt(total/60);
+        var sec = parseInt(total%60);
+        document.getElementById("total").innerText = min + ":" + sec;
+    });
+    wavesurfer.on('audioprocess', function() {
+        var current = parseInt(wavesurfer.getCurrentTime());
+        var min = parseInt(current/60);
+        var sec = parseInt(current%60);
+        if (String(sec).length === 1) {
+            sec = "0" + sec
+        }
+        document.getElementById("current").innerText = min + ":" + sec;
+    })
 
 </script>
 
