@@ -34,10 +34,11 @@ class Waveform(object):
         width, height = size
         bar = Image.new('RGBA', size, fill)
 
-        end = Image.new('RGBA', (width, 2), fill)
-        draw = ImageDraw.Draw(end)
-        draw.point([(0, 0), (3, 0)], fill='#c1c1c1')
-        draw.point([(0, 1), (3, 1), (1, 0), (2, 0)], fill='#333533')
+        # end = Image.new('RGBA', (width, 2), fill)
+        # print(bar)
+        # draw = ImageDraw.Draw(end)
+        # draw.point([(0, 0), (3, 0)], fill='#c1c1c1')
+        # draw.point([(0, 1), (3, 1), (1, 0), (2, 0)], fill='#333533')
 
         # bar.paste(end, (0, 0))
         # bar.paste(end.rotate(180), (0, height - 2))
@@ -45,12 +46,20 @@ class Waveform(object):
 
     def _generate_waveform_image(self):
         """ Returns the full waveform image """
-        im = Image.new('RGBA', (750, 128), '#ffffff00')
-        for index, value in enumerate(self.peaks, start=0):
-            column = index * 5 + 4
-            upper_endpoint = 64 - value
+        bar_width = 3
+        px_between_bars = 1
+        offset_left = 4
+        offset_top = 4
 
-            im.paste(self._get_bar_image((4, value * 2), '#333533'),
+        width = ((bar_width + px_between_bars) * self.bar_count) + (offset_left * 2)
+        height = (self.db_ceiling + offset_top) * 2
+
+        im = Image.new('RGBA', (width, height), '#ffffff00')
+        for index, value in enumerate(self.peaks, start=0):
+            column = index * (bar_width + px_between_bars) + offset_left
+            upper_endpoint = (self.db_ceiling - value) + offset_top
+
+            im.paste(self._get_bar_image((bar_width, value * 2), '#333533'),
                      (column, upper_endpoint))
 
         return im
