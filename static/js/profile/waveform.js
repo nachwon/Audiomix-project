@@ -34,10 +34,14 @@ function updateAudioInfo (e) {
 
 function updateWaveform (e) {
     var track_id = e.target.getAttribute("data-src");
+    var audio = document.getElementById("track-audio-" + track_id);
     var cutter = document.getElementById("image-cutter-" + track_id);
     var back_image = $("#back-image-" + track_id);
     var x = e.pageX - back_image.offset().left;
-    cutter.style.width = x + "px"
+    var percent_position = x / back_image[0].offsetWidth;
+    var rel_duration = audio.duration * percent_position;
+    cutter.style.width = x + "px";
+    audio.currentTime = rel_duration
 }
 
 // 오디오 총 길이 표시
@@ -52,8 +56,8 @@ function setTotalDuration (id) {
 for (var i = 0; i < tracks.length; i++) {
     var track_audio = tracks[i].getElementsByTagName("audio");
     var waveform = tracks[i].getElementsByClassName("back-image");
-    waveform[0].addEventListener("click", updateWaveform, false);
-    track_audio[0].addEventListener("timeupdate", updateAudioInfo, false)
+    track_audio[0].addEventListener("timeupdate", updateAudioInfo, false);
+    waveform[0].addEventListener("click", updateWaveform, false)
 }
 
 // 플레이 버튼 클릭시 아이콘 변경 및 오디오 재생

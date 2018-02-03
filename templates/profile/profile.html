@@ -94,7 +94,9 @@
                             </div>
 
                             <!-- waveform -->
-                            <audio id="track-audio-{{ forloop.counter }}" class="audio-track" data-src="{{ forloop.counter }}" data-isPlaying="false" src="{{ track.author_track.url }}" onloadeddata="setTotalDuration({{ forloop.counter }})"></audio>
+                            <audio id="track-audio-{{ forloop.counter }}" class="audio-track" data-src="{{ forloop.counter }}" data-isPlaying="false" onloadeddata="setTotalDuration({{ forloop.counter }})">
+                                <source src="{{ track.author_track.url }}">
+                            </audio>
                             <div id="waveform-wrapper-{{ forloop.counter }}" class="waveform-wrapper" >
                                 <!--<div class="waveform-loader"></div>-->
                                     <img id="back-image-{{ forloop.counter }}" class="back-image" data-src="{{ forloop.counter }}" draggable="false" src="{{ track.author_track_waveform_base.url }}" alt="">
