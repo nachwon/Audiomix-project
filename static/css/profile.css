@@ -242,7 +242,7 @@ div.track-obj {
     transform: rotate(0deg); }
   100% {
     transform: rotate(360deg); } }
-    div.track-obj div.waveform-wrapper img#back-image {
+    div.track-obj div.waveform-wrapper img.back-image {
       position: absolute;
       z-index: 0;
       width: 600px;
@@ -253,7 +253,7 @@ div.track-obj {
       width: 100px;
       height: 100%;
       overflow: hidden; }
-    div.track-obj div.waveform-wrapper img#cover-image {
+    div.track-obj div.waveform-wrapper img.cover-image {
       position: absolute;
       width: 600px;
       height: 80px; }

@@ -332,7 +332,7 @@ div.track-obj {
         }
 
 
-        img#back-image {
+        img.back-image {
             position: absolute;
             z-index: 0;
             width: 600px;
@@ -345,7 +345,7 @@ div.track-obj {
             height: 100%;
             overflow: hidden;
         }
-        img#cover-image {
+        img.cover-image {
             position: absolute;
             width: 600px;
             height: 80px;
