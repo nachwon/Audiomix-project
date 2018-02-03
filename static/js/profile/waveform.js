@@ -14,30 +14,34 @@ function format_time (duration) {
 var play_btns = $('.play-btn');
 var audios = $('.audio-track');
 
-function Audio(src) {
-    this.src = src;
-    this.isPlaying = false;
-}
-
 function playAudio(id) {
     for (var i = 0; i < audios.length; i++) {
         if (audios[i].id !== "track-audio-" + id) {
             audios[i].pause();
             audios[i].currentTime = 0;
-            audios[i].setAttribute("data-isPlaying", "false")
+            audios[i].setAttribute("data-isPlaying", "false");
         }
+
+        play_btns.find('[data-fa-processed]').removeClass("fa-pause-circle");
+        play_btns.find('[data-fa-processed]').addClass("fa-play-circle")
+
 
     }
 
-    var audio = document.getElementById('track-audio-' + id);
+    var audio = document.getElementById("track-audio-" + id);
+    var playbtn = $('#play-btn-' + id);
     var isPlaying = audio.getAttribute('data-isPlaying');
 
     if (isPlaying === "false") {
         audio.setAttribute("data-isPlaying", "true");
-        audio.play()
+        audio.play();
+        playbtn.find('[data-fa-processed]').removeClass("fa-play-circle");
+        playbtn.find('[data-fa-processed]').addClass("fa-pause-circle")
     }
     else {
         audio.setAttribute("data-isPlaying", "false");
-        audio.pause()
+        audio.pause();
+        playbtn.find('[data-fa-processed]').removeClass("fa-pause-circle");
+        playbtn.find('[data-fa-processed]').addClass("fa-play-circle")
     }
 }
