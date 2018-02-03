@@ -89,12 +89,12 @@
                             </div>
 
                             <div class="playtime">
-                                <span id="playtime-current-{{ forloop.counter }}" class="current">00:00</span> |
-                                <span id="playtime-total-{{ forloop.counter }}" class="total">00:00</span>
+                                <span id="playtime-current-{{ forloop.counter }}" class="track-duration-current">00:00</span> |
+                                <span id="playtime-total-{{ forloop.counter }}" class="track-duration-total">00:00</span>
                             </div>
 
                             <!-- waveform -->
-                            <audio id="track-audio-{{ forloop.counter }}" class="audio-track" data-isPlaying="false" src="{{ track.author_track.url }}"></audio>
+                            <audio id="track-audio-{{ forloop.counter }}" class="audio-track" data-src="{{ forloop.counter }}" data-isPlaying="false" src="{{ track.author_track.url }}" onloadeddata="setTotalDuration({{ forloop.counter }})"></audio>
                             <div id="waveform-wrapper-{{ forloop.counter }}" class="waveform-wrapper" >
                                 <!--<div class="waveform-loader"></div>-->
                                     <img id="back-image" draggable="false" src="{{ track.author_track_waveform_base.url }}" alt="">

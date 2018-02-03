@@ -11,9 +11,31 @@ function format_time (duration) {
     return min + ":" + sec
 }
 
+var tracks = $('.track-obj');
 var play_btns = $('.play-btn');
 var audios = $('.audio-track');
 
+function updateAudioInfo (e) {
+    var current_time = e.target.currentTime;
+    var track_id = e.target.getAttribute("data-src");
+    var track_current = document.getElementById("playtime-current-" + track_id);
+    track_current.innerText = format_time(current_time)
+}
+
+function setTotalDuration (id) {
+    var audio = document.getElementById('track-audio-' + id);
+    var duration_total = document.getElementById('playtime-total-' + id);
+    duration_total.innerText = format_time(audio.duration)
+}
+
+for (var i = 0; i < tracks.length; i++) {
+    var track_audio = tracks[i].getElementsByTagName("audio");
+
+    track_audio[0].addEventListener("timeupdate", updateAudioInfo, false)
+}
+
+// 플레이 버튼 클릭시 아이콘 변경 및 오디오 재생
+// 오디오 재생 중 다른 오디오 클릭 시, 재생 중이던 오디오는 처음으로 돌아가고 정지됨.
 function playAudio(id) {
     for (var i = 0; i < audios.length; i++) {
         if (audios[i].id !== "track-audio-" + id) {
