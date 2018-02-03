@@ -1,113 +1,7 @@
-// Waveform 생성
-// waveform 클래스를 가진 div 목록 가져옴
-var div_list = document.getElementsByClassName('waveform');
-var surfer_list = [];
-
-// 목록을 순회하면서
-for (var i = 0; i < div_list.length; i++) {
-    // div의 datasrc 속성의 값을 track_url 변수에 저장
-    var track_url = div_list[i].getAttribute('datasrc');
-    // waveform을 그려줄 각각의 div에 부여할 id값 생성
-    var waveform_id = '#waveform-' + (i + 1);
-    // waveform 객체 생성
-    var wavesurfer = WaveSurfer.create({
-        // 대상 객체 id값(필수)
-        container: waveform_id,
-        // 막대 넓이
-        barWidth: 2,
-        // 막대 높이
-        barHeight: 0.6,
-        // 커서 이전 부분 색상
-        progressColor: '#E2B026',
-        // 커서 색상
-        cursorColor: 'transparent',
-        // 커서 이후 부분 색상
-        waveColor: '#333533',
-        // 스크롤바 숨기기
-        hideScrollbar: true
-    });
-
-    // waveform 객체 로드
-    wavesurfer.load(track_url);
-    // 로드된 wavesurfer 객체를 리스트에 저장
-    surfer_list.push(wavesurfer);
-}
-
-// Track 길이 표시 설정
-for (i = 0; i < surfer_list.length; i++) {
-    surfer_list[i].on('ready', function (j) {
-        return function () {
-            // 로더 숨김
-            waveformLoader();
-            playBtnLoader();
-
-            // 전체 길이 출력
-            var total = parseInt(surfer_list[j].getDuration());
-            document.getElementById("playtime-total-" + (j + 1)).innerText = format_time(total);
-        }
-    }(i));
-
-
-    // 재생 위치 실시간 갱신
-    surfer_list[i].on('audioprocess', function(j) {
-        return function () {
-            var current = parseInt(surfer_list[j].getCurrentTime());
-            document.getElementById("playtime-current-" + (j + 1)).innerText = format_time(current);
-        }
-    }(i))
-}
-
-
-// 플레이 버튼 설정
-var play_btn_list = $(".play-btn");
-var waveform_list = $(".waveform-wrapper");
-for (i = 0; i < play_btn_list.length; i++) {
-    play_btn_list[i].onclick = (function (j) {
-        return function () {
-            // 플레이 버튼 모양 변경
-            $('#play-btn-' + (j + 1))
-                .find('[data-fa-processed]')
-                .toggleClass('fa-play-circle')
-                .toggleClass('fa-pause-circle');
-
-            // 플레이 버튼 토글 동작 설정
-            // 재생중이면 일시정지
-            if (surfer_list[j].isPlaying()) {
-                surfer_list[j].pause();
-                waveform_list[j].style.opacity = null
-
-            }
-            // 재생중이 아니면 재생
-            else {
-                // pause_all();
-                surfer_list[j].play();
-                waveform_list[j].style.opacity = 1
-            }
-        }
-    }(i));
-
-    // 재생이 끝까지 간 경우 play 버튼 모양으로 변경
-    surfer_list[i].on('finish', function (j) {
-        return function () {
-            $('#play-btn-' + (j + 1))
-                .find('[data-fa-processed]')
-                .toggleClass('fas fa-play-circle');
-        }
-    }(i))
-}
-
-function pause_all() {
-    for (i = 0; i < surfer_list.length; i++) {
-        surfer_list[i].pause();
-    }
-}
-
-
-
 // 초 -> 분:초 로 바꿔주는 함수
 function format_time (duration) {
-    var min = parseInt(duration/60);
-    var sec = parseInt(duration%60);
+    var min = parseInt(duration / 60);
+    var sec = parseInt(duration % 60);
     if (String(min).length === 1) {
         min = "0" + min
     }
@@ -117,24 +11,33 @@ function format_time (duration) {
     return min + ":" + sec
 }
 
-// 웨이브폼 로더를 없애주는 함수
-function waveformLoader() {
-    // waveform-loader라는 클래스명을 가진 객체 리스트 저장
-    var loader = document.getElementsByClassName('waveform-loader');
+var play_btns = $('.play-btn');
+var audios = $('.audio-track');
 
-    // 리스트를 순회하면서 display 속성을 none으로 변경
-    for (var i = 0; i < loader.length; i++) {
-        loader[i].style.display = 'none';
-    }
+function Audio(src) {
+    this.src = src;
+    this.isPlaying = false;
 }
 
-// 재생버튼 로더를 없애주는 함수
-function playBtnLoader() {
-    var loader = $('.play-btn-loader');
-    var playbtn = $('.play-btn');
+function playAudio(id) {
+    for (var i = 0; i < audios.length; i++) {
+        if (audios[i].id !== "track-audio-" + id) {
+            audios[i].pause();
+            audios[i].currentTime = 0;
+            audios[i].setAttribute("data-isPlaying", "false")
+        }
 
-    for (var i = 0; i < loader.length; i++) {
-        loader[i].style.display = 'none';
-        playbtn[i].style.display = 'inline-block';
+    }
+
+    var audio = document.getElementById('track-audio-' + id);
+    var isPlaying = audio.getAttribute('data-isPlaying');
+
+    if (isPlaying === "false") {
+        audio.setAttribute("data-isPlaying", "true");
+        audio.play()
+    }
+    else {
+        audio.setAttribute("data-isPlaying", "false");
+        audio.pause()
     }
 }

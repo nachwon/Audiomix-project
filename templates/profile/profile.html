@@ -8,7 +8,6 @@
 
 {% block scripts %}
 <script src="{% static 'fontawesome/fontawesome-all.js' %}"></script>
-<script src="{% static 'js/wavesurfer/wavesurfur.min.js' %}"></script>
 {% endblock scripts %}
 
 {% block content %}
@@ -81,13 +80,7 @@
 
                             </div>
                             <div class="play-btn-wrapper">
-                                <div class="play-btn-loader">
-                                <span class="fa-layers fa-fw">
-                                    <i class="fas fa-circle fa-3x"></i>
-                                    <i class="fas fa-circle-notch fa-spin fa-2x" data-fa-transform="right-4" style="color: #E2B026;"></i>
-                                </span>
-                                </div>
-                                <div id="play-btn-{{ forloop.counter }}" class="play-btn" datasrc="{{ forloop.counter }}"><i class="fas fa-play-circle fa-3x"></i></div>
+                                <div id="play-btn-{{ forloop.counter }}" class="play-btn" onclick="playAudio({{ forloop.counter }});"><i class="fas fa-play-circle fa-3x"></i></div>
                             </div>
 
                             <div class="title-author-wrapper">
@@ -100,7 +93,8 @@
                                 <span id="playtime-total-{{ forloop.counter }}" class="total">00:00</span>
                             </div>
 
-
+                            <!-- waveform -->
+                            <audio id="track-audio-{{ forloop.counter }}" class="audio-track" data-isPlaying="false" src="{{ track.author_track.url }}"></audio>
                             <div id="waveform-wrapper-{{ forloop.counter }}" class="waveform-wrapper" >
                                 <!--<div class="waveform-loader"></div>-->
                                     <img id="back-image" draggable="false" src="{{ track.author_track_waveform_base.url }}" alt="">
@@ -108,6 +102,7 @@
                                         <img id="cover-image" draggable="false" src="{{ track.author_track_waveform_cover.url }}" alt="">
                                     </div>
                             </div>
+                            <!-- wavform end -->
                             <div class="track-genre">
                                 {% for item in track.genre.all %}
                                 <span class="track-genre-item">#{{ item }}</span>
@@ -136,6 +131,7 @@
 <script src="{% static 'js/profile/follow.js' %}"></script>
 <script src="{% static 'js/profile/post-like.js' %}" ></script>
 {% endif %}
-<script src="{% static 'js/profile/waveform.js' %}" ></script>
+
+<script src="{% static 'js/profile/waveform.js' %}"></script>
 
 {% endblock content %}

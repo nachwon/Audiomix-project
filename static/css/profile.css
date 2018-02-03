@@ -156,20 +156,12 @@ div.track-obj {
         font-weight: bold; }
   div.track-obj div.play-btn-wrapper {
     position: relative;
-    display: inline-block;
-    width: 42px;
-    height: 42px; }
-    div.track-obj div.play-btn-wrapper div.play-btn-loader {
-      position: absolute;
-      top: 11px;
-      color: #333533;
-      margin-top: 18px;
-      margin-left: 20px;
-      width: 100%;
-      height: 100%; }
+    display: inline-block; }
     div.track-obj div.play-btn-wrapper div.play-btn {
-      display: none;
+      display: block;
       top: 0;
+      width: 42px;
+      height: 42px;
       margin-top: 18px;
       margin-left: 20px;
       color: #333533;
@@ -216,12 +208,13 @@ div.track-obj {
     padding: 0 5px; }
   div.track-obj div.waveform-wrapper {
     position: relative;
-    width: 630px;
-    height: 100px;
     float: left;
-    margin-left: 15px;
     opacity: 0.5;
-    transition: 0.2s; }
+    transition: 0.2s;
+    top: 30px;
+    left: 25px;
+    height: 80px;
+    width: 600px; }
     div.track-obj div.waveform-wrapper:hover {
       opacity: 1; }
     div.track-obj div.waveform-wrapper div.waveform-loader {
@@ -249,19 +242,18 @@ div.track-obj {
     transform: rotate(0deg); }
   100% {
     transform: rotate(360deg); } }
-    div.track-obj div.waveform-wrapper div.waveform-container {
-      position: relative;
-      display: inline-block;
-      width: 1000px;
-      height: 150px;
-      margin: 0 auto; }
-      div.track-obj div.waveform-wrapper div.waveform-container img {
-        position: absolute; }
-      div.track-obj div.waveform-wrapper div.waveform-container #cover-image {
-        pointer-events: none; }
-      div.track-obj div.waveform-wrapper div.waveform-container .cutter {
-        pointer-events: none;
-        position: absolute;
-        width: 0px;
-        height: 100%;
-        overflow: hidden; }
+    div.track-obj div.waveform-wrapper img#back-image {
+      position: absolute;
+      z-index: 0;
+      width: 600px;
+      height: 80px; }
+    div.track-obj div.waveform-wrapper div.cutter {
+      z-index: 1;
+      position: absolute;
+      width: 100px;
+      height: 100%;
+      overflow: hidden; }
+    div.track-obj div.waveform-wrapper img#cover-image {
+      position: absolute;
+      width: 600px;
+      height: 80px; }

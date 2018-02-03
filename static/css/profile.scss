@@ -217,22 +217,13 @@ div.track-obj {
     div.play-btn-wrapper {
         position: relative;
         display: inline-block;
-        width: 42px;
-        height: 42px;
 
-        div.play-btn-loader {
-            position: absolute;
-            top: 11px;
-            color: #333533;
-            margin-top: 18px;
-            margin-left: 20px;
-            width: 100%;
-            height: 100%;
-        }
 
         div.play-btn {
-            display: none;
+            display: block;
             top: 0;
+            width: 42px;
+            height: 42px;
             margin-top: 18px;
             margin-left: 20px;
             color: #333533;
@@ -303,12 +294,13 @@ div.track-obj {
 
     div.waveform-wrapper {
         position: relative;
-        width: 630px;
-        height: 100px;
         float: left;
-        margin-left: 15px;
         opacity: 0.5;
         transition: 0.2s;
+        top: 30px;
+        left: 25px;
+        height: 80px;
+        width: 600px;
 
         &:hover {
             opacity: 1;
@@ -339,26 +331,26 @@ div.track-obj {
             }
         }
 
-        div.waveform-container {
-            position: relative;
-            display: inline-block;
-            width: 1000px;
-            height: 150px;
-            margin: 0 auto;
-            img {
-                position: absolute;
-            }
-            #cover-image {
-                pointer-events: none;
-            }
-            .cutter {
-                pointer-events: none;
-                position: absolute;
-                width: 0px;
-                height: 100%;
-                overflow: hidden;
-            }
+
+        img#back-image {
+            position: absolute;
+            z-index: 0;
+            width: 600px;
+            height: 80px;
         }
+        div.cutter {
+            z-index: 1;
+            position: absolute;
+            width: 100px;
+            height: 100%;
+            overflow: hidden;
+        }
+        img#cover-image {
+            position: absolute;
+            width: 600px;
+            height: 80px;
+        }
+
 
     }
 }
