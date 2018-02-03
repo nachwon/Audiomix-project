@@ -250,9 +250,10 @@ div.track-obj {
     div.track-obj div.waveform-wrapper div.cutter {
       z-index: 1;
       position: absolute;
-      width: 100px;
+      width: 0px;
       height: 100%;
-      overflow: hidden; }
+      overflow: hidden;
+      pointer-events: none; }
     div.track-obj div.waveform-wrapper img.cover-image {
       position: absolute;
       width: 600px;

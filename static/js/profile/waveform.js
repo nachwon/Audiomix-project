@@ -1,3 +1,9 @@
+var tracks = $('.track-obj');
+var play_btns = $('.play-btn');
+var audios = $('.audio-track');
+var wrappers = $('.waveform-wrapper');
+var back_image = $('.back-image');
+
 // 초 -> 분:초 로 바꿔주는 함수
 function format_time (duration) {
     var min = parseInt(duration / 60);
@@ -9,13 +15,10 @@ function format_time (duration) {
         sec = "0" + sec
     }
     return min + ":" + sec
+
 }
 
-var tracks = $('.track-obj');
-var play_btns = $('.play-btn');
-var audios = $('.audio-track');
-var wrappers = $('.waveform-wrapper');
-
+// 오디오 정보 업데이트
 function updateAudioInfo (e) {
     var track_id = e.target.getAttribute("data-src");
     var current_time = e.target.currentTime;
@@ -25,20 +28,31 @@ function updateAudioInfo (e) {
     var back_image = document.getElementById("back-image-" + track_id).offsetWidth;
     var re_current = current_time / total_time;
 
-
     track_current.innerText = format_time(current_time);
     cutter.style.width = (back_image * re_current) + 'px'
 }
 
+function updateWaveform (e) {
+    var track_id = e.target.getAttribute("data-src");
+    var cutter = document.getElementById("image-cutter-" + track_id);
+    var back_image = $("#back-image-" + track_id);
+    var x = e.pageX - back_image.offset().left;
+    cutter.style.width = x + "px"
+}
+
+// 오디오 총 길이 표시
 function setTotalDuration (id) {
     var audio = document.getElementById('track-audio-' + id);
     var duration_total = document.getElementById('playtime-total-' + id);
     duration_total.innerText = format_time(audio.duration)
 }
 
+// 실시간 트랙 정보 업데이트
+// 웨이브폼 진행, 현재 재생 중인 위치 표시 업데이트
 for (var i = 0; i < tracks.length; i++) {
     var track_audio = tracks[i].getElementsByTagName("audio");
-
+    var waveform = tracks[i].getElementsByClassName("back-image");
+    waveform[0].addEventListener("click", updateWaveform, false);
     track_audio[0].addEventListener("timeupdate", updateAudioInfo, false)
 }
 
@@ -59,7 +73,6 @@ function playAudio(id) {
         }
         play_btns.find('[data-fa-processed]').removeClass("fa-pause-circle");
         play_btns.find('[data-fa-processed]').addClass("fa-play-circle");
-
     }
 
     if (isPlaying === "false") {

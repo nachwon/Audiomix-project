@@ -341,9 +341,10 @@ div.track-obj {
         div.cutter {
             z-index: 1;
             position: absolute;
-            width: 100px;
+            width: 0px;
             height: 100%;
             overflow: hidden;
+            pointer-events: none;
         }
         img.cover-image {
             position: absolute;
