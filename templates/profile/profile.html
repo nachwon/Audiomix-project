@@ -97,7 +97,7 @@
                             <audio id="track-audio-{{ forloop.counter }}" class="audio-track" data-src="{{ forloop.counter }}" data-isPlaying="false" onloadeddata="setTotalDuration({{ forloop.counter }})">
                                 <source src="{{ track.author_track.url }}">
                             </audio>
-                            {% if track.author_track_waveform_base.filename == '' %}
+                            {% if track.author_track_waveform_base.name == '' %}
                             {% else %}
                             <div id="waveform-wrapper-{{ forloop.counter }}" class="waveform-wrapper" >
                                 <!--<div class="waveform-loader"></div>-->
