@@ -9,6 +9,7 @@ DATABASES = {
 }
 
 MEDIA_URL = '/temp/'
+STATIC_URL = '/static/'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

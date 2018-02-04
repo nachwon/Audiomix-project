@@ -31,7 +31,6 @@ STATIC_DIR = os.path.join(ROOT_DIR, 'static')
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
-STATIC_URL = '/static/'
 
 # 템플릿 파일 설정
 TEMPLATE_DIR = os.path.join(ROOT_DIR, 'templates')
@@ -85,8 +84,6 @@ REST_FRAMEWORK = {
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config_secret['django']['SECRET_KEY']
 
-
-
 ALLOWED_HOSTS = [
     'localhost',
     '.ap-northeast-2.elasticbeanstalk.com',
@@ -136,7 +133,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'config.middleware.byterange.SimpleMiddleware'
 ]
 
 

@@ -1,5 +1,8 @@
 import sys
 
+import os
+
+from django.conf import settings
 from pydub import AudioSegment
 from PIL import Image, ImageDraw
 
@@ -8,11 +11,12 @@ class Waveform(object):
     bar_count = 150
     db_ceiling = 60
 
-    def __init__(self, filename):
+    def __init__(self, file, filename):
         self.filename = filename
+        self.file = file
 
         audio_file = AudioSegment.from_file(
-            self.filename, self.filename.split('.')[-1])
+            self.file, self.filename.split('.')[-1])
 
         self.peaks = self._calculate_peaks(audio_file)
 
@@ -68,9 +72,17 @@ class Waveform(object):
         """ Save the waveform as an image """
         png_filename = self.filename.replace(
             self.filename.split('.')[-1], 'png')
-        with open(png_filename, 'wb') as imfile:
+
+        media_dir = os.path.join(settings.MEDIA_ROOT, png_filename)
+
+        directory = os.path.dirname(media_dir)
+
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        with open(media_dir, 'wb') as imfile:
             self._generate_waveform_image().save(imfile, 'PNG')
-        return png_filename
+        return media_dir
 
     @staticmethod
     def change_color(base_png):
