@@ -97,6 +97,8 @@
                             <audio id="track-audio-{{ forloop.counter }}" class="audio-track" data-src="{{ forloop.counter }}" data-isPlaying="false" onloadeddata="setTotalDuration({{ forloop.counter }})">
                                 <source src="{{ track.author_track.url }}">
                             </audio>
+                            {% if track.author_track_waveform_base.url == '' %}
+                            {% else %}
                             <div id="waveform-wrapper-{{ forloop.counter }}" class="waveform-wrapper" >
                                 <!--<div class="waveform-loader"></div>-->
                                     <img id="back-image-{{ forloop.counter }}" class="back-image" data-src="{{ forloop.counter }}" draggable="false" src="{{ track.author_track_waveform_base.url }}" alt="">
@@ -104,6 +106,7 @@
                                         <img class="cover-image" draggable="false" src="{{ track.author_track_waveform_cover.url }}" alt="">
                                     </div>
                             </div>
+                            {% endif %}
                             <!-- wavform end -->
                             <div class="track-genre">
                                 {% for item in track.genre.all %}
