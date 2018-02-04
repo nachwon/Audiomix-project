@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
+from django.core.files.storage import default_storage as storage
 
 from posts.models import Post
 from utils.pywave import Waveform
@@ -10,10 +11,12 @@ class Command(BaseCommand):
     help = 'Creates waveform image from an audio file source'
 
     def handle(self, *args, **options):
+
         posts = Post.objects.all()
         for post in posts:
-            audio_dir = settings.ROOT_DIR + post.author_track.url
-            waveform = Waveform(audio_dir)
+            audio_dir = post.author_track.url
+            audio_track = storage.open(audio_dir, 'r')
+            waveform = Waveform(audio_track)
             waveform_base = waveform.save()
             waveform_cover = waveform.change_color(waveform_base)
 
