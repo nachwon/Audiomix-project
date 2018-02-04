@@ -73,7 +73,7 @@ function playAudio(id) {
             audios[i].pause();
             audios[i].currentTime = 0;
             audios[i].setAttribute("data-isPlaying", "false");
-            wrappers[i].style.opacity = '0.5'
+            wrappers[i].style.opacity = null
         }
         play_btns.find('[data-fa-processed]').removeClass("fa-pause-circle");
         play_btns.find('[data-fa-processed]').addClass("fa-play-circle");
@@ -91,6 +91,6 @@ function playAudio(id) {
         audio.pause();
         playbtn.find('[data-fa-processed]').removeClass("fa-pause-circle");
         playbtn.find('[data-fa-processed]').addClass("fa-play-circle");
-        wrapper.style.opacity = '0.5'
+        wrapper.style.opacity = null
     }
 }

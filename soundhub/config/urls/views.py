@@ -26,4 +26,4 @@ urlpatterns = [
     url(r'^post/', include('posts.urls.views', namespace='post')),
 ]
 
-# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
