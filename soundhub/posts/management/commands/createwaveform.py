@@ -1,5 +1,6 @@
 import re
 
+import os
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
@@ -48,4 +49,8 @@ class Command(BaseCommand):
             post.author_track_waveform_cover.save('author_track_cover.png', cover)
 
             post.save()
+
+            os.remove(waveform_base)
+            os.remove(waveform_cover)
+
             print(f'{waveform_base} saved')
