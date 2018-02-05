@@ -102,10 +102,3 @@ class Waveform(object):
         out_dir = base_png.replace('.' + base_png.split('.')[-1], '_cover.png')
         newim.save(out_dir)
         return out_dir
-
-
-if __name__ == '__main__':
-    filename = sys.argv[1]
-    waveform = Waveform(filename)
-    base = waveform.save()
-    waveform.change_color(base)
