@@ -15,7 +15,7 @@ from rest_framework.authtoken.models import Token
 class CustomUserManager(BaseUserManager):
     # 유저 생성 공통 메서드
     def _create_user(self, email, nickname, password, is_active=False, is_staff=False,
-                     is_superuser=False, genre=None, instrument=None):
+                     is_superuser=False):
         # 이메일을 입력하지 않은 경우 에러 발생
         if not email:
             raise ValueError('이메일을 반드시 입력해야 합니다.')
@@ -27,8 +27,6 @@ class CustomUserManager(BaseUserManager):
             is_active=is_active,
             is_staff=is_staff,
             is_superuser=is_superuser,
-            genre=genre,
-            instrument=instrument,
         )
 
         # 유저 인스턴스에 비밀번호 설정
@@ -41,7 +39,7 @@ class CustomUserManager(BaseUserManager):
         return user
 
     # 관리자 유저 생성 - create_superuser 매서드 오버라이드
-    def create_superuser(self, email, nickname, password, genre=None, instrument=None):
+    def create_superuser(self, email, nickname, password):
         # _create_user 메서드를 사용하고 is_staff 값을 True로 설정
         user = self._create_user(
             email=email,
@@ -50,20 +48,16 @@ class CustomUserManager(BaseUserManager):
             is_active=True,
             is_staff=True,
             is_superuser=True,
-            genre=genre,
-            instrument=instrument,
         )
         return user
 
     # 일반 유저 생성 - create_user 메서드 오버라이드
-    def create_user(self, email, nickname, password, genre=None, instrument=None):
+    def create_user(self, email, nickname, password):
         # _create_user 메서드를 사용하고 is_staff 값을 False 로 설정
         user = self._create_user(
             email=email,
             nickname=nickname,
             password=password,
-            genre=genre,
-            instrument=instrument,
             is_staff=False,
             is_active=True,
         )

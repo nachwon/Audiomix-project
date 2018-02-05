@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect
 
 from posts.models import Post
-from users.forms import SignInForm, SignUpForm
+from users.forms import SignInForm
 
 User = get_user_model()
 
@@ -17,8 +17,6 @@ def index(request):
             "sign_in": SignInForm(),
             "google_client_id": settings.GOOGLE_CLIENT_ID,
         }
-        for i in Post.objects.order_by('-num_liked')[:8]:
-            print(i.num_liked)
         return render(request, 'index.html', context)
 
     else:
