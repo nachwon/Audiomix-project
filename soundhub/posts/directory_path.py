@@ -9,15 +9,15 @@ def extension(filename):
 
 def author_track_directory_path(instance, filename):
     ext = extension(filename)
-    return f'user_{instance.author.id}/post_{instance.id}/author_track/author_track.{ext}'
+    return f'user_{instance.author.id}/Post_{instance.id}/author_track/author_track.{ext}'
 
 
 def author_track_waveform_base_directory_path(instance, filename):
-    return f'user_{instance.author.id}/post_{instance.id}/author_track/author_track.png'
+    return f'user_{instance.author.id}/Post_{instance.id}/author_track/author_track.png'
 
 
 def author_track_waveform_cover_directory_path(instance, filename):
-    return f'user_{instance.author.id}/post_{instance.id}/author_track/author_track_cover.png'
+    return f'user_{instance.author.id}/Post_{instance.id}/author_track/author_track_cover.png'
 
 
 def master_track_directory_path(instance, filename):
