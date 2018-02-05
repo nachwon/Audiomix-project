@@ -11,4 +11,3 @@ class PostsConfig(AppConfig):
         Post = self.get_model('Post')
         pre_save.connect(skip_saving_file, sender=Post)
         post_save.connect(save_file, sender=Post)
-

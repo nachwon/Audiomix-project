@@ -1,0 +1,63 @@
+{% load static %}
+
+{% for track in user_posts %}
+<div class="track-obj">
+    {% if track.title %}
+
+    <!--post img-->
+    {% if track.post_img.name == '' %}
+    <div class="track-post-img" style="background-image: url({% static 'img/default-post-img.png' %}); background-size: unset; background-repeat: no-repeat;"></div>
+    {% else %}
+    <div class="track-post-img" style="background-image: url({{ track.post_img.url }});"></div>
+    {% endif %}
+    <!--post img-->
+    <div class="track-social-count">
+        <div class="item">
+            <span id="like-btn-{{ track.pk }}" class="like-btn glyphicon glyphicon-heart-empty" data-post-pk="{{ track.pk }}" ></span>
+            <span id="like-count-{{ track.pk }}" class="track-liked">{{ track.liked.count }}</span>
+        </div>
+        <div class="item">
+            <span class="glyphicon glyphicon-music"></span>
+            <span class="track-commented">{{ track.comment_tracks.count }}</span>
+        </div>
+
+    </div>
+    <div class="play-btn-wrapper">
+        <div id="play-btn-{{ forloop.counter }}" class="play-btn" onclick="playAudio({{ forloop.counter }});"><i class="fas fa-play-circle fa-3x"></i></div>
+    </div>
+
+    <div class="title-author-wrapper">
+        <p class="track-title">{{ track.title }}</p>
+        <a href="{% url 'views:user:user-detail' pk=track.author.pk %}"><p class="track-author">{{ track.author }}</p></a>
+    </div>
+
+    <div class="playtime">
+        <span id="playtime-current-{{ forloop.counter }}" class="track-duration-current">00:00</span> |
+        <span id="playtime-total-{{ forloop.counter }}" class="track-duration-total">00:00</span>
+    </div>
+
+    <!-- waveform -->
+    <audio id="track-audio-{{ forloop.counter }}" class="audio-track" data-src="{{ forloop.counter }}" data-isPlaying="false" onloadeddata="setTotalDuration({{ forloop.counter }})">
+        <source src="{{ track.author_track.url }}">
+    </audio>
+    {% if track.author_track_waveform_base.name == '' %}
+    {% else %}
+    <div id="waveform-wrapper-{{ forloop.counter }}" class="waveform-wrapper" >
+        <!--<div class="waveform-loader"></div>-->
+        <img id="back-image-{{ forloop.counter }}" class="back-image" data-src="{{ forloop.counter }}" draggable="false" src="{{ track.author_track_waveform_base.url }}" alt="">
+        <div id="image-cutter-{{ forloop.counter }}" class="cutter">
+            <img class="cover-image" draggable="false" src="{{ track.author_track_waveform_cover.url }}" alt="">
+        </div>
+    </div>
+    {% endif %}
+    <!-- wavform end -->
+    <div class="track-genre">
+        {% for item in track.genre.all %}
+        <span class="track-genre-item">#{{ item }}</span>
+        {% endfor %}
+    </div>
+    {% else %}
+    <!--<p class="track-title">{{ track.post.title }}</p>-->
+    {% endif %}
+</div>
+{% endfor %}

@@ -42,7 +42,7 @@ $(document).ready(function(){
 window.onscroll = function() {header_scroll()};
 
 function header_scroll() {
-    if (document.body.scrollTop > 30 || document.documentElement.scrollTop > 30) {
+    if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
         document.getElementById("header").classList.add("header-scrolled");
         document.getElementById("wrapper").classList.add("wrapper-scrolled");
         document.getElementById("title-logo").classList.add("title-logo-scrolled");

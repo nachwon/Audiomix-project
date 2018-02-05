@@ -92,6 +92,11 @@ div.profile-body {
           border-bottom: 1px solid #ddd;
           display: inline-block;
           width: 100%; }
+          div.profile-body div.profile-body-wrapper div.section.section-left div.menu-wrapper .clicked {
+            border-bottom: 3px solid #E2B026 !important;
+            margin-bottom: 0;
+            font-weight: bold;
+            padding-bottom: 7px !important; }
           div.profile-body div.profile-body-wrapper div.section.section-left div.menu-wrapper button.profile-body-menu {
             font-family: 'Source Sans Pro', sans-serif;
             display: inline-block;
@@ -106,11 +111,6 @@ div.profile-body {
               display: inherit; }
             div.profile-body div.profile-body-wrapper div.section.section-left div.menu-wrapper button.profile-body-menu:hover {
               font-weight: bold; }
-            div.profile-body div.profile-body-wrapper div.section.section-left div.menu-wrapper button.profile-body-menu:focus {
-              border-bottom: 3px solid #E2B026;
-              margin-bottom: 0;
-              font-weight: bold;
-              padding-bottom: 7px; }
       div.profile-body div.profile-body-wrapper div.section.section-right {
         border: 1px solid black;
         width: 30%;

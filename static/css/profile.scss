@@ -126,6 +126,13 @@ div.profile-body {
                     display: inline-block;
                     width: 100%;
 
+                    .clicked {
+                        border-bottom: 3px solid #E2B026 !important;
+                        margin-bottom: 0;
+                        font-weight: bold;
+                        padding-bottom: 7px !important;
+                    }
+
                     button.profile-body-menu {
                         font-family: 'Source Sans Pro', sans-serif;
                         display: inline-block;
@@ -143,13 +150,6 @@ div.profile-body {
 
                         &:hover {
                             font-weight: bold;
-                        }
-
-                        &:focus {
-                            border-bottom: 3px solid #E2B026;
-                            margin-bottom: 0;
-                            font-weight: bold;
-                            padding-bottom: 7px;
                         }
                     }
                 }
