@@ -38,3 +38,7 @@ def like_toggle(request, pk):
         }
         return HttpResponse(json_response, content_type=header["Content-Type"],
                             charset=header["charset"], status=response["status"])
+
+
+def show_more(request, pk):
+    pass

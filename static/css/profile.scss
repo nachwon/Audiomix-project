@@ -356,4 +356,18 @@ div.track-obj {
     }
 }
 
+button#show-more-btn {
+    font-family: 'Source Sans Pro', sans-serif;
+    border: none;
+    background: transparent;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    font-size: 20px;
+    transition: 0.2s;
+    &:hover {
+        color: #ff0000;
+    }
+}
+
 // profile body ends
