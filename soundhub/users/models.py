@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
+from django.db.models import Sum
 
 from django.utils import timezone
 from rest_framework.authtoken.models import Token
@@ -158,9 +159,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     # 유저의 모든 포스트들이 받은 좋아요 갯수를 총합하여 리턴
     @property
     def total_liked(self):
-        posts = self.post_set.all()
-        total_liked = sum([i.num_liked for i in posts])
-        return total_liked
+        total_liked = self.post_set.aggregate(total=Sum("num_liked"))
+        return total_liked.get("total")
 
     # 팔로우 카운트 관련 필드 업데이트
     def save_num_relations(self,):
