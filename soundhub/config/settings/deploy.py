@@ -13,7 +13,7 @@ STATICFILES_LOCATION = 'static'
 MEDIA_URL = f'https://s3.ap-northeast-2.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/media/'
 STATIC_URL = f'https://s3.ap-northeast-2.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/static/'
 
-DEBUG = True
+DEBUG = False
 
 RAVEN_CONFIG = {
     'dsn': 'https://e01ad1cebe374afba306dd30c0c95aec:f188b0f719e24508946c5ab72b4de3c8@sentry.io/259770',
