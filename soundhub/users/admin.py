@@ -64,7 +64,7 @@ class UserAdmin(BaseUserAdmin):
             )}),
         ('Personal info', {
             'fields': (
-                'nickname', 'genre', 'instrument', 'profile_img', 'user_type', 'total_liked'
+                'nickname', 'genre', 'instrument', 'profile_img', 'user_type'
             )}),
         ('Permissions', {
             'fields': (
@@ -76,7 +76,7 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'nickname', 'instrument', 'is_staff', 'is_active', 'password1', 'password2',)
+            'fields': ('email', 'nickname', 'genre', 'instrument', 'is_staff', 'is_active', 'password1', 'password2',)
         }),
     )
     search_fields = ('email',)
