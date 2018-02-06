@@ -64,7 +64,7 @@ class UserAdmin(BaseUserAdmin):
             )}),
         ('Personal info', {
             'fields': (
-                'nickname', 'genre', 'instrument', 'profile_img', 'user_type'
+                'nickname', 'genre', 'instrument', 'profile_img', 'user_type', 'total_liked'
             )}),
         ('Permissions', {
             'fields': (

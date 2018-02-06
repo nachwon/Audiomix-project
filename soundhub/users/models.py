@@ -121,8 +121,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     user_type = models.CharField(max_length=1, choices=USER_TYPE, default=USER_TYPE_SOUNDHUB)
     # Facebook 유저 로그인 시 id 값
     oauth_id = models.CharField(max_length=255, blank=True, null=True)
-    # 받은 좋아요 수 총합
-    total_liked = models.IntegerField(default=0)
     # 팔로잉
     following = models.ManyToManyField(
         'self',
@@ -158,11 +156,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.nickname
 
     # 유저의 모든 포스트들이 받은 좋아요 갯수를 총합하여 total_liked 필드에 저장
-    def save_total_liked(self):
+    @property
+    def total_liked(self):
         posts = self.post_set.all()
         total_liked = sum([i.num_liked for i in posts])
-        self.total_liked = total_liked
-        self.save()
+        return total_liked
 
     # 팔로우 카운트 관련 필드 업데이트
     def save_num_relations(self,):
