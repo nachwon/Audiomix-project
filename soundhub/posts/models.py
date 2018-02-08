@@ -16,10 +16,10 @@ class Post(models.Model):
     genre = models.ManyToManyField(Genre, related_name='post_genre', blank=True)
 
     master_track = models.FileField(upload_to=master_track_directory_path, blank=True, null=True)
-    master_waveform_base = models.ImageField(
+    master_track_waveform_base = models.ImageField(
         upload_to=master_track_waveform_base_directory_path, blank=True, null=True
     )
-    master_waveform_cover = models.ImageField(
+    master_track_waveform_cover = models.ImageField(
         upload_to=master_track_waveform_cover_directory_path, blank=True, null=True
     )
 
@@ -64,17 +64,17 @@ class CommentTrack(models.Model):
                                  blank=True, null=True)
     is_mixed = models.NullBooleanField(default=False)
     comment_track = models.FileField(upload_to=comment_track_directory_path, max_length=255)
-    comment_track_base = models.ImageField(
+    comment_track_waveform_base = models.ImageField(
         upload_to=comment_track_waveform_base_directory_path, blank=True, null=True
     )
-    comment_track_cover = models.ImageField(
+    comment_track_waveform_cover = models.ImageField(
         upload_to=comment_track_waveform_cover_directory_path, blank=True, null=True
     )
     instrument = models.ManyToManyField(Instrument, related_name='comment_instrument', blank=True)
     created_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.post.title}: {self.instrument}'
+        return f'{self.post.title}: {self.instrument.first().name}'
 
     class Meta:
         ordering = ('-created_date',)
