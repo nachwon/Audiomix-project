@@ -14,9 +14,9 @@
     <div class="track-social-count">
         <div class="item">
             {% if request.user in track.liked.all %}
-            <span id="like-btn-{{ track.pk }}" class="like-btn glyphicon glyphicon-heart" data-post-pk="{{ track.pk }}" ></span>
+            <span id="like-btn-{{ track.pk }}" class="like-btn glyphicon glyphicon-heart" data-post-pk="{{ track.pk }}" data-url="{% url 'views:post:like' pk=track.pk %}" ></span>
             {% else %}
-            <span id="like-btn-{{ track.pk }}" class="like-btn glyphicon glyphicon-heart-empty" data-post-pk="{{ track.pk }}" ></span>
+            <span id="like-btn-{{ track.pk }}" class="like-btn glyphicon glyphicon-heart-empty" data-post-pk="{{ track.pk }}" data-url="{% url 'views:post:like' pk=track.pk %}" ></span>
             {% endif %}
             <span id="like-count-{{ track.pk }}" class="track-liked">{{ track.liked.count }}</span>
         </div>

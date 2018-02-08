@@ -19,7 +19,7 @@ def user_detail(request, pk):
     if request.method == 'GET' and user_exists:
         user = User.objects.get(pk=pk)
 
-        user_posts = user.post_set.all()[:10]
+        user_posts = user.post_set.all()[:5]
         user_comments = user.commenttrack_set.all()[:5]
 
         context = {
