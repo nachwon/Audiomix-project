@@ -16,7 +16,6 @@ def like_toggle(request, pk):
     if user.liked_posts.filter(id=post.pk).exists():
         PostLike.objects.get(author=user, post=post).delete()
 
-
     else:
         PostLike.objects.create(author=user, post=post)
 

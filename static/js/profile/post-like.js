@@ -13,35 +13,6 @@ for (var i = 0; i < like_btn_list.length; i++) {
     };
 }
 
-
-
-// function like(el) {
-//     var post_pk = el.target.getAttribute('data-post-pk');
-//     var xhttp = new XMLHttpRequest();
-//     var csrf_token = $('[name=csrfmiddlewaretoken]').val();
-//
-//     xhttp.onreadystatechange = function() {
-//         if (this.readyState === 4) {
-//             if (this.status === 201) {
-//                 var count = JSON.parse(xhttp.responseText).count;
-//                 change_like_count(post_pk, count)
-//             }
-//             else if (this.status === 204) {
-//                 var count = document.getElementById("like-count-" + post_pk).innerText;
-//                 change_like_count(post_pk, count - 1)
-//             }
-//         }
-//     };
-//
-//     xhttp.open("POST", "/post/" + post_pk + "/like/", true);
-//     xhttp.setRequestHeader('X-CSRFToken', csrf_token);
-//     xhttp.send()
-// }
-//
-// function change_like_count(id, count) {
-//     document.getElementById("like-count-" + id).innerHTML = count
-// }
-
 $(document).ready(function () {
     $(".like-btn").click(function (){
         var pk = $(this).attr("data-post-pk");
