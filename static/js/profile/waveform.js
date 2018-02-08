@@ -44,6 +44,21 @@ function updateWaveform (e) {
     audio.currentTime = rel_duration
 }
 
+// 재생이 끝난 경우 처음으로 다시 돌려줌
+function resetWaveform (pk) {
+    var audio = $("#track-audio-" + pk);
+    audio[0].currentTime = 0;
+    audio[0].pause();
+    audio[0].setAttribute("data-isPlaying", "false");
+
+    var playbtn = $('#play-btn-' + pk);
+    playbtn.find('[data-fa-processed]').removeClass("fa-pause-circle");
+    playbtn.find('[data-fa-processed]').addClass("fa-play-circle");
+
+    var wrapper = $("#waveform-wrapper-" + pk);
+    wrapper[0].style.opacity = null
+}
+
 // 오디오 총 길이 표시
 function setTotalDuration (id) {
     var audio = document.getElementById('track-audio-' + id);
@@ -57,7 +72,7 @@ for (var i = 0; i < tracks.length; i++) {
     var track_audio = tracks[i].getElementsByTagName("audio");
     var waveform = tracks[i].getElementsByClassName("back-image");
     track_audio[0].addEventListener("timeupdate", updateAudioInfo, false);
-    waveform[0].addEventListener("click", updateWaveform, false)
+    waveform[0].addEventListener("click", updateWaveform, false);
 }
 
 // 플레이 버튼 클릭시 아이콘 변경 및 오디오 재생
