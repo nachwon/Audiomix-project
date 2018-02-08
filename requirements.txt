@@ -1,11 +1,11 @@
 amqp==2.2.2
 appnope==0.1.0
-awsebcli==3.12.1
+awsebcli==3.12.2
 beautifulsoup4==4.6.0
 billiard==3.5.0.3
 blessed==1.14.2
 boto3==1.4.8
-botocore==1.8.8
+botocore==1.8.38
 cachetools==2.0.1
 celery==4.1.0
 cement==2.8.2
@@ -45,10 +45,11 @@ oauth2client==4.1.2
 oauthlib==2.0.6
 olefile==0.44
 parso==0.1.0
-pathspec==0.5.0
+pathspec==0.5.5
 pexpect==4.2.1
 pickleshare==0.7.4
 Pillow==4.3.0
+pip-autoremove==0.9.0
 prompt-toolkit==1.0.15
 psycopg2==2.7.3.2
 ptyprocess==0.5.2
@@ -77,5 +78,5 @@ uritemplate==3.0.0
 urllib3==1.22
 vine==1.1.4
 wcwidth==0.1.7
-websocket-client==0.44.0
+websocket-client==0.46.0
 Werkzeug==0.12.2
