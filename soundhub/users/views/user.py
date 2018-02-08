@@ -20,12 +20,13 @@ def user_detail(request, pk):
         user = User.objects.get(pk=pk)
 
         user_posts = user.post_set.all()[:10]
-        # user_comments = user.commenttrack_set.all()[:5]
+        user_comments = user.commenttrack_set.all()[:5]
 
         context = {
             "sign_in": SignInForm,
             "user": user,
             "user_posts": user_posts,
+            "user_comments": user_comments
         }
         return render(request, 'profile/profile.html', context)
 

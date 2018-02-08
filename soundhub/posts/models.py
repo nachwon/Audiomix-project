@@ -64,6 +64,12 @@ class CommentTrack(models.Model):
                                  blank=True, null=True)
     is_mixed = models.NullBooleanField(default=False)
     comment_track = models.FileField(upload_to=comment_track_directory_path, max_length=255)
+    comment_track_base = models.ImageField(
+        upload_to=comment_track_waveform_base_directory_path, blank=True, null=True
+    )
+    comment_track_cover = models.ImageField(
+        upload_to=comment_track_waveform_cover_directory_path, blank=True, null=True
+    )
     instrument = models.ManyToManyField(Instrument, related_name='comment_instrument', blank=True)
     created_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
