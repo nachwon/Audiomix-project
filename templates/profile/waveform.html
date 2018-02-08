@@ -40,32 +40,27 @@
     </style>
 </head>
 <body>
-<h1>test</h1>
-<div class="wrapper">
-    <div class="waveform"></div>
-    <h3 id="timer"><span id="current">00:00</span>/<span id="total">00:00</span></h3>
-    <button id="pause-btn">Play</button>
-    <button onclick="console.log(wavesurfer.exportImage(1))" >Image</button>
-    <button onclick="console.log(wavesurfer.exportPCM(1024, 1, false, 1))" >PCM</button>
-</div>
+<!--<h1>test</h1>-->
+<!--<div class="wrapper">-->
+    <!--<div class="waveform"></div>-->
+    <!--<h3 id="timer"><span id="current">00:00</span>/<span id="total">00:00</span></h3>-->
+    <!--<button id="pause-btn">Play</button>-->
+    <!--<button onclick="console.log(wavesurfer.exportImage(1))" >Image</button>-->
+    <!--<button onclick="console.log(wavesurfer.exportPCM(1024, 1, false, 1))" >PCM</button>-->
+<!--</div>-->
 
-<audio id="file" src="/home/che1/Projects/Django/django_audiomix/temp/user_6/Post_None/author_track/author_track.mp3"></audio>
+<audio preload="metadata" id="file" src="/home/che1/Projects/Django/django_audiomix/temp/user_2/Post_9/author_track/author_track.mp3"></audio>
 
 <button onclick="audio.play()">Play</button>
 <button onclick="audio.pause()">Pause</button>
 
 <div id="container" class="wrap">
-    <img id="back-image" draggable="false" src="/home/che1/Projects/Django/django_audiomix/temp/user_6/Post_None/author_track/author_track.png" alt="">
+    <img id="back-image" draggable="false" src="/home/che1/Projects/Django/django_audiomix/temp/user_2/Post_9/author_track/author_track.png" alt="">
     <div id="cutter" class="cutter">
-        <img id="cover-image" draggable="false" src="/home/che1/Projects/Django/django_audiomix/temp/user_6/Post_None/author_track/author_track_cover.png" alt="">
+        <img id="cover-image" draggable="false" src="/home/che1/Projects/Django/django_audiomix/temp/user_2/Post_9/author_track/author_track_cover.png" alt="">
     </div>
 </div>
 
-
-<div id="container2" class="wrap">
-    <div style="background-image: url('/home/che1/Projects/Django/django_audiomix/static/img/test2.png');"></div>
-    <div style="background-image: url('/home/che1/Projects/Django/django_audiomix/static/img/test.png');"></div>
-</div>
 
 
 
@@ -73,22 +68,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
 
 <script>
-    var wavesurfer = WaveSurfer.create({
-        container: '.waveform',
-        barWidth: 2,
-        // 막대 높이
-        barHeight: 1,
-        // 커서 이전 부분 색상
-        progressColor: '#E2B026',
-        // 커서 색상
-        cursorColor: 'transparent',
-        // 커서 이후 부분 색상
-        waveColor: '#333533',
-        // 스크롤바 숨기기
-        hideScrollbar: true
-    });
-
-    wavesurfer.load('https://s3.ap-northeast-2.amazonaws.com/che1-soundhub/media/user_1/Post_8/author_track/author_track.mp3');
+    // var wavesurfer = WaveSurfer.create({
+    //     container: '.waveform',
+    //     barWidth: 2,
+    //     // 막대 높이
+    //     barHeight: 1,
+    //     // 커서 이전 부분 색상
+    //     progressColor: '#E2B026',
+    //     // 커서 색상
+    //     cursorColor: 'transparent',
+    //     // 커서 이후 부분 색상
+    //     waveColor: '#333533',
+    //     // 스크롤바 숨기기
+    //     hideScrollbar: true
+    // });
+    //
+    // wavesurfer.load('https://s3.ap-northeast-2.amazonaws.com/che1-soundhub/media/user_1/Post_8/author_track/author_track.mp3');
 
     // 웨이브폼 이미지
     var box = document.getElementById("back-image");
