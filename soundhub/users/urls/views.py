@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from users.views.auth import sign_in, sign_out, facebook_login, sign_up, google_login, sign_up_index
-from users.views.user import user_detail, follow_toggle
+from users.views.user import user_detail, follow_toggle, get_tracks
 
 urlpatterns = [
     url(r'^signup-index', sign_up_index, name='signup-index'),
@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^signout/$', sign_out, name='sign-out'),
 
     url(r'^(?P<pk>\d+)/$', user_detail, name='user-detail'),
+    url(r'^(?P<pk>\d+)/tracks/$', get_tracks, name='tracks'),
     url(r'^(?P<pk>\d+)/follow/$', follow_toggle, name='follow'),
 ]

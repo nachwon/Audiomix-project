@@ -3,6 +3,7 @@ import json
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.template import loader
 from django.views.decorators.http import require_GET
 
 from users.forms import SignInForm
@@ -21,11 +22,33 @@ def user_detail(request, pk):
 
     context = {
         "sign_in": SignInForm,
+    }
+    return render(request, 'profile/profile.html', context)
+
+
+def get_tracks(request, pk):
+    user = get_object_or_404(User, pk=pk)
+
+    user_posts = user.post_set.all()[:5]
+    user_comments = user.commenttrack_set.all()[:5]
+
+    context = {
         "user": user,
         "user_posts": user_posts,
         "user_comments": user_comments
     }
-    return render(request, 'profile/profile.html', context)
+
+    html = loader.render_to_string(
+        'profile/all-tracks.html',
+        context
+    )
+
+    context = {
+        "html": html
+    }
+
+    response = json.dumps(context)
+    return HttpResponse(response)
 
 
 def follow_toggle(request, pk):

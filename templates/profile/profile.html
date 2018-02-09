@@ -11,6 +11,7 @@
 {% endblock scripts %}
 
 {% block content %}
+{% csrf_token %}
 <div class="profile-content container contents">
     <div class="profile-head" style="background-image: url({% static 'img/default-profile-cover.jpg' %})">
         <div class="user-info">
@@ -59,14 +60,13 @@
                     <div id="show-all" class="tracklist" style="display:block;">
                         <h1>Hello</h1>
                     </div>
-                    <div id="show-tracks" class="tracklist" style="display: none;">
-                        {% include 'profile/all-tracks.html' %}
+                    <div id="show-tracks" class="tracklist" data-url="{% url 'views:user:tracks' pk=user.pk %}" style="display: none;">
+
                     </div>
                     <div id="show-comments" class="tracklist" style="display: none;">
                         {% include 'profile/comments.html' %}
                     </div>
                     <div id="show-playlist" class="tracklist" style="display: none;">
-                        {% include 'profile/playlist.html' %}
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
 <script src="{% static 'js/profile/post-like.js' %}" ></script>
 {% endif %}
 
-<script src="{% static 'js/profile/waveform.js' %}"></script>
 <script src="{% static 'js/profile/profile-menu.js' %}"></script>
+
 
 {% endblock content %}

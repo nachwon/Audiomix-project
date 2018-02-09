@@ -1,5 +1,8 @@
 var tracklist = $(".tracklist");
 var btns = $(".profile-body-menu");
+var tracks_loaded = false;
+var comments_loaded = false;
+var playlist_loaded = false;
 
 function showAll () {
     for (var i = 0; i < tracklist.length; i++) {
@@ -20,7 +23,23 @@ function showTracks () {
     var tracks_btn = $("#show-tracks-btn");
     var show_tracks = $("#show-tracks");
     tracks_btn.addClass("clicked");
-    show_tracks[0].style.display = "block"
+    show_tracks[0].style.display = "block";
+
+    if (tracks_loaded) return;
+
+    var url = show_tracks.attr("data-url");
+    var csrf_token = $('[name=csrfmiddlewaretoken]').val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: {'csrfmiddlewaretoken': csrf_token},
+        dataType: "json",
+        success: function(response) {
+            console.log(response);
+            $("#show-tracks").append(response.html)
+        }
+    });
+    tracks_loaded = true
 }
 
 function showComments () {
@@ -42,5 +61,5 @@ function showPlaylist () {
     var tracks_btn = $("#show-playlist-btn");
     var show_tracks = $("#show-playlist");
     tracks_btn.addClass("clicked");
-    show_tracks[0].style.display = "block"
+    show_tracks[0].style.display = "block";
 }

@@ -2,8 +2,6 @@
 
 {% for track in user_posts %}
 <div class="track-obj">
-    {% if track.title %}
-
     <!--post img-->
     {% if track.post_img.name == '' %}
     <div class="track-post-img" style="background-image: url({% static 'img/default-post-img.png' %}); background-size: unset; background-repeat: no-repeat;"></div>
@@ -14,11 +12,11 @@
     <div class="track-social-count">
         <div class="item">
             {% if request.user in track.liked.all %}
-            <span id="like-btn-{{ track.pk }}" class="like-btn glyphicon glyphicon-heart" data-post-pk="{{ track.pk }}" data-url="{% url 'views:post:like' pk=track.pk %}" ></span>
+            <span id="like-btn-{{ forloop.counter }}" class="like-btn glyphicon glyphicon-heart" data-post-pk="{{ forloop.counter }}" data-url="{% url 'views:post:like' pk=track.pk %}" ></span>
             {% else %}
-            <span id="like-btn-{{ track.pk }}" class="like-btn glyphicon glyphicon-heart-empty" data-post-pk="{{ track.pk }}" data-url="{% url 'views:post:like' pk=track.pk %}" ></span>
+            <span id="like-btn-{{ forloop.counter }}" class="like-btn glyphicon glyphicon-heart-empty" data-post-pk="{{ forloop.counter }}" data-url="{% url 'views:post:like' pk=track.pk %}" ></span>
             {% endif %}
-            <span id="like-count-{{ track.pk }}" class="track-liked">{{ track.liked.count }}</span>
+            <span id="like-count-{{ forloop.counter }}" class="track-liked">{{ track.liked.count }}</span>
         </div>
         <div class="item">
             <span class="glyphicon glyphicon-music"></span>
@@ -60,9 +58,6 @@
         <span class="track-genre-item">#{{ item }}</span>
         {% endfor %}
     </div>
-    {% else %}
-    <!--<p class="track-title">{{ track.post.title }}</p>-->
-    {% endif %}
 </div>
 
 {% if forloop.counter == user.post_set.count %}
@@ -80,5 +75,7 @@
 {% else %}
 {% endif %}
 {% endfor %}
+
+<script src="{% static 'js/profile/waveform.js' %}"></script>
 
 

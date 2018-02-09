@@ -2,7 +2,6 @@ var tracks = $('.track-obj');
 var play_btns = $('.play-btn');
 var audios = $('.audio-track');
 var wrappers = $('.waveform-wrapper');
-var back_image = $('.back-image');
 
 // 초 -> 분:초 로 바꿔주는 함수
 function format_time (duration) {
@@ -15,7 +14,6 @@ function format_time (duration) {
         sec = "0" + sec
     }
     return min + ":" + sec
-
 }
 
 // 오디오 정보 업데이트

@@ -2,6 +2,7 @@ import json
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 
 from posts.models import Post, PostLike
@@ -11,7 +12,7 @@ from posts.models import Post, PostLike
 @require_POST
 def like_toggle(request, pk):
     user = request.user
-    post = Post.objects.get(pk=pk)
+    post = get_object_or_404(Post, pk=pk)
 
     if user.liked_posts.filter(id=post.pk).exists():
         PostLike.objects.get(author=user, post=post).delete()
