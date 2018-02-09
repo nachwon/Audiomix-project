@@ -3,18 +3,6 @@ var play_btns = $('.play-btn');
 var audios = $('.audio-track');
 var wrappers = $('.waveform-wrapper');
 
-// 초 -> 분:초 로 바꿔주는 함수
-function format_time (duration) {
-    var min = parseInt(duration / 60);
-    var sec = parseInt(duration % 60);
-    if (String(min).length === 1) {
-        min = "0" + min
-    }
-    if (String(sec).length === 1) {
-        sec = "0" + sec
-    }
-    return min + ":" + sec
-}
 
 // 오디오 정보 업데이트
 function updateAudioInfo (e) {
@@ -57,12 +45,6 @@ function resetWaveform (pk) {
     wrapper[0].style.opacity = null
 }
 
-// 오디오 총 길이 표시
-function setTotalDuration (id) {
-    var audio = document.getElementById('track-audio-' + id);
-    var duration_total = document.getElementById('playtime-total-' + id);
-    duration_total.innerText = format_time(audio.duration)
-}
 
 // 실시간 트랙 정보 업데이트
 // 웨이브폼 진행, 현재 재생 중인 위치 표시 업데이트

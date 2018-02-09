@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.template import loader
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_GET, require_POST
 
 from users.forms import SignInForm
 from users.models import Relationship
@@ -17,15 +17,14 @@ User = get_user_model()
 def user_detail(request, pk):
     user = get_object_or_404(User, pk=pk)
 
-    user_posts = user.post_set.all()[:5]
-    user_comments = user.commenttrack_set.all()[:5]
-
     context = {
         "sign_in": SignInForm,
+        "user": user,
     }
     return render(request, 'profile/profile.html', context)
 
 
+@require_POST
 def get_tracks(request, pk):
     user = get_object_or_404(User, pk=pk)
 
