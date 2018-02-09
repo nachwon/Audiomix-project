@@ -236,7 +236,7 @@ div.track-obj {
       width: 600px;
       height: 80px; }
 
-button#show-more-btn {
+button.more-btn {
   font-family: 'Source Sans Pro', sans-serif;
   border: none;
   background: transparent;
@@ -245,5 +245,5 @@ button#show-more-btn {
   padding-bottom: 10px;
   font-size: 20px;
   transition: 0.2s; }
-  button#show-more-btn:hover {
+  button.more-btn:hover {
     color: #ff0000; }

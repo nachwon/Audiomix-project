@@ -1,6 +1,7 @@
 import json
 
 from django.contrib.auth import get_user_model
+from django.core.paginator import Paginator, EmptyPage
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.template import loader
@@ -28,13 +29,16 @@ def user_detail(request, pk):
 def get_tracks(request, pk):
     user = get_object_or_404(User, pk=pk)
 
-    user_posts = user.post_set.all()[:5]
-    user_comments = user.commenttrack_set.all()[:5]
+    page = request.POST['counter']
+
+    user_posts = user.post_set.all()[:15]
+    paginator = Paginator(user_posts, 5)
+
+    posts = paginator.page(page)
 
     context = {
         "user": user,
-        "user_posts": user_posts,
-        "user_comments": user_comments
+        "user_posts": posts,
     }
 
     html = loader.render_to_string(
