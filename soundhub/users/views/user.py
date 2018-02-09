@@ -39,6 +39,7 @@ def get_tracks(request, pk):
     context = {
         "user": user,
         "user_posts": posts,
+        "page": page
     }
 
     html = loader.render_to_string(

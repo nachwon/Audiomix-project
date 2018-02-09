@@ -46,7 +46,9 @@ function showTracks () {
 function showMoreTracks() {
     var show_tracks = $("#show-tracks");
     var url = show_tracks.attr("data-url");
-    sendAjax(url, track_counter, show_tracks)
+    var more_btn = $("#show-more-btn");
+    sendAjax(url, track_counter, show_tracks);
+    more_btn[0].style.display = "none";
 }
 
 function showComments () {
