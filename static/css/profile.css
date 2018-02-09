@@ -165,7 +165,8 @@ div.track-obj {
       margin-top: 18px;
       margin-left: 20px;
       color: #333533;
-      transition: 0.2s ease; }
+      transition: 0.2s ease;
+      cursor: pointer; }
       div.track-obj div.play-btn-wrapper div.play-btn:hover {
         color: #E2B026; }
   div.track-obj div.track-social-count {
@@ -217,36 +218,12 @@ div.track-obj {
     width: 600px; }
     div.track-obj div.waveform-wrapper:hover {
       opacity: 1; }
-    div.track-obj div.waveform-wrapper div.waveform-loader {
-      left: 58%;
-      position: absolute;
-      top: 114%;
-      z-index: 1;
-      margin: -75px 0 0 -75px;
-      border: 8px solid #333533;
-      border-radius: 50%;
-      border-top: 8px solid #E2B026;
-      width: 50px;
-      height: 50px;
-      -webkit-animation: spin 1s linear infinite;
-      animation: spin 1s linear infinite; }
-
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg); }
-  100% {
-    -webkit-transform: rotate(360deg); } }
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg); }
-  100% {
-    transform: rotate(360deg); } }
     div.track-obj div.waveform-wrapper img.back-image {
       position: absolute;
       z-index: 0;
       width: 600px;
-      height: 80px; }
+      height: 80px;
+      cursor: pointer; }
     div.track-obj div.waveform-wrapper div.cutter {
       z-index: 1;
       position: absolute;
