@@ -40,14 +40,18 @@ function showTracks () {
 
     // tracks_loaded 를 true로 바꿔주어 중복 ajax가 실행되지 않도록 해줌.
     tracks_loaded = true;
+    // 카운터 숫자를 하나씩 올려줌
     track_counter += 1
 }
 
+// show more tracks 버튼을 누르면
 function showMoreTracks() {
     var show_tracks = $("#show-tracks");
     var url = show_tracks.attr("data-url");
     var more_btn = $("#show-more-btn");
+    // ajax로 다음 페이지를 불러옴
     sendAjax(url, track_counter, show_tracks);
+    // show more 버튼을 지워줌
     more_btn[0].style.display = "none";
 }
 
