@@ -66,13 +66,12 @@
     <div>
         <button class="more-btn">End of Posts</button>
     </div>
-{% elif page == 3 %}
-    <div>
-        <button class="more-btn">View Full List</button>
-    </div>
 {% elif user_posts.has_next %}
     <div>
         <button onclick="showMoreTracks()" id="show-more-btn" class="more-btn">Show More <i class="fas fa-angle-down" data-fa-transform="right-1 down-1"></i></button>
     </div>
 {% else %}
+    <div>
+        <button class="more-btn">View Full List</button>
+    </div>
 {% endif %}
