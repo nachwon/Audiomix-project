@@ -39,7 +39,8 @@ def get_tracks(request, pk):
     context = {
         "request": request,
         "user": user,
-        "user_posts": posts,
+        "user_posts": user_posts,
+        "posts": posts,
         "page": page
     }
 
