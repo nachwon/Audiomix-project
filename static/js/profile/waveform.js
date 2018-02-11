@@ -1,9 +1,3 @@
-var tracks = $('.track-obj');
-var play_btns = $('.play-btn');
-var audios = $('.audio-track');
-var wrappers = $('.waveform-wrapper');
-
-
 // 오디오 정보 업데이트
 function updateAudioInfo (e) {
     var track_id = e.target.getAttribute("data-src");
@@ -18,6 +12,7 @@ function updateAudioInfo (e) {
     cutter.style.width = (back_image * re_current) + 'px'
 }
 
+// 웨이브폼 클릭시 업데이트
 function updateWaveform (e) {
     var track_id = e.target.getAttribute("data-src");
     var audio = document.getElementById("track-audio-" + track_id);
@@ -46,18 +41,12 @@ function resetWaveform (pk) {
 }
 
 
-// 실시간 트랙 정보 업데이트
-// 웨이브폼 진행, 현재 재생 중인 위치 표시 업데이트
-for (var i = 0; i < tracks.length; i++) {
-    var track_audio = tracks[i].getElementsByTagName("audio");
-    var waveform = tracks[i].getElementsByClassName("back-image");
-    track_audio[0].addEventListener("timeupdate", updateAudioInfo, false);
-    waveform[0].addEventListener("click", updateWaveform, false);
-}
-
 // 플레이 버튼 클릭시 아이콘 변경 및 오디오 재생
 // 오디오 재생 중 다른 오디오 클릭 시, 재생 중이던 오디오는 처음으로 돌아가고 정지됨.
 function playAudio(id) {
+    var audios = $('.audio-track');
+    var wrappers = $('.waveform-wrapper');
+    var play_btns = $('.play-btn');
     var audio = document.getElementById("track-audio-" + id);
     var playbtn = $('#play-btn-' + id);
     var isPlaying = audio.getAttribute('data-isPlaying');
@@ -65,6 +54,7 @@ function playAudio(id) {
 
     for (var i = 0; i < audios.length; i++) {
         if (audios[i].id !== "track-audio-" + id) {
+            console.log("hi");
             audios[i].pause();
             audios[i].currentTime = 0;
             audios[i].setAttribute("data-isPlaying", "false");

@@ -39,14 +39,14 @@
         </div>
 
         <!-- waveform -->
-        <audio preload="metadata" id="track-audio-{{ track.pk }}" class="audio-track" data-src="{{ track.pk }}" data-isPlaying="false" onended="resetWaveform({{ track.pk }})" onloadedmetadata="setTotalDuration({{ track.pk }})">
+        <audio preload="metadata" id="track-audio-{{ track.pk }}" class="audio-track" data-src="{{ track.pk }}" data-isPlaying="false" ontimeupdate="updateAudioInfo(event)" onended="resetWaveform({{ track.pk }})" onloadedmetadata="setTotalDuration({{ track.pk }})">
             <source src="{{ track.author_track.url }}">
         </audio>
         {% if track.author_track_waveform_base.name == '' %}
         {% else %}
             <div id="waveform-wrapper-{{ track.pk }}" class="waveform-wrapper" >
                 <!--<div class="waveform-loader"></div>-->
-                <img id="back-image-{{ track.pk }}" class="back-image" data-src="{{ track.pk }}" draggable="false" src="{{ track.author_track_waveform_base.url }}" alt="">
+                <img id="back-image-{{ track.pk }}" onclick="updateWaveform(event)" class="back-image" data-src="{{ track.pk }}" draggable="false" src="{{ track.author_track_waveform_base.url }}" alt="">
                 <div id="image-cutter-{{ track.pk }}" class="cutter">
                     <img class="cover-image" draggable="false" src="{{ track.author_track_waveform_cover.url }}" alt="">
                 </div>
