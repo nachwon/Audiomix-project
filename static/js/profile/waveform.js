@@ -72,6 +72,7 @@ function playAudio(id) {
     var isPlaying = audio.getAttribute('data-isPlaying');
     var wrapper = document.getElementById("waveform-wrapper-" + id);
 
+    // 다른 재생 중인 오디오 정지
     for (var i = 0; i < audios.length; i++) {
         if (audios[i].id !== "track-audio-" + id) {
             console.log("hi");
@@ -84,6 +85,7 @@ function playAudio(id) {
         play_btns.find('[data-fa-processed]').addClass("fa-play-circle");
     }
 
+    // 재생 중이지 않으면 재생시키고 재생 버튼 변경
     if (isPlaying === "false") {
         audio.setAttribute("data-isPlaying", "true");
         audio.play();
@@ -91,6 +93,7 @@ function playAudio(id) {
         playbtn.find('[data-fa-processed]').addClass("fa-pause-circle");
         wrapper.style.opacity = '1'
     }
+    // 재생 중이면 정지시키고 재생 버튼 변경
     else {
         audio.setAttribute("data-isPlaying", "false");
         audio.pause();
