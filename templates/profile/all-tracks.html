@@ -76,25 +76,3 @@
     </div>
 {% else %}
 {% endif %}
-
-<script>
-    // 초 -> 분:초 로 바꿔주는 함수
-    function format_time (duration) {
-        var min = parseInt(duration / 60);
-        var sec = parseInt(duration % 60);
-        if (String(min).length === 1) {
-            min = "0" + min
-        }
-        if (String(sec).length === 1) {
-            sec = "0" + sec
-        }
-        return min + ":" + sec
-    }
-
-    // 오디오 총 길이 표시
-    function setTotalDuration (id) {
-        var audio = document.getElementById('track-audio-' + id);
-        var duration_total = document.getElementById('playtime-total-' + id);
-        duration_total.innerText = format_time(audio.duration)
-    }
-</script>

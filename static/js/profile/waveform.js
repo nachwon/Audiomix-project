@@ -1,3 +1,16 @@
+// 초 -> 분:초 로 바꿔주는 함수
+function format_time (duration) {
+    var min = parseInt(duration / 60);
+    var sec = parseInt(duration % 60);
+    if (String(min).length === 1) {
+        min = "0" + min
+    }
+    if (String(sec).length === 1) {
+        sec = "0" + sec
+    }
+    return min + ":" + sec
+}
+
 // 오디오 정보 업데이트
 function updateAudioInfo (e) {
     var track_id = e.target.getAttribute("data-src");
@@ -10,6 +23,13 @@ function updateAudioInfo (e) {
 
     track_current.innerText = format_time(current_time);
     cutter.style.width = (back_image * re_current) + 'px'
+}
+
+// 오디오 총 길이 표시
+function setTotalDuration (id) {
+    var audio = document.getElementById('track-audio-' + id);
+    var duration_total = document.getElementById('playtime-total-' + id);
+    duration_total.innerText = format_time(audio.duration)
 }
 
 // 웨이브폼 클릭시 업데이트
