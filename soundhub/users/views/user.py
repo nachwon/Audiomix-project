@@ -37,6 +37,7 @@ def get_tracks(request, pk):
     posts = paginator.page(page)
 
     context = {
+        "request": request,
         "user": user,
         "user_posts": posts,
         "page": page
