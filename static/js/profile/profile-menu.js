@@ -48,11 +48,14 @@ function showTracks () {
 function showMoreTracks() {
     var show_tracks = $("#show-tracks");
     var url = show_tracks.attr("data-url");
-    var more_btn = $("#show-more-btn");
+    var more_btn = $(".more-btn");
     // ajax로 다음 페이지를 불러옴
     sendAjax(url, track_counter, show_tracks);
     // show more 버튼을 지워줌
-    more_btn[0].style.display = "none";
+    for (var i = 0; i < more_btn.length; i++) {
+        more_btn[i].style.display = "none";
+    }
+    track_counter += 1
 }
 
 function showComments () {

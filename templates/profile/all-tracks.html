@@ -12,11 +12,11 @@
         <div class="track-social-count">
             <div class="item">
                 {% if request.user in track.liked.all %}
-                    <span id="like-btn-{{ forloop.counter }}" class="like-btn glyphicon glyphicon-heart" data-post-pk="{{ forloop.counter }}" data-url="{% url 'views:post:like' pk=track.pk %}" ></span>
+                    <span id="like-btn-{{ track.pk }}" class="like-btn glyphicon glyphicon-heart" data-post-pk="{{ track.pk }}" data-url="{% url 'views:post:like' pk=track.pk %}" ></span>
                 {% else %}
-                    <span id="like-btn-{{ forloop.counter }}" class="like-btn glyphicon glyphicon-heart-empty" data-post-pk="{{ forloop.counter }}" data-url="{% url 'views:post:like' pk=track.pk %}" ></span>
+                    <span id="like-btn-{{ track.pk }}" class="like-btn glyphicon glyphicon-heart-empty" data-post-pk="{{ track.pk }}" data-url="{% url 'views:post:like' pk=track.pk %}" ></span>
                 {% endif %}
-                <span id="like-count-{{ forloop.counter }}" class="track-liked">{{ track.liked.count }}</span>
+                <span id="like-count-{{ track.pk }}" class="track-liked">{{ track.liked.count }}</span>
             </div>
             <div class="item">
                 <span class="glyphicon glyphicon-music"></span>
@@ -25,7 +25,7 @@
 
         </div>
         <div class="play-btn-wrapper">
-            <div id="play-btn-{{ forloop.counter }}" class="play-btn" onclick="playAudio({{ forloop.counter }});"><i class="fas fa-play-circle fa-3x"></i></div>
+            <div id="play-btn-{{ track.pk }}" class="play-btn" onclick="playAudio({{ track.pk }});"><i class="fas fa-play-circle fa-3x"></i></div>
         </div>
 
         <div class="title-author-wrapper">
@@ -34,20 +34,20 @@
         </div>
 
         <div class="playtime">
-            <span id="playtime-current-{{ forloop.counter }}" class="track-duration-current">00:00</span> |
-            <span id="playtime-total-{{ forloop.counter }}" class="track-duration-total">00:00</span>
+            <span id="playtime-current-{{ track.pk }}" class="track-duration-current">00:00</span> |
+            <span id="playtime-total-{{ track.pk }}" class="track-duration-total">00:00</span>
         </div>
 
         <!-- waveform -->
-        <audio preload="metadata" id="track-audio-{{ forloop.counter }}" class="audio-track" data-src="{{ forloop.counter }}" data-isPlaying="false" onended="resetWaveform({{ forloop.counter }})" onloadedmetadata="setTotalDuration({{ forloop.counter }})">
+        <audio preload="metadata" id="track-audio-{{ track.pk }}" class="audio-track" data-src="{{ track.pk }}" data-isPlaying="false" onended="resetWaveform({{ track.pk }})" onloadedmetadata="setTotalDuration({{ track.pk }})">
             <source src="{{ track.author_track.url }}">
         </audio>
         {% if track.author_track_waveform_base.name == '' %}
         {% else %}
-            <div id="waveform-wrapper-{{ forloop.counter }}" class="waveform-wrapper" >
+            <div id="waveform-wrapper-{{ track.pk }}" class="waveform-wrapper" >
                 <!--<div class="waveform-loader"></div>-->
-                <img id="back-image-{{ forloop.counter }}" class="back-image" data-src="{{ forloop.counter }}" draggable="false" src="{{ track.author_track_waveform_base.url }}" alt="">
-                <div id="image-cutter-{{ forloop.counter }}" class="cutter">
+                <img id="back-image-{{ track.pk }}" class="back-image" data-src="{{ track.pk }}" draggable="false" src="{{ track.author_track_waveform_base.url }}" alt="">
+                <div id="image-cutter-{{ track.pk }}" class="cutter">
                     <img class="cover-image" draggable="false" src="{{ track.author_track_waveform_cover.url }}" alt="">
                 </div>
             </div>
@@ -100,7 +100,4 @@
 </script>
 
 
-<script src="{% static 'js/profile/post-like.js' %}" ></script>
-<script src="{% static 'js/profile/waveform.js' %}"></script>
-<script src="{% static 'js/profile/more-btn.js' %}"></script>
-
+    <script src="{% static 'js/profile/post-like.js' %}" ></script>
