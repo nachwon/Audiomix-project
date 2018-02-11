@@ -99,3 +99,15 @@ class PostLike(models.Model):
 
     class Meta:
         ordering = ['-liked_date']
+
+
+class CommentLike(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    comment = models.ForeignKey(CommentTrack, on_delete=models.CASCADE)
+    liked_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.author} liked {self.comment.post}-{self.comment}'
+
+    class Meta:
+        ordering = ['-liked_date']
