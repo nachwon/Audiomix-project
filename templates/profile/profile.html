@@ -84,21 +84,21 @@
                             </span>
                         </div>
                         <div class="liked-posts-contents">
-                            {% for post in user.liked_posts.all %}
+                            {% for i in liked_posts|slice:":5" %}
                                 <div class="liked-post-obj">
                                     <!--post img-->
-                                    {% if post.post_img.name == '' %}
+                                    {% if i.post.post_img.name == '' %}
                                         <div class="liked-post-img" style="background-image: url({% static 'img/default-post-img.png' %});"></div>
                                     {% else %}
-                                        <div class="liked-post-img" style="background-image: url({{ post.post_img.url }});"></div>
+                                        <div class="liked-post-img" style="background-image: url({{ i.post.post_img.url }});"></div>
                                     {% endif %}
                                     <!--post img-->
                                     <div class="liked-post-obj-contents">
                                         <p class="obj-title">
-                                            {{ post.title }}
+                                            {{ i.post.title }}
                                         </p>
                                         <p class="obj-author">
-                                            <a href="{% url 'views:user:user-detail' pk=post.author.pk %}">{{ post.author }}</a>
+                                            <a href="{% url 'views:user:user-detail' pk=i.post.author.pk %}">{{ i.post.author }}</a>
                                         </p>
 
                                     </div>

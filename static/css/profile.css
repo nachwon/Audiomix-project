@@ -259,10 +259,11 @@ div.section-right {
   width: 30%;
   float: right; }
   div.section-right .liked-posts-list {
-    margin-top: 29px; }
+    margin-top: 15px; }
     div.section-right .liked-posts-list .liked-posts-headline {
       border-bottom: 1px solid #ddd;
-      font-size: 20px; }
+      font-size: 20px;
+      padding-bottom: 5px; }
     div.section-right .liked-posts-list .liked-posts-count {
       float: right; }
       div.section-right .liked-posts-list .liked-posts-count .liked-count-icon {

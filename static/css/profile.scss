@@ -364,11 +364,12 @@ div.section-right {
     float: right;
 
     .liked-posts-list {
-        margin-top: 29px;
+        margin-top: 15px;
 
         .liked-posts-headline {
             border-bottom: 1px solid #ddd;
             font-size: 20px;
+            padding-bottom: 5px;
         }
 
         .liked-posts-count {

@@ -7,6 +7,7 @@ from django.shortcuts import render, get_object_or_404
 from django.template import loader
 from django.views.decorators.http import require_GET, require_POST
 
+from posts.models import PostLike
 from users.forms import SignInForm
 from users.models import Relationship
 
@@ -17,10 +18,12 @@ User = get_user_model()
 @require_GET
 def user_detail(request, pk):
     user = get_object_or_404(User, pk=pk)
+    liked_posts = PostLike.objects.filter(author=user).order_by('liked_date')
 
     context = {
         "sign_in": SignInForm,
         "user": user,
+        "liked_posts": liked_posts
     }
     return render(request, 'profile/profile.html', context)
 
