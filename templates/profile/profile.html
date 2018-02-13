@@ -114,6 +114,12 @@
                                 </div>
                             </div>
                         </div>
+                        {% if forloop.counter == 5 %}
+                            <div class="view-all-list">
+                                <a href="">View All</a>
+                            </div>
+                        {% else %}
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>

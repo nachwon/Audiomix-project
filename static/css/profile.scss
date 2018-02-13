@@ -363,6 +363,17 @@ div.section-right {
     width: 30%;
     float: right;
 
+    a {
+        color: black;
+        &:hover {
+            color: black;
+        }
+    }
+
+    p {
+        margin: 0;
+    }
+
     .liked-posts-list {
         margin-top: 15px;
 
@@ -382,6 +393,17 @@ div.section-right {
 
             .liked-count {
                 vertical-align: text-bottom;
+            }
+        }
+
+        .liked-posts-contents {
+
+            .view-all-list {
+                border-top: 1px solid #ddd;
+                margin-top: 10px;
+                padding-right: 5px;
+                text-align: right;
+                font-size: 16px;
             }
         }
     }
@@ -409,6 +431,8 @@ div.liked-post-obj {
         margin-left: 5px;
         width: 280px;
 
+
+
         .liked-post-info-1 {
             float: left;
 
@@ -429,17 +453,6 @@ div.liked-post-obj {
             span.liked-count-icon {
                 color: #E2B026;
             }
-        }
-
-        a {
-            color: black;
-            &:hover {
-                color: black;
-            }
-        }
-
-        p {
-            margin: 0;
         }
     }
 }
