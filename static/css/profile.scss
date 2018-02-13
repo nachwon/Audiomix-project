@@ -407,14 +407,28 @@ div.liked-post-obj {
     div.liked-post-obj-contents {
         float: left;
         margin-left: 5px;
+        width: 280px;
 
-        .obj-title {
-            color: #888;
-            font-size: 17px;
+        .liked-post-info-1 {
+            float: left;
+
+            .obj-title {
+                color: #888;
+                font-size: 17px;
+            }
+
+            .obj-author {
+                font-size: 14px;
+            }
         }
 
-        .obj-author {
-            font-size: 14px;
+        .liked-post-info-2 {
+            float: right;
+            font-size: 16px;
+
+            span.liked-count-icon {
+                color: #E2B026;
+            }
         }
 
         a {

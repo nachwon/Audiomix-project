@@ -42,11 +42,6 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.title} - {self.author}'
 
-    # # 자신을 좋아요한 횟수를 num_liked 필드에 저장
-    # def save_num_liked(self):
-    #     self.num_liked = self.liked.count()
-    #     self.save()
-
     # 자신에게 연결된 코멘트들의 갯수를 num_comments 필드에 저장
     def save_num_comments(self):
         self.num_comments = self.comment_tracks.count()

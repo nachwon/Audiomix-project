@@ -15,101 +15,112 @@
     <div class="profile-content container contents">
     {% if user.profile_bg.name == "" %}
         <div class="profile-head" style="background-image: url({% static 'img/default-profile-cover.jpg' %})">
-        {% else %}
+    {% else %}
         <div class="profile-head" style="background-image: url({{ user.profile_bg.url }})">
-        {% endif %}
-            <div class="user-info">
-                {% if user.profile_img.name == '' %}
-                    <div class="profile-img img-circle" style="background-image: url('/static/img/default-profile.png')"></div>
-                {% else %}
-                    <div class="profile-img img-circle" style="background-image: url('{{ user.profile_img.url }}')"></div>
-                {% endif %}
-                <div class="username-info">
-                    <h2 class="nickname">{{ user.nickname }}</h2>
-                    <span class="email">{{ user.email }}</span>
+    {% endif %}
+<div class="user-info">
+    {% if user.profile_img.name == '' %}
+        <div class="profile-img img-circle" style="background-image: url('/static/img/default-profile.png')"></div>
+    {% else %}
+        <div class="profile-img img-circle" style="background-image: url('{{ user.profile_img.url }}')"></div>
+    {% endif %}
+    <div class="username-info">
+        <h2 class="nickname">{{ user.nickname }}</h2>
+        <span class="email">{{ user.email }}</span>
+    </div>
+    <div class="social-info">
+        <div class="social-count" >
+            <p class="social-count-title">Total Likes</p>
+            <p class="social-count-num">{{ user.total_liked }}</p>
+        </div>
+        <div class="social-count" >
+            <p class="social-count-title">Following</p>
+            <p id="following-count" class="social-count-num">{{ user.following.count }}</p>
+        </div>
+        <div class="social-count" >
+            <p class="social-count-title">Followers</p>
+            <p id="follower-count" class="social-count-num">{{ user.followers.count }}</p>
+        </div>
+    </div>
+</div>
+{% if user == request.user or request.user.is_anonymous %}
+{% else %}
+    {% csrf_token %}
+    <button id="follow-btn" class="transition" data-follow-user="{% url 'views:user:follow' pk=user.pk %}">
+        Follow
+    </button>
+{% endif %}
+</div>
+<div class="profile-body">
+    <div class="profile-body-wrapper">
+        <div class="section section-left">
+            <div class="menu-wrapper">
+                <button id="show-all-btn" onclick="showAll()" class="profile-body-menu transition clicked"><span>All</span></button>
+                <button id="show-tracks-btn" onclick="showTracks()" class="profile-body-menu transition"><span>Tracks</span></button>
+                <button id="show-comments-btn" onclick="showComments()" class="profile-body-menu transition"><span>Comments</span></button>
+                <button id="show-playlist-btn" onclick="showPlaylist()" class="profile-body-menu transition"><span>Playlist</span></button>
+            </div>
+            <div id="profile-content" class="profile-body-content">
+                <div id="show-all" class="tracklist" style="display:block;">
+                    <h1>Hello</h1>
                 </div>
-                <div class="social-info">
-                    <div class="social-count" >
-                        <p class="social-count-title">Total Likes</p>
-                        <p class="social-count-num">{{ user.total_liked }}</p>
-                    </div>
-                    <div class="social-count" >
-                        <p class="social-count-title">Following</p>
-                        <p id="following-count" class="social-count-num">{{ user.following.count }}</p>
-                    </div>
-                    <div class="social-count" >
-                        <p class="social-count-title">Followers</p>
-                        <p id="follower-count" class="social-count-num">{{ user.followers.count }}</p>
-                    </div>
+                <div id="show-tracks" class="tracklist" data-url="{% url 'views:user:tracks' pk=user.pk %}" style="display: none;">
+
+                </div>
+                <div id="show-comments" class="tracklist" style="display: none;">
+                    {% include 'profile/comments.html' %}
+                </div>
+                <div id="show-playlist" class="tracklist" style="display: none;">
                 </div>
             </div>
-            {% if user == request.user or request.user.is_anonymous %}
-            {% else %}
-                {% csrf_token %}
-                <button id="follow-btn" class="transition" data-follow-user="{% url 'views:user:follow' pk=user.pk %}">
-                    Follow
-                </button>
-            {% endif %}
         </div>
-        <div class="profile-body">
-            <div class="profile-body-wrapper">
-                <div class="section section-left">
-                    <div class="menu-wrapper">
-                        <button id="show-all-btn" onclick="showAll()" class="profile-body-menu transition clicked"><span>All</span></button>
-                        <button id="show-tracks-btn" onclick="showTracks()" class="profile-body-menu transition"><span>Tracks</span></button>
-                        <button id="show-comments-btn" onclick="showComments()" class="profile-body-menu transition"><span>Comments</span></button>
-                        <button id="show-playlist-btn" onclick="showPlaylist()" class="profile-body-menu transition"><span>Playlist</span></button>
-                    </div>
-                    <div id="profile-content" class="profile-body-content">
-                        <div id="show-all" class="tracklist" style="display:block;">
-                            <h1>Hello</h1>
-                        </div>
-                        <div id="show-tracks" class="tracklist" data-url="{% url 'views:user:tracks' pk=user.pk %}" style="display: none;">
-
-                        </div>
-                        <div id="show-comments" class="tracklist" style="display: none;">
-                            {% include 'profile/comments.html' %}
-                        </div>
-                        <div id="show-playlist" class="tracklist" style="display: none;">
-                        </div>
-                    </div>
-                </div>
-                <div class="section section-right">
-                    <div class="liked-posts-list">
-                        <div class="liked-posts-headline">
-                            <span>Liked Posts</span>
-                            <span class="liked-posts-count">
+        <div class="section section-right">
+            <div class="liked-posts-list">
+                <div class="liked-posts-headline">
+                    <span>Liked Posts</span>
+                    <span class="liked-posts-count">
                                 <span class="liked-count-icon glyphicon glyphicon-heart"></span>
                                 <span class="liked-count">{{ user.liked_posts.all.count }} likes</span>
                             </span>
-                        </div>
-                        <div class="liked-posts-contents">
-                            {% for i in liked_posts|slice:":5" %}
-                                <div class="liked-post-obj">
-                                    <!--post img-->
-                                    {% if i.post.post_img.name == '' %}
-                                        <div class="liked-post-img" style="background-image: url({% static 'img/default-post-img.png' %});"></div>
-                                    {% else %}
-                                        <div class="liked-post-img" style="background-image: url({{ i.post.post_img.url }});"></div>
-                                    {% endif %}
-                                    <!--post img-->
-                                    <div class="liked-post-obj-contents">
-                                        <p class="obj-title">
-                                            {{ i.post.title }}
-                                        </p>
-                                        <p class="obj-author">
-                                            <a href="{% url 'views:user:user-detail' pk=i.post.author.pk %}">{{ i.post.author }}</a>
-                                        </p>
-
-                                    </div>
+                </div>
+                <div class="liked-posts-contents">
+                    {% for i in liked_posts|slice:":5" %}
+                        <div class="liked-post-obj">
+                            <!--post img-->
+                            {% if i.post.post_img.name == '' %}
+                                <div class="liked-post-img" style="background-image: url({% static 'img/default-post-img.png' %});"></div>
+                            {% else %}
+                                <div class="liked-post-img" style="background-image: url({{ i.post.post_img.url }});"></div>
+                            {% endif %}
+                            <!--post img-->
+                            <div class="liked-post-obj-contents">
+                                <div class="liked-post-info-1">
+                                    <p class="obj-title">
+                                        {{ i.post.title }}
+                                    </p>
+                                    <p class="obj-author">
+                                        <a href="{% url 'views:user:user-detail' pk=i.post.author.pk %}">{{ i.post.author }}</a>
+                                    </p>
                                 </div>
-                            {% endfor %}
+                                <div class="liked-post-info-2">
+                                    <p>
+                                        <span class="liked-count-icon glyphicon glyphicon-heart"></span>
+                                        {{ i.post.num_liked }}
+                                    </p>
+                                    <p>
+                                        <span class="glyphicon glyphicon-music"></span>
+                                        {{ i.post.comment_tracks.count }}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
+</div>
+</div>
 
     {% if request.user.is_anonymous %}
     {% elif user == request.user %}

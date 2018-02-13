@@ -288,12 +288,20 @@ div.liked-post-obj {
     background-repeat: no-repeat; }
   div.liked-post-obj div.liked-post-obj-contents {
     float: left;
-    margin-left: 5px; }
-    div.liked-post-obj div.liked-post-obj-contents .obj-title {
-      color: #888;
-      font-size: 17px; }
-    div.liked-post-obj div.liked-post-obj-contents .obj-author {
-      font-size: 14px; }
+    margin-left: 5px;
+    width: 280px; }
+    div.liked-post-obj div.liked-post-obj-contents .liked-post-info-1 {
+      float: left; }
+      div.liked-post-obj div.liked-post-obj-contents .liked-post-info-1 .obj-title {
+        color: #888;
+        font-size: 17px; }
+      div.liked-post-obj div.liked-post-obj-contents .liked-post-info-1 .obj-author {
+        font-size: 14px; }
+    div.liked-post-obj div.liked-post-obj-contents .liked-post-info-2 {
+      float: right;
+      font-size: 16px; }
+      div.liked-post-obj div.liked-post-obj-contents .liked-post-info-2 span.liked-count-icon {
+        color: #E2B026; }
     div.liked-post-obj div.liked-post-obj-contents a {
       color: black; }
       div.liked-post-obj div.liked-post-obj-contents a:hover {
