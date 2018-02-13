@@ -2,9 +2,12 @@
 
 {% if user_posts.count == 0 %}
     <div class="no-post">
-    <i class="fas fa-volume-off fa-3x" style="color: #dddddd"></i>
+        <i class="fas fa-volume-off fa-3x" style="color: #dddddd"></i>
         <p>No posts to show</p>
-        <p>Upload your first post now!</p>
+        {% if request.user == user %}
+            <p>Upload your first post now!</p>
+        {% else %}
+        {%  endif %}
     </div>
 {% else %}
     {% for track in posts %}

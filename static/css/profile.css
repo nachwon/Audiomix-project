@@ -112,10 +112,6 @@ div.profile-body {
               display: inherit; }
             div.profile-body div.profile-body-wrapper div.section.section-left div.menu-wrapper button.profile-body-menu:hover {
               font-weight: bold; }
-      div.profile-body div.profile-body-wrapper div.section.section-right {
-        border: 1px solid black;
-        width: 30%;
-        float: right; }
 
 div.no-post {
   width: 500px;
@@ -257,3 +253,39 @@ button.more-btn {
   transition: 0.2s; }
   button.more-btn:hover {
     color: #ff0000; }
+
+div.section-right {
+  font-family: 'Source Sans Pro', sans-serif;
+  width: 30%;
+  float: right; }
+  div.section-right .liked-posts-list .liked-posts-headline {
+    border-bottom: 1px solid #ddd; }
+  div.section-right .liked-posts-list .liked-posts-count {
+    float: right; }
+    div.section-right .liked-posts-list .liked-posts-count .like-count-icon {
+      color: #E2B026;
+      margin: 0 3px; }
+
+div.liked-post-obj {
+  margin-top: 10px;
+  margin-left: 5px;
+  width: 100%;
+  height: 50px; }
+  div.liked-post-obj div.liked-post-img {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    float: left;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    background-size: cover;
+    background-repeat: no-repeat; }
+  div.liked-post-obj div.liked-post-obj-contents {
+    float: left;
+    margin-left: 5px; }
+    div.liked-post-obj div.liked-post-obj-contents .obj-title {
+      color: #888; }
+    div.liked-post-obj div.liked-post-obj-contents .obj-author {
+      font-size: 10px; }
+    div.liked-post-obj div.liked-post-obj-contents p {
+      margin: 0; }

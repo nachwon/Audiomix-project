@@ -155,11 +155,6 @@ div.profile-body {
                     }
                 }
             }
-            &.section-right {
-                border: 1px solid black;
-                width: 30%;
-                float: right;
-            }
         }
     }
 }
@@ -188,7 +183,9 @@ div.track-obj {
         box-shadow: 0px 0px 4px black;
     }
 
-    div.track-post-img {
+    div.track-post-img {            &.section-right {
+
+    }
         height: 160px;
         width: 160px;
         float: left;
@@ -318,32 +315,6 @@ div.track-obj {
             opacity: 1;
         }
 
-        //div.waveform-loader {
-        //    left: 58%;
-        //    position: absolute;
-        //    top: 114%;
-        //    z-index: 1;
-        //    margin: -75px 0 0 -75px;
-        //    border: 8px solid #333533;
-        //    border-radius: 50%;
-        //    border-top: 8px solid #E2B026;
-        //    width: 50px;
-        //    height: 50px;
-        //    -webkit-animation: spin 1s linear infinite;
-        //    animation: spin 1s linear infinite;
-        //
-        //    @-webkit-keyframes spin {
-        //        0% { -webkit-transform: rotate(0deg); }
-        //        100% { -webkit-transform: rotate(360deg); }
-        //    }
-        //
-        //    @keyframes spin {
-        //        0% { transform: rotate(0deg); }
-        //        100% { transform: rotate(360deg); }
-        //    }
-        //}
-
-
         img.back-image {
             position: absolute;
             z-index: 0;
@@ -384,3 +355,62 @@ button.more-btn {
 }
 
 // profile body ends
+
+// liked posts list
+
+div.section-right {
+    font-family: 'Source Sans Pro', sans-serif;
+    width: 30%;
+    float: right;
+    .liked-posts-list {
+
+        .liked-posts-headline {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .liked-posts-count {
+            float: right;
+            .like-count-icon {
+                color: #E2B026;
+                margin: 0 3px;
+            }
+        }
+    }
+}
+
+div.liked-post-obj {
+    margin-top: 10px;
+    margin-left: 5px;
+    width: 100%;
+    height: 50px;
+
+    div.liked-post-img {
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+        float: left;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    div.liked-post-obj-contents {
+        float: left;
+        margin-left: 5px;
+
+        .obj-title {
+            color: #888;
+        }
+
+        .obj-author {
+            font-size: 10px;
+        }
+
+        p {
+            margin: 0;
+        }
+    }
+}
+
+// liked posts ends

@@ -13,7 +13,11 @@
 {% block content %}
     {% csrf_token %}
     <div class="profile-content container contents">
+    {% if user.profile_bg.name == "" %}
         <div class="profile-head" style="background-image: url({% static 'img/default-profile-cover.jpg' %})">
+        {% else %}
+        <div class="profile-head" style="background-image: url({{ user.profile_bg.url }})">
+        {% endif %}
             <div class="user-info">
                 {% if user.profile_img.name == '' %}
                     <div class="profile-img img-circle" style="background-image: url('/static/img/default-profile.png')"></div>
@@ -71,7 +75,37 @@
                     </div>
                 </div>
                 <div class="section section-right">
-                    <h1>section 2</h1>
+                    <div class="liked-posts-list">
+                        <div class="liked-posts-headline">
+                            <span>Liked Posts</span>
+                            <span class="liked-posts-count">
+                                <span class="like-count-icon glyphicon glyphicon-heart"></span>
+                                {{ user.liked_posts.all.count }} likes
+                            </span>
+                        </div>
+                        <div class="liked-posts-contents">
+                            {% for post in user.liked_posts.all %}
+                                <div class="liked-post-obj">
+                                    <!--post img-->
+                                    {% if post.post_img.name == '' %}
+                                        <div class="liked-post-img" style="background-image: url({% static 'img/default-post-img.png' %});"></div>
+                                    {% else %}
+                                        <div class="liked-post-img" style="background-image: url({{ post.post_img.url }});"></div>
+                                    {% endif %}
+                                    <!--post img-->
+                                    <div class="liked-post-obj-contents">
+                                        <p class="obj-title">
+                                            {{ post.title }}
+                                        </p>
+                                        <p class="obj-author">
+                                            {{ post.author }}
+                                        </p>
+
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
