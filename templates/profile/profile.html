@@ -79,8 +79,8 @@
                         <div class="liked-posts-headline">
                             <span>Liked Posts</span>
                             <span class="liked-posts-count">
-                                <span class="like-count-icon glyphicon glyphicon-heart"></span>
-                                {{ user.liked_posts.all.count }} likes
+                                <span class="liked-count-icon glyphicon glyphicon-heart"></span>
+                                <span class="liked-count">{{ user.liked_posts.all.count }} likes</span>
                             </span>
                         </div>
                         <div class="liked-posts-contents">
@@ -98,7 +98,7 @@
                                             {{ post.title }}
                                         </p>
                                         <p class="obj-author">
-                                            {{ post.author }}
+                                            <a href="{% url 'views:user:user-detail' pk=post.author.pk %}">{{ post.author }}</a>
                                         </p>
 
                                     </div>

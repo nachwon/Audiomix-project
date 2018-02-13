@@ -258,13 +258,18 @@ div.section-right {
   font-family: 'Source Sans Pro', sans-serif;
   width: 30%;
   float: right; }
-  div.section-right .liked-posts-list .liked-posts-headline {
-    border-bottom: 1px solid #ddd; }
-  div.section-right .liked-posts-list .liked-posts-count {
-    float: right; }
-    div.section-right .liked-posts-list .liked-posts-count .like-count-icon {
-      color: #E2B026;
-      margin: 0 3px; }
+  div.section-right .liked-posts-list {
+    margin-top: 29px; }
+    div.section-right .liked-posts-list .liked-posts-headline {
+      border-bottom: 1px solid #ddd;
+      font-size: 20px; }
+    div.section-right .liked-posts-list .liked-posts-count {
+      float: right; }
+      div.section-right .liked-posts-list .liked-posts-count .liked-count-icon {
+        color: #E2B026;
+        margin: 0 3px; }
+      div.section-right .liked-posts-list .liked-posts-count .liked-count {
+        vertical-align: text-bottom; }
 
 div.liked-post-obj {
   margin-top: 10px;
@@ -284,8 +289,13 @@ div.liked-post-obj {
     float: left;
     margin-left: 5px; }
     div.liked-post-obj div.liked-post-obj-contents .obj-title {
-      color: #888; }
+      color: #888;
+      font-size: 17px; }
     div.liked-post-obj div.liked-post-obj-contents .obj-author {
-      font-size: 10px; }
+      font-size: 14px; }
+    div.liked-post-obj div.liked-post-obj-contents a {
+      color: black; }
+      div.liked-post-obj div.liked-post-obj-contents a:hover {
+        color: black; }
     div.liked-post-obj div.liked-post-obj-contents p {
       margin: 0; }

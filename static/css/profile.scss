@@ -362,17 +362,25 @@ div.section-right {
     font-family: 'Source Sans Pro', sans-serif;
     width: 30%;
     float: right;
+
     .liked-posts-list {
+        margin-top: 29px;
 
         .liked-posts-headline {
             border-bottom: 1px solid #ddd;
+            font-size: 20px;
         }
 
         .liked-posts-count {
             float: right;
-            .like-count-icon {
+
+            .liked-count-icon {
                 color: #E2B026;
                 margin: 0 3px;
+            }
+
+            .liked-count {
+                vertical-align: text-bottom;
             }
         }
     }
@@ -401,10 +409,18 @@ div.liked-post-obj {
 
         .obj-title {
             color: #888;
+            font-size: 17px;
         }
 
         .obj-author {
-            font-size: 10px;
+            font-size: 14px;
+        }
+
+        a {
+            color: black;
+            &:hover {
+                color: black;
+            }
         }
 
         p {
