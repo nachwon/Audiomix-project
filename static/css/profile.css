@@ -258,6 +258,12 @@ div.section-right {
   font-family: 'Source Sans Pro', sans-serif;
   width: 30%;
   float: right; }
+  div.section-right a {
+    color: black; }
+    div.section-right a:hover {
+      color: black; }
+  div.section-right p {
+    margin: 0; }
   div.section-right .liked-posts-list {
     margin-top: 15px; }
     div.section-right .liked-posts-list .liked-posts-headline {
@@ -271,6 +277,12 @@ div.section-right {
         margin: 0 3px; }
       div.section-right .liked-posts-list .liked-posts-count .liked-count {
         vertical-align: text-bottom; }
+    div.section-right .liked-posts-list .liked-posts-contents .view-all-list {
+      border-top: 1px solid #ddd;
+      margin-top: 10px;
+      padding-right: 5px;
+      text-align: right;
+      font-size: 16px; }
 
 div.liked-post-obj {
   margin-top: 10px;
@@ -302,9 +314,3 @@ div.liked-post-obj {
       font-size: 16px; }
       div.liked-post-obj div.liked-post-obj-contents .liked-post-info-2 span.liked-count-icon {
         color: #E2B026; }
-    div.liked-post-obj div.liked-post-obj-contents a {
-      color: black; }
-      div.liked-post-obj div.liked-post-obj-contents a:hover {
-        color: black; }
-    div.liked-post-obj div.liked-post-obj-contents p {
-      margin: 0; }
