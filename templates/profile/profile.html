@@ -75,54 +75,7 @@
             </div>
         </div>
         <div class="section section-right">
-            <div class="liked-posts-list">
-                <div class="liked-posts-headline">
-                    <span>Liked Posts</span>
-                    <span class="liked-posts-count">
-                                <span class="liked-count-icon glyphicon glyphicon-heart"></span>
-                                <span class="liked-count">{{ user.liked_posts.all.count }} likes</span>
-                            </span>
-                </div>
-                <div class="liked-posts-contents">
-                    {% for i in liked_posts|slice:":5" %}
-                        <div class="liked-post-obj">
-                            <!--post img-->
-                            {% if i.post.post_img.name == '' %}
-                                <div class="liked-post-img" style="background-image: url({% static 'img/default-post-img.png' %});"></div>
-                            {% else %}
-                                <div class="liked-post-img" style="background-image: url({{ i.post.post_img.url }});"></div>
-                            {% endif %}
-                            <!--post img-->
-                            <div class="liked-post-obj-contents">
-                                <div class="liked-post-info-1">
-                                    <p class="obj-title">
-                                        {{ i.post.title }}
-                                    </p>
-                                    <p class="obj-author">
-                                        <a href="{% url 'views:user:user-detail' pk=i.post.author.pk %}">{{ i.post.author }}</a>
-                                    </p>
-                                </div>
-                                <div class="liked-post-info-2">
-                                    <p>
-                                        <span class="liked-count-icon glyphicon glyphicon-heart"></span>
-                                        {{ i.post.num_liked }}
-                                    </p>
-                                    <p>
-                                        <span class="glyphicon glyphicon-music"></span>
-                                        {{ i.post.comment_tracks.count }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        {% if forloop.counter == 5 %}
-                            <div class="view-all-list">
-                                <a href="">View All</a>
-                            </div>
-                        {% else %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
+            {% include 'profile/liked-list.html' %}
         </div>
     </div>
 </div>
