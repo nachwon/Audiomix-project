@@ -328,3 +328,11 @@ div.liked-post-obj {
       font-size: 16px; }
       div.liked-post-obj div.liked-post-obj-contents .liked-post-info-2 span.liked-count-icon {
         color: #E2B026; }
+
+div.follower-list div.follower-list-headline {
+  border-bottom: 1px solid #ddd;
+  font-size: 20px;
+  padding-bottom: 5px; }
+
+div.follower-list .follower-count {
+  float: right; }

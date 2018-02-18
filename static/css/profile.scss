@@ -479,3 +479,17 @@ div.liked-post-obj {
 
 // liked posts ends
 
+
+// follower list
+
+div.follower-list {
+    div.follower-list-headline {
+        border-bottom: 1px solid #ddd;
+        font-size: 20px;
+        padding-bottom: 5px;
+    }
+
+    .follower-count {
+        float: right;
+    }
+}
