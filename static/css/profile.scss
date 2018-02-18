@@ -383,13 +383,17 @@ div.section-right {
             padding-bottom: 5px;
         }
 
+        .liked-list-icon {
+            color: #E2B026;
+            margin: 0 3px;
+        }
+
+        .liked-list-title {
+            vertical-align: text-bottom;
+        }
+
         .liked-posts-count {
             float: right;
-
-            .liked-count-icon {
-                color: #E2B026;
-                margin: 0 3px;
-            }
 
             .liked-count {
                 vertical-align: text-bottom;

@@ -270,11 +270,13 @@ div.section-right {
       border-bottom: 1px solid #ddd;
       font-size: 20px;
       padding-bottom: 5px; }
+    div.section-right .liked-posts-list .liked-list-icon {
+      color: #E2B026;
+      margin: 0 3px; }
+    div.section-right .liked-posts-list .liked-list-title {
+      vertical-align: text-bottom; }
     div.section-right .liked-posts-list .liked-posts-count {
       float: right; }
-      div.section-right .liked-posts-list .liked-posts-count .liked-count-icon {
-        color: #E2B026;
-        margin: 0 3px; }
       div.section-right .liked-posts-list .liked-posts-count .liked-count {
         vertical-align: text-bottom; }
     div.section-right .liked-posts-list .liked-posts-contents .view-all-list {
