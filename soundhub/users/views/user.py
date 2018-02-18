@@ -1,7 +1,7 @@
 import json
 
 from django.contrib.auth import get_user_model
-from django.core.paginator import Paginator, EmptyPage
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.template import loader
@@ -18,7 +18,7 @@ User = get_user_model()
 @require_GET
 def user_detail(request, pk):
     user = get_object_or_404(User, pk=pk)
-    liked_posts = PostLike.objects.filter(author=user).order_by('liked_date')
+    liked_posts = PostLike.objects.filter(author=user).order_by('liked_date')[:5]
 
     context = {
         "sign_in": SignInForm,

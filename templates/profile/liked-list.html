@@ -9,7 +9,10 @@
                             </span>
     </div>
     <div class="liked-posts-contents">
-        {% for i in liked_posts|slice:":5" %}
+    {% if not liked_posts %}
+        <h1>hello</h1>
+    {% endif %}
+        {% for i in liked_posts %}
             <div class="liked-post-obj">
                 <!--post img-->
                 {% if i.post.post_img.name == '' %}
