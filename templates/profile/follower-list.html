@@ -3,12 +3,17 @@
 <div class="follower-list">
     <div class="follower-list-headline">
         <span class="follower-list-icon"><i class="fas fa-users"></i></span>
-        <span class="follower-list-title">Liked Posts</span>
+        <span class="follower-list-title"> Followers</span>
         <span class="follower-posts-count">
             <span class="follower-count">{{ user.followers.count }} followers</span>
         </span>
     </div>
     <div class="follower-list-contents">
-
+        {% if not followers %}
+            <div class="no-followers">
+                <p class="line1"><i class="fas fa-users"></i></p>
+                <p class="line2">No followers</p>
+            </div>
+        {% endif %}
     </div>
 </div>

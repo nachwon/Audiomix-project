@@ -487,9 +487,18 @@ div.follower-list {
         border-bottom: 1px solid #ddd;
         font-size: 20px;
         padding-bottom: 5px;
-    }
 
-    .follower-count {
-        float: right;
+        .follower-list-icon {
+            color: #E2B026;
+            margin-right: 2px;
+        }
+
+        .follower-count {
+            float: right;
+        }
     }
+}
+
+div.no-followers {
+
 }
