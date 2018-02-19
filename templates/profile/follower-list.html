@@ -16,15 +16,27 @@
             </div>
         {% else %}
             <div class="followers-list-wrapper">
-                {% for follower in followers %}
+                {% for follower in followers|slice:":7" %}
                     <div class="followers-obj">
-                        <a href="{% url 'views:user:user-detail' pk=follower.from_user.pk %}">
+                        <a class="follow-hover-up" href="{% url 'views:user:user-detail' pk=follower.from_user.pk %}">
                             <div class="follower-profile-img"
-                                {% if follower.from_user.profile_img.name == "" %}
-                             style="background-image: url('/static/img/default-profile.png')"
-                                {% else %}
-                             style="background-image: url({{ follower.from_user.profile_img.url }})"
-                                {% endif %}></div>
+                                    {% if follower.from_user.profile_img.name == "" %}
+                                 style="background-image: url('/static/img/default-profile.png')"
+                                    {% else %}
+                                 style="background-image: url({{ follower.from_user.profile_img.url }})"
+                                    {% endif %}></div>
+                        </a>
+                    </div>
+                {% endfor %}
+                {% for follower in followers|slice:"7:14" %}
+                    <div class="followers-obj">
+                        <a class="follow-hover-down" href="{% url 'views:user:user-detail' pk=follower.from_user.pk %}">
+                            <div class="follower-profile-img"
+                                    {% if follower.from_user.profile_img.name == "" %}
+                                 style="background-image: url('/static/img/default-profile.png')"
+                                    {% else %}
+                                 style="background-image: url({{ follower.from_user.profile_img.url }})"
+                                    {% endif %}></div>
                         </a>
                     </div>
                 {% endfor %}
