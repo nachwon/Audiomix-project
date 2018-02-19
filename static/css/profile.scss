@@ -501,9 +501,11 @@ div.follower-list {
     }
 
     div.follower-list-contents {
-
         div.followers-list-wrapper {
-            margin: 5px 0;
+            width: 355px;
+            margin: 0 auto;
+            height: 105px;
+            border-bottom: 1px solid #ddd;
 
             div.followers-obj {
                 display: inline-block;
@@ -511,14 +513,19 @@ div.follower-list {
                 border-radius: 3px;
                 float: left;
                 margin-right: 2px;
+                margin-top: 2px;
+                &:nth-child(7) {
+                    margin-right: 0;
+                }
 
                 div.follower-profile-img {
-                    width: 50px;
-                    height: 50px;
+                    width: 47px;
+                    height: 47px;
                     background-size: cover;
                 }
             }
         }
+
     }
 }
 

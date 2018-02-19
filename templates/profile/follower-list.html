@@ -14,18 +14,19 @@
                 <p class="line1"><i class="fas fa-users"></i></p>
                 <p class="line2">No followers</p>
             </div>
+        {% else %}
+            <div class="followers-list-wrapper">
+                {% for follower in followers %}
+                    <div class="followers-obj">
+                        <div class="follower-profile-img"
+                                {% if follower.from_user.profile_img.name == "" %}
+                             style="background-image: url('/static/img/default-profile.png')"
+                                {% else %}
+                             style="background-image: url({{ follower.from_user.profile_img.url }})"
+                                {% endif %}></div>
+                    </div>
+                {% endfor %}
+            </div>
         {% endif %}
-        <div class="followers-list-wrapper">
-            {% for follower in followers %}
-                <div class="followers-obj">
-                {% if follower.from_user.profile_img.name == "" %}
-                    <div class="follower-profile-img" style="background-image: url('/static/img/default-profile.png')">
-                {% else %}
-                    <div class="follower-profile-img" style="background-image: url({{ follower.from_user.profile_img.url }})">
-                {% endif %}
-            </div>
-            </div>
-            {% endfor %}
-            </div>
-        </div>
     </div>
+</div>
