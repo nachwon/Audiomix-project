@@ -1,0 +1,8 @@
+{% load static %}
+
+<div class='follower-popover-profile-img'
+        {% if follower.from_user.profile_img.name == '' %}
+     style='background-image: url({% static 'img/default-profile.png' %})'
+        {% else %}
+     style='background-image: url({{ follower.from_user.profile_img.url }})'
+        {% endif %}></div>

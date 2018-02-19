@@ -18,7 +18,10 @@
             <div class="followers-list-wrapper">
                 {% for follower in followers|slice:":7" %}
                     <div class="followers-obj">
-                        <a class="follow-hover-up" href="{% url 'views:user:user-detail' pk=follower.from_user.pk %}">
+                        <a class="follow-hover-up"
+                           data-title="{% include 'profile/follower-hover-title.html' %}"
+                           data-content="{% include 'profile/follower-hover-content.html' %}"
+                           href="{% url 'views:user:user-detail' pk=follower.from_user.pk %}">
                             <div class="follower-profile-img"
                                     {% if follower.from_user.profile_img.name == "" %}
                                  style="background-image: url('/static/img/default-profile.png')"
@@ -30,7 +33,10 @@
                 {% endfor %}
                 {% for follower in followers|slice:"7:14" %}
                     <div class="followers-obj">
-                        <a class="follow-hover-down" href="{% url 'views:user:user-detail' pk=follower.from_user.pk %}">
+                        <a class="follow-hover-down"
+                           data-title="{% include 'profile/follower-hover-title.html' %}"
+                           data-content="{% include 'profile/follower-hover-content.html' %}"
+                           href="{% url 'views:user:user-detail' pk=follower.from_user.pk %}">
                             <div class="follower-profile-img"
                                     {% if follower.from_user.profile_img.name == "" %}
                                  style="background-image: url('/static/img/default-profile.png')"
