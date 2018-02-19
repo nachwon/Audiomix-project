@@ -1,0 +1,8 @@
+{% load static %}
+
+<div class='follower-profile-img'
+        {% if following.to_user.profile_img.name == '' %}
+     style='background-image: url({% static 'img/default-profile.png' %})'
+        {% else %}
+     style='background-image: url({{ following.to_user.profile_img.url }})'
+        {% endif %}></div>
