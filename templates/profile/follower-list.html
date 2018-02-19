@@ -15,5 +15,17 @@
                 <p class="line2">No followers</p>
             </div>
         {% endif %}
+        <div class="followers-list-wrapper">
+            {% for follower in followers %}
+                <div class="followers-obj">
+                {% if follower.from_user.profile_img.name == "" %}
+                    <div class="follower-profile-img" style="background-image: url('/static/img/default-profile.png')">
+                {% else %}
+                    <div class="follower-profile-img" style="background-image: url({{ follower.from_user.profile_img.url }})">
+                {% endif %}
+            </div>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
     </div>
-</div>

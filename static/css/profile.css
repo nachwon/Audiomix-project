@@ -340,6 +340,18 @@ div.follower-list {
       margin-right: 2px; }
     div.follower-list div.follower-list-headline .follower-count {
       float: right; }
+  div.follower-list div.follower-list-contents div.followers-list-wrapper {
+    margin: 5px 0; }
+    div.follower-list div.follower-list-contents div.followers-list-wrapper div.followers-obj {
+      display: inline-block;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      float: left;
+      margin-right: 2px; }
+      div.follower-list div.follower-list-contents div.followers-list-wrapper div.followers-obj div.follower-profile-img {
+        width: 50px;
+        height: 50px;
+        background-size: cover; }
 
 div.no-followers {
   width: 100%;
