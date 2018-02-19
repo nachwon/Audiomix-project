@@ -360,7 +360,8 @@ div.follower-list {
       div.follower-list div.follower-list-contents div.followers-list-wrapper div.followers-obj div.follower-profile-img {
         width: 47px;
         height: 47px;
-        background-size: cover; }
+        background-size: cover;
+        border-radius: 3px; }
 
 div.no-followers {
   width: 100%;
@@ -373,3 +374,26 @@ div.no-followers {
   div.no-followers p.line2 {
     font-size: 20px;
     text-align: center; }
+
+.popover .popover-title {
+  text-align: center; }
+  .popover .popover-title .follower-popover-profile-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-size: cover;
+    margin: 10px; }
+
+.popover .follow-popover-content {
+  font-family: 'Source Sans Pro', sans-serif;
+  text-align: center;
+  font-size: 20px; }
+
+.popover .follow-popover-btn {
+  text-align: center; }
+  .popover .follow-popover-btn button {
+    background-color: transparent;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    margin: 7px 0;
+    padding: 3px 10px; }
