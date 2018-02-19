@@ -27,6 +27,11 @@
                     </div>
                 {% endfor %}
             </div>
+            {% if followers|length == 14 %}
+                <div class="view-all-list">
+                    <a href="">View All</a>
+                </div>
+            {% endif %}
         {% endif %}
     </div>
 </div>

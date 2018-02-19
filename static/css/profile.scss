@@ -356,6 +356,16 @@ button.more-btn {
 
 // profile body ends
 
+// view all list btn
+
+.view-all-list {
+    border-top: 1px solid #ddd;
+    margin-top: 10px;
+    padding-right: 5px;
+    text-align: right;
+    font-size: 16px;
+}
+
 // liked posts list
 
 div.section-right {
@@ -397,17 +407,6 @@ div.section-right {
 
             .liked-count {
                 vertical-align: text-bottom;
-            }
-        }
-
-        .liked-posts-contents {
-
-            .view-all-list {
-                border-top: 1px solid #ddd;
-                margin-top: 10px;
-                padding-right: 5px;
-                text-align: right;
-                font-size: 16px;
             }
         }
     }
@@ -504,8 +503,8 @@ div.follower-list {
         div.followers-list-wrapper {
             width: 355px;
             margin: 0 auto;
+            margin-top: 10px;
             height: 105px;
-            border-bottom: 1px solid #ddd;
 
             div.followers-obj {
                 display: inline-block;
@@ -515,6 +514,9 @@ div.follower-list {
                 margin-right: 2px;
                 margin-top: 2px;
                 &:nth-child(7) {
+                    margin-right: 0;
+                }
+                &:last-child {
                     margin-right: 0;
                 }
 
