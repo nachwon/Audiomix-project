@@ -20,12 +20,14 @@ def user_detail(request, pk):
     user = get_object_or_404(User, pk=pk)
     liked_posts = PostLike.objects.filter(author=user).order_by('liked_date')[:5]
     followers = Relationship.objects.filter(to_user=user)[:14]
+    followings = Relationship.objects.filter(from_user=user)[:14]
 
     context = {
         "sign_in": SignInForm,
         "user": user,
         "liked_posts": liked_posts,
-        "followers": followers
+        "followers": followers,
+        "followings": followings
     }
     return render(request, 'profile/profile.html', context)
 

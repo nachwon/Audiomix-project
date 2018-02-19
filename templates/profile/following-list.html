@@ -1,0 +1,39 @@
+{% load static %}
+
+<div class="follower-list">
+    <div class="follower-list-headline">
+        <span class="follower-list-icon"><i class="fas fa-user"></i></span>
+        <span class="follower-list-title"> Following</span>
+        <span class="follower-posts-count">
+            <span class="follower-count">{{ user.following.count }} following</span>
+        </span>
+    </div>
+    <div class="follower-list-contents">
+        {% if not followers %}
+            <div class="no-followers">
+                <p class="line1"><i class="fas fa-user"></i></p>
+                <p class="line2">Not following anyone</p>
+            </div>
+        {% else %}
+            <div class="followers-list-wrapper">
+                {% for following in followings %}
+                    <div class="followers-obj">
+                        <a href="{% url 'views:user:user-detail' pk=following.to_user.pk %}">
+                            <div class="follower-profile-img"
+                                {% if following.to_user.profile_img.name == "" %}
+                             style="background-image: url('/static/img/default-profile.png')"
+                                {% else %}
+                             style="background-image: url({{ following.to_user.profile_img.url }})"
+                                {% endif %}></div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            {% if followings|length == 14 %}
+                <div class="view-all-list">
+                    <a href="">View All</a>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
