@@ -16,6 +16,7 @@
             </div>
         {% else %}
             <div class="followers-list-wrapper">
+
                 {% for following in followings|slice:":7" %}
                     <div class="followers-obj">
                         <a class="follow-hover-up"
@@ -31,6 +32,7 @@
                         </a>
                     </div>
                 {% endfor %}
+
                 {% for following in followings|slice:"7:14" %}
                     <div class="followers-obj">
                         <a class="follow-hover-down"
@@ -46,6 +48,7 @@
                         </a>
                     </div>
                 {% endfor %}
+
             </div>
             {% if followings|length == 14 %}
                 <div class="view-all-list">

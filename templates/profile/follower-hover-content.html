@@ -3,8 +3,12 @@
     {% if request.user.is_anonymous %}
     {% else %}
         {% csrf_token %}
-        <button class='follow-popover-btn transition' data-follow-user=&quot;{% url 'views:user:follow' pk=user.pk %}&quot;>
-            Follow
+        <button class='follow-popover-btn'>
+            {% if request.user in follower.from_user.followers.all %}
+                Following
+            {% else %}
+                Follow
+            {% endif %}
         </button>
     {% endif %}
 </p>

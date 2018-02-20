@@ -27,22 +27,40 @@ $(document).ready(function(){
             placement: "bottom"
         })
         .on("mouseenter", function() {
-            console.log("enter");
             var _this = this;
             $(this).popover("show");
             $(".popover").on("mouseleave", function() {
-                console.log("leave1");
                 $(_this).popover("hide");
             });
         })
         .on("mouseleave", function() {
-            console.log("leave2");
             var _this = this;
             setTimeout(function () {
-                console.log("leave3");
                 if (!$(".popover:hover").length) {
                     $(_this).popover("hide");
                 }
             }, 0);
         });
 });
+
+
+function popoverFollow() {
+    console.log("hi")
+}
+
+
+// $.ajax({
+//     type: "POST",
+//     url: url,
+//     data:
+//         {
+//             'counter': counter,
+//             'csrfmiddlewaretoken': csrf_token
+//         },
+//     async: true,
+//     dataType: "json",
+//     success: function(response) {
+//         // 받아온 html을 show-tracks div 안에 붙여준다.
+//         target.append(response.html)
+//     }
+// });
