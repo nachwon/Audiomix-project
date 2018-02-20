@@ -1,5 +1,6 @@
 {% load static %}
 
+<!-- if there is no tracks to show -->
 {% if user_posts.count == 0 %}
     <div class="no-post">
         <i class="fas fa-volume-off fa-3x" style="color: #dddddd"></i>
@@ -10,16 +11,20 @@
         {%  endif %}
     </div>
 {% else %}
-    {% for track in posts %}
 
+<!-- if there are some tracks to show -->
+    {% for track in posts %}
         <div class="track-obj">
-            <!--post img-->
+
+            <!--post image-->
             {% if track.post_img.name == '' %}
                 <div class="track-post-img" style="background-image: url({% static 'img/default-post-img.png' %}); background-size: unset; background-repeat: no-repeat;"></div>
             {% else %}
                 <div class="track-post-img" style="background-image: url({{ track.post_img.url }});"></div>
             {% endif %}
-            <!--post img-->
+            <!--post image ends-->
+
+            <!-- track likes, comment track count -->
             <div class="track-social-count">
                 <div class="item">
                     {% if request.user in track.liked.all %}
@@ -33,21 +38,28 @@
                     <span class="glyphicon glyphicon-music"></span>
                     <span class="track-commented">{{ track.comment_tracks.count }}</span>
                 </div>
-
             </div>
+            <!-- track likes, comment track count ends -->
+
+            <!-- play button -->
             <div class="play-btn-wrapper">
                 <div id="play-btn-{{ track.pk }}" class="play-btn" onclick="playAudio({{ track.pk }});"><i class="fas fa-play-circle fa-3x"></i></div>
             </div>
+            <!-- play button ends-->
 
+            <!-- track author, title -->
             <div class="title-author-wrapper">
                 <p class="track-title">{{ track.title }}</p>
                 <a href="{% url 'views:user:user-detail' pk=track.author.pk %}"><p class="track-author">{{ track.author }}</p></a>
             </div>
+            <!-- track author, title ends -->
 
+            <!-- track duration -->
             <div class="playtime">
                 <span id="playtime-current-{{ track.pk }}" class="track-duration-current">00:00</span> |
                 <span id="playtime-total-{{ track.pk }}" class="track-duration-total">00:00</span>
             </div>
+            <!-- track duration ends -->
 
             <!-- waveform -->
             <audio preload="metadata" id="track-audio-{{ track.pk }}" class="audio-track" data-src="{{ track.pk }}" data-isPlaying="false" ontimeupdate="updateAudioInfo(event)" onended="resetWaveform({{ track.pk }})" onloadedmetadata="setTotalDuration({{ track.pk }})">
@@ -56,23 +68,25 @@
             {% if track.author_track_waveform_base.name == '' %}
             {% else %}
                 <div id="waveform-wrapper-{{ track.pk }}" class="waveform-wrapper" >
-                    <!--<div class="waveform-loader"></div>-->
                     <img id="back-image-{{ track.pk }}" onclick="updateWaveform(event)" class="back-image" data-src="{{ track.pk }}" draggable="false" src="{{ track.author_track_waveform_base.url }}" alt="">
                     <div id="image-cutter-{{ track.pk }}" class="cutter">
                         <img class="cover-image" draggable="false" src="{{ track.author_track_waveform_cover.url }}" alt="">
                     </div>
                 </div>
             {% endif %}
-            <!-- wavform end -->
+            <!-- wavform ends -->
+
+            <!-- genre tag -->
             <div class="track-genre">
                 {% for item in track.genre.all %}
                     <span class="track-genre-item">#{{ item }}</span>
                 {% endfor %}
             </div>
+            <!-- genre tag end -->
         </div>
-
-
     {% endfor %}
+
+    <!-- selects which button to show at the end of list -->
     {% if posts.end_index == user.post_set.count %}
         <div>
             <button class="more-btn">End of Posts</button>
@@ -86,4 +100,5 @@
             <button class="more-btn">View Full List</button>
         </div>
     {% endif %}
+    <!-- selects which button to show at the end of list ends -->
 {% endif %}
