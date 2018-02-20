@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    // follow 팝오버 창 동작 설정
     $('.follow-hover-up').popover(
         {
             html: true,
@@ -43,7 +44,7 @@ $(document).ready(function(){
         });
 });
 
-
+// 팝오버 창에서 팔로우 버튼 ajax 보내기
 function popoverFollow(pk) {
     var csrf_token = $('[name=csrfmiddlewaretoken]').val();
     $.ajax({
