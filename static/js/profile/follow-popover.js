@@ -65,20 +65,3 @@ function popoverFollow(pk) {
         }
     })
 }
-
-
-// $.ajax({
-//     type: "POST",
-//     url: url,
-//     data:
-//         {
-//             'counter': counter,
-//             'csrfmiddlewaretoken': csrf_token
-//         },
-//     async: true,
-//     dataType: "json",
-//     success: function(response) {
-//         // 받아온 html을 show-tracks div 안에 붙여준다.
-//         target.append(response.html)
-//     }
-// });
