@@ -64,12 +64,8 @@
                 <div id="show-all" class="tracklist" style="display:block;">
                     <h1>Hello</h1>
                 </div>
-                <div id="show-tracks" class="tracklist" data-url="{% url 'views:user:tracks' pk=user.pk %}" style="display: none;">
-
-                </div>
-                <div id="show-comments" class="tracklist" style="display: none;">
-                    {% include 'profile/comments.html' %}
-                </div>
+                <div id="show-tracks" class="tracklist" data-url="{% url 'views:user:tracks' pk=user.pk %}" style="display: none;"></div>
+                <div id="show-comments" class="tracklist" data-url="{% url 'views:user:comments' pk=user.pk %}" style="display: none;"></div>
                 <div id="show-playlist" class="tracklist" style="display: none;">
                 </div>
             </div>

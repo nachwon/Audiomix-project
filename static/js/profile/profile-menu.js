@@ -1,8 +1,14 @@
 var tracklist = $(".tracklist");
 var btns = $(".profile-body-menu");
+
+// Tracks
 var tracks_loaded = false;
 var track_counter = 1;
+
+// Comments
 var comments_loaded = false;
+var comment_counter = 1;
+
 var playlist_loaded = false;
 
 function showAll () {
@@ -58,16 +64,37 @@ function showMoreTracks() {
     track_counter += 1
 }
 
+
+
+
+
+
+
+// Comments 메뉴를 불러옴
 function showComments () {
     for (var i = 0; i < tracklist.length; i++) {
         tracklist[i].style.display = "none";
         btns[i].classList.remove("clicked")
     }
     var tracks_btn = $("#show-comments-btn");
-    var show_tracks = $("#show-comments");
+    var show_comments = $("#show-comments");
     tracks_btn.addClass("clicked");
-    show_tracks[0].style.display = "block"
+    show_comments[0].style.display = "block";
+
+    if (comments_loaded) return;
+
+    var url = show_comments.attr("data-url");
+    sendAjax(url, comment_counter, show_comments);
+
+    comments_loaded = true;
+    comment_counter += 1
 }
+
+
+
+
+
+
 
 function showPlaylist () {
     for (var i = 0; i < tracklist.length; i++) {

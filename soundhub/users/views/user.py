@@ -71,17 +71,65 @@ def get_tracks(request, pk):
         "page": page
     }
 
+    # all-tracks.html 을 위의 context 를 가지고 렌더링 시킴
     html = loader.render_to_string(
         'profile/all-tracks.html',
         context
     )
 
+    # 렌더링 된 html 을 json 형식으로 변환하여 ajax 요청의 response 로 돌려줌
     context = {
         "html": html
     }
 
     response = json.dumps(context)
     return HttpResponse(response)
+
+
+# comments ajax 요청 처리 뷰
+# POST 요청만 허용
+def get_comments(request, pk):
+    user = get_object_or_404(User, pk=pk)
+
+    page = request.POST['counter']
+
+    user_comments = user.commenttrack_set.all()[:15]
+    print(user_comments)
+    paginator = Paginator(user_comments, 5)
+
+    comments = paginator.page(page)
+
+    context = {
+        # ajax 요청으로 렌더링 된 템플릿이 request 객체를 사용할 수 있도록 그대로 넘겨줌
+        "request": request,
+        "user": user,
+        # 전체 커맨트 갯수를 파악하기 위해 15개 목록 전체의 쿼리셋을 넘겨줌
+        "user_comments": user_comments,
+        # 페이지네이션이 적용된 쿼리셋
+        "comments": comments,
+        # 페이지 번호를 다시 리턴해줌
+        "page": page
+    }
+
+    html = loader.render_to_string(
+        'profile/comments.html',
+        context
+    )
+
+    # 렌더링 된 html 을 json 형식으로 변환하여 ajax 요청의 response 로 돌려줌
+    context = {
+        "html": html
+    }
+
+    response = json.dumps(context)
+    return HttpResponse(response)
+
+
+
+
+
+
+
 
 
 def follow_toggle(request, pk):
@@ -96,9 +144,9 @@ def follow_toggle(request, pk):
         return HttpResponse(response)
 
     elif request.method == 'POST' and request.user.is_authenticated:
-        if Relationship.objects\
-                .filter(from_user_id=from_user.pk)\
-                .filter(to_user_id=to_user.pk)\
+        if Relationship.objects \
+                .filter(from_user_id=from_user.pk) \
+                .filter(to_user_id=to_user.pk) \
                 .exists():
 
             relation = Relationship.objects.get(
