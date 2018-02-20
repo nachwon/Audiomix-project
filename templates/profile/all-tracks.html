@@ -14,8 +14,8 @@
 
 <!-- if there are some tracks to show -->
     {% for track in posts %}
-        <div class="track-obj">
 
+        <div class="track-obj">
             <!--post image-->
             {% if track.post_img.name == '' %}
                 <div class="track-post-img" style="background-image: url({% static 'img/default-post-img.png' %}); background-size: unset; background-repeat: no-repeat;"></div>
