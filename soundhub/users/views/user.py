@@ -15,14 +15,22 @@ from users.models import Relationship
 User = get_user_model()
 
 
+# 유저 프로필 뷰
+# 모든 사용자 접근 가능
+# GET 요청만 허용
 @require_GET
 def user_detail(request, pk):
+    # 프로필을 나타낼 유저 객체
     user = get_object_or_404(User, pk=pk)
+    # 해당 유저가 좋아요한 포스트 목록
     liked_posts = PostLike.objects.filter(author=user).order_by('liked_date')[:5]
+    # 해당 유저를 팔로우 하고 있는 유저 관계 목록
     followers = Relationship.objects.filter(to_user=user)[:14]
+    # 해당 유저가 팔로잉 중인 유저 관계 목록
     followings = Relationship.objects.filter(from_user=user)[:14]
 
     context = {
+        # 빈 로그인 폼
         "sign_in": SignInForm,
         "user": user,
         "liked_posts": liked_posts,
@@ -32,22 +40,34 @@ def user_detail(request, pk):
     return render(request, 'profile/profile.html', context)
 
 
+# all_tracks ajax 요청 처리 뷰
+# POST 요청만 허용
 @require_POST
 def get_tracks(request, pk):
+    # 트랙 정보를 가져올 유저 객체
     user = get_object_or_404(User, pk=pk)
 
+    # ajax 로부터 넘어온 페이지 카운터
+    # 1에서 3까지의 숫자
     page = request.POST['counter']
 
+    # 유저의 포스트 15개를 가져옴
     user_posts = user.post_set.all()[:15]
+    # 5개씩 페이지네이션 적용
     paginator = Paginator(user_posts, 5)
 
+    # ajax 로 받은 페이지 번호의 포스트 5개를 불러옴
     posts = paginator.page(page)
 
     context = {
+        # ajax 요청으로 렌더링 된 템플릿이 request 객체를 사용할 수 있도록 그대로 넘겨줌
         "request": request,
         "user": user,
+        # 전체 포스트 갯수를 파악하기 위해 15개 목록 전체의 쿼리셋을 넘겨줌
         "user_posts": user_posts,
+        # 페이지네이션이 적용된 쿼리셋
         "posts": posts,
+        # 페이지 번호를 다시 리턴해줌
         "page": page
     }
 

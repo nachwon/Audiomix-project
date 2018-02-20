@@ -80,8 +80,11 @@ function showPlaylist () {
     show_tracks[0].style.display = "block";
 }
 
+// ajax 요청을 보내는 함수
+// 보내는 주소, 페이지 번호, 리턴된 html 을 붙여줄 타겟 엘리먼트를 인자로 받음
 function sendAjax (url, counter, target) {
     // user/pk/tracks 로 POST 요청을 보내어 렌더링된 html 파일을 json 으로 받아옴
+    // 페이지번호 3 까지만 실행
     if (counter < 4) {
         var csrf_token = $('[name=csrfmiddlewaretoken]').val();
         $.ajax({
