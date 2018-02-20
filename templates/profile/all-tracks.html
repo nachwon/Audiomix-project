@@ -7,7 +7,6 @@
         <p>No tracks to show</p>
         {% if request.user == user %}
             <p>Upload your first track now!</p>
-        {% else %}
         {%  endif %}
     </div>
 {% else %}
@@ -101,4 +100,6 @@
         </div>
     {% endif %}
     <!-- selects which button to show at the end of list ends -->
+
+    <script src="{% static 'js/profile/track-waveform.js' %}"></script>
 {% endif %}

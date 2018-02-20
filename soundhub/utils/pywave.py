@@ -88,12 +88,12 @@ class Waveform(object):
     def change_color(base_png):
         im = Image.open(base_png)
         newimdata = []
-        black1 = (51, 53, 51, 255)
-        yellow1 = (226, 176, 38, 255)
+        black = (51, 53, 51, 255)
+        yellow = (226, 176, 38, 255)
         blank = (255, 255, 255, 0)
         for color in im.getdata():
-            if color == black1:
-                newimdata.append(yellow1)
+            if color == black:
+                newimdata.append(yellow)
             else:
                 newimdata.append(blank)
         newim = Image.new(im.mode, im.size)

@@ -13,71 +13,73 @@
 {% block content %}
     {% csrf_token %}
     <div class="profile-content container contents">
-    {% if user.profile_bg.name == "" %}
-        <div class="profile-head" style="background-image: url({% static 'img/default-profile-cover.jpg' %})">
-    {% else %}
-        <div class="profile-head" style="background-image: url({{ user.profile_bg.url }})">
-    {% endif %}
-<div class="user-info">
-    {% if user.profile_img.name == '' %}
-        <div class="profile-img img-circle" style="background-image: url('/static/img/default-profile.png')"></div>
-    {% else %}
-        <div class="profile-img img-circle" style="background-image: url('{{ user.profile_img.url }}')"></div>
-    {% endif %}
-    <div class="username-info">
-        <h2 class="nickname">{{ user.nickname }}</h2>
-        <span class="email">{{ user.email }}</span>
-    </div>
-    <div class="social-info">
-        <div class="social-count" >
-            <p class="social-count-title">Total Likes</p>
-            <p class="social-count-num">{{ user.total_liked }}</p>
-        </div>
-        <div class="social-count" >
-            <p class="social-count-title">Following</p>
-            <p id="following-count" class="social-count-num">{{ user.following.count }}</p>
-        </div>
-        <div class="social-count" >
-            <p class="social-count-title">Followers</p>
-            <p id="follower-count" class="social-count-num">{{ user.followers.count }}</p>
-        </div>
-    </div>
-</div>
-{% if user == request.user or request.user.is_anonymous %}
-{% else %}
-    {% csrf_token %}
-    <button id="follow-btn" class="transition" data-follow-user="{% url 'views:user:follow' pk=user.pk %}">
-        Follow
-    </button>
-{% endif %}
-</div>
-<div class="profile-body">
-    <div class="profile-body-wrapper">
-        <div class="section section-left">
-            <div class="menu-wrapper">
-                <button id="show-all-btn" onclick="showAll()" class="profile-body-menu transition clicked"><span>All</span></button>
-                <button id="show-tracks-btn" onclick="showTracks()" class="profile-body-menu transition"><span>Tracks</span></button>
-                <button id="show-comments-btn" onclick="showComments()" class="profile-body-menu transition"><span>Comments</span></button>
-                <button id="show-playlist-btn" onclick="showPlaylist()" class="profile-body-menu transition"><span>Playlist</span></button>
-            </div>
-            <div id="profile-content" class="profile-body-content">
-                <div id="show-all" class="tracklist" style="display:block;">
-                    <h1>Hello</h1>
+
+        <div class="profile-head"
+                {% if user.profile_bg.name == "" %}
+             style="background-image: url({% static 'img/default-profile-cover.jpg' %})"
+                {% else %}
+             style="background-image: url({{ user.profile_bg.url }})"
+                {% endif %}>
+
+            <div class="user-info">
+                {% if user.profile_img.name == '' %}
+                    <div class="profile-img img-circle" style="background-image: url('/static/img/default-profile.png')"></div>
+                {% else %}
+                    <div class="profile-img img-circle" style="background-image: url('{{ user.profile_img.url }}')"></div>
+                {% endif %}
+                <div class="username-info">
+                    <h2 class="nickname">{{ user.nickname }}</h2>
+                    <span class="email">{{ user.email }}</span>
                 </div>
-                <div id="show-tracks" class="tracklist" data-url="{% url 'views:user:tracks' pk=user.pk %}" style="display: none;"></div>
-                <div id="show-comments" class="tracklist" data-url="{% url 'views:user:comments' pk=user.pk %}" style="display: none;"></div>
-                <div id="show-playlist" class="tracklist" style="display: none;">
+                <div class="social-info">
+                    <div class="social-count" >
+                        <p class="social-count-title">Total Likes</p>
+                        <p class="social-count-num">{{ user.total_liked }}</p>
+                    </div>
+                    <div class="social-count" >
+                        <p class="social-count-title">Following</p>
+                        <p id="following-count" class="social-count-num">{{ user.following.count }}</p>
+                    </div>
+                    <div class="social-count" >
+                        <p class="social-count-title">Followers</p>
+                        <p id="follower-count" class="social-count-num">{{ user.followers.count }}</p>
+                    </div>
                 </div>
             </div>
+            {% if user == request.user or request.user.is_anonymous %}
+            {% else %}
+                {% csrf_token %}
+                <button id="follow-btn" class="transition" data-follow-user="{% url 'views:user:follow' pk=user.pk %}">
+                    Follow
+                </button>
+            {% endif %}
         </div>
-        <div class="section section-right">
-            {% include 'profile/liked-list.html' %}
-            {% include 'profile/follower-list.html' %}
-            {% include 'profile/following-list.html' %}
+        <div class="profile-body">
+            <div class="profile-body-wrapper">
+                <div class="section section-left">
+                    <div class="menu-wrapper">
+                        <button id="show-all-btn" onclick="showAll()" class="profile-body-menu transition clicked"><span>All</span></button>
+                        <button id="show-tracks-btn" onclick="showTracks()" class="profile-body-menu transition"><span>Tracks</span></button>
+                        <button id="show-comments-btn" onclick="showComments()" class="profile-body-menu transition"><span>Comments</span></button>
+                        <button id="show-playlist-btn" onclick="showPlaylist()" class="profile-body-menu transition"><span>Playlist</span></button>
+                    </div>
+                    <div id="profile-content" class="profile-body-content">
+                        <div id="show-all" class="tracklist" style="display:block;">
+                            <h1>Hello</h1>
+                        </div>
+                        <div id="show-tracks" class="tracklist" data-url="{% url 'views:user:tracks' pk=user.pk %}" style="display: none;"></div>
+                        <div id="show-comments" class="tracklist" data-url="{% url 'views:user:comments' pk=user.pk %}" style="display: none;"></div>
+                        <div id="show-playlist" class="tracklist" style="display: none;"></div>
+                    </div>
+                </div>
+                <div class="section section-right">
+                    {% include 'profile/liked-list.html' %}
+                    {% include 'profile/follower-list.html' %}
+                    {% include 'profile/following-list.html' %}
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
 
     {% if request.user.is_anonymous %}
     {% elif user == request.user %}
@@ -86,7 +88,6 @@
     {% endif %}
 
     <script src="{% static 'js/profile/profile-menu.js' %}"></script>
-    <script src="{% static 'js/profile/waveform.js' %}"></script>
     <script src="{% static 'js/profile/post-like.js' %}" ></script>
     <script src="{% static 'js/profile/follow-popover.js' %}"></script>
 {% endblock content %}
