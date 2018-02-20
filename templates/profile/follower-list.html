@@ -24,7 +24,7 @@
                            href="{% url 'views:user:user-detail' pk=follower.from_user.pk %}">
                             <div class="follower-profile-img"
                                     {% if follower.from_user.profile_img.name == "" %}
-                                 style="background-image: url('/static/img/default-profile.png')"
+                                 style="background-image: url({% static 'img/default-profile.png' %})"
                                     {% else %}
                                  style="background-image: url({{ follower.from_user.profile_img.url }})"
                                     {% endif %}></div>
@@ -39,7 +39,7 @@
                            href="{% url 'views:user:user-detail' pk=follower.from_user.pk %}">
                             <div class="follower-profile-img"
                                     {% if follower.from_user.profile_img.name == "" %}
-                                 style="background-image: url('/static/img/default-profile.png')"
+                                 style="background-image: url({% static 'img/default-profile.png' %})"
                                     {% else %}
                                  style="background-image: url({{ follower.from_user.profile_img.url }})"
                                     {% endif %}></div>
