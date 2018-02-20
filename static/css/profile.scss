@@ -11,7 +11,7 @@ div.profile-content {
         position: relative;
         background-size: 100%;
         background-position: center;
-        
+
         div.user-info {
             font-family: 'Merriweather Sans', sans-serif;
             position: absolute;
@@ -158,6 +158,16 @@ div.profile-body {
             }
         }
     }
+}
+
+div.no-post {
+    width: 500px;
+    height: 200px;
+    margin: 100px auto;
+    font-size: 27px;
+    text-align: center;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #aaa;
 }
 
 @import "all-tracks.css";

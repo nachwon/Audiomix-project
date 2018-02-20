@@ -11,19 +11,8 @@
     </div>
 {% else %}
     {% for comment in comments %}
-        <!-- waveform -->
-        <audio preload="metadata" id="comment-audio-{{ comment.pk }}" class="audio-track" data-src="{{ comment.pk }}" data-isPlaying="false" ontimeupdate="updateAudioInfo(event)" onended="resetWaveform({{ comment.pk }})" onloadedmetadata="setTotalDuration({{ comment.pk }})">
-            <source src="{{ comment.comment_track.url }}">
-        </audio>
-        {% if comment.comment_track_waveform_base.name == '' %}
-        {% else %}
-            <div id="waveform-wrapper-{{ comment.pk }}" class="waveform-wrapper" >
-                <img id="back-image-{{ comment.pk }}" onclick="updateWaveform(event)" class="back-image" data-src="{{ comment.pk }}" draggable="false" src="{{ comment.comment_track_waveform_base.url }}" alt="">
-                <div id="image-cutter-{{ comment.pk }}" class="cutter">
-                    <img class="cover-image" draggable="false" src="{{ comment.comment_track_waveform_cover.url }}" alt="">
-                </div>
-            </div>
-        {% endif %}
-        <!-- wavform ends -->
+        <div class="track-obj">
+            Uploaded to {{ comment.post.title }}
+        </div>
     {% endfor %}
 {% endif %}
