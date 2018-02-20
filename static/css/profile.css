@@ -384,14 +384,14 @@ div.no-followers {
     background-size: cover;
     margin: 10px; }
 
-.popover .follow-popover-content {
+.popover .follow-popover-content-line1 {
   font-family: 'Source Sans Pro', sans-serif;
   text-align: center;
   font-size: 20px; }
 
-.popover .follow-popover-btn {
+.popover .follow-popover-content-line2 {
   text-align: center; }
-  .popover .follow-popover-btn button {
+  .popover .follow-popover-content-line2 button {
     background-color: transparent;
     border: 1px solid #aaa;
     border-radius: 3px;

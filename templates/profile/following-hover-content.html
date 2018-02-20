@@ -1,2 +1,10 @@
-<p class='follow-popover-content'>{{ following.to_user.nickname }}</p>
-<p class='follow-popover-btn'><button>Follow</button></p>
+<p class='follow-popover-content-line1'>{{ following.to_user.nickname }}</p>
+<p class='follow-popover-content-line2'>
+    {% if request.user.is_anonymous %}
+    {% else %}
+        {% csrf_token %}
+        <button class='follow-popover-btn transition' data-follow-user=&quot;{% url 'views:user:follow' pk=user.pk %}&quot;>
+            Follow
+        </button>
+    {% endif %}
+</p>
