@@ -94,7 +94,7 @@ def get_comments(request, pk):
     page = request.POST['counter']
 
     user_comments = user.commenttrack_set.all()[:15]
-    print(user_comments)
+
     paginator = Paginator(user_comments, 5)
 
     comments = paginator.page(page)

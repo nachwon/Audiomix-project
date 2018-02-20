@@ -69,7 +69,7 @@ class CommentTrack(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.post.title}: {self.instrument.first().name}'
+        return f'{self.post.title}'
 
     class Meta:
         ordering = ('-created_date',)
