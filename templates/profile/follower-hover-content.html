@@ -1,9 +1,8 @@
 <p class='follow-popover-content-line1'>{{ follower.from_user.nickname }}</p>
 <p class='follow-popover-content-line2'>
-    {% if request.user.is_anonymous %}
+    {% if request.user.is_anonymous or request.user == follower.from_user %}
     {% else %}
-        {% csrf_token %}
-        <button class='follow-popover-btn'>
+        <button class='follow-popover-btn' onclick='popoverFollow({{ follower.from_user.pk }})'>
             {% if request.user in follower.from_user.followers.all %}
                 Following
             {% else %}

@@ -44,8 +44,25 @@ $(document).ready(function(){
 });
 
 
-function popoverFollow() {
-    console.log("hi")
+function popoverFollow(pk) {
+    var csrf_token = $('[name=csrfmiddlewaretoken]').val();
+    $.ajax({
+        type: "POST",
+        url: "/user/" + pk + "/follow/",
+        data: {
+            "pk": pk,
+            "csrfmiddlewaretoken": csrf_token
+        },
+        dataType: "json",
+        success: function(response) {
+            if (response) {
+                $(".follow-popover-btn")[0].innerText = "Following"
+            }
+            else {
+                $(".follow-popover-btn")[0].innerText = "Follow"
+            }
+        }
+    })
 }
 
 
