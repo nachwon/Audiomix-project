@@ -11,8 +11,8 @@
     </div>
 {% else %}
     {% for comment in comments %}
-        <div class="track-obj">
-            Uploaded to {{ comment.post.title }}
+        <div class="track-obj comment-obj">
+            <div class="comment-post-img" style="background-image: url({% static 'img/default-post-img.png' %});"></div>
         </div>
     {% endfor %}
 {% endif %}
