@@ -65,11 +65,11 @@ class CommentTrack(models.Model):
     comment_track_waveform_cover = models.ImageField(
         upload_to=comment_track_waveform_cover_directory_path, blank=True, null=True
     )
-    instrument = models.ManyToManyField(Instrument, related_name='comment_instrument', blank=True)
+    instrument = models.ForeignKey(Instrument, on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.post.title}: {self.instrument.first().name}'
+        return f'{self.post.title}: {self.instrument.name}'
 
     class Meta:
         ordering = ('-created_date',)
