@@ -22,6 +22,9 @@
                 <span class="comment-instrument">Uploaded to <a href="">{{ comment.post.title }}</a> of <a href="{% url 'views:user:user-detail' pk=comment.post.author.pk %}">{{ comment.post.author }}</a></span>
             </span>
             <div class="comment-progress-bar">
+                <div class="comment-play-icon">
+                    <i class="fas fa-play"></i>
+                </div>
                 <div class="progress-bar-base"></div>
             </div>
         </div>
