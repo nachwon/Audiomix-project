@@ -12,8 +12,18 @@
 {% else %}
     {% for comment in comments %}
         <div class="track-obj comment-obj">
-            <div class="comment-post-img" style="background-image: url({% static 'img/default-post-img.png' %});"></div>
-            <span class="comment-instrument"></span>
+            {% if comment.post.post_img.name == "" %}
+                <div class="comment-post-img" style="background-image: url({% static 'img/default-post-img.png' %});"></div>
+            {% else %}
+                <div class="comment-post-img" style="background-image: url({{ comment.post.post_img.url }});"></div>
+            {% endif %}
+            <span class="uploaded-post">
+                <span class="comment-post-title">{{ comment.instrument }} Track</span>
+                <span class="comment-instrument">Uploaded to <a href="">{{ comment.post.title }}</a> of <a href="{% url 'views:user:user-detail' pk=comment.post.author.pk %}">{{ comment.post.author }}</a></span>
+            </span>
+            <div class="comment-progress-bar">
+                <div class="progress-bar-base"></div>
+            </div>
         </div>
     {% endfor %}
 {% endif %}

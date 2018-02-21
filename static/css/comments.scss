@@ -1,8 +1,43 @@
 .comment-obj {
+    a {
+        color: black;
+    }
     .comment-post-img {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
         background-size: cover;
         background-repeat: no-repeat;
+        display: inline-block;
+        float: left;
+    }
+    .uploaded-post {
+        position: relative;
+        left: 20px;
+        font-size: 18px;
+        height: 65px;
+        display: inline-block;
+
+        .comment-post-title {
+            font-size: 25px;
+            display: inline;
+        }
+        .comment-instrument {
+            display: block;
+            font-size: 15px;
+            a {
+                font-size: 20px;
+            }
+        }
+    }
+
+    .comment-progress-bar {
+        background-color: #ddd;
+        width: 670px;
+        height: 30px;
+        border-radius: 100px;
+        position: relative;
+        left: 30px;
+        top: 12px;
+        display: inline-block;
     }
 }

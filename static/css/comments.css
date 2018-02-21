@@ -1,5 +1,35 @@
+.comment-obj a {
+  color: black; }
+
 .comment-obj .comment-post-img {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   background-size: cover;
-  background-repeat: no-repeat; }
+  background-repeat: no-repeat;
+  display: inline-block;
+  float: left; }
+
+.comment-obj .uploaded-post {
+  position: relative;
+  left: 20px;
+  font-size: 18px;
+  height: 65px;
+  display: inline-block; }
+  .comment-obj .uploaded-post .comment-post-title {
+    font-size: 25px;
+    display: inline; }
+  .comment-obj .uploaded-post .comment-instrument {
+    display: block;
+    font-size: 15px; }
+    .comment-obj .uploaded-post .comment-instrument a {
+      font-size: 20px; }
+
+.comment-obj .comment-progress-bar {
+  background-color: #ddd;
+  width: 670px;
+  height: 30px;
+  border-radius: 100px;
+  position: relative;
+  left: 30px;
+  top: 12px;
+  display: inline-block; }
