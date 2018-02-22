@@ -1,3 +1,13 @@
+function updateCommentTrackInfo (event) {
+    var audio =  event.target;
+    var pk = $(audio).data("comment-pk");
+    var progress_bar = $("#progress-bar-cover-" + pk);
+    var bar_width = audio.currentTime / audio.duration * 100;
+    progress_bar.css("width", bar_width + "%")
+}
+
+
+
 
 
 // 커맨트 트랙 재생/일시정지
@@ -13,9 +23,11 @@ function playCommentTrack (pk) {
 
     // 다른 모든 오디오 정지
     audios.each(function(index, item){
-        item.pause();
-        item.currentTime = 0;
-        $(item).attr("data-isPlaying", "false");
+        if (item.id !== comment_track[0].id) {
+            item.pause();
+            item.currentTime = 0;
+            $(item).attr("data-isPlaying", "false");
+        }
     });
     // 커맨트 트랙 플레이 버튼 변경
     play_icons.each(function(index, item){

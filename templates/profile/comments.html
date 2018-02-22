@@ -27,13 +27,13 @@
                     <i class="fas fa-play"></i>
                 </div>
                 <div class="progress-bar-base">
-                    <div class="progress-bar-cover">
+                    <div id="progress-bar-cover-{{ comment.pk }}" class="progress-bar-cover">
                         <div class="progress-head"></div>
                     </div>
                 </div>
             </div>
 
-            <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" data-isPlaying="false">
+            <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" data-isPlaying="false" data-comment-pk="{{ comment.pk }}" ontimeupdate="updateCommentTrackInfo(event)">
                 <source src="{{ comment.comment_track.url }}">
             </audio>
         </div>

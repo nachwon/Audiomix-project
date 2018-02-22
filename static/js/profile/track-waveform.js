@@ -11,7 +11,7 @@ function format_time (duration) {
     return min + ":" + sec
 }
 
-// 오디오 정보 업데이트
+// 오디오 정보 실시간 업데이트
 function updateAudioInfo (e) {
     var track_id = e.target.getAttribute("data-src");
     var current_time = e.target.currentTime;

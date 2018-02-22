@@ -48,7 +48,8 @@
       height: 2px;
       width: 0%;
       background-color: #333533;
-      position: absolute; }
+      position: absolute;
+      transition-duration: 0.3s; }
       .comment-obj .comment-progress-bar .progress-bar-base .progress-bar-cover .progress-head {
         width: 10px;
         height: 10px;
