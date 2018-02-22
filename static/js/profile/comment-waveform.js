@@ -1,10 +1,22 @@
 // 커맨트 트랙 진행사항 실시간 업데이트
-function updateCommentTrackInfo (event) {
+function updateCommentTrack (event) {
     var audio =  event.target;
     var pk = $(audio).data("comment-pk");
     var progress_bar = $("#progress-bar-cover-" + pk);
     var bar_width = audio.currentTime / audio.duration * 100;
     progress_bar.css("width", bar_width + "%")
+}
+
+// 재생 끝났을 때 오디오 탐색 리셋
+function endCommentTrack (event) {
+    var audio =  event.target;
+    var pk = $(audio).data("comment-pk");
+    var progress_bar = $("#progress-bar-cover-" + pk);
+    var play_btn = $("#comment-play-btn-" + pk);
+    progress_bar.css("width", 0);
+    play_btn.find("[data-fa-processed]").removeClass("fa-pause");
+    play_btn.find("[data-fa-processed]").addClass("fa-play");
+    $(audio).attr("data-isPlaying", "false")
 }
 
 // 커맨트 트랙 탐색
@@ -30,16 +42,13 @@ function preSeekCommentTrack (event) {
     preseeker.css("width", rel_position + "%")
 }
 
+// 마우스가 나가면 탐색 미리보기 제거
 function resetSeekCommentTrack (event) {
     var el = event.target;
     var pk = $(el).data("comment-pk");
     var preseeker = $('#progress-bar-preseeker-' + pk);
     preseeker.css("width", 0)
 }
-
-
-
-
 
 // 커맨트 트랙 재생/일시정지
 function playCommentTrack (pk) {
