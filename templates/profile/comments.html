@@ -21,8 +21,9 @@
                 <span class="comment-post-title">{{ comment.instrument }} Track</span>
                 <span class="comment-instrument">Uploaded to <a href="">{{ comment.post.title }}</a> of <a href="{% url 'views:user:user-detail' pk=comment.post.author.pk %}">{{ comment.post.author }}</a></span>
             </span>
-            <div class="comment-progress-bar">
-                <div class="comment-play-icon" data-comment-pk="{{ comment.pk }}">
+
+            <div class="comment-progress-bar waveform-opacity">
+                <div id="comment-play-btn-{{ comment.pk }}" class="comment-play-icon" data-comment-pk="{{ comment.pk }}">
                     <i class="fas fa-play"></i>
                 </div>
                 <div class="progress-bar-base">
@@ -32,7 +33,7 @@
                 </div>
             </div>
 
-            <audio id="comment-track-{{ comment.pk }}" class="comment-track" preload="metadata" data-is-playing="false">
+            <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" data-isPlaying="false">
                 <source src="{{ comment.comment_track.url }}">
             </audio>
         </div>
