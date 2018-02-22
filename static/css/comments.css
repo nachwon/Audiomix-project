@@ -46,7 +46,7 @@
     left: 35px; }
     .comment-obj .comment-progress-bar .progress-bar-base .progress-bar-cover {
       height: 2px;
-      width: 9%;
+      width: 0%;
       background-color: #333533;
       position: absolute; }
       .comment-obj .comment-progress-bar .progress-bar-base .progress-bar-cover .progress-head {

@@ -30,8 +30,11 @@
                         <div class="progress-head"></div>
                     </div>
                 </div>
-
             </div>
+
+            <audio preload="metadata" class="audio-track">
+                <source src="{{ comment.comment_track.url }}">
+            </audio>
         </div>
     {% endfor %}
 {% endif %}
