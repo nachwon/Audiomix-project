@@ -23,7 +23,7 @@
             </span>
 
             <div class="comment-progress-bar waveform-opacity">
-                <div id="comment-play-btn-{{ comment.pk }}" class="comment-play-icon" data-comment-pk="{{ comment.pk }}">
+                <div id="comment-play-btn-{{ comment.pk }}" class="comment-play-icon" data-comment-pk="{{ comment.pk }}" onclick="playCommentTrack({{ comment.pk }})">
                     <i class="fas fa-play"></i>
                 </div>
                 <div class="progress-bar-base">
@@ -40,4 +40,3 @@
     {% endfor %}
 {% endif %}
 
-<script src="{% static 'js/profile/comment-waveform.js' %}"></script>

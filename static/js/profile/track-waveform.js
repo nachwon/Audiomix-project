@@ -72,8 +72,6 @@ function playAudio(id) {
     var isPlaying = audio.getAttribute('data-isPlaying');
     var wrapper = document.getElementById("waveform-wrapper-" + id);
 
-    console.log("hi");
-
     // 다른 재생 중인 오디오 정지
     for (var i = 0; i < audios.length; i++) {
 
