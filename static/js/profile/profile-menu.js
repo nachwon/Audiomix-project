@@ -88,6 +88,11 @@ function showMoreComments () {
     var show_comments = $("#show-comments");
     var url = show_comments.data("url");
     var more_btn = $(".more_comments_btn");
+
+    sendAjax(url, comment_counter, show_comments);
+
+    comment_counter += 1;
+
 }
 
 

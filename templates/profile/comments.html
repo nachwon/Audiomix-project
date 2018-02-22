@@ -45,8 +45,18 @@
 
         </div>
     {% endfor %}
-    <div>
-        <button class="more-comments-btn more-btn">View Full List</button>
-    </div>
+    {% if comments.end_index == user.commenttrack_set.count %}
+        <div>
+            <button class="more-comments-btn more-btn">End of Tracks List</button>
+        </div>
+    {% elif comments.has_next %}
+        <div>
+            <button onclick="showMoreComments()" id="show-more-btn" class="more-comments-btn more-btn">Show More <i class="fas fa-angle-down" data-fa-transform="right-1 down-1"></i></button>
+        </div>
+    {% else %}
+        <div>
+            <button class="more-comments-btn more-btn">View Full List</button>
+        </div>
+    {% endif %}
 {% endif %}
 
