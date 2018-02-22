@@ -11,7 +11,7 @@ function format_time (duration) {
     return min + ":" + sec
 }
 
-// 오디오 정보 업데이트
+// 오디오 정보 실시간 업데이트
 function updateAudioInfo (e) {
     var track_id = e.target.getAttribute("data-src");
     var current_time = e.target.currentTime;
@@ -64,9 +64,10 @@ function resetWaveform (pk) {
 // 플레이 버튼 클릭시 아이콘 변경 및 오디오 재생
 // 오디오 재생 중 다른 오디오 클릭 시, 재생 중이던 오디오는 처음으로 돌아가고 정지됨.
 function playAudio(id) {
-    var audios = $('.audio-track');
-    var wrappers = $('.waveform-wrapper');
+    var audios = $('.audio-file');
+    var wrappers = $('.waveform-opacity');
     var play_btns = $('.play-btn');
+    var comment_play_btns = $(".comment-play-icon");
     var audio = document.getElementById("track-audio-" + id);
     var playbtn = $('#play-btn-' + id);
     var isPlaying = audio.getAttribute('data-isPlaying');
@@ -74,6 +75,7 @@ function playAudio(id) {
 
     // 다른 재생 중인 오디오 정지
     for (var i = 0; i < audios.length; i++) {
+
         if (audios[i].id !== "track-audio-" + id) {
             console.log("hi");
             audios[i].pause();
@@ -84,6 +86,11 @@ function playAudio(id) {
         play_btns.find('[data-fa-processed]').removeClass("fa-pause-circle");
         play_btns.find('[data-fa-processed]').addClass("fa-play-circle");
     }
+
+    comment_play_btns.each(function(index, item){
+        $(item).find("[data-fa-processed]").removeClass("fa-pause");
+        $(item).find("[data-fa-processed]").addClass("fa-play");
+    });
 
     // 재생 중이지 않으면 재생시키고 재생 버튼 변경
     if (isPlaying === "false") {

@@ -1,0 +1,107 @@
+.comment-obj {
+    a {
+        color: black;
+    }
+    .comment-post-img {
+        width: 120px;
+        height: 120px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        display: inline-block;
+        float: left;
+    }
+    .uploaded-post {
+        position: relative;
+        left: 20px;
+        font-size: 18px;
+        height: 65px;
+        display: inline-block;
+
+        .comment-post-title {
+            font-size: 25px;
+            display: inline;
+        }
+        .comment-instrument {
+            display: block;
+            font-size: 15px;
+            a {
+                font-size: 20px;
+            }
+        }
+    }
+
+    .comment-progress-bar {
+        background-color: #ddd;
+        width: 670px;
+        height: 30px;
+        border-radius: 100px;
+        position: relative;
+        left: 30px;
+        top: 12px;
+        display: inline-block;
+
+        .comment-play-icon {
+            margin: 5px 0 5px 10px;
+            color: white;
+            display: inline-block;
+        }
+
+        .position-indicator {
+            width: 92%;
+            height: 30px;
+            display: inline-block;
+            position: absolute;
+            left: 35px;
+        }
+
+        .progress-bar-base {
+            height: 2px;
+            width: 92%;
+            background-color: white;
+            position: absolute;
+            top: 48%;
+            left: 35px;
+            pointer-events: none;
+
+            .progress-bar-cover {
+                height: 2px;
+                width: 0;
+                background-color: #333533;
+                position: absolute;
+                transition-duration: 0.3s;
+                pointer-events: none;
+
+                .progress-head {
+                    width: 10px;
+                    height: 10px;
+                    background-color: #E2B026;
+                    position: absolute;
+                    top: -4px;
+                    border-radius: 100%;
+                    left: 100%;
+                    border: 2px solid #333533;
+                    pointer-events: none;
+                }
+            }
+
+            .progress-bar-preseeker {
+                height: 2px;
+                width: 0;
+                background-color: #aaa;
+                position: absolute;
+                pointer-events: none;
+            }
+        }
+    }
+
+    .comment-track-duration {
+        float: right;
+        position: relative;
+        top: -50px;
+        right: 20px;
+        font-size: 18px;
+        span {
+            vertical-align: middle;
+        }
+    }
+}
