@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-            <audio id="comment-track-{{ comment.pk }}" preload="metadata" class="comment-track">
+            <audio id="comment-track-{{ comment.pk }}" class="comment-track" preload="metadata" data-is-playing="false">
                 <source src="{{ comment.comment_track.url }}">
             </audio>
         </div>
