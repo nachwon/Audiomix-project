@@ -26,7 +26,7 @@
                 <div id="comment-play-btn-{{ comment.pk }}" class="comment-play-icon" data-comment-pk="{{ comment.pk }}" onclick="playCommentTrack({{ comment.pk }})">
                     <i class="fas fa-play"></i>
                 </div>
-                <div class="position-indicator" data-comment-pk="{{ comment.pk }}" onclick="seekCommentTrack(event)" onmousemove="preSeekCommentTrack(event)"></div>
+                <div class="position-indicator" data-comment-pk="{{ comment.pk }}" onclick="seekCommentTrack(event)" onmousemove="preSeekCommentTrack(event)" onmouseleave="resetSeekCommentTrack(event)"></div>
                 <div class="progress-bar-base">
                     <div id="progress-bar-preseeker-{{ comment.pk }}" class="progress-bar-preseeker"></div>
                     <div id="progress-bar-cover-{{ comment.pk }}" class="progress-bar-cover">

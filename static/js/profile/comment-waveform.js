@@ -19,6 +19,7 @@ function seekCommentTrack (event) {
     audio[0].currentTime = total_duration * rel_position
 }
 
+// 마우스 오버시 탐색 위치 미리보기
 function preSeekCommentTrack (event) {
     var el = event.target;
     var pk = $(el).data("comment-pk");
@@ -27,6 +28,13 @@ function preSeekCommentTrack (event) {
     var preseeker = $('#progress-bar-preseeker-' + pk);
 
     preseeker.css("width", rel_position + "%")
+}
+
+function resetSeekCommentTrack (event) {
+    var el = event.target;
+    var pk = $(el).data("comment-pk");
+    var preseeker = $('#progress-bar-preseeker-' + pk);
+    preseeker.css("width", 0)
 }
 
 
