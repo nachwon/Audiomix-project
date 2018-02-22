@@ -37,3 +37,24 @@
     margin: 5px 0 5px 10px;
     color: white;
     display: inline-block; }
+  .comment-obj .comment-progress-bar .progress-bar-base {
+    height: 2px;
+    width: 92%;
+    background-color: white;
+    position: absolute;
+    top: 48%;
+    left: 35px; }
+    .comment-obj .comment-progress-bar .progress-bar-base .progress-bar-cover {
+      height: 2px;
+      width: 9%;
+      background-color: #333533;
+      position: absolute; }
+      .comment-obj .comment-progress-bar .progress-bar-base .progress-bar-cover .progress-head {
+        width: 10px;
+        height: 10px;
+        background-color: #E2B026;
+        position: absolute;
+        top: -4px;
+        border-radius: 100%;
+        left: 100%;
+        border: 1px solid #333533; }
