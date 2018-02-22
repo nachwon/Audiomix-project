@@ -46,6 +46,14 @@
             display: inline-block;
         }
 
+        .position-indicator {
+            width: 92%;
+            height: 30px;
+            display: inline-block;
+            position: absolute;
+            left: 35px;
+        }
+
         .progress-bar-base {
             height: 2px;
             width: 92%;
@@ -53,13 +61,15 @@
             position: absolute;
             top: 48%;
             left: 35px;
+            pointer-events: none;
 
             .progress-bar-cover {
                 height: 2px;
-                width: 0%;
+                width: 0;
                 background-color: #333533;
                 position: absolute;
                 transition-duration: 0.3s;
+                pointer-events: none;
 
                 .progress-head {
                     width: 10px;
@@ -70,6 +80,7 @@
                     border-radius: 100%;
                     left: 100%;
                     border: 1px solid #333533
+                    pointer-events: none;
                 }
             }
         }

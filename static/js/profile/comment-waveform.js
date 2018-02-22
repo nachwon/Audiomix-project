@@ -1,9 +1,21 @@
+// 커맨트 트랙 진행사항 실시간 업데이트
 function updateCommentTrackInfo (event) {
     var audio =  event.target;
     var pk = $(audio).data("comment-pk");
     var progress_bar = $("#progress-bar-cover-" + pk);
     var bar_width = audio.currentTime / audio.duration * 100;
     progress_bar.css("width", bar_width + "%")
+}
+
+function seekCommentTrack (event) {
+    var el = event.target;
+    var pk = $(el).data("comment-pk");
+    var click_position = event.pageX - $(el).offset().left;
+    var rel_position = click_position / $(el).width();
+    var audio = $("#comment-track-" + pk);
+    var total_duration = audio[0].duration;
+
+    audio[0].currentTime = total_duration * rel_position
 }
 
 

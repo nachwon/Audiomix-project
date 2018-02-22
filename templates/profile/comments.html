@@ -26,11 +26,13 @@
                 <div id="comment-play-btn-{{ comment.pk }}" class="comment-play-icon" data-comment-pk="{{ comment.pk }}" onclick="playCommentTrack({{ comment.pk }})">
                     <i class="fas fa-play"></i>
                 </div>
+                <div class="position-indicator" data-comment-pk="{{ comment.pk }}" onclick="seekCommentTrack(event)"></div>
                 <div class="progress-bar-base">
                     <div id="progress-bar-cover-{{ comment.pk }}" class="progress-bar-cover">
                         <div class="progress-head"></div>
                     </div>
                 </div>
+
             </div>
 
             <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" data-isPlaying="false" data-comment-pk="{{ comment.pk }}" ontimeupdate="updateCommentTrackInfo(event)">
