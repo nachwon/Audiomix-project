@@ -3,11 +3,11 @@
 // 커맨트 트랙 재생/일시정지
 function playCommentTrack (pk) {
     var play_icons = $(".comment-play-icon");
+    var track_play_icons = $(".play-btn");
     var comment_track = $("#comment-track-" + pk);
     var play_btn = $("#comment-play-btn-" + pk);
     var is_playing = comment_track.attr("data-isPlaying");
     var audios = $(".audio-file");
-    var track_play_icons = $(".play-btn");
 
     // 커맨트 트랙 플레이 버튼 클릭시
 

@@ -67,6 +67,7 @@ function playAudio(id) {
     var audios = $('.audio-file');
     var wrappers = $('.waveform-opacity');
     var play_btns = $('.play-btn');
+    var comment_play_btns = $(".comment-play-icon");
     var audio = document.getElementById("track-audio-" + id);
     var playbtn = $('#play-btn-' + id);
     var isPlaying = audio.getAttribute('data-isPlaying');
@@ -85,6 +86,11 @@ function playAudio(id) {
         play_btns.find('[data-fa-processed]').removeClass("fa-pause-circle");
         play_btns.find('[data-fa-processed]').addClass("fa-play-circle");
     }
+
+    comment_play_btns.each(function(index, item){
+        $(item).find("[data-fa-processed]").removeClass("fa-pause");
+        $(item).find("[data-fa-processed]").addClass("fa-play");
+    });
 
     // 재생 중이지 않으면 재생시키고 재생 버튼 변경
     if (isPlaying === "false") {
