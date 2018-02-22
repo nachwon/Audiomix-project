@@ -67,8 +67,6 @@ function getCommentTrackTotalDuration(event) {
     total_duration_span[0].innerText = total_duration
 }
 
-
-
 // 커맨트 트랙 재생/일시정지
 function playCommentTrack (pk) {
     var play_icons = $(".comment-play-icon");
