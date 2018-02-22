@@ -88,15 +88,15 @@
     <!-- selects which button to show at the end of list -->
     {% if posts.end_index == user.post_set.count %}
         <div>
-            <button class="more-btn">End of Tracks List</button>
+            <button class="more-tracks-btn more-btn">End of Tracks List</button>
         </div>
     {% elif posts.has_next %}
         <div>
-            <button onclick="showMoreTracks()" id="show-more-btn" class="more-btn">Show More <i class="fas fa-angle-down" data-fa-transform="right-1 down-1"></i></button>
+            <button onclick="showMoreTracks()" id="show-more-btn" class="more-tracks-btn more-btn">Show More <i class="fas fa-angle-down" data-fa-transform="right-1 down-1"></i></button>
         </div>
     {% else %}
         <div>
-            <button class="more-btn">View Full List</button>
+            <button class="more-tracks-btn more-btn">View Full List</button>
         </div>
     {% endif %}
     <!-- selects which button to show at the end of list ends -->

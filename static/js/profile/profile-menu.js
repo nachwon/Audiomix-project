@@ -54,7 +54,7 @@ function showTracks () {
 function showMoreTracks() {
     var show_tracks = $("#show-tracks");
     var url = show_tracks.attr("data-url");
-    var more_btn = $(".more-btn");
+    var more_btn = $(".more-tracks-btn");
     // ajax로 다음 페이지를 불러옴
     sendAjax(url, track_counter, show_tracks);
     // show more 버튼을 지워줌
@@ -63,12 +63,6 @@ function showMoreTracks() {
     }
     track_counter += 1
 }
-
-
-
-
-
-
 
 // Comments 메뉴를 불러옴
 function showComments () {
@@ -88,6 +82,12 @@ function showComments () {
 
     comments_loaded = true;
     comment_counter += 1
+}
+
+function showMoreComments () {
+    var show_comments = $("#show-comments");
+    var url = show_comments.data("url");
+    var more_btn = $(".more_comments_btn");
 }
 
 
