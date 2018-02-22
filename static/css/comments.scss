@@ -79,9 +79,17 @@
                     top: -4px;
                     border-radius: 100%;
                     left: 100%;
-                    border: 1px solid #333533
+                    border: 2px solid #333533;
                     pointer-events: none;
                 }
+            }
+
+            .progress-bar-preseeker {
+                height: 2px;
+                width: 0;
+                background-color: #aaa;
+                position: absolute;
+                pointer-events: none;
             }
         }
     }

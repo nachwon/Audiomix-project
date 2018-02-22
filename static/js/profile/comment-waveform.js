@@ -7,6 +7,7 @@ function updateCommentTrackInfo (event) {
     progress_bar.css("width", bar_width + "%")
 }
 
+// 커맨트 트랙 탐색
 function seekCommentTrack (event) {
     var el = event.target;
     var pk = $(el).data("comment-pk");
@@ -16,6 +17,16 @@ function seekCommentTrack (event) {
     var total_duration = audio[0].duration;
 
     audio[0].currentTime = total_duration * rel_position
+}
+
+function preSeekCommentTrack (event) {
+    var el = event.target;
+    var pk = $(el).data("comment-pk");
+    var hover_position = event.pageX - $(el).offset().left;
+    var rel_position = hover_position / $(el).width() * 100;
+    var preseeker = $('#progress-bar-preseeker-' + pk);
+
+    preseeker.css("width", rel_position + "%")
 }
 
 
