@@ -22,6 +22,9 @@
                 <span class="comment-instrument">Uploaded to <a href="">{{ comment.post.title }}</a> of <a href="{% url 'views:user:user-detail' pk=comment.post.author.pk %}">{{ comment.post.author }}</a></span>
             </span>
 
+            <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" data-isPlaying="false" data-comment-pk="{{ comment.pk }}" onloadedmetadata="getCommentTrackTotalDuration(event)" ontimeupdate="updateCommentTrack(event)" onended="endCommentTrack(event)">
+                <source src="{{ comment.comment_track.url }}">
+            </audio>
             <div class="comment-progress-bar waveform-opacity">
                 <div id="comment-play-btn-{{ comment.pk }}" class="comment-play-icon" data-comment-pk="{{ comment.pk }}" onclick="playCommentTrack({{ comment.pk }})">
                     <i class="fas fa-play"></i>
@@ -35,9 +38,11 @@
                 </div>
             </div>
 
-            <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" data-isPlaying="false" data-comment-pk="{{ comment.pk }}" ontimeupdate="updateCommentTrack(event)" onended="endCommentTrack(event)">
-                <source src="{{ comment.comment_track.url }}">
-            </audio>
+            <div class="comment-track-duration">
+                <span id="comment-track-current-duration-{{ comment.pk }}">00:00</span> |
+                <span id="comment-track-total-duration-{{ comment.pk }}">00:00</span>
+            </div>
+
         </div>
     {% endfor %}
 {% endif %}

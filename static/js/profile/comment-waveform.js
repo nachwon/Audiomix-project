@@ -4,7 +4,11 @@ function updateCommentTrack (event) {
     var pk = $(audio).data("comment-pk");
     var progress_bar = $("#progress-bar-cover-" + pk);
     var bar_width = audio.currentTime / audio.duration * 100;
-    progress_bar.css("width", bar_width + "%")
+    progress_bar.css("width", bar_width + "%");
+
+    // 현재 재생 시간 업데이트
+    var current_time_span = $("#comment-track-current-duration-" + pk);
+    current_time_span[0].innerText = format_time(audio.currentTime);
 }
 
 // 재생 끝났을 때 오디오 탐색 리셋
@@ -13,10 +17,14 @@ function endCommentTrack (event) {
     var pk = $(audio).data("comment-pk");
     var progress_bar = $("#progress-bar-cover-" + pk);
     var play_btn = $("#comment-play-btn-" + pk);
+    // 진행바 초기화
     progress_bar.css("width", 0);
+    // 아이콘 변경
     play_btn.find("[data-fa-processed]").removeClass("fa-pause");
     play_btn.find("[data-fa-processed]").addClass("fa-play");
-    $(audio).attr("data-isPlaying", "false")
+    // 오디오 탐색 초기화
+    $(audio).attr("data-isPlaying", "false");
+    audio.currentTime = 0
 }
 
 // 커맨트 트랙 탐색
@@ -49,6 +57,17 @@ function resetSeekCommentTrack (event) {
     var preseeker = $('#progress-bar-preseeker-' + pk);
     preseeker.css("width", 0)
 }
+
+//
+function getCommentTrackTotalDuration(event) {
+    var audio =  event.target;
+    var pk = $(audio).data("comment-pk");
+    var total_duration_span = $("#comment-track-total-duration-" + pk);
+    var total_duration = format_time(audio.duration);
+    total_duration_span[0].innerText = total_duration
+}
+
+
 
 // 커맨트 트랙 재생/일시정지
 function playCommentTrack (pk) {

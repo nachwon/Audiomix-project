@@ -74,3 +74,12 @@
       background-color: #aaa;
       position: absolute;
       pointer-events: none; }
+
+.comment-obj .comment-track-duration {
+  float: right;
+  position: relative;
+  top: -50px;
+  right: 20px;
+  font-size: 18px; }
+  .comment-obj .comment-track-duration span {
+    vertical-align: middle; }
