@@ -88,6 +88,7 @@ def get_tracks(request, pk):
 
 # comments ajax 요청 처리 뷰
 # POST 요청만 허용
+@require_POST
 def get_comments(request, pk):
     user = get_object_or_404(User, pk=pk)
 
