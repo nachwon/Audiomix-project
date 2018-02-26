@@ -34,9 +34,11 @@
   top: 12px;
   display: inline-block; }
   .comment-obj .comment-progress-bar .comment-play-icon {
-    margin: 5px 0 5px 10px;
+    padding: 5px;
+    margin-left: 5px;
     color: white;
-    display: inline-block; }
+    display: inline-block;
+    cursor: pointer; }
   .comment-obj .comment-progress-bar .position-indicator {
     width: 92%;
     height: 30px;

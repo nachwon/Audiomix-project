@@ -50,14 +50,14 @@ function resetWaveform (pk) {
     var audio = $("#track-audio-" + pk);
     audio[0].currentTime = 0;
     audio[0].pause();
-    audio[0].setAttribute("data-isPlaying", "false");
+    audio.attr("data-isPlaying", "false");
 
     var playbtn = $('#play-btn-' + pk);
     playbtn.find('[data-fa-processed]').removeClass("fa-pause-circle");
     playbtn.find('[data-fa-processed]').addClass("fa-play-circle");
 
     var wrapper = $("#waveform-wrapper-" + pk);
-    wrapper[0].style.opacity = null
+    wrapper.css("opacity", null)
 }
 
 
