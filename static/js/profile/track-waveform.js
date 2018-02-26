@@ -87,29 +87,11 @@ function playAudio(id) {
         $(item).find("[data-fa-processed]").removeClass("fa-pause");
         $(item).find("[data-fa-processed]").addClass("fa-play");
     });
-    // 포스트 트랙 플레이 버튼 변경
+
     track_play_icons.each(function(index, item){
         $(item).find("[data-fa-processed]").removeClass("fa-pause-circle");
         $(item).find("[data-fa-processed]").addClass("fa-play-circle");
     });
-
-    // // 다른 재생 중인 오디오 정지
-    // for (var i = 0; i < audios.length; i++) {
-    //
-    //     if (audios[i].id !== "track-audio-" + id) {
-    //         audios[i].pause();
-    //         audios[i].currentTime = 0;
-    //         audios[i].setAttribute("data-isPlaying", "false");
-    //         wrappers[i].style.opacity = null
-    //     }
-    //     play_btns.find('[data-fa-processed]').removeClass("fa-pause-circle");
-    //     play_btns.find('[data-fa-processed]').addClass("fa-play-circle");
-    // }
-    //
-    // comment_play_btns.each(function(index, item){
-    //     $(item).find("[data-fa-processed]").removeClass("fa-pause");
-    //     $(item).find("[data-fa-processed]").addClass("fa-play");
-    // });
 
     // 재생 중이지 않으면 재생시키고 재생 버튼 변경
     if (isPlaying === "false") {

@@ -75,6 +75,7 @@ function playCommentTrack (pk) {
     var play_btn = $("#comment-play-btn-" + pk);
     var is_playing = comment_track.attr("data-isPlaying");
     var audios = $(".audio-file");
+    var wrappers = $('.waveform-opacity');
 
     // 커맨트 트랙 플레이 버튼 클릭시
 
@@ -84,6 +85,7 @@ function playCommentTrack (pk) {
             item.pause();
             item.currentTime = 0;
             $(item).attr("data-isPlaying", "false");
+            wrappers[index].style.opacity = null;
         }
     });
     // 커맨트 트랙 플레이 버튼 변경
