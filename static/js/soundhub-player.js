@@ -13,6 +13,12 @@ function getCurrentPlaying(self) {
                 player_total_duration.text(format_time(item.duration));
             });
 
+            $(item).on("ended", function() {
+                player_current_time.text("00:00");
+                player_play_btn.find("[data-fa-processed]").removeClass("fa-pause");
+                player_play_btn.find("[data-fa-processed]").addClass("fa-play");
+            });
+
             $(item).on("timeupdate", function() {
                 player_current_time.text(format_time(item.currentTime));
             });
