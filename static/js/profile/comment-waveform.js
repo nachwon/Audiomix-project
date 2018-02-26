@@ -76,6 +76,7 @@ function playCommentTrack (pk) {
     var is_playing = comment_track.attr("data-isPlaying");
     var audios = $(".audio-file");
     var wrappers = $('.waveform-opacity');
+    var player_play_btn = $("#player-play-btn");
 
     // 커맨트 트랙 플레이 버튼 클릭시
 
@@ -105,11 +106,15 @@ function playCommentTrack (pk) {
         comment_track.attr("data-isPlaying", "false");
         play_btn.find("[data-fa-processed]").removeClass("fa-pause");
         play_btn.find("[data-fa-processed]").addClass("fa-play");
+        player_play_btn.find('[data-fa-processed]').removeClass("fa-pause");
+        player_play_btn.find('[data-fa-processed]').addClass("fa-play");
     }
     else if (is_playing === "false") {
         comment_track[0].play();
         comment_track.attr("data-isPlaying", "true");
         play_btn.find("[data-fa-processed]").removeClass("fa-play");
         play_btn.find("[data-fa-processed]").addClass("fa-pause");
+        player_play_btn.find('[data-fa-processed]').removeClass("fa-play");
+        player_play_btn.find('[data-fa-processed]').addClass("fa-pause");
     }
 }
