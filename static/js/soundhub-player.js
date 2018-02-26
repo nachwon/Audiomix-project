@@ -23,18 +23,47 @@ function getCurrentPlaying(self) {
 
 function playerBtn(self) {
     if ($(self).attr("data-target") !== null) {
-        var target_audio = $("#" + $(self).attr("data-target"));
-        console.log(target_audio);
+        var target = $(self).attr("data-target");
+        var target_audio = $("#" + target);
+        var track_btns = $(".play-btn");
+        var comment_btns = $(".comment-play-icon");
+        var player_play_btn = $("#player-play-btn");
+
         if (target_audio.attr("data-isPlaying") === "false") {
             // 재생
             target_audio[0].play();
-            target_audio.attr("data-isPlaying", "true")
+            target_audio.attr("data-isPlaying", "true");
+
+            track_btns.each(function(index, item) {
+                if ($(item).attr("data-target") === target) {
+                    $(item).find("[data-fa-processed]").addClass("fa-pause-circle");
+                    $(item).find("[data-fa-processed]").removeClass("fa-play-circle");
+                }
+            });
+            comment_btns.each(function(index, item) {
+                if ($(item).attr("data-target") === target) {
+                    $(item).find("[data-fa-processed]").addClass("fa-pause");
+                    $(item).find("[data-fa-processed]").removeClass("fa-play");
+                }
+            })
         }
         else if (target_audio.attr("data-isPlaying") === "true") {
             // 일시정지
             target_audio[0].pause();
-            target_audio.attr("data-isPlaying", "false")
+            target_audio.attr("data-isPlaying", "false");
 
+            track_btns.each(function(index, item) {
+                if ($(item).attr("data-target") === target) {
+                    $(item).find("[data-fa-processed]").removeClass("fa-pause-circle");
+                    $(item).find("[data-fa-processed]").addClass("fa-play-circle");
+                }
+            });
+            comment_btns.each(function(index, item) {
+                if ($(item).attr("data-target") === target) {
+                    $(item).find("[data-fa-processed]").removeClass("fa-pause");
+                    $(item).find("[data-fa-processed]").addClass("fa-play");
+                }
+            })
         }
     }
 }
