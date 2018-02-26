@@ -66,44 +66,63 @@ function resetWaveform (pk) {
 function playAudio(id) {
     var audios = $('.audio-file');
     var wrappers = $('.waveform-opacity');
-    var play_btns = $('.play-btn');
-    var comment_play_btns = $(".comment-play-icon");
-    var audio = document.getElementById("track-audio-" + id);
+    var play_icons = $(".comment-play-icon");
+    var track_play_icons = $(".play-btn");
+    var audio = $("#track-audio-" + id);
     var playbtn = $('#play-btn-' + id);
-    var isPlaying = audio.getAttribute('data-isPlaying');
+    var isPlaying = audio.attr('data-isPlaying');
     var wrapper = document.getElementById("waveform-wrapper-" + id);
 
-    // 다른 재생 중인 오디오 정지
-    for (var i = 0; i < audios.length; i++) {
 
-        if (audios[i].id !== "track-audio-" + id) {
-            console.log("hi");
-            audios[i].pause();
-            audios[i].currentTime = 0;
-            audios[i].setAttribute("data-isPlaying", "false");
-            wrappers[i].style.opacity = null
+    audios.each(function(index, item) {
+        if (item.id !== audio.attr("id")) {
+            item.pause();
+            item.currentTime = 0;
+            item.setAttribute("data-isPlaying", "false");
+            wrappers[index].style.opacity = null
         }
-        play_btns.find('[data-fa-processed]').removeClass("fa-pause-circle");
-        play_btns.find('[data-fa-processed]').addClass("fa-play-circle");
-    }
+    });
 
-    comment_play_btns.each(function(index, item){
+    play_icons.each(function(index, item){
         $(item).find("[data-fa-processed]").removeClass("fa-pause");
         $(item).find("[data-fa-processed]").addClass("fa-play");
     });
+    // 포스트 트랙 플레이 버튼 변경
+    track_play_icons.each(function(index, item){
+        $(item).find("[data-fa-processed]").removeClass("fa-pause-circle");
+        $(item).find("[data-fa-processed]").addClass("fa-play-circle");
+    });
+
+    // // 다른 재생 중인 오디오 정지
+    // for (var i = 0; i < audios.length; i++) {
+    //
+    //     if (audios[i].id !== "track-audio-" + id) {
+    //         audios[i].pause();
+    //         audios[i].currentTime = 0;
+    //         audios[i].setAttribute("data-isPlaying", "false");
+    //         wrappers[i].style.opacity = null
+    //     }
+    //     play_btns.find('[data-fa-processed]').removeClass("fa-pause-circle");
+    //     play_btns.find('[data-fa-processed]').addClass("fa-play-circle");
+    // }
+    //
+    // comment_play_btns.each(function(index, item){
+    //     $(item).find("[data-fa-processed]").removeClass("fa-pause");
+    //     $(item).find("[data-fa-processed]").addClass("fa-play");
+    // });
 
     // 재생 중이지 않으면 재생시키고 재생 버튼 변경
     if (isPlaying === "false") {
-        audio.setAttribute("data-isPlaying", "true");
-        audio.play();
+        audio.attr("data-isPlaying", "true");
+        audio[0].play();
         playbtn.find('[data-fa-processed]').removeClass("fa-play-circle");
         playbtn.find('[data-fa-processed]').addClass("fa-pause-circle");
         wrapper.style.opacity = '1'
     }
     // 재생 중이면 정지시키고 재생 버튼 변경
     else {
-        audio.setAttribute("data-isPlaying", "false");
-        audio.pause();
+        audio.attr("data-isPlaying", "false");
+        audio[0].pause();
         playbtn.find('[data-fa-processed]').removeClass("fa-pause-circle");
         playbtn.find('[data-fa-processed]').addClass("fa-play-circle");
         wrapper.style.opacity = null

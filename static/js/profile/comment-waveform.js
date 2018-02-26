@@ -80,7 +80,7 @@ function playCommentTrack (pk) {
 
     // 다른 모든 오디오 정지
     audios.each(function(index, item){
-        if (item.id !== comment_track[0].id) {
+        if (item.id !== comment_track.attr("id")) {
             item.pause();
             item.currentTime = 0;
             $(item).attr("data-isPlaying", "false");
