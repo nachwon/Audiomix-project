@@ -26,7 +26,7 @@
                 <source src="{{ comment.comment_track.url }}">
             </audio>
             <div class="comment-progress-bar waveform-opacity">
-                <div id="comment-play-btn-{{ comment.pk }}" class="comment-play-icon" data-comment-pk="{{ comment.pk }}" onclick="playCommentTrack({{ comment.pk }})">
+                <div id="comment-play-btn-{{ comment.pk }}" class="comment-play-icon" data-comment-pk="{{ comment.pk }}" onclick="playCommentTrack({{ comment.pk }});getCurrentPlaying()">
                     <i class="fas fa-play"></i>
                 </div>
                 <div class="position-indicator" data-comment-pk="{{ comment.pk }}" onclick="seekCommentTrack(event)" onmousemove="preSeekCommentTrack(event)" onmouseleave="resetSeekCommentTrack(event)"></div>
