@@ -150,6 +150,7 @@ div.track-obj {
             cursor: pointer;
         }
         div.cutter {
+            transition-duration: 0.1s;
             z-index: 1;
             position: absolute;
             width: 0px;

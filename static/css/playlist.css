@@ -1,0 +1,11 @@
+.coming-soon {
+  margin: 60px; }
+  .coming-soon p {
+    font-family: 'Source Sans Pro', sans-serif;
+    text-align: center;
+    font-size: 30px; }
+  .coming-soon img {
+    margin: 0 auto;
+    display: block;
+    width: 270px;
+    opacity: 0.3; }

@@ -1,5 +1,6 @@
 @import url(all-tracks.css);
 @import url(comments.css);
+@import url(playlist.css);
 div.profile-content {
   color: black;
   box-shadow: 1px 1px 8px 0px black;

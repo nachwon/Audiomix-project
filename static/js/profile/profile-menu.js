@@ -101,10 +101,6 @@ function showMoreComments () {
 
 
 
-
-
-
-
 function showPlaylist () {
     for (var i = 0; i < tracklist.length; i++) {
         tracklist[i].style.display = "none";

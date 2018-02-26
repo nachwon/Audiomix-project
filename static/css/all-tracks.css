@@ -107,6 +107,7 @@ div.track-obj {
       height: 80px;
       cursor: pointer; }
     div.track-obj div.waveform-wrapper div.cutter {
+      transition-duration: 0.1s;
       z-index: 1;
       position: absolute;
       width: 0px;

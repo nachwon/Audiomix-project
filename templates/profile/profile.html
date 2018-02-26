@@ -69,7 +69,9 @@
                         </div>
                         <div id="show-tracks" class="tracklist" data-url="{% url 'views:user:tracks' pk=user.pk %}" style="display: none;"></div>
                         <div id="show-comments" class="tracklist" data-url="{% url 'views:user:comments' pk=user.pk %}" style="display: none;"></div>
-                        <div id="show-playlist" class="tracklist" style="display: none;"></div>
+                        <div id="show-playlist" class="tracklist" style="display: none;">
+                            {% include 'profile/playlist.html' %}
+                        </div>
                     </div>
                 </div>
                 <div class="section section-right">
