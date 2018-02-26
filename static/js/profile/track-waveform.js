@@ -72,6 +72,7 @@ function playAudio(id) {
     var playbtn = $('#play-btn-' + id);
     var isPlaying = audio.attr('data-isPlaying');
     var wrapper = document.getElementById("waveform-wrapper-" + id);
+    var player_play_btn = $("#player-play-btn");
 
 
     audios.each(function(index, item) {
@@ -99,6 +100,8 @@ function playAudio(id) {
         audio[0].play();
         playbtn.find('[data-fa-processed]').removeClass("fa-play-circle");
         playbtn.find('[data-fa-processed]').addClass("fa-pause-circle");
+        player_play_btn.find('[data-fa-processed]').removeClass("fa-play");
+        player_play_btn.find('[data-fa-processed]').addClass("fa-pause");
         wrapper.style.opacity = '1'
     }
     // 재생 중이면 정지시키고 재생 버튼 변경
@@ -107,6 +110,8 @@ function playAudio(id) {
         audio[0].pause();
         playbtn.find('[data-fa-processed]').removeClass("fa-pause-circle");
         playbtn.find('[data-fa-processed]').addClass("fa-play-circle");
-        wrapper.style.opacity = null
+        player_play_btn.find('[data-fa-processed]').removeClass("fa-pause");
+        player_play_btn.find('[data-fa-processed]').addClass("fa-play");
+        wrapper.style.opacity = null;
     }
 }
