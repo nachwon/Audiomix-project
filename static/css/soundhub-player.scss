@@ -1,0 +1,14 @@
+.soundhub-player {
+    position: fixed;
+    bottom: 0;
+    background-color: #ddd;
+    min-width: 1250px;
+    width: 100%;
+    height: 50px;
+
+    .player-body {
+        line-height: 50px;
+        text-align: center;
+        color: black;
+    }
+}
