@@ -20,20 +20,19 @@ function getCurrentPlaying(self) {
     });
 }
 
-// player_play_btn.on("click", function() {
-//     var target_audio = $("#" + $(this).data("target"));
-//     target_audio[0].pause();
-//     console.log(target_audio)
-// });
 
 function playerBtn(self) {
-    var target_audio = $("#" + $(self).attr("data-target"));
-    if (target_audio.attr("data-isPlaying") === "false") {
-        target_audio[0].play();
-        target_audio.attr("data-isPlaying", "true")
+    if ($(self).attr("data-target") !== null) {
+        var target_audio = $("#" + $(self).attr("data-target"));
+        if (target_audio.attr("data-isPlaying") === "false") {
+            target_audio[0].play();
+            target_audio.attr("data-isPlaying", "true")
+        }
+        else if (target_audio.attr("data-isPlaying") === "true") {
+            target_audio[0].pause();
+            target_audio.attr("data-isPlaying", "false")
+        }
     }
-    else {
-        target_audio[0].pause();
-        target_audio.attr("data-isPlaying", "false")
-    }
+
+
 }
