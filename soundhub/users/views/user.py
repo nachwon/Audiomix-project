@@ -52,7 +52,7 @@ def get_tracks(request, pk):
     page = request.POST['counter']
 
     # 유저의 포스트 15개를 가져옴
-    user_posts = user.post_set.all()[:15]
+    user_posts = user.post_set.all()
     # 5개씩 페이지네이션 적용
     paginator = Paginator(user_posts, 5)
 
@@ -93,9 +93,9 @@ def get_comments(request, pk):
 
     page = request.POST['counter']
 
-    user_comments = user.commenttrack_set.all()[:15]
+    user_comments = user.commenttrack_set.all()
 
-    paginator = Paginator(user_comments, 5)
+    paginator = Paginator(user_comments, 10)
 
     comments = paginator.page(page)
 
@@ -123,13 +123,6 @@ def get_comments(request, pk):
 
     response = json.dumps(context)
     return HttpResponse(response)
-
-
-
-
-
-
-
 
 
 def follow_toggle(request, pk):

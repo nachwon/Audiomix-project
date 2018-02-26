@@ -20,15 +20,17 @@
     <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
 
     {% if request.user.is_authenticated %}
-    <script src="{% static 'js/header.js' %}"></script>
+        <script src="{% static 'js/header.js' %}"></script>
     {% else %}
-    <script src="{% static 'js/header-no-auth.js' %}"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script src="{% static 'js/header-no-auth.js' %}"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
     {% endif %}
 
     {% block scripts %}
     {% endblock scripts %}
 
+    {% block title %}
+    {% endblock title %}
     <title>SoundHub</title>
 
 </head>

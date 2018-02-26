@@ -2,6 +2,10 @@
 
 {% load static %}
 
+{% block title %}
+<title>{{ user.nickname }} - SoundHub</title>
+{% endblock title %}
+
 {% block links %}
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock links %}
@@ -11,6 +15,7 @@
 {% endblock scripts %}
 
 {% block content %}
+
     {% csrf_token %}
     <div class="profile-content container contents">
 
@@ -65,7 +70,7 @@
                     </div>
                     <div id="profile-content" class="profile-body-content">
                         <div id="show-all" class="tracklist" style="display:block;">
-                            <h1>Hello</h1>
+                            {% include 'profile/show-all.html' %}
                         </div>
                         <div id="show-tracks" class="tracklist" data-url="{% url 'views:user:tracks' pk=user.pk %}" style="display: none;"></div>
                         <div id="show-comments" class="tracklist" data-url="{% url 'views:user:comments' pk=user.pk %}" style="display: none;"></div>
