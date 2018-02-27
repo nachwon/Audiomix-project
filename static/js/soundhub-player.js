@@ -10,6 +10,7 @@ function getCurrentPlaying(self) {
     audios.each(function(index, item){
         if($(item).attr("data-isPlaying") === "true") {
             $(item).on("play", function() {
+                player_total_duration.text(format_time(item.duration));
                 $(item).on("loadedmetadata", function() {
                     player_total_duration.text(format_time(item.duration));
                 });
