@@ -93,8 +93,26 @@ function playerBtn(self) {
 
 
 function addToPlaylist(self) {
+    var target_pk = $(self).data("src");
+    var target_obj = $("#track-" + target_pk);
+    var target_title = target_obj.data("title");
     var target_url = $(self).children("source").attr("src");
-    var ul = $("#player-playlist");
 
-    ul.append('<li class="player-playlist-item"><a href="' + target_url + '">added song</a></li>')
+    var ul = $("#player-playlist");
+    var li = $(".player-playlist-item");
+    var list_item = '<li class="player-playlist-item"><a href="' + target_url + '">' + target_title + '</a></li>';
+
+    var exists_in_playlist = false;
+
+    li.each(function(index, item) {
+        if (item.outerHTML === list_item) {
+            exists_in_playlist = item.outerHTML === list_item
+        }
+    });
+
+    if (exists_in_playlist) {
+    }
+    else {
+        ul.prepend(list_item);
+    }
 }
