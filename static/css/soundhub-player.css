@@ -17,3 +17,11 @@
       vertical-align: sub; }
     .soundhub-player .player-body span {
       vertical-align: middle; }
+  .soundhub-player .playlist {
+    display: inline-block;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: black;
+    bottom: 0;
+    right: 60px; }

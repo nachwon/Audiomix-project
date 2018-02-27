@@ -14,7 +14,7 @@
 <!-- if there are some tracks to show -->
     {% for track in posts %}
 
-        <div class="track-obj">
+        <div class="track-obj" id="track-{{ track.pk }}">
             <!--post image-->
             {% if track.post_img.name == '' %}
                 <div class="track-post-img" style="background-image: url({% static 'img/default-post-img.png' %}); background-size: unset; background-repeat: no-repeat;"></div>
@@ -42,7 +42,7 @@
 
             <!-- play button -->
             <div class="play-btn-wrapper">
-                <div id="play-btn-{{ track.pk }}" class="play-btn" data-target="track-audio-{{ track.pk }}" onclick="playAudio({{ track.pk }});getCurrentPlaying(this)"><i class="fas fa-play-circle fa-3x"></i></div>
+                <div id="play-btn-{{ track.pk }}" class="play-btn" data-target="track-audio-{{ track.pk }}" onclick="playAudio({{ track.pk }});getCurrentPlaying(this);"><i class="fas fa-play-circle fa-3x"></i></div>
             </div>
             <!-- play button ends-->
 
@@ -61,7 +61,7 @@
             <!-- track duration ends -->
 
             <!-- waveform -->
-            <audio preload="metadata" id="track-audio-{{ track.pk }}" class="post-track audio-file" data-src="{{ track.pk }}" data-isPlaying="false" ontimeupdate="updateAudioInfo(event)" onended="resetWaveform({{ track.pk }})" onloadedmetadata="setTotalDuration({{ track.pk }})">
+            <audio preload="metadata" id="track-audio-{{ track.pk }}" class="post-track audio-file" data-src="{{ track.pk }}" data-isPlaying="false" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(event)" onended="resetWaveform({{ track.pk }})" onloadedmetadata="setTotalDuration({{ track.pk }})">
                 <source src="{{ track.author_track.url }}">
             </audio>
             {% if track.author_track_waveform_base.name == '' %}

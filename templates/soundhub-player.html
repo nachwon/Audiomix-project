@@ -1,6 +1,10 @@
 {% load static %}
 
 <div class="soundhub-player">
+    <ul id="player-playlist" class="playlist">
+        <audio src=""></audio>
+        <li class="player-playlist-item"><a href="">Song 1</a></li>
+    </ul>
     <div class="player-body">
         <button id="player-play-btn" onclick="playerBtn(this)"><i class="fas fa-play fa-3x"></i></button>
         <span id="player-current-time">00:00</span> |
@@ -9,3 +13,7 @@
 </div>
 
 <script src="{% static 'js/soundhub-player.js' %}"></script>
+
+<script>
+
+</script>

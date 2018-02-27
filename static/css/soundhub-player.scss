@@ -22,4 +22,13 @@
             vertical-align: middle;
         }
     }
+    .playlist {
+        display: inline-block;
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background-color: black;
+        bottom: 0;
+        right: 60px;
+    }
 }

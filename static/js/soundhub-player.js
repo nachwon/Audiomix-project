@@ -1,5 +1,5 @@
 
-
+// 트랙 쪽에서 버튼을 눌렀을 때 플레이어 조작
 function getCurrentPlaying(self) {
     var target_id = $(self).data("target");
     var audios = $(".audio-file");
@@ -32,6 +32,7 @@ function getCurrentPlaying(self) {
 }
 
 
+// 플레이어 버튼 클릭시 조작
 function playerBtn(self) {
     if ($(self).attr("data-target") !== null) {
         var target = $(self).attr("data-target");
@@ -88,4 +89,12 @@ function playerBtn(self) {
             player_play_btn.find("[data-fa-processed]").addClass("fa-play");
         }
     }
+}
+
+
+function addToPlaylist(self) {
+    var target_url = $(self).children("source").attr("src");
+    var ul = $("#player-playlist");
+
+    ul.append('<li class="player-playlist-item"><a href="' + target_url + '">added song</a></li>')
 }
