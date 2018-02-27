@@ -93,6 +93,8 @@ function playerBtn(self) {
 
 
 function addToPlaylist(self) {
+    var player_audio = $("#player-loaded-audio");
+
     var target_pk = $(self).data("src");
     var target_obj = $("#track-" + target_pk);
     var target_title = target_obj.data("title");
@@ -115,4 +117,12 @@ function addToPlaylist(self) {
     else {
         ul.prepend(list_item);
     }
+
+    ul.on("click", "a", function(e) {
+        e.preventDefault();
+        var url = $(this).attr("href");
+        player_audio.attr("src", url);
+        player_audio[0].load();
+        player_audio[0].play()
+    })
 }
