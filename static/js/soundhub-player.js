@@ -48,7 +48,7 @@ function getCurrentPlaying(self) {
 
 
 // 플레이어 버튼 클릭시 조작
-function playerBtn(self) {
+function playerPlayBtn(self) {
     if ($(self).attr("data-target") !== null) {
         var target_pk = $(self).attr("data-pk");
         playAudio(target_pk)

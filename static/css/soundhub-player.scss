@@ -8,15 +8,15 @@
     border-top: 2px solid #E2B026;
 
     .player-body {
-        line-height: 50px;
+        margin: 10px 0;
         text-align: center;
         color: #333533;
 
-        #player-play-btn {
+        .player-nav-btn {
             background-color: transparent;
             border: 0;
             font-size: 8px;
-            vertical-align: sub;
+            vertical-align: middle;
         }
         span {
             vertical-align: middle;

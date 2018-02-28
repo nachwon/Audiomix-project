@@ -7,14 +7,14 @@
   background-color: rgba(255, 255, 255, 0.8);
   border-top: 2px solid #E2B026; }
   .soundhub-player .player-body {
-    line-height: 50px;
+    margin: 10px 0;
     text-align: center;
     color: #333533; }
-    .soundhub-player .player-body #player-play-btn {
+    .soundhub-player .player-body .player-nav-btn {
       background-color: transparent;
       border: 0;
       font-size: 8px;
-      vertical-align: sub; }
+      vertical-align: middle; }
     .soundhub-player .player-body span {
       vertical-align: middle; }
   .soundhub-player .playlist {
