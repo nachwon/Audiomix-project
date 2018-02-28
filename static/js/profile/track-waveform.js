@@ -60,6 +60,8 @@ function resetWaveform (pk) {
     wrapper.css("opacity", null)
 }
 
+// 재생하려는 트랙을 제외한 나머지 트랙들 모두 초기화
+// audio-file 클래스를 audio 태그에 달아주면 등록된다.
 function resetAudio(audio) {
     var audios = $('.audio-file');
     var wrappers = $('.waveform-opacity');

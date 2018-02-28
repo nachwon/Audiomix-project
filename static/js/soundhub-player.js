@@ -91,14 +91,15 @@ function playerBtn(self) {
     }
 }
 
-
-function addToPlaylist(self) {
+// 플레이 리스트에 추가함
+// play = true 인 경우 추가하고 바로 재생
+function addToPlaylist(self, play = true) {
     var player_audio = $("#player-loaded-audio");
 
     var target_pk = $(self).data("src");
     var target_obj = $("#track-" + target_pk);
     var target_title = target_obj.data("title");
-    var target_url = $(self).children("source").attr("src");
+    var target_url = target_obj.find("source").attr("src");
 
     var ul = $("#player-playlist");
     var li = $(".player-playlist-item");
@@ -123,10 +124,12 @@ function addToPlaylist(self) {
         var url = $(this).attr("href");
         player_audio.attr("src", url);
         player_audio[0].load();
-        player_audio[0].play()
+        if (play) {
+            resetAudio(player_audio);
+            player_audio[0].play()
+        }
     })
 }
-
 
 
 function playToggle(audio) {

@@ -11,7 +11,7 @@
     </div>
 {% else %}
 
-<!-- if there are some tracks to show -->
+    <!-- if there are some tracks to show -->
     {% for track in posts %}
 
         <div class="track-obj" id="track-{{ track.pk }}" data-title="{{ track.title }}" data-author="{{ track.author }}">
@@ -25,6 +25,11 @@
 
             <!-- track likes, comment track count -->
             <div class="track-social-count">
+                <div class="item">
+                    <span onclick="addToPlaylist(this)" class="add-to-playlist" data-src="{{ track.pk }}">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                </div>
                 <div class="item">
                     {% if request.user in track.liked.all %}
                         <span id="like-btn-{{ track.pk }}" class="like-btn glyphicon glyphicon-heart" onclick="like({{ track.pk }})"></span>

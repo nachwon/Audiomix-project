@@ -63,8 +63,7 @@ function getCommentTrackTotalDuration(event) {
     var audio =  event.target;
     var pk = $(audio).data("comment-pk");
     var total_duration_span = $("#comment-track-total-duration-" + pk);
-    var total_duration = format_time(audio.duration);
-    total_duration_span[0].innerText = total_duration
+    total_duration_span.text(format_time(audio.duration));
 }
 
 // 커맨트 트랙 재생/일시정지
@@ -74,8 +73,6 @@ function playCommentTrack (pk) {
     var comment_track = $("#comment-track-" + pk);
     var play_btn = $("#comment-play-btn-" + pk);
     var is_playing = comment_track.attr("data-isPlaying");
-    var audios = $(".audio-file");
-    var wrappers = $('.waveform-opacity');
     var player_play_btn = $("#player-play-btn");
 
     // 커맨트 트랙 플레이 버튼 클릭시
