@@ -45,7 +45,7 @@ function getCurrentPlaying(self) {
         }
     });
 
-    updatePlayerPostImg()
+    updatePlayerPostInfo()
 }
 
 
@@ -95,6 +95,7 @@ function playItem(self, e) {
     playerCurrentTime(player_audio[0])
 }
 
+// 플레이어 진행바 업데이트
 function updatePlayerProgress(audio) {
     var progress_cover = $(".player-progress-cover");
     var current = audio.currentTime;
@@ -107,7 +108,8 @@ function updatePlayerProgress(audio) {
     }
 }
 
-function updatePlayerPostImg() {
+// 재생버튼 클릭시 player 의 정보 업데이트
+function updatePlayerPostInfo() {
     var audio = $("[loaded]");
     var player_post_img = $("#player-post-img");
     var player_post_title = $("#player-post-title");
@@ -120,9 +122,13 @@ function updatePlayerPostImg() {
     var author_link = track_obj.find(".track-author").parent().attr("href");
     var post_img = track_obj.find(".track-post-img").attr("style");
 
+    // 프로필 이미지
     player_post_img.attr("style", post_img);
+    // 포스트 제목
     player_post_title.text(title);
+    // 포스트 작성자
     player_post_author.text(author);
+    // 작성자 프로필 링크
     player_author_link.attr("href", author_link)
 }
 
