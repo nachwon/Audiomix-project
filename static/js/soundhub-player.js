@@ -93,3 +93,8 @@ function playItem(self, e) {
     playerCurrentTime(player_audio[0])
 }
 
+function updatePlayerProgress(time) {
+    var progress_cover = $(".player-progress-cover");
+    progress_cover.css("width", time + "%")
+}
+

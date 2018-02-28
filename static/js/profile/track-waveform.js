@@ -12,17 +12,18 @@ function format_time (duration) {
 }
 
 // 오디오 정보 실시간 업데이트
-function updateAudioInfo (e) {
-    var track_id = e.target.getAttribute("data-src");
-    var current_time = e.target.currentTime;
-    var total_time = e.target.duration;
-    var track_current = document.getElementById("playtime-current-" + track_id);
-    var cutter = document.getElementById("image-cutter-" + track_id);
-    var back_image = document.getElementById("back-image-" + track_id).offsetWidth;
-    var re_current = current_time / total_time;
+function updateAudioInfo (self) {
+    var track_id = $(self).attr("data-src");
+    var current_time = self.currentTime;
+    var total_time = self.duration;
+    var track_current = $("#playtime-current-" + track_id);
+    var cutter = $("#image-cutter-" + track_id);
+    var rel_current = current_time / total_time * 100;
 
-    track_current.innerText = format_time(current_time);
-    cutter.style.width = (back_image * re_current) + 'px'
+    track_current.text(format_time(current_time));
+    cutter.css("width", rel_current + '%');
+
+    updatePlayerProgress(rel_current)
 }
 
 // 오디오 총 길이 표시
