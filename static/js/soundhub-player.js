@@ -98,8 +98,6 @@ function playerBtn(self) {
 // 플레이 리스트에 추가함
 // play = true 인 경우 추가하고 바로 재생
 function addToPlaylist(self) {
-    var player_audio;
-
     var target_pk = $(self).data("src");
     var target_obj = $("#track-" + target_pk);
     var target_title = target_obj.data("title");
@@ -107,7 +105,7 @@ function addToPlaylist(self) {
 
     var ul = $("#player-playlist");
     var li = $(".player-playlist-item");
-    var list_item = '<li class="player-playlist-item"><a href="' + target_audio_id + '">' + target_title + '</a></li>';
+    var list_item = '<li class="player-playlist-item"><a data-target-pk="' + target_pk + '" onclick="playItem(this, event)" href="' + target_audio_id + '">' + target_title + '</a></li>';
 
     var exists_in_playlist = false;
 
@@ -122,13 +120,14 @@ function addToPlaylist(self) {
     else {
         ul.prepend(list_item);
     }
-
-    ul.on("click", "a", function(e) {
-        e.preventDefault();
-        var audio_pk = $(this).attr("href");
-        player_audio = $("#" + audio_pk);
-        resetAudio(player_audio);
-        player_audio.on("loadedmetadata", playerDuration(player_audio[0], true));
-        playAudio(target_pk)
-    })
 }
+
+function playItem(self, e) {
+    e.preventDefault();
+    var target_pk = $(self).attr("data-target-pk");
+    var audio_pk = $(self).attr("href");
+    var player_audio = $("#" + audio_pk);
+    player_audio.on("loadedmetadata", playerDuration(player_audio[0], true));
+    playAudio(target_pk)
+}
+

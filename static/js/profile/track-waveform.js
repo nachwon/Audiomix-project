@@ -99,8 +99,6 @@ function playAudio(pk) {
     var wrapper = document.getElementById("waveform-wrapper-" + pk);
     var player_play_btn = $("#player-play-btn");
 
-    console.log(audio);
-
     resetAudio(audio);
 
     // 재생 중이지 않으면 재생시키고 재생 버튼 변경
