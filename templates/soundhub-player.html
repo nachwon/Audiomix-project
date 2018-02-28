@@ -9,8 +9,21 @@
         <button id="player-play-btn" class="player-nav-btn" onclick="playerPlayBtn(this)"><i class="fas fa-play fa-3x"></i></button>
         <button id="player-next-btn" class="player-nav-btn"><i class="fas fa-step-forward fa-2x"></i></button>
 
-        <span id="player-current-time">00:00</span> |
-        <span id="player-total-duration">00:00</span>
+        <div class="player-progress-bar">
+            <div class="player-position-indicator"></div>
+            <div class="player-progress-base">
+                <div class="player-progress-cover">
+                    <div class="player-progress-pointer"></div>
+                </div>
+            </div>
+
+            <div class="player-duration">
+                <span id="player-current-time">00:00</span> |
+                <span id="player-total-duration">00:00</span>
+            </div>
+
+        </div>
+
     </div>
 </div>
 

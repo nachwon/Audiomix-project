@@ -1,16 +1,19 @@
+$player-height: 50px;
+$dark-grey: #333533;
+$dark-yellow: #E2B026;
+
 .soundhub-player {
     position: fixed;
     bottom: 0;
     min-width: 1250px;
     width: 100%;
-    height: 50px;
+    height: $player-height;
     background-color: rgba(255, 255, 255, 0.8);
-    border-top: 2px solid #E2B026;
+    border-top: 2px solid $dark-yellow;
 
     .player-body {
-        margin: 10px 0;
-        text-align: center;
-        color: #333533;
+        margin: 10px 350px;
+        color: $dark-grey;
 
         .player-nav-btn {
             background-color: transparent;
@@ -18,8 +21,63 @@
             font-size: 8px;
             vertical-align: middle;
         }
-        span {
-            vertical-align: middle;
+
+        .player-progress-bar {
+            margin: 0 15px;
+            display: inline-block;
+            width: 750px;
+            height: $player-height;
+            position: absolute;
+            background: transparent;
+            bottom: 0;
+
+            .player-position-indicator {
+                width: 88%;
+                height: $player-height;
+                background-color: transparent;
+                z-index: 0;
+                position: absolute;
+                cursor: pointer;
+            }
+
+            .player-progress-base {
+                width: 88%;
+                height: 1px;
+                background-color: $dark-grey;
+                margin: $player-height/2 0;
+                z-index: 1;
+                position: absolute;
+                pointer-events: none;
+
+                .player-progress-cover {
+                    width: 0%;
+                    height: 1px;
+                    background-color: $dark-yellow;
+                    z-index: 1;
+                    position: absolute;
+                    pointer-events: none;
+
+                    .player-progress-pointer {
+                        width: 10px;
+                        height: 10px;
+                        background-color: $dark-yellow;
+                        border-radius: 50%;
+                        position: absolute;
+                        right: 0;
+                        top: -4px;
+                        border: 1px solid $dark-grey;
+                    }
+                }
+            }
+            .player-duration {
+                position: absolute;
+                top: 15px;
+                right: 0;
+                span {
+                    vertical-align: middle;
+                }
+            }
+
         }
     }
     .playlist {
