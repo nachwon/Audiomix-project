@@ -1,18 +1,29 @@
+function playerDuration(audio, player = false) {
+    var player_total_duration = $("#player-total-duration");
+    console.log(player);
+    if (player) {
+        audio.load();
+        player_total_duration.text(format_time(audio.duration));
+    }
+    else {
+        player_total_duration.text(format_time(audio.duration));
+    }
+}
 
 // 트랙 쪽에서 버튼을 눌렀을 때 플레이어 조작
 function getCurrentPlaying(self) {
     var target_id = $(self).data("target");
     var audios = $(".audio-file");
-    var player_total_duration = $("#player-total-duration");
+
     var player_current_time = $("#player-current-time");
     var player_play_btn = $("#player-play-btn");
 
     audios.each(function(index, item){
         if($(item).attr("data-isPlaying") === "true") {
             $(item).on("play", function() {
-                player_total_duration.text(format_time(item.duration));
+                playerDuration(item);
                 $(item).on("loadedmetadata", function() {
-                    player_total_duration.text(format_time(item.duration));
+                    playerDuration(item);
                 });
             });
 
@@ -93,7 +104,7 @@ function playerBtn(self) {
 
 // 플레이 리스트에 추가함
 // play = true 인 경우 추가하고 바로 재생
-function addToPlaylist(self, play = true) {
+function addToPlaylist(self) {
     var player_audio = $("#player-loaded-audio");
 
     var target_pk = $(self).data("src");
@@ -124,10 +135,10 @@ function addToPlaylist(self, play = true) {
         var url = $(this).attr("href");
         player_audio.attr("src", url);
         player_audio[0].load();
-        if (play) {
-            resetAudio(player_audio);
-            player_audio[0].play()
-        }
+        resetAudio(player_audio);
+        player_audio.on("loadedmetadata", playerDuration(player_audio[0], true));
+        player_audio[0].play()
+
     })
 }
 
