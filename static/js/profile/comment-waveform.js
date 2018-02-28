@@ -9,6 +9,9 @@ function updateCommentTrack (event) {
     // 현재 재생 시간 업데이트
     var current_time_span = $("#comment-track-current-duration-" + pk);
     current_time_span[0].innerText = format_time(audio.currentTime);
+
+    // player 업데이트
+    updatePlayerProgress(audio);
 }
 
 // 재생 끝났을 때 오디오 탐색 리셋
@@ -68,8 +71,6 @@ function getCommentTrackTotalDuration(event) {
 
 // 커맨트 트랙 재생/일시정지
 function playCommentTrack (pk) {
-    var play_icons = $(".comment-play-icon");
-    var track_play_icons = $(".play-btn");
     var comment_track = $("#comment-track-" + pk);
     var play_btn = $("#comment-play-btn-" + pk);
     var player_play_btn = $("#player-play-btn");
@@ -79,19 +80,9 @@ function playCommentTrack (pk) {
     // 다른 모든 오디오 정지
     resetAudio(comment_track);
 
-    // 커맨트 트랙 플레이 버튼 변경
-    play_icons.each(function(index, item){
-        $(item).find("[data-fa-processed]").removeClass("fa-pause");
-        $(item).find("[data-fa-processed]").addClass("fa-play");
-    });
-    // 포스트 트랙 플레이 버튼 변경
-    track_play_icons.each(function(index, item){
-        $(item).find("[data-fa-processed]").removeClass("fa-pause-circle");
-        $(item).find("[data-fa-processed]").addClass("fa-play-circle");
-    });
-
     // 재생&일시정지 토글
     if (comment_track[0].paused) {
+        comment_track.attr("loaded", true);
         comment_track[0].play();
         play_btn.find("[data-fa-processed]").removeClass("fa-play");
         play_btn.find("[data-fa-processed]").addClass("fa-pause");

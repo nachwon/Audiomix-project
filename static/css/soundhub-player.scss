@@ -56,6 +56,7 @@ $dark-yellow: #E2B026;
                     z-index: 1;
                     position: absolute;
                     pointer-events: none;
+                    transition-duration: 0.3s;
 
                     .player-progress-pointer {
                         width: 10px;
@@ -86,7 +87,7 @@ $dark-yellow: #E2B026;
         width: 350px;
         height: 100px;
         background-color: black;
-        bottom: 0;
+        bottom: 41px;
         right: 60px;
     }
 }

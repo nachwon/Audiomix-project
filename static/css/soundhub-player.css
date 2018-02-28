@@ -43,7 +43,8 @@
           background-color: #E2B026;
           z-index: 1;
           position: absolute;
-          pointer-events: none; }
+          pointer-events: none;
+          transition-duration: 0.3s; }
           .soundhub-player .player-body .player-progress-bar .player-progress-base .player-progress-cover .player-progress-pointer {
             width: 10px;
             height: 10px;
@@ -65,5 +66,5 @@
     width: 350px;
     height: 100px;
     background-color: black;
-    bottom: 0;
+    bottom: 41px;
     right: 60px; }
