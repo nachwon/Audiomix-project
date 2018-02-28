@@ -5,7 +5,11 @@
         <li class="player-playlist-item">Song 1</li>
     </ul>
     <div class="player-body">
-        <div id="player-post-img" class="player-post-img" style=""></div>
+        <div id="player-post-img" class="player-post-img" style="background-image: url({% static 'img/default-post-img.png' %})"></div>
+        <div class="player-post-info">
+            <span id="player-post-title">Audio Track</span>
+            <span id="player-post-author">Not Loaded</span>
+        </div>
 
         <div class="player-controls">
             <button id="player-prev-btn" class="player-nav-btn"><i class="fas fa-step-backward fa-2x"></i></button>
