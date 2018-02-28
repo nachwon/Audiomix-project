@@ -60,28 +60,22 @@ function resetWaveform (pk) {
     wrapper.css("opacity", null)
 }
 
-
-// 플레이 버튼 클릭시 아이콘 변경 및 오디오 재생
-// 오디오 재생 중 다른 오디오 클릭 시, 재생 중이던 오디오는 처음으로 돌아가고 정지됨.
-function playAudio(id) {
+function resetAudio(audio) {
     var audios = $('.audio-file');
     var wrappers = $('.waveform-opacity');
     var play_icons = $(".comment-play-icon");
     var track_play_icons = $(".play-btn");
-    var audio = $("#track-audio-" + id);
-    var playbtn = $('#play-btn-' + id);
-    var isPlaying = audio.attr('data-isPlaying');
-    var wrapper = document.getElementById("waveform-wrapper-" + id);
-    var player_play_btn = $("#player-play-btn");
-
 
     audios.each(function(index, item) {
         if (item.id !== audio.attr("id")) {
             item.pause();
             item.currentTime = 0;
             item.setAttribute("data-isPlaying", "false");
-            wrappers[index].style.opacity = null
         }
+    });
+
+    wrappers.each(function(index, item) {
+        item.style.opacity = null
     });
 
     play_icons.each(function(index, item){
@@ -93,6 +87,20 @@ function playAudio(id) {
         $(item).find("[data-fa-processed]").removeClass("fa-pause-circle");
         $(item).find("[data-fa-processed]").addClass("fa-play-circle");
     });
+
+}
+
+
+// 플레이 버튼 클릭시 아이콘 변경 및 오디오 재생
+// 오디오 재생 중 다른 오디오 클릭 시, 재생 중이던 오디오는 처음으로 돌아가고 정지됨.
+function playAudio(id) {
+    var audio = $("#track-audio-" + id);
+    var playbtn = $('#play-btn-' + id);
+    var isPlaying = audio.attr('data-isPlaying');
+    var wrapper = document.getElementById("waveform-wrapper-" + id);
+    var player_play_btn = $("#player-play-btn");
+
+    resetAudio(audio);
 
     // 재생 중이지 않으면 재생시키고 재생 버튼 변경
     if (isPlaying === "false") {
@@ -115,3 +123,4 @@ function playAudio(id) {
         wrapper.style.opacity = null;
     }
 }
+

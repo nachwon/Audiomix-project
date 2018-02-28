@@ -126,3 +126,14 @@ function addToPlaylist(self) {
         player_audio[0].play()
     })
 }
+
+
+
+function playToggle(audio) {
+    if (audio[0].paused) {
+        audio[0].play()
+    }
+    else {
+        audio[0].pause()
+    }
+}
