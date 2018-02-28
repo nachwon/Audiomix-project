@@ -93,8 +93,15 @@ function playItem(self, e) {
     playerCurrentTime(player_audio[0])
 }
 
-function updatePlayerProgress(time) {
+function updatePlayerProgress(audio) {
     var progress_cover = $(".player-progress-cover");
-    progress_cover.css("width", time + "%")
+    var current = audio.currentTime;
+    var total = audio.duration;
+    var position = current / total * 100;
+    if ($(audio).attr("loaded")) {
+        $(audio).on("timeupdate", function() {
+            progress_cover.css("width", position + "%")
+        });
+    }
 }
 

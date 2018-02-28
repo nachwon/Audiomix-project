@@ -23,7 +23,7 @@ function updateAudioInfo (self) {
     track_current.text(format_time(current_time));
     cutter.css("width", rel_current + '%');
 
-    updatePlayerProgress(rel_current)
+    updatePlayerProgress(self)
 }
 
 // 오디오 총 길이 표시
@@ -73,6 +73,7 @@ function resetAudio(audio) {
         if (item.id !== audio.attr("id")) {
             item.pause();
             item.currentTime = 0;
+            $(item).attr("loaded", null) // audio 의 loaded 속성 제거
         }
     });
 
@@ -104,6 +105,7 @@ function playAudio(pk) {
 
     // 재생 중이지 않으면 재생시키고 재생 버튼 변경
     if (audio[0].paused) {
+        audio.attr("loaded", true); // 재생 버튼을 누르면 audio 에 loaded 속성 부여
         audio[0].play();
         playbtn.find('[data-fa-processed]').removeClass("fa-play-circle");
         playbtn.find('[data-fa-processed]').addClass("fa-pause-circle");
