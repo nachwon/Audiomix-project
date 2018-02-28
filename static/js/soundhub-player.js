@@ -1,13 +1,6 @@
-function playerDuration(audio, player = false) {
+function playerDuration(audio) {
     var player_total_duration = $("#player-total-duration");
-    console.log(player);
-    if (player) {
-        audio.load();
-        player_total_duration.text(format_time(audio.duration));
-    }
-    else {
-        player_total_duration.text(format_time(audio.duration));
-    }
+    player_total_duration.text(format_time(audio.duration));
 }
 
 // 트랙 쪽에서 버튼을 눌렀을 때 플레이어 조작
@@ -105,16 +98,16 @@ function playerBtn(self) {
 // 플레이 리스트에 추가함
 // play = true 인 경우 추가하고 바로 재생
 function addToPlaylist(self) {
-    var player_audio = $("#player-loaded-audio");
+    var player_audio;
 
     var target_pk = $(self).data("src");
     var target_obj = $("#track-" + target_pk);
     var target_title = target_obj.data("title");
-    var target_url = target_obj.find("source").attr("src");
+    var target_audio_id = target_obj.find("audio").attr("id");
 
     var ul = $("#player-playlist");
     var li = $(".player-playlist-item");
-    var list_item = '<li class="player-playlist-item"><a href="' + target_url + '">' + target_title + '</a></li>';
+    var list_item = '<li class="player-playlist-item"><a href="' + target_audio_id + '">' + target_title + '</a></li>';
 
     var exists_in_playlist = false;
 
@@ -132,22 +125,10 @@ function addToPlaylist(self) {
 
     ul.on("click", "a", function(e) {
         e.preventDefault();
-        var url = $(this).attr("href");
-        player_audio.attr("src", url);
-        player_audio[0].load();
+        var audio_pk = $(this).attr("href");
+        player_audio = $("#" + audio_pk);
         resetAudio(player_audio);
         player_audio.on("loadedmetadata", playerDuration(player_audio[0], true));
-        player_audio[0].play()
-
+        playAudio(target_pk)
     })
-}
-
-
-function playToggle(audio) {
-    if (audio[0].paused) {
-        audio[0].play()
-    }
-    else {
-        audio[0].pause()
-    }
 }

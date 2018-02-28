@@ -93,11 +93,13 @@ function resetAudio(audio) {
 
 // 플레이 버튼 클릭시 아이콘 변경 및 오디오 재생
 // 오디오 재생 중 다른 오디오 클릭 시, 재생 중이던 오디오는 처음으로 돌아가고 정지됨.
-function playAudio(id) {
-    var audio = $("#track-audio-" + id);
-    var playbtn = $('#play-btn-' + id);
-    var wrapper = document.getElementById("waveform-wrapper-" + id);
+function playAudio(pk) {
+    var audio = $("#track-audio-" + pk);
+    var playbtn = $('#play-btn-' + pk);
+    var wrapper = document.getElementById("waveform-wrapper-" + pk);
     var player_play_btn = $("#player-play-btn");
+
+    console.log(audio);
 
     resetAudio(audio);
 
