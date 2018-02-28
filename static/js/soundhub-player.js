@@ -14,6 +14,7 @@ function playerCurrentTime(audio) {
 // 트랙 쪽에서 버튼을 눌렀을 때 플레이어 조작
 function getCurrentPlaying(self) {
     var target_id = $(self).data("target");
+    var target_pk = $(self).data("pk");
     var audios = $(".audio-file");
 
     var player_current_time = $("#player-current-time");
@@ -37,6 +38,7 @@ function getCurrentPlaying(self) {
             });
 
             player_play_btn.attr("data-target", target_id);
+            player_play_btn.attr("data-pk", target_pk)
         }
         else {
             $(item).off()
@@ -48,59 +50,8 @@ function getCurrentPlaying(self) {
 // 플레이어 버튼 클릭시 조작
 function playerBtn(self) {
     if ($(self).attr("data-target") !== null) {
-        var target = $(self).attr("data-target");
-        var target_audio = $("#" + target);
-        var track_btns = $(".play-btn");
-        var comment_btns = $(".comment-play-icon");
-        var player_play_btn = $("#player-play-btn");
-        var wrappers = $('.waveform-opacity');
-
-        if (target_audio.attr("data-isPlaying") === "false") {
-            // 재생
-            target_audio[0].play();
-            target_audio.attr("data-isPlaying", "true");
-            // 트랙 버튼 재생
-            track_btns.each(function(index, item) {
-                if ($(item).attr("data-target") === target) {
-                    $(item).find("[data-fa-processed]").addClass("fa-pause-circle");
-                    $(item).find("[data-fa-processed]").removeClass("fa-play-circle");
-                    wrappers[index].style.opacity = "1"
-                }
-            });
-            // 코맨트 버튼 재생
-            comment_btns.each(function(index, item) {
-                if ($(item).attr("data-target") === target) {
-                    $(item).find("[data-fa-processed]").addClass("fa-pause");
-                    $(item).find("[data-fa-processed]").removeClass("fa-play");
-                }
-            });
-            // 플레이어 버튼 재생
-            player_play_btn.find("[data-fa-processed]").addClass("fa-pause");
-            player_play_btn.find("[data-fa-processed]").removeClass("fa-play");
-        }
-        else if (target_audio.attr("data-isPlaying") === "true") {
-            // 일시정지
-            target_audio[0].pause();
-            target_audio.attr("data-isPlaying", "false");
-            // 트랙 버튼 일시정지
-            track_btns.each(function(index, item) {
-                if ($(item).attr("data-target") === target) {
-                    $(item).find("[data-fa-processed]").removeClass("fa-pause-circle");
-                    $(item).find("[data-fa-processed]").addClass("fa-play-circle");
-                    wrappers[index].style.opacity = null
-                }
-            });
-            // 코맨트 버튼 일시정지
-            comment_btns.each(function(index, item) {
-                if ($(item).attr("data-target") === target) {
-                    $(item).find("[data-fa-processed]").removeClass("fa-pause");
-                    $(item).find("[data-fa-processed]").addClass("fa-play");
-                }
-            });
-            // 플레이어 버튼 일시정지
-            player_play_btn.find("[data-fa-processed]").removeClass("fa-pause");
-            player_play_btn.find("[data-fa-processed]").addClass("fa-play");
-        }
+        var target_pk = $(self).attr("data-pk");
+        playAudio(target_pk)
     }
 }
 
