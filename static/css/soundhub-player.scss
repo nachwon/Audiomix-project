@@ -12,18 +12,30 @@ $dark-yellow: #E2B026;
     border-top: 2px solid $dark-yellow;
 
     .player-body {
-        margin: 10px 350px;
+        margin: 0 310px;
         color: $dark-grey;
 
         .player-post-img {
-
+            position: relative;
+            bottom: 0;
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+            float: left;
         }
-
-        .player-nav-btn {
-            background-color: transparent;
-            border: 0;
-            font-size: 8px;
-            vertical-align: middle;
+        .player-controls {
+            width: 110px;
+            height: 50px;
+            float: left;
+            position: relative;
+            bottom: 0;
+            padding: 11px 0;
+            .player-nav-btn {
+                background-color: transparent;
+                border: 0;
+                font-size: 8px;
+                vertical-align: middle;
+            }
         }
 
         .player-progress-bar {
@@ -84,6 +96,7 @@ $dark-yellow: #E2B026;
             }
 
         }
+
     }
     .playlist {
         display: inline-block;

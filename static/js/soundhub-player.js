@@ -109,6 +109,8 @@ function updatePlayerProgress(audio) {
 
 function updatePlayerPostImg() {
     var audio = $("[loaded]");
-    console.log(audio)
+    var player_post_img = $("#player-post-img");
+    var post_img = audio.parent().find(".track-post-img").attr("style");
+    player_post_img.attr("style", post_img)
 }
 
