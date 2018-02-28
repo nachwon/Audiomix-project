@@ -3,6 +3,14 @@ function playerDuration(audio) {
     player_total_duration.text(format_time(audio.duration));
 }
 
+function playerCurrentTime(audio) {
+    var player_current_time = $("#player-current-time");
+    $(audio).on("timeupdate", function() {
+        player_current_time.text(format_time(audio.currentTime))
+    });
+
+}
+
 // 트랙 쪽에서 버튼을 눌렀을 때 플레이어 조작
 function getCurrentPlaying(self) {
     var target_id = $(self).data("target");
@@ -16,14 +24,11 @@ function getCurrentPlaying(self) {
             $(item).on("play", function() {
                 playerDuration(item);
                 $(item).on("loadedmetadata", function() {
-                    console.log(item);
                     playerDuration(item);
                 })
             });
 
-            $(item).on("timeupdate", function() {
-                player_current_time.text(format_time(item.currentTime));
-            });
+            playerCurrentTime(item);
 
             $(item).on("ended", function() {
                 player_current_time.text("00:00");
@@ -133,6 +138,7 @@ function playItem(self, e) {
     var audio_pk = $(self).attr("href");
     var player_audio = $("#" + audio_pk);
     player_audio.on("loadedmetadata", playerDuration(player_audio[0], true));
-    playAudio(target_pk)
+    playAudio(target_pk);
+    playerCurrentTime(player_audio[0])
 }
 
