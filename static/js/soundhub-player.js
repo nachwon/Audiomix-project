@@ -110,7 +110,19 @@ function updatePlayerProgress(audio) {
 function updatePlayerPostImg() {
     var audio = $("[loaded]");
     var player_post_img = $("#player-post-img");
-    var post_img = audio.parent().find(".track-post-img").attr("style");
-    player_post_img.attr("style", post_img)
+    var player_post_title = $("#player-post-title");
+    var player_post_author = $("#player-post-author");
+    var player_author_link = $("#player-author-link");
+
+    var track_obj = audio.parent();
+    var title = track_obj.data("title");
+    var author = track_obj.data("author");
+    var author_link = track_obj.find(".track-author").parent().attr("href");
+    var post_img = track_obj.find(".track-post-img").attr("style");
+
+    player_post_img.attr("style", post_img);
+    player_post_title.text(title);
+    player_post_author.text(author);
+    player_author_link.attr("href", author_link)
 }
 

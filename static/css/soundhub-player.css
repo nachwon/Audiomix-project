@@ -28,6 +28,12 @@
       .soundhub-player .player-body .player-post-info span {
         line-height: 25px;
         display: block; }
+        .soundhub-player .player-body .player-post-info span:hover {
+          color: black !important; }
+      .soundhub-player .player-body .player-post-info span#player-post-title {
+        color: #777; }
+      .soundhub-player .player-body .player-post-info span#player-post-author {
+        color: #aaa; }
     .soundhub-player .player-body .player-controls {
       width: 110px;
       height: 50px;

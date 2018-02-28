@@ -37,6 +37,16 @@ $dark-yellow: #E2B026;
             span {
                 line-height: 25px;
                 display: block;
+                &:hover {
+                    color: black !important;
+                }
+            }
+
+            span#player-post-title {
+                color: #777;
+            }
+            span#player-post-author {
+                color: #aaa;
             }
         }
         .player-controls {
