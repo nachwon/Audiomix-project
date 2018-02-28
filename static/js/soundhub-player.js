@@ -18,7 +18,11 @@ function getCurrentPlaying(self) {
                 $(item).on("loadedmetadata", function() {
                     console.log(item);
                     playerDuration(item);
-                });
+                })
+            });
+
+            $(item).on("timeupdate", function() {
+                player_current_time.text(format_time(item.currentTime));
             });
 
             $(item).on("ended", function() {
@@ -27,11 +31,10 @@ function getCurrentPlaying(self) {
                 player_play_btn.find("[data-fa-processed]").addClass("fa-play");
             });
 
-            $(item).on("timeupdate", function() {
-                player_current_time.text(format_time(item.currentTime));
-            });
-
             player_play_btn.attr("data-target", target_id);
+        }
+        else {
+            $(item).off()
         }
     });
 }
