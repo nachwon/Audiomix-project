@@ -12,10 +12,11 @@ function getCurrentPlaying(self) {
     var player_play_btn = $("#player-play-btn");
 
     audios.each(function(index, item){
-        if($(item).attr("data-isPlaying") === "true") {
+        if(!item.paused) {
             $(item).on("play", function() {
                 playerDuration(item);
                 $(item).on("loadedmetadata", function() {
+                    console.log(item);
                     playerDuration(item);
                 });
             });
@@ -122,6 +123,7 @@ function addToPlaylist(self) {
     }
 }
 
+// 플레이리스트 내의 아이템 하나를 재생
 function playItem(self, e) {
     e.preventDefault();
     var target_pk = $(self).attr("data-target-pk");
