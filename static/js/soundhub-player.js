@@ -44,6 +44,8 @@ function getCurrentPlaying(self) {
             $(item).off()
         }
     });
+
+    updatePlayerPostImg()
 }
 
 
@@ -103,5 +105,10 @@ function updatePlayerProgress(audio) {
             progress_cover.css("width", position + "%")
         });
     }
+}
+
+function updatePlayerPostImg() {
+    var audio = $("[loaded]");
+    console.log(audio)
 }
 
