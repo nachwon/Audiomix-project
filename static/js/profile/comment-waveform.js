@@ -82,7 +82,6 @@ function playCommentTrack (pk) {
 
     // 재생&일시정지 토글
     if (comment_track[0].paused) {
-        comment_track.attr("loaded", true);
         comment_track[0].play();
         play_btn.find("[data-fa-processed]").removeClass("fa-play");
         play_btn.find("[data-fa-processed]").addClass("fa-pause");

@@ -73,7 +73,6 @@ function resetAudio(audio) {
         if (item.id !== audio.attr("id")) {
             item.pause();
             item.currentTime = 0;
-            $(item).attr("loaded", null) // audio 의 loaded 속성 제거
         }
     });
 
@@ -92,11 +91,21 @@ function resetAudio(audio) {
     });
 }
 
+// 플레이 누른 오디오에 loaded 속성 부여
+function loadAudio(self) {
+    var audio = $("#" + $(self).attr("data-target"));
+    var audios = $(".audio-file");
+
+    audios.attr("loaded", null);
+
+    audio.attr("loaded", true)
+
+}
 
 // 플레이 버튼 클릭시 아이콘 변경 및 오디오 재생
 // 오디오 재생 중 다른 오디오 클릭 시, 재생 중이던 오디오는 처음으로 돌아가고 정지됨.
 function playAudio(pk) {
-    var audio = $("#track-audio-" + pk);
+    var audio = $("[loaded]");
     var playbtn = $('#play-btn-' + pk);
     var wrapper = document.getElementById("waveform-wrapper-" + pk);
     var player_play_btn = $("#player-play-btn");
@@ -105,7 +114,6 @@ function playAudio(pk) {
 
     // 재생 중이지 않으면 재생시키고 재생 버튼 변경
     if (audio[0].paused) {
-        audio.attr("loaded", true); // 재생 버튼을 누르면 audio 에 loaded 속성 부여
         audio[0].play();
         playbtn.find('[data-fa-processed]').removeClass("fa-play-circle");
         playbtn.find('[data-fa-processed]').addClass("fa-pause-circle");
