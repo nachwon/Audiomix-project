@@ -103,31 +103,40 @@ function loadAudio(self) {
 
 // 플레이 버튼 클릭시 아이콘 변경 및 오디오 재생
 // 오디오 재생 중 다른 오디오 클릭 시, 재생 중이던 오디오는 처음으로 돌아가고 정지됨.
-function playAudio(pk) {
+function playAudio() {
     var audio = $("[loaded]");
-    var playbtn = $('#play-btn-' + pk);
-    var wrapper = document.getElementById("waveform-wrapper-" + pk);
-    var player_play_btn = $("#player-play-btn");
+    var audios = $(".audio-file");
 
-    resetAudio(audio);
-
-    // 재생 중이지 않으면 재생시키고 재생 버튼 변경
     if (audio[0].paused) {
+        audios.each(function(index, item) {
+            toggleBtn($(item), "off");
+            item.pause()
+        });
         audio[0].play();
-        playbtn.find('[data-fa-processed]').removeClass("fa-play-circle");
-        playbtn.find('[data-fa-processed]').addClass("fa-pause-circle");
-        player_play_btn.find('[data-fa-processed]').removeClass("fa-play");
-        player_play_btn.find('[data-fa-processed]').addClass("fa-pause");
-        wrapper.style.opacity = '1'
+        toggleBtn(audio, "on")
     }
-    // 재생 중이면 정지시키고 재생 버튼 변경
     else {
         audio[0].pause();
-        playbtn.find('[data-fa-processed]').removeClass("fa-pause-circle");
-        playbtn.find('[data-fa-processed]').addClass("fa-play-circle");
-        player_play_btn.find('[data-fa-processed]').removeClass("fa-pause");
-        player_play_btn.find('[data-fa-processed]').addClass("fa-play");
-        wrapper.style.opacity = null;
+        toggleBtn(audio, "off")
     }
 }
 
+function toggleBtn(audio, status) {
+    var target_obj = audio.parent();
+    var player_play_btn = $("#player-play-btn");
+    if (target_obj.data("type") === "track") {
+        var play_btn = target_obj.find(".play-btn");
+        if (status === "on") {
+            play_btn.find('[data-fa-processed]').removeClass("fa-play-circle");
+            play_btn.find('[data-fa-processed]').addClass("fa-pause-circle");
+            player_play_btn.find('[data-fa-processed]').removeClass("fa-play");
+            player_play_btn.find('[data-fa-processed]').addClass("fa-pause");
+        }
+        else if (status === "off") {
+            play_btn.find('[data-fa-processed]').removeClass("fa-pause-circle");
+            play_btn.find('[data-fa-processed]').addClass("fa-play-circle");
+            player_play_btn.find('[data-fa-processed]').removeClass("fa-pause");
+            player_play_btn.find('[data-fa-processed]').addClass("fa-play");
+        }
+    }
+}

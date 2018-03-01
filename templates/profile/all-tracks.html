@@ -14,7 +14,7 @@
     <!-- if there are some tracks to show -->
     {% for track in posts %}
 
-        <div class="track-obj" id="track-{{ track.pk }}" data-title="{{ track.title }}" data-author="{{ track.author }}">
+        <div class="track-obj" id="track-{{ track.pk }}" data-type="track" data-title="{{ track.title }}" data-author="{{ track.author }}">
             <!--post image-->
             {% if track.post_img.name == '' %}
                 <div class="track-post-img" style="background-image: url({% static 'img/default-post-img.png' %});background-repeat: no-repeat;"></div>
@@ -47,7 +47,7 @@
 
             <!-- play button -->
             <div class="play-btn-wrapper">
-                <div id="play-btn-{{ track.pk }}" class="play-btn" data-pk="{{ track.pk }}" data-target="track-audio-{{ track.pk }}" onclick="loadAudio(this);playAudio({{ track.pk }});getCurrentPlaying(this);"><i class="fas fa-play-circle fa-3x"></i></div>
+                <div id="play-btn-{{ track.pk }}" class="play-btn" data-pk="{{ track.pk }}" data-target="track-audio-{{ track.pk }}" onclick="loadAudio(this);playAudio();"><i class="fas fa-play-circle fa-3x"></i></div>
             </div>
             <!-- play button ends-->
 

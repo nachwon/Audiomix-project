@@ -94,6 +94,7 @@ function playItem(self, e) {
     loadAudio(self);
     playAudio(target_pk);
     playerCurrentTime(player_audio[0]);
+    updatePlayerProgress(player_audio[0]);
     updatePlayerPostInfo()
 }
 
