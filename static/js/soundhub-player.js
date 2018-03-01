@@ -67,7 +67,7 @@ function addToPlaylist(self) {
 
     var ul = $("#player-playlist");
     var li = $(".player-playlist-item");
-    var list_item = '<li class="player-playlist-item"><a data-target-pk="' + target_pk + '" onclick="playItem(this, event)" href="' + target_audio_id + '">' + target_title + '</a></li>';
+    var list_item = '<li class="player-playlist-item"><a data-target="' + target_audio_id + '" data-target-pk="' + target_pk + '" onclick="playItem(this, event)" href="' + target_audio_id + '">' + target_title + '</a></li>';
 
     var exists_in_playlist = false;
 
@@ -91,8 +91,10 @@ function playItem(self, e) {
     var audio_pk = $(self).attr("href");
     var player_audio = $("#" + audio_pk);
     player_audio.on("loadedmetadata", playerDuration(player_audio[0], true));
+    loadAudio(self);
     playAudio(target_pk);
-    playerCurrentTime(player_audio[0])
+    playerCurrentTime(player_audio[0]);
+    updatePlayerPostInfo()
 }
 
 // 플레이어 진행바 업데이트
