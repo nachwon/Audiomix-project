@@ -100,6 +100,23 @@ function seekFromPlayer(self, e) {
     }
 }
 
+$(".soundhub-player").ready(function () {
+    var indicator = $(".player-position-indicator");
+    var pointer = $(".player-progress-pointer");
+    console.log(pointer);
+    indicator.on("mouseenter", function () {
+        pointer.animate({
+            opacity: "1"
+        }, 0.1)
+    });
+    indicator.on("mouseleave", function () {
+        pointer.animate({
+            opacity: "0"
+        }, 0.1)
+    })
+});
+
+
 // 플레이 리스트 관련 함수들
 
 // 플레이 리스트에 추가함

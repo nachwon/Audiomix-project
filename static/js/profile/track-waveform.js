@@ -73,7 +73,8 @@ function playAudio() {
     var audio = $("[loaded]");
     var audios = $(".audio-file");
 
-    if (audio[0].paused) {
+    if (audio[0]) {
+        if (audio[0].paused) {
         // 모든 오디오 일시정지
         audios.each(function(index, item) {
             toggleBtn($(item), "off");
@@ -90,6 +91,7 @@ function playAudio() {
         audio[0].pause();
         toggleBtn(audio, "off");
         toggleOpacity(audio, "off")
+    }
     }
 }
 

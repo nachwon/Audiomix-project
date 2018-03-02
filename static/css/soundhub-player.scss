@@ -56,11 +56,17 @@ $dark-yellow: #E2B026;
             position: relative;
             bottom: 0;
             padding: 11px 0;
+
             .player-nav-btn {
                 background-color: transparent;
                 border: 0;
                 font-size: 8px;
                 vertical-align: middle;
+                transition-duration: 0.2s;
+                
+                &:hover {
+                    color: $dark-yellow;
+                }
             }
         }
 
@@ -101,12 +107,14 @@ $dark-yellow: #E2B026;
                     transition-duration: 0.3s;
 
                     .player-progress-pointer {
+                        opacity: 0;
+                        transition-duration: 0.3s;
                         width: 10px;
                         height: 10px;
                         background-color: $dark-yellow;
                         border-radius: 50%;
                         position: absolute;
-                        right: 0;
+                        right: -4px;
                         top: -4px;
                         border: 1px solid $dark-grey;
                     }

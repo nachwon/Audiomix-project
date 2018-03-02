@@ -45,7 +45,10 @@
         background-color: transparent;
         border: 0;
         font-size: 8px;
-        vertical-align: middle; }
+        vertical-align: middle;
+        transition-duration: 0.2s; }
+        .soundhub-player .player-body .player-controls .player-nav-btn:hover {
+          color: #E2B026; }
     .soundhub-player .player-body .player-progress-bar {
       margin: 0 15px;
       display: inline-block;
@@ -78,12 +81,14 @@
           pointer-events: none;
           transition-duration: 0.3s; }
           .soundhub-player .player-body .player-progress-bar .player-progress-base .player-progress-cover .player-progress-pointer {
+            opacity: 0;
+            transition-duration: 0.3s;
             width: 10px;
             height: 10px;
             background-color: #E2B026;
             border-radius: 50%;
             position: absolute;
-            right: 0;
+            right: -4px;
             top: -4px;
             border: 1px solid #333533; }
       .soundhub-player .player-body .player-progress-bar .player-duration {
