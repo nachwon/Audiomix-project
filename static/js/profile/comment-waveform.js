@@ -43,7 +43,7 @@ function resetSeekCommentTrack (e) {
 }
 
 //
-function getCommentTrackTotalDuration(e) {
+function setCommentTrackTotalDuration(e) {
     var audio = e.target;
     var target_obj = $(audio).parent();
     var total_duration_span = target_obj.find(".comment-track-total-duration");

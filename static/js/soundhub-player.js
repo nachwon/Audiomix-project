@@ -69,7 +69,6 @@ function seekFromPlayer(self, e) {
     if (audio[0]) {
         var position = (e.pageX - progress_bar.offset().left) / $(self).width() * 100;
         var track_position = audio[0].duration * position;
-        console.log(track_position);
         progress_cover.css("width", position + "%");
         audio[0].currentTime = track_position / 100
     }
