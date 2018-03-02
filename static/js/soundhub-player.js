@@ -27,13 +27,27 @@ function updatePlayerPostInfo() {
     var target_obj = audio.parent();
     var target_type = target_obj.data("type");
 
-    if (target_type === "track") {
-        var title = target_obj.find(".track-title");
-        var author = target_obj.find(".track-author");
-        var author_link = author.parent().attr("href");
-        var post_img = target_obj.find(".track-post-img").attr("style");
+    // 제목 자리
+    var title;
+    var instrument;
 
-        // 프로필 이미지
+    // 작성자 자리
+    var author;
+    var uploaded_post;
+
+    // 링크
+    var author_link;
+
+    // 이미지
+    var post_img;
+
+    if (target_type === "track") {
+        title = target_obj.find(".track-title");
+        author = target_obj.find(".track-author");
+        author_link = author.parent().attr("href");
+        post_img = target_obj.find(".track-post-img").attr("style");
+
+        // 포스트 이미지
         player_post_img.attr("style", post_img);
         // 포스트 제목
         player_post_title.text(title.text());
@@ -41,6 +55,18 @@ function updatePlayerPostInfo() {
         player_post_author.text(author.text());
         // 작성자 프로필 링크
         player_author_link.attr("href", author_link)
+    }
+    else if (target_type === "comment") {
+        instrument = target_obj.find(".comment-post-title").text();
+        uploaded_post = target_obj.find(".comment-instrument").find("a.comment-uploaded-post").text();
+        post_img = target_obj.find(".comment-post-img").attr("style");
+
+        // 커맨트 트랙이 업로드된 포스트 이미지
+        player_post_img.attr("style", post_img);
+        // 악기
+        player_post_title.text(instrument);
+        // 업로드된 포스트
+        player_post_author.text(uploaded_post)
     }
 }
 

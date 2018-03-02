@@ -22,11 +22,11 @@
             {% endif %}
             <span class="uploaded-post">
                 <span class="comment-post-title">{{ comment.instrument }} Track</span>
-                <span class="comment-instrument">Uploaded to <a href="">{{ comment.post.title }}</a> of <a href="{% url 'views:user:user-detail' pk=comment.post.author.pk %}">{{ comment.post.author }}</a></span>
+                <span class="comment-instrument">Uploaded to <a class="comment-uploaded-post" href="">{{ comment.post.title }}</a> of <a href="{% url 'views:user:user-detail' pk=comment.post.author.pk %}">{{ comment.post.author }}</a></span>
             </span>
 
             <div class="comment-progress-bar waveform-opacity">
-                <div id="comment-play-btn-{{ comment.pk }}" class="comment-play-icon" data-target="comment-track-{{ comment.pk }}" onclick="loadAudio(this);playAudio();">
+                <div id="comment-play-btn-{{ comment.pk }}" class="comment-play-icon" data-target="comment-track-{{ comment.pk }}" onclick="loadAudio(this);playAudio();updatePlayerPostInfo()">
                     <i class="fas fa-play"></i>
                 </div>
                 <div class="position-indicator" onclick="seekCommentTrack(event)" onmousemove="preSeekCommentTrack(event)" onmouseleave="resetSeekCommentTrack(event)"></div>
