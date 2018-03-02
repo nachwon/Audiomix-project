@@ -1,6 +1,7 @@
 $player-height: 50px;
 $dark-grey: #333533;
 $dark-yellow: #E2B026;
+$progress-bar-width: 85%;
 
 .hide-player {
     overflow: hidden;
@@ -36,7 +37,7 @@ $dark-yellow: #E2B026;
         .player-post-info {
             display: inline-block;
             float: left;
-            width: 125px;
+            width: 180px;
             height: 50px;
             margin-left: 10px;
 
@@ -79,14 +80,14 @@ $dark-yellow: #E2B026;
         .player-progress-bar {
             margin: 0 15px;
             display: inline-block;
-            width: 750px;
+            width: 650px;
             height: $player-height + 2px;
             position: relative;
             background: transparent;
             bottom: 0;
 
             .player-position-indicator {
-                width: 88%;
+                width: $progress-bar-width;
                 height: $player-height;
                 background-color: transparent;
                 z-index: 0;
@@ -95,7 +96,7 @@ $dark-yellow: #E2B026;
             }
 
             .player-progress-base {
-                width: 88%;
+                width: $progress-bar-width;
                 height: 1px;
                 background-color: $dark-grey;
                 margin: $player-height/2 0;

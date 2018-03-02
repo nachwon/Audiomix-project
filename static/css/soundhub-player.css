@@ -27,7 +27,7 @@
     .soundhub-player .player-body .player-post-info {
       display: inline-block;
       float: left;
-      width: 125px;
+      width: 180px;
       height: 50px;
       margin-left: 10px; }
       .soundhub-player .player-body .player-post-info span {
@@ -57,20 +57,20 @@
     .soundhub-player .player-body .player-progress-bar {
       margin: 0 15px;
       display: inline-block;
-      width: 750px;
+      width: 650px;
       height: 52px;
       position: relative;
       background: transparent;
       bottom: 0; }
       .soundhub-player .player-body .player-progress-bar .player-position-indicator {
-        width: 88%;
+        width: 85%;
         height: 50px;
         background-color: transparent;
         z-index: 0;
         position: absolute;
         cursor: pointer; }
       .soundhub-player .player-body .player-progress-bar .player-progress-base {
-        width: 88%;
+        width: 85%;
         height: 1px;
         background-color: #333533;
         margin: 25px 0;
