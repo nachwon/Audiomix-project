@@ -72,7 +72,7 @@ function addToPlaylist(self) {
 
     var ul = $("#player-playlist");
     var li = $(".player-playlist-item");
-    var list_item = '<li class="player-playlist-item"><a data-target="' + target_audio_id + '" href="' + target_audio_id + '">' + target_title + '</a></li>';
+    var list_item = '<li class="player-playlist-item"><a data-target="' + target_audio_id + '" href="' + target_audio_id + '" onclick="playItem(this, event)">' + target_title + '</a></li>';
 
     var exists_in_playlist = false;
 
@@ -84,17 +84,12 @@ function addToPlaylist(self) {
 
     if (!exists_in_playlist) {
         ul.prepend(list_item);
-        var list_items = $(".player-playlist-item");
-        list_items.on("click", playItem(this))
     }
 }
 
-// 플레이리스트 내의 아이템 하나를 재생
 function playItem(self, e) {
     e.preventDefault();
-    console.log(self)
+    loadAudio(self);
+    playAudio();
+    updatePlayerPostInfo()
 }
-
-
-
-
