@@ -43,9 +43,9 @@ function resetSeekCommentTrack (e) {
 }
 
 //
-function getCommentTrackTotalDuration(event) {
-    var audio =  event.target;
-    var pk = $(audio).data("comment-pk");
-    var total_duration_span = $("#comment-track-total-duration-" + pk);
+function getCommentTrackTotalDuration(e) {
+    var audio = e.target;
+    var target_obj = $(audio).parent();
+    var total_duration_span = target_obj.find(".comment-track-total-duration");
     total_duration_span.text(format_time(audio.duration));
 }
