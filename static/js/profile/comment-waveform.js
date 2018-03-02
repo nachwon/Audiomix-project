@@ -68,31 +68,3 @@ function getCommentTrackTotalDuration(event) {
     var total_duration_span = $("#comment-track-total-duration-" + pk);
     total_duration_span.text(format_time(audio.duration));
 }
-
-// 커맨트 트랙 재생/일시정지
-function playCommentTrack (pk) {
-    var comment_track = $("#comment-track-" + pk);
-    var play_btn = $("#comment-play-btn-" + pk);
-    var player_play_btn = $("#player-play-btn");
-
-    // 커맨트 트랙 플레이 버튼 클릭시
-
-    // 다른 모든 오디오 정지
-    resetAudio(comment_track);
-
-    // 재생&일시정지 토글
-    if (comment_track[0].paused) {
-        comment_track[0].play();
-        play_btn.find("[data-fa-processed]").removeClass("fa-play");
-        play_btn.find("[data-fa-processed]").addClass("fa-pause");
-        player_play_btn.find('[data-fa-processed]').removeClass("fa-play");
-        player_play_btn.find('[data-fa-processed]').addClass("fa-pause");
-    }
-    else  {
-        comment_track[0].pause();
-        play_btn.find("[data-fa-processed]").removeClass("fa-pause");
-        play_btn.find("[data-fa-processed]").addClass("fa-play");
-        player_play_btn.find('[data-fa-processed]').removeClass("fa-pause");
-        player_play_btn.find('[data-fa-processed]').addClass("fa-play");
-    }
-}
