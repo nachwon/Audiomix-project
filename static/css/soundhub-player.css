@@ -114,19 +114,30 @@
       .soundhub-player .player-body .volume-wrapper .volume-control-popup {
         width: 125px;
         height: 40px;
-        background-color: black;
+        background-color: #eee;
         position: absolute;
         right: -35px;
-        bottom: 45px; }
+        bottom: 45px;
+        border: 1px solid #aaa;
+        border-radius: 3px; }
         .soundhub-player .player-body .volume-wrapper .volume-control-popup .popup-tail {
           width: 15px;
           height: 15px;
-          background: red;
+          background: #eee;
           position: absolute;
           bottom: -7px;
           right: calc(125px/2 - 15px/2);
           transform: rotate(45deg);
-          border-radius: 3px; }
+          border-radius: 3px;
+          border: 1px solid #aaa; }
+          .soundhub-player .player-body .volume-wrapper .volume-control-popup .popup-tail .popup-tail-crop {
+            width: 15px;
+            height: 26px;
+            background: #eee;
+            position: absolute;
+            bottom: 0px;
+            left: -4px;
+            transform: rotate(45deg); }
       .soundhub-player .player-body .volume-wrapper .player-volume-control {
         float: left;
         height: 50px;
