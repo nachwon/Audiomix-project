@@ -27,10 +27,11 @@ function updateAudioInfo (self) {
 }
 
 // 오디오 총 길이 표시
-function setTotalDuration (id) {
-    var audio = document.getElementById('track-audio-' + id);
-    var duration_total = document.getElementById('playtime-total-' + id);
-    duration_total.innerText = format_time(audio.duration)
+function setTotalDuration (self) {
+    var target_obj = $(self).parent();
+    var audio = target_obj.find("audio");
+    var duration_total = target_obj.find(".track-duration-total");
+    duration_total.text(format_time(audio[0].duration))
 }
 
 // 웨이브폼 클릭시 업데이트

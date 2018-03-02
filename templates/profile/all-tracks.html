@@ -66,7 +66,7 @@
             <!-- track duration ends -->
 
             <!-- waveform -->
-            <audio preload="metadata" id="track-audio-{{ track.pk }}" class="post-track audio-file" data-src="{{ track.pk }}" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration({{ track.pk }})">
+            <audio preload="metadata" id="track-audio-{{ track.pk }}" class="post-track audio-file" data-src="{{ track.pk }}" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
                 <source src="{{ track.author_track.url }}">
             </audio>
             {% if track.author_track_waveform_base.name == '' %}
