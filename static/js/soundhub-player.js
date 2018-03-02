@@ -60,6 +60,21 @@ function updatePlayerProgress() {
     }
 }
 
+// 플레이어 진행바에서 오디오 탐색
+function seekFromPlayer(self, e) {
+    var progress_bar = $(e.target).parent();
+    var progress_cover = progress_bar.find(".player-progress-cover");
+    var audio = $("[loaded]");
+
+    if (audio[0]) {
+        var position = (e.pageX - progress_bar.offset().left) / $(self).width() * 100;
+        var track_position = audio[0].duration * position;
+        console.log(track_position);
+        progress_cover.css("width", position + "%");
+        audio[0].currentTime = track_position / 100
+    }
+}
+
 // 플레이 리스트 관련 함수들
 
 // 플레이 리스트에 추가함
