@@ -14,7 +14,6 @@ function playerCurrentTime() {
 
 
 // 플레이 리스트에 추가함
-// play = true 인 경우 추가하고 바로 재생
 function addToPlaylist(self) {
     var target_pk = $(self).data("src");
     var target_obj = $("#track-" + target_pk);
@@ -80,19 +79,23 @@ function updatePlayerPostInfo() {
     var player_post_author = $("#player-post-author");
     var player_author_link = $("#player-author-link");
 
-    var track_obj = audio.parent();
-    var title = track_obj.data("title");
-    var author = track_obj.data("author");
-    var author_link = track_obj.find(".track-author").parent().attr("href");
-    var post_img = track_obj.find(".track-post-img").attr("style");
+    var target_obj = audio.parent();
+    var target_type = target_obj.data("type");
 
-    // 프로필 이미지
-    player_post_img.attr("style", post_img);
-    // 포스트 제목
-    player_post_title.text(title);
-    // 포스트 작성자
-    player_post_author.text(author);
-    // 작성자 프로필 링크
-    player_author_link.attr("href", author_link)
+    if (target_type === "track") {
+        var title = target_obj.data("title");
+        var author = target_obj.data("author");
+        var author_link = target_obj.find(".track-author").parent().attr("href");
+        var post_img = target_obj.find(".track-post-img").attr("style");
+
+        // 프로필 이미지
+        player_post_img.attr("style", post_img);
+        // 포스트 제목
+        player_post_title.text(title);
+        // 포스트 작성자
+        player_post_author.text(author);
+        // 작성자 프로필 링크
+        player_author_link.attr("href", author_link)
+    }
 }
 
