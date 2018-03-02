@@ -11,7 +11,10 @@
     </div>
 {% else %}
     {% for comment in comments %}
-        <div class="track-obj comment-obj">
+        <div class="track-obj comment-obj" id="comment-{{ comment.pk }}" data-type="comment">
+            <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" data-isPlaying="false" data-comment-pk="{{ comment.pk }}" onloadedmetadata="getCommentTrackTotalDuration(event)" ontimeupdate="updateCommentTrack(event)" onended="endCommentTrack(event)">
+                <source src="{{ comment.comment_track.url }}">
+            </audio>
             {% if comment.post.post_img.name == "" %}
                 <div class="comment-post-img" style="background-image: url({% static 'img/default-post-img.png' %});"></div>
             {% else %}
@@ -22,11 +25,8 @@
                 <span class="comment-instrument">Uploaded to <a href="">{{ comment.post.title }}</a> of <a href="{% url 'views:user:user-detail' pk=comment.post.author.pk %}">{{ comment.post.author }}</a></span>
             </span>
 
-            <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" data-isPlaying="false" data-comment-pk="{{ comment.pk }}" onloadedmetadata="getCommentTrackTotalDuration(event)" ontimeupdate="updateCommentTrack(event)" onended="endCommentTrack(event)">
-                <source src="{{ comment.comment_track.url }}">
-            </audio>
             <div class="comment-progress-bar waveform-opacity">
-                <div id="comment-play-btn-{{ comment.pk }}" class="comment-play-icon" data-target="comment-track-{{ comment.pk }}" data-comment-pk="{{ comment.pk }}" onclick="loadAudio(this);playCommentTrack({{ comment.pk }});getCurrentPlaying(this)">
+                <div id="comment-play-btn-{{ comment.pk }}" class="comment-play-icon" data-target="comment-track-{{ comment.pk }}" data-comment-pk="{{ comment.pk }}" onclick="loadAudio(this);playAudio();">
                     <i class="fas fa-play"></i>
                 </div>
                 <div class="position-indicator" data-comment-pk="{{ comment.pk }}" onclick="seekCommentTrack(event)" onmousemove="preSeekCommentTrack(event)" onmouseleave="resetSeekCommentTrack(event)"></div>

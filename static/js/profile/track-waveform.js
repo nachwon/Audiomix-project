@@ -98,8 +98,10 @@ function toggleBtn(audio, status) {
     var target_obj = audio.parent();
     var target_type = target_obj.data("type");
     var player_play_btn = $("#player-play-btn");
+    var play_btn;
+
     if (target_type === "track") {
-        var play_btn = target_obj.find(".play-btn");
+        play_btn = target_obj.find(".play-btn");
         if (status === "on") {
             play_btn.find('[data-fa-processed]').removeClass("fa-play-circle");
             play_btn.find('[data-fa-processed]').addClass("fa-pause-circle");
@@ -109,6 +111,21 @@ function toggleBtn(audio, status) {
         else if (status === "off") {
             play_btn.find('[data-fa-processed]').removeClass("fa-pause-circle");
             play_btn.find('[data-fa-processed]').addClass("fa-play-circle");
+            player_play_btn.find('[data-fa-processed]').removeClass("fa-pause");
+            player_play_btn.find('[data-fa-processed]').addClass("fa-play");
+        }
+    }
+    else if (target_type === "comment") {
+        play_btn = target_obj.find(".comment-play-icon");
+        if (status === "on") {
+            play_btn.find('[data-fa-processed]').removeClass("fa-play");
+            play_btn.find('[data-fa-processed]').addClass("fa-pause");
+            player_play_btn.find('[data-fa-processed]').removeClass("fa-play");
+            player_play_btn.find('[data-fa-processed]').addClass("fa-pause");
+        }
+        else if (status === "off") {
+            play_btn.find('[data-fa-processed]').removeClass("fa-pause");
+            play_btn.find('[data-fa-processed]').addClass("fa-play");
             player_play_btn.find('[data-fa-processed]').removeClass("fa-pause");
             player_play_btn.find('[data-fa-processed]').addClass("fa-play");
         }
