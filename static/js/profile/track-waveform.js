@@ -47,48 +47,15 @@ function updateWaveform (e) {
 }
 
 // 재생이 끝난 경우 처음으로 다시 돌려줌
-function resetWaveform (pk) {
-    var audio = $("#track-audio-" + pk);
+function resetWaveform (self) {
+    var audio = $(self);
+
     audio[0].currentTime = 0;
     audio[0].pause();
-    audio.attr("data-isPlaying", "false");
 
-    var playbtn = $('#play-btn-' + pk);
-    playbtn.find('[data-fa-processed]').removeClass("fa-pause-circle");
-    playbtn.find('[data-fa-processed]').addClass("fa-play-circle");
+    toggleBtn(audio, "off");
+    toggleOpacity(audio, "on")
 
-    var wrapper = $("#waveform-wrapper-" + pk);
-    wrapper.css("opacity", null)
-}
-
-// 재생하려는 트랙을 제외한 나머지 트랙들 모두 초기화
-// audio-file 클래스를 audio 태그에 달아주면 등록된다.
-function resetAudio(audio) {
-    var audios = $('.audio-file');
-    var wrappers = $('.waveform-opacity');
-    var play_icons = $(".comment-play-icon");
-    var track_play_icons = $(".play-btn");
-
-    audios.each(function(index, item) {
-        if (item.id !== audio.attr("id")) {
-            item.pause();
-            item.currentTime = 0;
-        }
-    });
-
-    wrappers.each(function(index, item) {
-        item.style.opacity = null
-    });
-
-    play_icons.each(function(index, item){
-        $(item).find("[data-fa-processed]").removeClass("fa-pause");
-        $(item).find("[data-fa-processed]").addClass("fa-play");
-    });
-
-    track_play_icons.each(function(index, item){
-        $(item).find("[data-fa-processed]").removeClass("fa-pause-circle");
-        $(item).find("[data-fa-processed]").addClass("fa-play-circle");
-    });
 }
 
 // 플레이 누른 오디오에 loaded 속성 부여
@@ -108,23 +75,31 @@ function playAudio() {
     var audios = $(".audio-file");
 
     if (audio[0].paused) {
+        // 모든 오디오 일시정지
         audios.each(function(index, item) {
             toggleBtn($(item), "off");
+            toggleOpacity($(item), "off");
             item.pause()
         });
+        // 로드된 오디오 재생
         audio[0].play();
-        toggleBtn(audio, "on")
+        toggleBtn(audio, "on");
+        toggleOpacity(audio, "on")
     }
     else {
+        // 로드된 오디오 일시정지
         audio[0].pause();
-        toggleBtn(audio, "off")
+        toggleBtn(audio, "off");
+        toggleOpacity(audio, "off")
     }
 }
 
+// 재생 버튼 토글
 function toggleBtn(audio, status) {
     var target_obj = audio.parent();
+    var target_type = target_obj.data("type");
     var player_play_btn = $("#player-play-btn");
-    if (target_obj.data("type") === "track") {
+    if (target_type === "track") {
         var play_btn = target_obj.find(".play-btn");
         if (status === "on") {
             play_btn.find('[data-fa-processed]').removeClass("fa-play-circle");
@@ -137,6 +112,22 @@ function toggleBtn(audio, status) {
             play_btn.find('[data-fa-processed]').addClass("fa-play-circle");
             player_play_btn.find('[data-fa-processed]').removeClass("fa-pause");
             player_play_btn.find('[data-fa-processed]').addClass("fa-play");
+        }
+    }
+}
+
+// waveform 투명도 토글
+function toggleOpacity(audio, status) {
+    var target_obj = audio.parent();
+    var target_type = target_obj.data("type");
+    if (target_type === "track") {
+        var wrapper = target_obj.find(".waveform-wrapper");
+
+        if (status === "on") {
+            wrapper.css("opacity", "1")
+        }
+        else if (status === "off") {
+            wrapper.removeAttr("style")
         }
     }
 }
