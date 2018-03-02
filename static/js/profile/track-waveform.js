@@ -34,16 +34,16 @@ function setTotalDuration (id) {
 }
 
 // 웨이브폼 클릭시 업데이트
-function updateWaveform (e) {
-    var track_id = e.target.getAttribute("data-src");
-    var audio = document.getElementById("track-audio-" + track_id);
-    var cutter = document.getElementById("image-cutter-" + track_id);
-    var back_image = $("#back-image-" + track_id);
+function seekTrack (e) {
+    var target_obj = $(e.target).parent().parent();
+    var audio = target_obj.find("audio");
+    var cutter = target_obj.find(".cutter");
+    var back_image = target_obj.find(".back-image");
     var x = e.pageX - back_image.offset().left;
     var percent_position = x / back_image[0].offsetWidth;
-    var rel_duration = audio.duration * percent_position;
-    cutter.style.width = x + "px";
-    audio.currentTime = rel_duration
+    var rel_duration = audio[0].duration * percent_position;
+    cutter.css("width", x + "px");
+    audio[0].currentTime = rel_duration
 }
 
 // 재생이 끝난 경우 처음으로 다시 돌려줌
