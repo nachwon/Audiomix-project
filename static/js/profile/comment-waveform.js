@@ -25,21 +25,20 @@ function seekCommentTrack (e) {
 }
 
 // 마우스 오버시 탐색 위치 미리보기
-function preSeekCommentTrack (event) {
-    var el = event.target;
-    var pk = $(el).data("comment-pk");
-    var hover_position = event.pageX - $(el).offset().left;
-    var rel_position = hover_position / $(el).width() * 100;
-    var preseeker = $('#progress-bar-preseeker-' + pk);
+function preSeekCommentTrack (e) {
+    var target_obj = $(e.target).parent().parent();
+    var indicator = target_obj.find(".position-indicator");
+    var preseeker = target_obj.find(".progress-bar-preseeker");
+    var hover_position = e.pageX - $(indicator).offset().left;
+    var rel_position = hover_position / $(indicator).width() * 100;
 
     preseeker.css("width", rel_position + "%")
 }
 
 // 마우스가 나가면 탐색 미리보기 제거
-function resetSeekCommentTrack (event) {
-    var el = event.target;
-    var pk = $(el).data("comment-pk");
-    var preseeker = $('#progress-bar-preseeker-' + pk);
+function resetSeekCommentTrack (e) {
+    var target_obj = $(e.target).parent().parent();
+    var preseeker = target_obj.find(".progress-bar-preseeker");
     preseeker.css("width", 0)
 }
 
