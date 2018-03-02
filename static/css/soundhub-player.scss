@@ -70,7 +70,7 @@ $progress-bar-width: 85%;
                 font-size: 8px;
                 vertical-align: middle;
                 transition-duration: 0.2s;
-                
+
                 &:hover {
                     color: $dark-yellow;
                 }
@@ -85,6 +85,7 @@ $progress-bar-width: 85%;
             position: relative;
             background: transparent;
             bottom: 0;
+            float: left;
 
             .player-position-indicator {
                 width: $progress-bar-width;
@@ -136,6 +137,13 @@ $progress-bar-width: 85%;
                 }
             }
 
+        }
+
+        .player-volume-control {
+            float: left;
+            height: 50px;
+            padding: 14px 0;
+            font-size: 10px;
         }
 
     }

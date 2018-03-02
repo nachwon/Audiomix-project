@@ -61,7 +61,8 @@
       height: 52px;
       position: relative;
       background: transparent;
-      bottom: 0; }
+      bottom: 0;
+      float: left; }
       .soundhub-player .player-body .player-progress-bar .player-position-indicator {
         width: 85%;
         height: 50px;
@@ -102,6 +103,11 @@
         right: 0; }
         .soundhub-player .player-body .player-progress-bar .player-duration span {
           vertical-align: middle; }
+    .soundhub-player .player-body .player-volume-control {
+      float: left;
+      height: 50px;
+      padding: 14px 0;
+      font-size: 10px; }
   .soundhub-player .playlist {
     display: inline-block;
     position: absolute;
