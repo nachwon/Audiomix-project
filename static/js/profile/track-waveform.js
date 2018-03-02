@@ -70,12 +70,12 @@ function loadAudio(self) {
 // 플레이 버튼 클릭시 아이콘 변경 및 오디오 재생
 // 오디오 재생 중 다른 오디오 클릭 시, 재생 중이던 오디오는 일시 정지됨.
 function playAudio() {
-    var player = $(".soundhub-player");
     var audio = $("[loaded]");
     var audios = $(".audio-file");
 
     if (audio[0]) {
-        player.removeClass("hide-player");
+        showPlayer();
+
         if (audio[0].paused) {
             // 모든 오디오 일시정지
             audios.each(function(index, item) {

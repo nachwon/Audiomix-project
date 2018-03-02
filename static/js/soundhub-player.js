@@ -17,6 +17,11 @@ $(".soundhub-player").ready(function () {
     })
 });
 
+function showPlayer() {
+    var player = $(".soundhub-player");
+    player.removeClass("hide-player");
+}
+
 // 현재 재생중인 트랙 총 길이 업데이트
 function playerDuration() {
     var audio = $("[loaded]");
@@ -141,6 +146,7 @@ function addToPlaylist(self) {
     if (!exists_in_playlist) {
         ul.prepend(list_item);
     }
+    showPlayer()
 }
 
 // 플레이리스트의 아이템 재생
