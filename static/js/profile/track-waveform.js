@@ -13,17 +13,17 @@ function format_time (duration) {
 
 // 오디오 정보 실시간 업데이트
 function updateAudioInfo (self) {
-    var track_id = $(self).attr("data-src");
+    var target_obj = $(self).parent();
     var current_time = self.currentTime;
     var total_time = self.duration;
-    var track_current = $("#playtime-current-" + track_id);
-    var cutter = $("#image-cutter-" + track_id);
+    var track_current = target_obj.find(".track-duration-current");
+    var cutter = target_obj.find(".cutter");
     var rel_current = current_time / total_time * 100;
 
     track_current.text(format_time(current_time));
     cutter.css("width", rel_current + '%');
 
-    updatePlayerProgress(self)
+    updatePlayerProgress()
 }
 
 // 오디오 총 길이 표시
