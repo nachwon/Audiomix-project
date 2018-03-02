@@ -12,7 +12,7 @@
 {% else %}
     {% for comment in comments %}
         <div class="track-obj comment-obj" id="comment-{{ comment.pk }}" data-type="comment">
-            <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" data-isPlaying="false" data-comment-pk="{{ comment.pk }}" onloadedmetadata="getCommentTrackTotalDuration(event)" ontimeupdate="updateCommentTrack(event)" onended="endCommentTrack(event)">
+            <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" data-isPlaying="false" data-comment-pk="{{ comment.pk }}" onloadedmetadata="getCommentTrackTotalDuration(event)" ontimeupdate="updateCommentTrack(event)" onended="resetWaveform(this)">
                 <source src="{{ comment.comment_track.url }}">
             </audio>
             {% if comment.post.post_img.name == "" %}

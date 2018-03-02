@@ -14,21 +14,6 @@ function updateCommentTrack (event) {
     updatePlayerProgress(audio);
 }
 
-// 재생 끝났을 때 오디오 탐색 리셋
-function endCommentTrack (event) {
-    var audio =  event.target;
-    var pk = $(audio).data("comment-pk");
-    var progress_bar = $("#progress-bar-cover-" + pk);
-    var play_btn = $("#comment-play-btn-" + pk);
-    // 진행바 초기화
-    progress_bar.css("width", 0);
-    // 아이콘 변경
-    play_btn.find("[data-fa-processed]").removeClass("fa-pause");
-    play_btn.find("[data-fa-processed]").addClass("fa-play");
-    // 오디오 탐색 초기화
-    $(audio).attr("data-isPlaying", "false");
-    audio.currentTime = 0
-}
 
 // 커맨트 트랙 탐색
 function seekCommentTrack (event) {
