@@ -47,7 +47,7 @@
 
             <!-- play button -->
             <div class="play-btn-wrapper">
-                <div id="play-btn-{{ track.pk }}" class="play-btn" data-pk="{{ track.pk }}" data-target="track-audio-{{ track.pk }}" onclick="loadAudio(this);playAudio();updatePlayerPostInfo();"><i class="fas fa-play-circle fa-3x"></i></div>
+                <div id="play-btn-{{ track.pk }}" class="play-btn" data-target="track-audio-{{ track.pk }}" onclick="loadAudio(this);playAudio();updatePlayerPostInfo();"><i class="fas fa-play-circle fa-3x"></i></div>
             </div>
             <!-- play button ends-->
 
@@ -66,13 +66,13 @@
             <!-- track duration ends -->
 
             <!-- waveform -->
-            <audio preload="metadata" id="track-audio-{{ track.pk }}" class="post-track audio-file" data-target="track-{{ track.pk }}" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
+            <audio preload="metadata" id="track-audio-{{ track.pk }}" class="post-track audio-file" data-target="track-{{ track.pk }}" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
                 <source src="{{ track.author_track.url }}">
             </audio>
             {% if track.author_track_waveform_base.name == '' %}
             {% else %}
                 <div id="waveform-wrapper-{{ track.pk }}" class="waveform-wrapper waveform-opacity" >
-                    <img id="back-image-{{ track.pk }}" onclick="seekTrack(event)" class="back-image" data-src="{{ track.pk }}" draggable="false" src="{{ track.author_track_waveform_base.url }}" alt="">
+                    <img id="back-image-{{ track.pk }}" onclick="seekTrack(event)" class="back-image" draggable="false" src="{{ track.author_track_waveform_base.url }}" alt="">
                     <div id="image-cutter-{{ track.pk }}" class="cutter">
                         <img class="cover-image" draggable="false" src="{{ track.author_track_waveform_cover.url }}" alt="">
                     </div>

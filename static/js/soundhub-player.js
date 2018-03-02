@@ -53,9 +53,7 @@ function updatePlayerProgress() {
         var total = audio[0].duration;
         var position = current / total * 100;
 
-        audio.on("timeupdate", function() {
-            progress_cover.css("width", position + "%")
-        });
+        progress_cover.css("width", position + "%");
 
         playerCurrentTime();
         playerDuration();
@@ -87,6 +85,7 @@ function addToPlaylist(self) {
     }
 }
 
+// 플레이리스트의 아이템 재생
 function playItem(self, e) {
     e.preventDefault();
     loadAudio(self);
