@@ -1,17 +1,14 @@
 // 커맨트 트랙 진행사항 실시간 업데이트
 function updateCommentTrack (event) {
     var audio =  event.target;
-    var pk = $(audio).data("comment-pk");
-    var progress_bar = $("#progress-bar-cover-" + pk);
+    var target_obj = $(audio).parent();
+    var progress_bar = target_obj.find(".progress-bar-cover");
     var bar_width = audio.currentTime / audio.duration * 100;
     progress_bar.css("width", bar_width + "%");
 
     // 현재 재생 시간 업데이트
-    var current_time_span = $("#comment-track-current-duration-" + pk);
-    current_time_span[0].innerText = format_time(audio.currentTime);
-
-    // player 업데이트
-    updatePlayerProgress(audio);
+    var current_time_span = target_obj.find(".comment-track-current-time");
+    current_time_span.text(format_time(audio.currentTime));
 }
 
 
