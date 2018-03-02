@@ -2,12 +2,18 @@ $player-height: 50px;
 $dark-grey: #333533;
 $dark-yellow: #E2B026;
 
+.hide-player {
+    overflow: hidden;
+    height: 0 !important;
+}
+
 .soundhub-player {
+    height: 50px;
+    transition-duration: 0.2s;
     position: fixed;
     bottom: 0;
     min-width: 1250px;
     width: 100%;
-    height: $player-height;
     background-color: rgba(255, 255, 255, 0.8);
     border-top: 2px solid $dark-yellow;
     box-sizing: content-box;
@@ -75,7 +81,7 @@ $dark-yellow: #E2B026;
             display: inline-block;
             width: 750px;
             height: $player-height + 2px;
-            position: absolute;
+            position: relative;
             background: transparent;
             bottom: 0;
 

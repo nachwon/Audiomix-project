@@ -1,5 +1,22 @@
 // 플레이어 정보 업데이트 관련 함수들
 
+// 플레이어 초기 설정
+$(".soundhub-player").ready(function () {
+    var indicator = $(".player-position-indicator");
+    var pointer = $(".player-progress-pointer");
+    // 포인터 숨김
+    indicator.on("mouseenter", function () {
+        pointer.animate({
+            opacity: "1"
+        }, 0.1)
+    });
+    indicator.on("mouseleave", function () {
+        pointer.animate({
+            opacity: "0"
+        }, 0.1)
+    })
+});
+
 // 현재 재생중인 트랙 총 길이 업데이트
 function playerDuration() {
     var audio = $("[loaded]");
@@ -99,23 +116,6 @@ function seekFromPlayer(self, e) {
         audio[0].currentTime = track_position / 100
     }
 }
-
-// 포인터 숨김
-$(".soundhub-player").ready(function () {
-    var indicator = $(".player-position-indicator");
-    var pointer = $(".player-progress-pointer");
-    console.log(pointer);
-    indicator.on("mouseenter", function () {
-        pointer.animate({
-            opacity: "1"
-        }, 0.1)
-    });
-    indicator.on("mouseleave", function () {
-        pointer.animate({
-            opacity: "0"
-        }, 0.1)
-    })
-});
 
 
 // 플레이 리스트 관련 함수들
