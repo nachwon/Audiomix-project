@@ -106,8 +106,9 @@
     .soundhub-player .player-body .player-volume-control {
       float: left;
       height: 50px;
-      padding: 14px 0;
-      font-size: 10px; }
+      font-size: 10px;
+      background-color: transparent;
+      border: 0; }
   .soundhub-player .playlist {
     display: inline-block;
     position: absolute;

@@ -141,8 +141,9 @@ $progress-bar-width: 85%;
         .player-volume-control {
             float: left;
             height: 50px;
-            padding: 14px 0;
             font-size: 10px;
+            background-color: transparent;
+            border: 0;
         }
     }
     .playlist {
