@@ -13,12 +13,12 @@ function updateCommentTrack (event) {
 
 
 // 커맨트 트랙 탐색
-function seekCommentTrack (event) {
-    var el = event.target;
-    var pk = $(el).data("comment-pk");
-    var click_position = event.pageX - $(el).offset().left;
-    var rel_position = click_position / $(el).width();
-    var audio = $("#comment-track-" + pk);
+function seekCommentTrack (e) {
+    var target_obj = $(e.target).parent().parent();
+    var indicator = target_obj.find(".position-indicator");
+    var click_position = e.pageX - indicator.offset().left;
+    var rel_position = click_position / indicator.width();
+    var audio = target_obj.find("audio");
     var total_duration = audio[0].duration;
 
     audio[0].currentTime = total_duration * rel_position
