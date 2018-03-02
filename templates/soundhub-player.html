@@ -1,8 +1,6 @@
 {% load static %}
 
 <div class="soundhub-player hide-player">
-    <ul id="player-playlist" class="playlist">
-    </ul>
     <div class="player-body">
         <div id="player-post-img" class="player-post-img" style="background-image: url({% static 'img/default-post-img.png' %})"></div>
         <div class="player-post-info">
@@ -30,10 +28,15 @@
 
         </div>
 
+        <div class="volume-wrapper">
+            <button class="player-volume-control" >
+                <i class="fas fa-volume-up fa-2x"></i>
+            </button>
+            <div class="volume-control-popup"><div class="popup-tail"></div></div>
 
-        <button class="player-volume-control" ><i class="fas fa-volume-up fa-2x"></i></button>
-
-
+        </div>
+        <ul id="player-playlist" class="playlist">
+        </ul>
     </div>
 </div>
 

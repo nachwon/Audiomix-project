@@ -20,8 +20,11 @@ $progress-bar-width: 85%;
     box-sizing: content-box;
 
     .player-body {
-        margin: 0 310px;
+        margin: 0 auto;
         color: $dark-grey;
+        max-width: 1250px;
+        height: 100%;
+        padding: 0 15px;
 
         .player-post-img {
             position: relative;
@@ -138,12 +141,40 @@ $progress-bar-width: 85%;
             }
         }
 
-        .player-volume-control {
-            float: left;
+        .volume-wrapper {
+            position: relative;
+            width: 50px;
             height: 50px;
-            font-size: 10px;
-            background-color: transparent;
-            border: 0;
+            float: left;
+
+            .volume-control-popup {
+                width: 125px;
+                height: 40px;
+                background-color: black;
+                position: absolute;
+                right: -35px;
+                bottom: 45px;
+
+                .popup-tail {
+                    width: 15px;
+                    height: 15px;
+                    background: red;
+                    position: absolute;
+                    bottom: -7px;
+                    right: calc(125px/2 - 15px/2);
+                    transform: rotate(45deg);
+                    border-radius: 3px;
+                }
+            }
+
+            .player-volume-control {
+                float: left;
+                height: 50px;
+                width: 100%;
+                font-size: 10px;
+                background-color: transparent;
+                border: 0;
+            }
         }
     }
     .playlist {
