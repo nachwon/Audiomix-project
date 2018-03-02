@@ -166,7 +166,8 @@ $progress-bar-width: 85%;
                     left: 10%;
                 }
                 .volume-control-bar-cover {
-                    width: 100px;
+                    width: 0px;
+                    min-width: 10px;
                     height: 2px;
                     background: $dark-yellow;
                     position: absolute;

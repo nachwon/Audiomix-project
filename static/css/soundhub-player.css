@@ -128,7 +128,8 @@
           bottom: 50%;
           left: 10%; }
         .soundhub-player .player-body .volume-wrapper .volume-control-popup .volume-control-bar-cover {
-          width: 100px;
+          width: 0px;
+          min-width: 10px;
           height: 2px;
           background: #E2B026;
           position: absolute;
