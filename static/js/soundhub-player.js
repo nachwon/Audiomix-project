@@ -12,51 +12,6 @@ function playerCurrentTime() {
     });
 }
 
-// // 트랙 쪽에서 버튼을 눌렀을 때 플레이어 조작
-// function getCurrentPlaying(self) {
-//     var target_id = $(self).data("target");
-//     var target_pk = $(self).data("pk");
-//     var audios = $(".audio-file");
-//
-//     var player_current_time = $("#player-current-time");
-//     var player_play_btn = $("#player-play-btn");
-//
-//     audios.each(function(index, item){
-//         if(!item.paused) {
-//             $(item).on("play", function() {
-//                 playerDuration(item);
-//                 $(item).on("loadedmetadata", function() {
-//                     playerDuration(item);
-//                 })
-//             });
-//
-//             playerCurrentTime(item);
-//
-//             $(item).on("ended", function() {
-//                 player_current_time.text("00:00");
-//                 player_play_btn.find("[data-fa-processed]").removeClass("fa-pause");
-//                 player_play_btn.find("[data-fa-processed]").addClass("fa-play");
-//             });
-//
-//             player_play_btn.attr("data-target", target_id);
-//             player_play_btn.attr("data-pk", target_pk)
-//         }
-//         else {
-//             $(item).off()
-//         }
-//     });
-//
-//     updatePlayerPostInfo()
-// }
-
-
-// 플레이어 버튼 클릭시 조작
-function playerPlayBtn(self) {
-    if ($(self).attr("data-target") !== null) {
-        var target_pk = $(self).attr("data-pk");
-        playAudio(target_pk)
-    }
-}
 
 // 플레이 리스트에 추가함
 // play = true 인 경우 추가하고 바로 재생
