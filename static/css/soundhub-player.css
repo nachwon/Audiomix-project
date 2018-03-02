@@ -120,6 +120,29 @@
         bottom: 45px;
         border: 1px solid #aaa;
         border-radius: 3px; }
+        .soundhub-player .player-body .volume-wrapper .volume-control-popup .volume-control-bar-base {
+          width: 100px;
+          height: 2px;
+          background: #333533;
+          position: absolute;
+          bottom: 50%;
+          left: 10%; }
+        .soundhub-player .player-body .volume-wrapper .volume-control-popup .volume-control-bar-cover {
+          width: 100px;
+          height: 2px;
+          background: #E2B026;
+          position: absolute;
+          bottom: 50%;
+          left: 10%; }
+          .soundhub-player .player-body .volume-wrapper .volume-control-popup .volume-control-bar-cover .volume-control-bar-pointer {
+            width: 10px;
+            height: 10px;
+            background: #E2B026;
+            top: -4px;
+            position: relative;
+            float: right;
+            border-radius: 50%;
+            border: 1px solid #333533; }
         .soundhub-player .player-body .volume-wrapper .volume-control-popup .popup-tail {
           width: 15px;
           height: 15px;

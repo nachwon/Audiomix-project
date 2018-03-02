@@ -157,6 +157,34 @@ $progress-bar-width: 85%;
                 border: 1px solid #aaa;
                 border-radius: 3px;
 
+                .volume-control-bar-base {
+                    width: 100px;
+                    height: 2px;
+                    background: $dark-grey;
+                    position: absolute;
+                    bottom: 50%;
+                    left: 10%;
+                }
+                .volume-control-bar-cover {
+                    width: 100px;
+                    height: 2px;
+                    background: $dark-yellow;
+                    position: absolute;
+                    bottom: 50%;
+                    left: 10%;
+
+                    .volume-control-bar-pointer {
+                        width: 10px;
+                        height: 10px;
+                        background: $dark-yellow;
+                        top: -4px;
+                        position: relative;
+                        float: right;
+                        border-radius: 50%;
+                        border: 1px solid $dark-grey;
+                    }
+                }
+
                 .popup-tail {
                     width: 15px;
                     height: 15px;
