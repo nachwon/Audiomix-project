@@ -100,6 +100,7 @@ function seekFromPlayer(self, e) {
     }
 }
 
+// 포인터 숨김
 $(".soundhub-player").ready(function () {
     var indicator = $(".player-position-indicator");
     var pointer = $(".player-progress-pointer");
