@@ -1,21 +1,17 @@
 $(document).ready(function() {
-    $(".followers-obj")
+    $(".followers-obj").find("a")
         .on("mouseenter", function() {
-            console.log("btn enter");
-            $(this).find(".follow-popover").css("display", "block")
+            $(this).parent().find(".follow-popover").css("display", "block")
         })
         .on("mouseleave", function() {
-            console.log("btn leave");
-            $(this).find(".follow-popover").css("display", "none")
+            $(this).parent().find(".follow-popover").css("display", "none")
         });
 
     $(".psuedo-object-wrapper")
         .on("mouseenter", function() {
-            console.log("popover enter");
             $(this).parent().css("display", "block")
         })
         .on("mouseleave", function() {
-            console.log("popover leave");
             $(this).parent().css("display", "none")
         })
 });
