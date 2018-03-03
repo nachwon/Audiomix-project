@@ -43,10 +43,18 @@
 
                 {% for following in followings|slice:"7:14" %}
                     <div class="followers-obj">
-                        <a class="follow-hover-down"
-                           data-title="{% include 'profile/following-hover-title.html' %}"
-                           data-content="{% include 'profile/following-hover-content.html' %}"
-                           href="{% url 'views:user:user-detail' pk=following.to_user.pk %}">
+                        <div class="follow-popover hover-down">
+                            <div class="popover-arrow">
+                                <div class="popover-arrow-crop"></div>
+                            </div>
+                            <div class="popover-content-wrapper">
+                                <div class="popover-title">
+                                    {% include 'profile/following-hover-title.html' %}
+                                </div>
+                                {% include 'profile/following-hover-content.html' %}
+                            </div>
+                        </div>
+                        <a href="{% url 'views:user:user-detail' pk=following.to_user.pk %}">
                             <div class="follower-profile-img"
                                     {% if following.to_user.profile_img.name == "" %}
                                  style="background-image: url({% static 'img/default-profile.png' %})"

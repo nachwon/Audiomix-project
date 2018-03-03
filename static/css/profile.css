@@ -273,7 +273,31 @@ div.no-followers {
       pointer-events: none; }
 
 .hover-down {
-  top: 60px; }
+  top: 37px; }
+  .hover-down .popover-arrow {
+    width: 20px;
+    height: 20px;
+    background-color: whitesmoke;
+    border: 1px solid #ddd;
+    position: absolute;
+    top: 12px;
+    left: calc(50% - 10px);
+    transform: rotate(225deg);
+    pointer-events: none;
+    border-radius: 0 0 2px 0;
+    z-index: 1; }
+    .hover-down .popover-arrow .popover-arrow-crop {
+      height: 20px;
+      width: 29px;
+      background: whitesmoke;
+      transform: rotate(-45deg);
+      top: -9px;
+      position: absolute;
+      left: -12px;
+      pointer-events: none; }
+  .hover-down .popover-content-wrapper {
+    position: absolute;
+    bottom: 0; }
 
 .follow-popover {
   display: none;
