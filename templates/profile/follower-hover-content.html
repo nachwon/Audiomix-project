@@ -2,7 +2,7 @@
 <p class='follow-popover-content-line2'>
     {% if request.user.is_anonymous or request.user == follower.from_user %}
     {% else %}
-        <button class='follow-popover-btn' onclick='popoverFollow({{ follower.from_user.pk }})'>
+        <button class='follow-popover-btn' onclick='popoverFollow(this, {{ follower.from_user.pk }})'>
             {% if request.user in follower.from_user.followers.all %}
                 Following
             {% else %}
