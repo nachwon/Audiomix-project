@@ -19,9 +19,14 @@
 
                 {% for following in followings|slice:":7" %}
                     <div class="followers-obj">
+                        <div class="follow-popover">
+                            <div class="popover-title">
+                                {% include 'profile/following-hover-title.html' %}
+                            </div>
+
+                            {% include 'profile/following-hover-content.html' %}
+                        </div>
                         <a class="follow-hover-up"
-                           data-title="{% include 'profile/following-hover-title.html' %}"
-                           data-content="{% include 'profile/following-hover-content.html' %}"
                            href="{% url 'views:user:user-detail' pk=following.to_user.pk %}">
                             <div class="follower-profile-img"
                                     {% if following.to_user.profile_img.name == "" %}

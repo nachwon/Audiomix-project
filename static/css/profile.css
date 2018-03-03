@@ -219,6 +219,7 @@ div.follower-list {
     margin-top: 10px;
     height: 105px; }
     div.follower-list div.follower-list-contents div.followers-list-wrapper div.followers-obj {
+      position: relative;
       display: inline-block;
       border: 1px solid #ddd;
       border-radius: 3px;
@@ -247,25 +248,30 @@ div.no-followers {
     font-size: 20px;
     text-align: center; }
 
-.popover .popover-title {
-  text-align: center; }
-  .popover .popover-title .follower-popover-profile-img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background-size: cover;
-    margin: 10px; }
-
-.popover .follow-popover-content-line1 {
-  font-family: 'Source Sans Pro', sans-serif;
-  text-align: center;
-  font-size: 20px; }
-
-.popover .follow-popover-content-line2 {
-  text-align: center; }
-  .popover .follow-popover-content-line2 button {
-    background-color: transparent;
-    border: 1px solid #aaa;
-    border-radius: 3px;
-    margin: 7px 0;
-    padding: 3px 10px; }
+.follow-popover {
+  position: absolute;
+  left: -75px;
+  bottom: 57px;
+  border: 1px solid #ddd; }
+  .follow-popover .popover-title {
+    text-align: center; }
+    .follow-popover .popover-title .follower-popover-profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background-size: cover;
+      margin: 10px; }
+  .follow-popover .follow-popover-content-line1 {
+    font-family: 'Source Sans Pro', sans-serif;
+    text-align: center;
+    font-size: 20px;
+    background: whitesmoke; }
+  .follow-popover .follow-popover-content-line2 {
+    text-align: center;
+    background: whitesmoke; }
+    .follow-popover .follow-popover-content-line2 button {
+      background-color: transparent;
+      border: 1px solid #aaa;
+      border-radius: 3px;
+      margin: 7px 0;
+      padding: 3px 10px; }
