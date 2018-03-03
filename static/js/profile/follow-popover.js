@@ -7,17 +7,17 @@ $(document).ready(function() {
             $(this).parent().find(".follow-popover").css("display", "none")
         });
 
-    $(".psuedo-object-wrapper")
+    $(".follow-popover")
         .on("mouseenter", function() {
-            $(this).parent().css("display", "block")
+            $(this).css("display", "block")
         })
         .on("mouseleave", function() {
-            $(this).parent().css("display", "none")
+            $(this).css("display", "none")
         })
 });
 
 // 팝오버 창에서 팔로우 버튼 ajax 보내기
-function popoverFollow(pk) {
+function popoverFollow(self, pk) {
     var csrf_token = $('[name=csrfmiddlewaretoken]').val();
     $.ajax({
         type: "POST",
@@ -29,10 +29,10 @@ function popoverFollow(pk) {
         dataType: "json",
         success: function(response) {
             if (response) {
-                $(".follow-popover-btn")[0].innerText = "Following"
+                $(self).text("Following")
             }
             else {
-                $(".follow-popover-btn")[0].innerText = "Follow"
+                $(self).text("Follow")
             }
         }
     })
