@@ -122,22 +122,34 @@ function seekFromPlayer(self, e) {
     }
 }
 
-// 볼륨 조절
+// 볼륨 컨트롤 클릭하여 볼륨 조절
 function playerVolumeControl(self, e) {
     var audio = $("[loaded]");
     var indicator = $(self);
     var position = (e.pageX - indicator.offset().left);
     var volume_level_cover = $(".volume-control-bar-cover");
+    var current_volume;
+
+    // 클릭 포지션 만큼 볼륨 막대 길이 설정
     volume_level_cover.css("width", position);
+    // 클릭 포지션 100 넘으면 볼륨 최대
     if (position > 100) {
-        audio[0].volume = 1;
-    } else if (position < 10) {
-        audio[0].volume = 0;
-    } else {
-        audio[0].volume = position / 100;
+        current_volume = 1;
     }
-    changeVolumeIcon(audio[0]);
-    audio.attr("volume", audio[0].volume)
+    // 클릭 포지션 10 보다 작으면 볼륨 최소
+    else if (position < 10) {
+        current_volume = 0;
+    }
+    // 나머지의 경우 클릭한 위치만큼 볼륨 설정
+    else {
+        current_volume = position / 100;
+    }
+    // 볼륨에 맞게 아이콘 변경
+
+    audio[0].volume = current_volume;
+    changeVolumeIcon(current_volume);
+    // 오디오 태그에 볼륨 속성 설정
+    audio.attr("volume", current_volume)
 }
 
 // 재생 시 현재 볼륨으로 플레이어 업데이트
@@ -145,37 +157,49 @@ function getCurrentVolume() {
     var audio = $("[loaded]");
     var volume_level_cover = $(".volume-control-bar-cover");
     var current_volume;
-    if (audio.attr("volume")) {
+    // 뮤트 되었을 때
+    if (audio.attr("muted")) {
+        current_volume = 0;
+    }
+    // 볼륨 조절되었을 때
+    else if (audio.attr("volume")) {
         current_volume = audio.attr("volume")
     }
+    // 처음 재생 시
     else {
         audio.attr("volume", 1);
         current_volume = 1
     }
     volume_level_cover.css("width", (current_volume * 100) + "px");
-    changeVolumeIcon(audio[0])
+    changeVolumeIcon(current_volume)
 }
 
-function changeVolumeIcon(audio) {
+// 볼륨 크기에 따라 볼륨 아이콘 변경
+function changeVolumeIcon(volume) {
+    var audio = $("[loaded]");
     var volume_icon = $(".player-volume-control").find("[data-fa-processed]");
-    console.log(audio.volume);
-    if (audio.volume === 0) {
+    var volume_level_cover = $(".volume-control-bar-cover");
+
+    volume_level_cover.css("width", volume * 100);
+
+    if (volume === 0 || audio.attr("muted")) {
         volume_icon.removeClass("fa-volume-down");
         volume_icon.removeClass("fa-volume-up");
         volume_icon.addClass("fa-volume-off")
     }
-    else if (audio.volume < 0.5) {
+    else if (volume < 0.5) {
         volume_icon.removeClass("fa-volume-up");
         volume_icon.removeClass("fa-volume-off");
         volume_icon.addClass("fa-volume-down")
     }
-    else if (audio.volume > 0.5) {
+    else if (volume > 0.5) {
         volume_icon.removeClass("fa-volume-down");
         volume_icon.removeClass("fa-volume-off");
         volume_icon.addClass("fa-volume-up")
     }
 }
 
+// 뮤트 토글
 function muteVolumeToggle () {
     var audio = $("[loaded]");
     var volume_level_cover = $(".volume-control-bar-cover");
@@ -185,13 +209,15 @@ function muteVolumeToggle () {
         var current_volume = audio.attr("volume");
         audio[0].volume = current_volume;
         volume_level_cover.css("width", (current_volume * 100) + "px");
-        audio.attr("muted", null)
+        audio.attr("muted", null);
+        changeVolumeIcon(current_volume)
     }
     // 뮤트
     else {
         audio[0].volume = 0;
         volume_level_cover.css("width", 0);
-        audio.attr("muted", true)
+        audio.attr("muted", true);
+        changeVolumeIcon(0)
     }
 }
 
