@@ -112,6 +112,7 @@
       height: 50px;
       float: left; }
       .soundhub-player .player-body .volume-wrapper .volume-control-popup {
+        display: none;
         width: 125px;
         height: 35px;
         background-color: #eee;
