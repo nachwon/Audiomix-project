@@ -4,7 +4,10 @@
 $(".soundhub-player").ready(function () {
     var indicator = $(".player-position-indicator");
     var pointer = $(".player-progress-pointer");
-    // 포인터 숨김
+    var volume_control = $(".player-volume-control");
+    var volume_control_popup = $(".volume-control-popup");
+
+    // 진행바 포인터 세팅
     indicator.on("mouseenter", function () {
         pointer.animate({
             opacity: "1"
@@ -14,7 +17,22 @@ $(".soundhub-player").ready(function () {
         pointer.animate({
             opacity: "0"
         }, 0.1)
+    });
+
+    // 볼륨 컨트롤 세팅
+    volume_control.on("mouseenter", function() {
+        volume_control_popup.css("display", "block")
+    });
+    volume_control.on("mouseleave", function() {
+        volume_control_popup.css("display", "none")
+    });
+    volume_control_popup.on("mouseenter", function() {
+        $(this).css("display", "block")
+    });
+    volume_control_popup.on("mouseleave", function() {
+        $(this).css("display", "none")
     })
+
 });
 
 function showPlayer() {
@@ -121,6 +139,8 @@ function seekFromPlayer(self, e) {
         audio[0].currentTime = track_position / 100
     }
 }
+
+// 볼륨 관련 함수
 
 // 볼륨 컨트롤 클릭하여 볼륨 조절
 function playerVolumeControl(self, e) {
