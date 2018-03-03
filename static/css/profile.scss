@@ -377,18 +377,6 @@ div.no-followers {
 
 .hover-up {
     bottom: 57px;
-}
-
-.hover-down {
-    top: 60px;
-}
-
-.follow-popover {
-    left: -75px;
-    position: absolute;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-
     .popover-arrow {
         width: 20px;
         height: 20px;
@@ -411,6 +399,23 @@ div.no-followers {
             left: -14px;
             pointer-events: none;
         }
+    }
+}
+
+.hover-down {
+    top: 60px;
+}
+
+.follow-popover {
+    left: -75px;
+    position: absolute;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+
+    .psuedo-object-wrapper {
+        position: absolute;
+        width: 100%;
+        height: 275px;
     }
 
     .popover-title {

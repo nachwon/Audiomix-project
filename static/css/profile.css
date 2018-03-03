@@ -250,16 +250,7 @@ div.no-followers {
 
 .hover-up {
   bottom: 57px; }
-
-.hover-down {
-  top: 60px; }
-
-.follow-popover {
-  left: -75px;
-  position: absolute;
-  border: 1px solid #ddd;
-  border-radius: 6px; }
-  .follow-popover .popover-arrow {
+  .hover-up .popover-arrow {
     width: 20px;
     height: 20px;
     background-color: whitesmoke;
@@ -270,7 +261,7 @@ div.no-followers {
     transform: rotate(45deg);
     pointer-events: none;
     border-radius: 0 0 2px 0; }
-    .follow-popover .popover-arrow .popover-arrow-crop {
+    .hover-up .popover-arrow .popover-arrow-crop {
       height: 20px;
       width: 30px;
       background: blue;
@@ -279,6 +270,19 @@ div.no-followers {
       position: absolute;
       left: -14px;
       pointer-events: none; }
+
+.hover-down {
+  top: 60px; }
+
+.follow-popover {
+  left: -75px;
+  position: absolute;
+  border: 1px solid #ddd;
+  border-radius: 6px; }
+  .follow-popover .psuedo-object-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 275px; }
   .follow-popover .popover-title {
     text-align: center; }
     .follow-popover .popover-title .follower-popover-profile-img {
