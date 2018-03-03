@@ -443,11 +443,16 @@ div.no-followers {
     height: 280px;
     width: 200px;
 
+    .popover-arrow {
+        z-index: 3;
+    }
+
     .popover-content-wrapper {
         box-shadow: 1px 1px 10px -3px;
         border-radius: 5px;
         border: 1px solid #ddd;
         overflow: hidden;
+        z-index: 2;
 
         .popover-title {
             padding: 8px 14px;
@@ -486,7 +491,7 @@ div.no-followers {
                 margin: 7px 0;
                 padding: 3px 10px;
                 position: relative;
-                z-index: 2;
+                z-index: 3;
             }
         }
     }

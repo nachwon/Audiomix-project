@@ -305,11 +305,14 @@ div.no-followers {
   position: absolute;
   height: 280px;
   width: 200px; }
+  .follow-popover .popover-arrow {
+    z-index: 3; }
   .follow-popover .popover-content-wrapper {
     box-shadow: 1px 1px 10px -3px;
     border-radius: 5px;
     border: 1px solid #ddd;
-    overflow: hidden; }
+    overflow: hidden;
+    z-index: 2; }
     .follow-popover .popover-content-wrapper .popover-title {
       padding: 8px 14px;
       margin: 0;
@@ -340,4 +343,4 @@ div.no-followers {
         margin: 7px 0;
         padding: 3px 10px;
         position: relative;
-        z-index: 2; }
+        z-index: 3; }
