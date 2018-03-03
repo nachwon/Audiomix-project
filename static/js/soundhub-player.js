@@ -21,16 +21,16 @@ $(".soundhub-player").ready(function () {
 
     // 볼륨 컨트롤 세팅
     volume_control.on("mouseenter", function() {
-        volume_control_popup.css("display", "block")
+        volume_control_popup.fadeIn("fast")
     });
     volume_control.on("mouseleave", function() {
-        volume_control_popup.css("display", "none")
+        volume_control_popup.fadeOut("fast")
     });
     volume_control_popup.on("mouseenter", function() {
-        $(this).css("display", "block")
+        $(this).fadeIn("fast")
     });
     volume_control_popup.on("mouseleave", function() {
-        $(this).css("display", "none")
+        $(this).fadeOut("fast")
     })
 
 });
