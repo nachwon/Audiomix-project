@@ -127,9 +127,16 @@ function playerVolumeControl(self, e) {
     var audio = $("[loaded]");
     var indicator = $(self);
     var position = (e.pageX - indicator.offset().left);
+    console.log(position);
     var volume_progress_cover = $(".volume-control-bar-cover");
     volume_progress_cover.css("width", position);
-    audio[0].volume = position / 100;
+    if (position > 100) {
+        audio[0].volume = 1;
+    } else if (position < 10) {
+        audio[0].volume = 0;
+    } else {
+        audio[0].volume = position / 100;
+    }
 }
 
 

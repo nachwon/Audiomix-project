@@ -121,11 +121,10 @@
         border: 1px solid #aaa;
         border-radius: 3px; }
         .soundhub-player .player-body .volume-wrapper .volume-control-popup .volume-control-indicator {
-          width: 100px;
+          width: 100%;
           height: 100%;
           background: transparent;
           position: absolute;
-          left: 10%;
           cursor: pointer;
           z-index: 1; }
         .soundhub-player .player-body .volume-wrapper .volume-control-popup .volume-control-bar-base {
@@ -137,8 +136,9 @@
           left: 10%;
           pointer-events: none; }
         .soundhub-player .player-body .volume-wrapper .volume-control-popup .volume-control-bar-cover {
-          width: 0px;
+          width: 100px;
           min-width: 10px;
+          max-width: 100px;
           height: 2px;
           background: #E2B026;
           position: absolute;

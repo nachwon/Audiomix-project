@@ -158,11 +158,10 @@ $progress-bar-width: 85%;
                 border-radius: 3px;
 
                 .volume-control-indicator {
-                    width: 100px;
+                    width: 100%;
                     height: 100%;
                     background: transparent;
                     position: absolute;
-                    left: 10%;
                     cursor: pointer;
                     z-index: 1;
                 }
@@ -177,8 +176,9 @@ $progress-bar-width: 85%;
                     pointer-events: none;
                 }
                 .volume-control-bar-cover {
-                    width: 0px;
+                    width: 100px;
                     min-width: 10px;
+                    max-width: 100px;
                     height: 2px;
                     background: $dark-yellow;
                     position: absolute;
