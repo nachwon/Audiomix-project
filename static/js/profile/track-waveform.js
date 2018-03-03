@@ -49,6 +49,7 @@ function seekTrack (e) {
 function resetWaveform (self) {
     var audio = $(self);
 
+    audio[0].volume = 1;
     audio[0].currentTime = 0;
     audio[0].pause();
 
@@ -86,7 +87,8 @@ function playAudio() {
             // 로드된 오디오 재생
             audio[0].play();
             toggleBtn(audio, "on");
-            toggleOpacity(audio, "on")
+            toggleOpacity(audio, "on");
+            getCurrentVolume()
         }
         else {
             // 로드된 오디오 일시정지

@@ -127,9 +127,8 @@ function playerVolumeControl(self, e) {
     var audio = $("[loaded]");
     var indicator = $(self);
     var position = (e.pageX - indicator.offset().left);
-    console.log(position);
-    var volume_progress_cover = $(".volume-control-bar-cover");
-    volume_progress_cover.css("width", position);
+    var volume_level_cover = $(".volume-control-bar-cover");
+    volume_level_cover.css("width", position);
     if (position > 100) {
         audio[0].volume = 1;
     } else if (position < 10) {
@@ -137,6 +136,36 @@ function playerVolumeControl(self, e) {
     } else {
         audio[0].volume = position / 100;
     }
+    changeVolumeIcon(audio[0])
+}
+
+// 재생 시 현재 볼륨으로 플레이어 업데이트
+function getCurrentVolume() {
+    var audio = $("[loaded]");
+    var volume_level_cover = $(".volume-control-bar-cover");
+    volume_level_cover.css("width", (audio[0].volume * 100) + "px");
+    changeVolumeIcon(audio[0])
+}
+
+function changeVolumeIcon(audio) {
+    var volume_icon = $(".player-volume-control").find("[data-fa-processed]");
+    console.log(audio.volume);
+    if (audio.volume === 0) {
+        volume_icon.removeClass("fa-volume-down");
+        volume_icon.removeClass("fa-volume-up");
+        volume_icon.addClass("fa-volume-off")
+    }
+    else if (audio.volume < 0.5) {
+        volume_icon.removeClass("fa-volume-up");
+        volume_icon.removeClass("fa-volume-off");
+        volume_icon.addClass("fa-volume-down")
+    }
+    else if (audio.volume > 0.5) {
+        volume_icon.removeClass("fa-volume-down");
+        volume_icon.removeClass("fa-volume-off");
+        volume_icon.addClass("fa-volume-up")
+    }
+
 }
 
 
