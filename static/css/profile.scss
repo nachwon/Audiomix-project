@@ -383,7 +383,7 @@ div.no-followers {
         background-color: whitesmoke;
         border: 1px solid #ddd;
         position: absolute;
-        bottom: 12px;
+        bottom: 4px;
         left: calc(50% - 10px);
         transform: rotate(45deg);
         pointer-events: none;
@@ -412,7 +412,7 @@ div.no-followers {
         background-color: whitesmoke;
         border: 1px solid #ddd;
         position: absolute;
-        top: 12px;
+        top: 4px;
         left: calc(50% - 10px);
         transform: rotate(225deg);
         pointer-events: none;
@@ -448,7 +448,7 @@ div.no-followers {
     }
 
     .popover-content-wrapper {
-        box-shadow: 1px 1px 10px -3px;
+        box-shadow: 1px 1px 20px -7px;
         border-radius: 5px;
         border: 1px solid #ddd;
         overflow: hidden;
@@ -483,6 +483,7 @@ div.no-followers {
             text-align: center;
             background: whitesmoke;
             position: relative;
+            height: 50px;
 
             button {
                 background-color: whitesmoke;
@@ -491,6 +492,7 @@ div.no-followers {
                 margin: 7px 0;
                 padding: 3px 10px;
                 position: relative;
+                font-weight: bold;
                 z-index: 3;
             }
         }
