@@ -38,9 +38,9 @@
         display: block; }
         .soundhub-player .player-body .player-post-info span:hover {
           color: black !important; }
-      .soundhub-player .player-body .player-post-info span#player-post-title {
+      .soundhub-player .player-body .player-post-info span.player-post-title {
         color: #777; }
-      .soundhub-player .player-body .player-post-info span#player-post-author {
+      .soundhub-player .player-body .player-post-info span.player-post-author {
         color: #aaa; }
     .soundhub-player .player-body .player-controls {
       width: 110px;
@@ -106,87 +106,101 @@
         right: 0; }
         .soundhub-player .player-body .player-progress-bar .player-duration span {
           vertical-align: middle; }
-    .soundhub-player .player-body .volume-wrapper {
+    .soundhub-player .player-body .player-icon-wrapper {
       position: relative;
       width: 50px;
       height: 50px;
       float: left; }
-      .soundhub-player .player-body .volume-wrapper .volume-control-popup {
-        display: none;
-        width: 125px;
-        height: 35px;
-        background-color: #eee;
-        position: absolute;
-        right: -35px;
-        bottom: 45px;
-        border: 1px solid #aaa;
-        border-radius: 3px; }
-        .soundhub-player .player-body .volume-wrapper .volume-control-popup .volume-control-indicator {
-          width: 100%;
-          height: 100%;
-          background: transparent;
-          position: absolute;
-          cursor: pointer;
-          z-index: 1; }
-        .soundhub-player .player-body .volume-wrapper .volume-control-popup .volume-control-bar-base {
-          width: 100px;
-          height: 2px;
-          background: #333533;
-          position: absolute;
-          bottom: 50%;
-          left: 10%;
-          pointer-events: none; }
-        .soundhub-player .player-body .volume-wrapper .volume-control-popup .volume-control-bar-cover {
-          width: 100px;
-          min-width: 10px;
-          max-width: 100px;
-          height: 2px;
-          background: #E2B026;
-          position: absolute;
-          bottom: 50%;
-          left: 10%;
-          pointer-events: none; }
-          .soundhub-player .player-body .volume-wrapper .volume-control-popup .volume-control-bar-cover .volume-control-bar-pointer {
-            width: 10px;
-            height: 10px;
-            background: #E2B026;
-            top: -4px;
-            position: relative;
-            float: right;
-            border-radius: 50%;
-            border: 1px solid #333533;
-            pointer-events: none;
-            z-index: 1; }
-        .soundhub-player .player-body .volume-wrapper .volume-control-popup .popup-tail {
-          width: 15px;
-          height: 15px;
-          background: #eee;
-          position: absolute;
-          bottom: -7px;
-          right: calc(125px/2 - 15px/2);
-          transform: rotate(45deg);
-          border-radius: 3px;
-          border: 1px solid #aaa; }
-          .soundhub-player .player-body .volume-wrapper .volume-control-popup .popup-tail .popup-tail-crop {
-            width: 15px;
-            height: 26px;
-            background: #eee;
-            position: absolute;
-            bottom: 0px;
-            left: -4px;
-            transform: rotate(45deg); }
-      .soundhub-player .player-body .volume-wrapper .player-volume-control {
+      .soundhub-player .player-body .player-icon-wrapper .player-btn-item {
         float: left;
         height: 50px;
         width: 100%;
         font-size: 10px;
         background-color: transparent;
         border: 0; }
-  .soundhub-player .playlist {
+    .soundhub-player .player-body .volume-control-popup {
+      display: none;
+      width: 125px;
+      height: 35px;
+      background-color: #eee;
+      position: absolute;
+      right: -35px;
+      bottom: 45px;
+      border: 1px solid #aaa;
+      border-radius: 3px; }
+      .soundhub-player .player-body .volume-control-popup .volume-control-indicator {
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        position: absolute;
+        cursor: pointer;
+        z-index: 1; }
+      .soundhub-player .player-body .volume-control-popup .volume-control-bar-base {
+        width: 100px;
+        height: 2px;
+        background: #333533;
+        position: absolute;
+        bottom: 50%;
+        left: 10%;
+        pointer-events: none; }
+      .soundhub-player .player-body .volume-control-popup .volume-control-bar-cover {
+        width: 100px;
+        min-width: 10px;
+        max-width: 100px;
+        height: 2px;
+        background: #E2B026;
+        position: absolute;
+        bottom: 50%;
+        left: 10%;
+        pointer-events: none; }
+        .soundhub-player .player-body .volume-control-popup .volume-control-bar-cover .volume-control-bar-pointer {
+          width: 10px;
+          height: 10px;
+          background: #E2B026;
+          top: -4px;
+          position: relative;
+          float: right;
+          border-radius: 50%;
+          border: 1px solid #333533;
+          pointer-events: none;
+          z-index: 1; }
+      .soundhub-player .player-body .volume-control-popup .popup-tail {
+        width: 15px;
+        height: 15px;
+        background: #eee;
+        position: absolute;
+        bottom: -7px;
+        right: calc(125px/2 - 15px/2);
+        transform: rotate(45deg);
+        border-radius: 3px;
+        border: 1px solid #aaa; }
+        .soundhub-player .player-body .volume-control-popup .popup-tail .popup-tail-crop {
+          width: 15px;
+          height: 26px;
+          background: #eee;
+          position: absolute;
+          bottom: 0px;
+          left: -4px;
+          transform: rotate(45deg); }
+  .soundhub-player .playlist-popover {
     display: inline-block;
     position: absolute;
     width: 350px;
-    height: 100px;
-    background-color: black;
-    bottom: 41px;
-    right: 60px; }
+    height: 480px;
+    background-color: whitesmoke;
+    bottom: 55px;
+    right: 310px;
+    list-style: none;
+    border: 1px solid #ddd;
+    box-shadow: 0px 0px 10px -2px black;
+    padding: 0; }
+    .soundhub-player .playlist-popover .player-playlist-item {
+      width: 100%;
+      height: 50px; }
+      .soundhub-player .playlist-popover .player-playlist-item .playlist-item-grab-handle {
+        height: 100%;
+        width: 20px;
+        display: inline-block; }
+      .soundhub-player .playlist-popover .player-playlist-item a {
+        color: black;
+        display: inline-block; }

@@ -247,12 +247,24 @@ function muteVolumeToggle () {
 // 플레이 리스트에 추가함
 function addToPlaylist(self) {
     var target_obj = $("#" + $(self).data("target"));
+    var target_img = target_obj.find(".track-post-img").attr("style");
     var target_title = target_obj.find(".track-title").text();
+    var target_author = target_obj.find(".track-author").text();
     var target_audio_id = target_obj.find("audio").attr("id");
 
     var ul = $("#player-playlist");
     var li = $(".player-playlist-item");
-    var list_item = '<li class="player-playlist-item"><a data-target="' + target_audio_id + '" href="' + target_audio_id + '" onclick="playItem(this, event)">' + target_title + '</a></li>';
+    var list_item =
+        '<li class="player-playlist-item">' +
+        '<div class="playlist-item-grab-handle"></div>' +
+        '<a data-target="' + target_audio_id + '" href="' + target_audio_id + '" onclick="playItem(this, event)">' +
+        '<div class="player-post-img" style="'+ target_img +'"></div>' +
+        '<div class="player-post-info">' +
+        '<span class="player-post-title">' + target_title + '</span>' +
+        '<span class="player-post-author">' + target_author + '</span>' +
+        '</div>' +
+        '</a>' +
+        '</li>';
 
     var exists_in_playlist = false;
 

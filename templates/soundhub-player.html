@@ -4,8 +4,8 @@
     <div class="player-body">
         <div id="player-post-img" class="player-post-img" style="background-image: url({% static 'img/default-post-img.png' %})"></div>
         <div class="player-post-info">
-            <a id="player-post-link" href=""><span id="player-post-title">Audio Track</span></a>
-            <a id="player-author-link" href=""><span id="player-post-author">Not Loaded</span></a>
+            <a id="player-post-link" href=""><span id="player-post-title" class="player-post-title">Audio Track</span></a>
+            <a id="player-author-link" href=""><span id="player-post-author" class="player-post-author">Not Loaded</span></a>
         </div>
 
         <div class="player-controls">
@@ -28,8 +28,8 @@
 
         </div>
 
-        <div class="volume-wrapper">
-            <button onclick="muteVolumeToggle()" class="player-volume-control" >
+        <div class="player-icon-wrapper">
+            <button onclick="muteVolumeToggle()" class="player-volume-control player-btn-item" >
                 <i class="fas fa-volume-up fa-2x"></i>
             </button>
             <div class="volume-control-popup">
@@ -42,7 +42,14 @@
             </div>
 
         </div>
-        <ul id="player-playlist" class="playlist">
+
+        <div class="player-icon-wrapper">
+            <button class="player-playlist-btn player-btn-item">
+                <i class="far fa-2x fa-list-alt"></i>
+            </button>
+        </div>
+
+        <ul id="player-playlist" class="playlist-popover">
         </ul>
     </div>
 </div>
