@@ -218,5 +218,11 @@
         width: 20px;
         display: inline-block; }
       .soundhub-player ul.playlist-popover li.player-playlist-item > a {
+        width: calc(100% - 20px);
         color: black;
         display: inline-block; }
+        .soundhub-player ul.playlist-popover li.player-playlist-item > a span.player-post-duration {
+          float: left;
+          line-height: 50px;
+          color: #777;
+          font-size: 13px; }

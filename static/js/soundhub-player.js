@@ -251,6 +251,7 @@ function addToPlaylist(self) {
     var target_title = target_obj.find(".track-title").text();
     var target_author = target_obj.find(".track-author").text();
     var target_audio_id = target_obj.find("audio").attr("id");
+    var target_duration = target_obj.find(".track-duration-total").text();
 
     var list_headline = $("#playlist-headline");
     var li = $(".player-playlist-item");
@@ -263,6 +264,7 @@ function addToPlaylist(self) {
         '<span class="player-post-title">' + target_title + '</span>' + '<br>' +
         '<span class="player-post-author">' + target_author + '</span>' +
         '</div>' +
+        '<span class="player-post-duration">' + target_duration + '</span>' +
         '</a>' +
         '</li>';
 

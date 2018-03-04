@@ -279,8 +279,16 @@ $progress-bar-width: 85%;
             }
 
             & > a {
+                width: calc(100% - 20px);
                 color: black;
                 display: inline-block;
+
+                span.player-post-duration {
+                    float: left;
+                    line-height: 50px;
+                    color: #777;
+                    font-size: 13px;
+                }
             }
         }
     }
