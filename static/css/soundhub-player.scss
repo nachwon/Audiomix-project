@@ -270,6 +270,10 @@ $progress-bar-width: 85%;
             width: 100%;
             height: 50px;
             margin: 5px 0;
+            -webkit-transition-duration: 0.3s;
+            -moz-transition-duration: 0.3s;
+            -o-transition-duration: 0.3s;
+            transition-duration: 0.3s;
             &:hover {
                 background-color: #f0f0f0;
             }
@@ -295,7 +299,7 @@ $progress-bar-width: 85%;
         }
 
         .playing {
-            box-shadow: inset 1px 1px 15px -5px;
+            background-color: #f0f0f0 !important;
         }
     }
 }

@@ -301,6 +301,7 @@ function togglePlaylistItem() {
 
     playlist_lis.each(function(index, item) {
         if ($(item).find("a").data("target") === target_obj_id) {
+            $(item).addClass("playing");
             if (audio[0].paused) {
                 $(item).find(".player-post-duration").text("paused")
             }
@@ -313,6 +314,7 @@ function togglePlaylistItem() {
             var target_audio = $("#" + $(item).find("a").data("target"));
             var duration = format_time(target_audio[0].duration);
             $(item).find(".player-post-duration").text(duration)
+            $(item).removeClass("playing");
         }
     })
 }
