@@ -271,16 +271,18 @@ function addToPlaylist(self) {
         '<span class="player-post-author">' + target_author + '</span>' +
         '</div>' +
         '<span class="player-post-duration">' + target_duration + '</span>' +
-        '<button class="playlist-item-more"><i class="fas fa-ellipsis-v"></i></button>' +
         '</a>' +
+        '<button class="playlist-item-more" onclick="showMoreActionMenu(this,' + target_obj.attr("data-pk") + ')"><i class="fas fa-ellipsis-v"></i></button>' +
         '</li>';
 
     var exists_in_playlist = false;
 
 
     li.each(function(index, item) {
-        if ($(item).find("a").data("target") === $(list_item).find("a").data("target")) {
-            exists_in_playlist = $(item).find("a").data("target") === $(list_item).find("a").data("target")
+        var existing_item = $(item).find("a").data("target");
+        var to_be_added_item = $(list_item).find("a").data("target");
+        if (existing_item === to_be_added_item) {
+            exists_in_playlist = existing_item === to_be_added_item
         }
     });
 
@@ -300,6 +302,7 @@ function playItem(self, e) {
     togglePlaylistItem()
 }
 
+// 재생 시 플레이리스트 아이템 상태 변경
 function togglePlaylistItem() {
     var audio = $("[loaded]");
     var target_id = audio.data("target");
@@ -324,4 +327,17 @@ function togglePlaylistItem() {
             $(item).removeClass("playing");
         }
     })
+}
+
+// 플레이리스트 아이템 세부 메뉴 보이기
+function showMoreActionMenu(self, pk) {
+    var more_action_menus = $(".more-action-menu");
+    more_action_menus.remove();
+
+    var more_action =
+        '<ul class="more-action-menu">' +
+        '<li class="more-action-menu-item"><button class="more-action-like" onclick="like(' + pk + ')">like</button></li>' +
+        '</ul>';
+
+    $(self).parent().append(more_action)
 }
