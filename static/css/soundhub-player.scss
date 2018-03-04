@@ -294,6 +294,7 @@ $progress-bar-width: 85%;
                     -moz-transition-duration: 0.3s;
                     -o-transition-duration: 0.3s;
                     transition-duration: 0.3s;
+                    position: relative;
                     &:hover {
                         background-color: #f0f0f0;
                         .playlist-item-more {
@@ -331,26 +332,29 @@ $progress-bar-width: 85%;
                         background-color: transparent;
                     }
 
-                    ul.more-action-menu {
-                        position: absolute;
-                        background: whitesmoke;
-                        border: 1px solid #ddd;
-                        color: black;
-                        list-style: none;
-                        padding: 0;
-                        text-align: left;
-                        bottom: 0;
+                }
+                ul.more-action-menu {
+                    position: absolute;
+                    background: whitesmoke;
+                    border: 1px solid #ddd;
+                    color: black;
+                    list-style: none;
+                    padding: 0;
+                    text-align: left;
+                    top: 20px;
+                    right: -156px;
 
-                        li.more-action-menu-item {
-                            width: 150px;
-                            line-height: 40px;
-                            button.more-action-like {
-                                width: 100%;
-                                height: 100%;
-                                background: transparent;
-                                text-align: left;
-                                border: 0;
-                            }
+                    li.more-action-menu-item {
+                        width: 150px;
+                        line-height: 40px;
+                        border-bottom: 1px solid #ddd;
+
+                        button.more-action-like {
+                            width: 100%;
+                            height: 100%;
+                            background: transparent;
+                            text-align: left;
+                            border: 0;
                         }
                     }
                 }

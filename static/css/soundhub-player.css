@@ -228,7 +228,8 @@
           -webkit-transition-duration: 0.3s;
           -moz-transition-duration: 0.3s;
           -o-transition-duration: 0.3s;
-          transition-duration: 0.3s; }
+          transition-duration: 0.3s;
+          position: relative; }
           .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item:hover {
             background-color: #f0f0f0; }
             .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item:hover .playlist-item-more {
@@ -255,23 +256,25 @@
             border: 0;
             transition-duration: 0.3s;
             background-color: transparent; }
-          .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item ul.more-action-menu {
-            position: absolute;
-            background: whitesmoke;
-            border: 1px solid #ddd;
-            color: black;
-            list-style: none;
-            padding: 0;
-            text-align: left;
-            bottom: 0; }
-            .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item ul.more-action-menu li.more-action-menu-item {
-              width: 150px;
-              line-height: 40px; }
-              .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item ul.more-action-menu li.more-action-menu-item button.more-action-like {
-                width: 100%;
-                height: 100%;
-                background: transparent;
-                text-align: left;
-                border: 0; }
+        .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover ul.more-action-menu {
+          position: absolute;
+          background: whitesmoke;
+          border: 1px solid #ddd;
+          color: black;
+          list-style: none;
+          padding: 0;
+          text-align: left;
+          top: 20px;
+          right: -156px; }
+          .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover ul.more-action-menu li.more-action-menu-item {
+            width: 150px;
+            line-height: 40px;
+            border-bottom: 1px solid #ddd; }
+            .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover ul.more-action-menu li.more-action-menu-item button.more-action-like {
+              width: 100%;
+              height: 100%;
+              background: transparent;
+              text-align: left;
+              border: 0; }
         .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover .playing {
           background-color: #f0f0f0 !important; }
