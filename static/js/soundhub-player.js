@@ -260,7 +260,7 @@ function addToPlaylist(self) {
         '<a data-target="' + target_audio_id + '" href="' + target_audio_id + '" onclick="playItem(this, event)">' +
         '<div class="player-post-img" style="'+ target_img +'"></div>' +
         '<div class="player-post-info">' +
-        '<span class="player-post-title">' + target_title + '</span>' +
+        '<span class="player-post-title">' + target_title + '</span>' + '<br>' +
         '<span class="player-post-author">' + target_author + '</span>' +
         '</div>' +
         '</a>' +
