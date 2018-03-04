@@ -242,7 +242,7 @@ $progress-bar-width: 85%;
         bottom: -500px !important;
     }
 
-    ul.playlist-popover {
+    div#playlist-wrapper {
         display: inline-block;
         position: absolute;
         width: 350px;
@@ -254,9 +254,9 @@ $progress-bar-width: 85%;
         border: 1px solid #ddd;
         box-shadow: 0px 0px 10px -2px black;
         padding: 0;
-        transition: 0.5s cubic-bezier(.68,-0.55,.27,1.55);
+        transition: 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 
-        li#playlist-headline {
+        div#playlist-headline {
             width: 100%;
             height: 40px;
             font-size: 15px;
@@ -273,40 +273,55 @@ $progress-bar-width: 85%;
             }
         }
 
-        li.player-playlist-item {
+        div.playlist-content {
+            height: calc(100% - 40px);
             width: 100%;
-            height: 50px;
-            margin: 5px 0;
-            -webkit-transition-duration: 0.3s;
-            -moz-transition-duration: 0.3s;
-            -o-transition-duration: 0.3s;
-            transition-duration: 0.3s;
-            &:hover {
-                background-color: #f0f0f0;
-            }
+            overflow: auto;
 
-            .playlist-item-grab-handle {
-                height: 100%;
-                width: 20px;
+            ul.playlist-popover {
                 display: inline-block;
-            }
+                width: 100%;
+                background-color: whitesmoke;
+                list-style: none;
+                padding: 0;
 
-            & > a {
-                width: calc(100% - 20px);
-                color: black;
-                display: inline-block;
 
-                span.player-post-duration {
-                    float: left;
-                    line-height: 50px;
-                    color: #777;
-                    font-size: 13px;
+                li.player-playlist-item {
+                    width: 100%;
+                    height: 50px;
+                    margin: 5px 0;
+                    -webkit-transition-duration: 0.3s;
+                    -moz-transition-duration: 0.3s;
+                    -o-transition-duration: 0.3s;
+                    transition-duration: 0.3s;
+                    &:hover {
+                        background-color: #f0f0f0;
+                    }
+
+                    .playlist-item-grab-handle {
+                        height: 100%;
+                        width: 20px;
+                        display: inline-block;
+                    }
+
+                    & > a {
+                        width: calc(100% - 20px);
+                        color: black;
+                        display: inline-block;
+
+                        span.player-post-duration {
+                            float: left;
+                            line-height: 50px;
+                            color: #777;
+                            font-size: 13px;
+                        }
+                    }
+                }
+
+                .playing {
+                    background-color: #f0f0f0 !important;
                 }
             }
-        }
-
-        .playing {
-            background-color: #f0f0f0 !important;
         }
     }
 }

@@ -185,7 +185,7 @@
           transform: rotate(45deg); }
   .soundhub-player .disappear {
     bottom: -500px !important; }
-  .soundhub-player ul.playlist-popover {
+  .soundhub-player div#playlist-wrapper {
     display: inline-block;
     position: absolute;
     width: 350px;
@@ -198,41 +198,51 @@
     box-shadow: 0px 0px 10px -2px black;
     padding: 0;
     transition: 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
-    .soundhub-player ul.playlist-popover li#playlist-headline {
+    .soundhub-player div#playlist-wrapper div#playlist-headline {
       width: 100%;
       height: 40px;
       font-size: 15px;
       line-height: 40px;
       padding-left: 15px;
       border-bottom: 1px solid #ddd; }
-      .soundhub-player ul.playlist-popover li#playlist-headline button#playlist-close-btn {
+      .soundhub-player div#playlist-wrapper div#playlist-headline button#playlist-close-btn {
         float: right;
         margin-right: 10px;
         font-size: 25px;
         background-color: transparent;
         border: 0; }
-    .soundhub-player ul.playlist-popover li.player-playlist-item {
+    .soundhub-player div#playlist-wrapper div.playlist-content {
+      height: calc(100% - 40px);
       width: 100%;
-      height: 50px;
-      margin: 5px 0;
-      -webkit-transition-duration: 0.3s;
-      -moz-transition-duration: 0.3s;
-      -o-transition-duration: 0.3s;
-      transition-duration: 0.3s; }
-      .soundhub-player ul.playlist-popover li.player-playlist-item:hover {
-        background-color: #f0f0f0; }
-      .soundhub-player ul.playlist-popover li.player-playlist-item .playlist-item-grab-handle {
-        height: 100%;
-        width: 20px;
-        display: inline-block; }
-      .soundhub-player ul.playlist-popover li.player-playlist-item > a {
-        width: calc(100% - 20px);
-        color: black;
-        display: inline-block; }
-        .soundhub-player ul.playlist-popover li.player-playlist-item > a span.player-post-duration {
-          float: left;
-          line-height: 50px;
-          color: #777;
-          font-size: 13px; }
-    .soundhub-player ul.playlist-popover .playing {
-      background-color: #f0f0f0 !important; }
+      overflow: auto; }
+      .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover {
+        display: inline-block;
+        width: 100%;
+        background-color: whitesmoke;
+        list-style: none;
+        padding: 0; }
+        .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item {
+          width: 100%;
+          height: 50px;
+          margin: 5px 0;
+          -webkit-transition-duration: 0.3s;
+          -moz-transition-duration: 0.3s;
+          -o-transition-duration: 0.3s;
+          transition-duration: 0.3s; }
+          .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item:hover {
+            background-color: #f0f0f0; }
+          .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item .playlist-item-grab-handle {
+            height: 100%;
+            width: 20px;
+            display: inline-block; }
+          .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item > a {
+            width: calc(100% - 20px);
+            color: black;
+            display: inline-block; }
+            .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item > a span.player-post-duration {
+              float: left;
+              line-height: 50px;
+              color: #777;
+              font-size: 13px; }
+        .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover .playing {
+          background-color: #f0f0f0 !important; }

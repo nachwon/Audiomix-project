@@ -49,9 +49,13 @@
             </button>
         </div>
 
-        <ul id="player-playlist" class="playlist-popover disappear">
-            <li id="playlist-headline">Playlist<button id="playlist-close-btn"><i class="fas fa-times"></i></button></li>
-        </ul>
+        <div id="playlist-wrapper" class="disappear">
+            <div id="playlist-headline">Playlist<button id="playlist-close-btn" onclick="togglePlaylist()"><i class="fas fa-times"></i></button></div>
+            <div class="playlist-content">
+                <ul id="player-playlist" class="playlist-popover disappear">
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 

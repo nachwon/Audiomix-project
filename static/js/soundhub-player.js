@@ -21,16 +21,16 @@ $(".soundhub-player").ready(function () {
 
     // 볼륨 컨트롤 세팅
     volume_control.on("mouseenter", function() {
-        volume_control_popup.fadeIn("fast")
+        volume_control_popup.css("display", "block")
     });
     volume_control.on("mouseleave", function() {
-        volume_control_popup.fadeOut("fast")
+        volume_control_popup.css("display", "none")
     });
     volume_control_popup.on("mouseenter", function() {
-        $(this).fadeIn("fast")
+        $(this).css("display", "block")
     });
     volume_control_popup.on("mouseleave", function() {
-        $(this).fadeOut("fast")
+        $(this).css("display", "none")
     })
 
 });
@@ -246,7 +246,7 @@ function muteVolumeToggle () {
 
 // 플레이 리스트 보이기/숨기기
 function togglePlaylist() {
-    var playlist = $("#player-playlist");
+    var playlist = $("#playlist-wrapper");
     playlist.toggleClass("disappear")
 }
 
