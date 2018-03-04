@@ -271,6 +271,7 @@ function addToPlaylist(self) {
         '<span class="player-post-author">' + target_author + '</span>' +
         '</div>' +
         '<span class="player-post-duration">' + target_duration + '</span>' +
+        '<button class="playlist-item-more"><i class="fas fa-ellipsis-v"></i></button>' +
         '</a>' +
         '</li>';
 

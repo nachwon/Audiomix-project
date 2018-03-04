@@ -231,6 +231,8 @@
           transition-duration: 0.3s; }
           .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item:hover {
             background-color: #f0f0f0; }
+            .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item:hover .playlist-item-more {
+              color: black; }
           .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item .playlist-item-grab-handle {
             height: 100%;
             width: 20px;
@@ -244,5 +246,12 @@
               line-height: 50px;
               color: #777;
               font-size: 13px; }
+          .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item button.playlist-item-more {
+            float: right;
+            line-height: 50px;
+            width: 40px;
+            text-align: center;
+            color: transparent;
+            border: 0; }
         .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover .playing {
           background-color: #f0f0f0 !important; }
