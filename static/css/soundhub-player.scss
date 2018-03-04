@@ -9,6 +9,7 @@ $progress-bar-width: 85%;
 }
 
 .soundhub-player {
+    z-index: 1000;
     height: 50px;
     transition-duration: 0.2s;
     position: fixed;
@@ -166,6 +167,7 @@ $progress-bar-width: 85%;
             bottom: 45px;
             border: 1px solid #aaa;
             border-radius: 3px;
+            z-index: 1;
 
             .volume-control-indicator {
                 width: 100%;
@@ -236,6 +238,10 @@ $progress-bar-width: 85%;
 
     // 플레이리스트
 
+    .disappear {
+        bottom: -500px !important;
+    }
+
     ul.playlist-popover {
         display: inline-block;
         position: absolute;
@@ -248,6 +254,7 @@ $progress-bar-width: 85%;
         border: 1px solid #ddd;
         box-shadow: 0px 0px 10px -2px black;
         padding: 0;
+        transition: 0.5s cubic-bezier(.68,-0.55,.27,1.55);
 
         li#playlist-headline {
             width: 100%;

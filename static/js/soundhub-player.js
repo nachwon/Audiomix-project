@@ -244,6 +244,12 @@ function muteVolumeToggle () {
 
 // 플레이 리스트 관련 함수들
 
+// 플레이 리스트 보이기/숨기기
+function togglePlaylist() {
+    var playlist = $("#player-playlist");
+    playlist.toggleClass("disappear")
+}
+
 // 플레이 리스트에 추가함
 function addToPlaylist(self) {
     var target_obj = $("#" + $(self).data("target"));
@@ -313,7 +319,7 @@ function togglePlaylistItem() {
         else {
             var target_audio = $("#" + $(item).find("a").data("target"));
             var duration = format_time(target_audio[0].duration);
-            $(item).find(".player-post-duration").text(duration)
+            $(item).find(".player-post-duration").text(duration);
             $(item).removeClass("playing");
         }
     })
