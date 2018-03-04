@@ -331,14 +331,13 @@ function togglePlaylistItem() {
 
 // 플레이리스트 아이템 세부 메뉴 보이기
 function showMoreActionMenu(self, pk) {
-    var more_action_menus = $(".more-action-menu");
-    more_action_menus.remove();
+    $("#more-action-menu").remove();
 
     var more_action =
-        '<ul class="more-action-menu">' +
+        '<ul id="more-action-menu">' +
         '<li class="more-action-menu-item">More Actions</li>' +
         '<li class="more-action-menu-item"><button class="more-action-like" onclick="like(' + pk + ')">like</button></li>' +
         '</ul>';
 
-    $(self).parent().parent().append(more_action)
+    $(self).parent().parent().append(more_action);
 }
