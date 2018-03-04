@@ -252,7 +252,7 @@ function addToPlaylist(self) {
     var target_author = target_obj.find(".track-author").text();
     var target_audio_id = target_obj.find("audio").attr("id");
 
-    var ul = $("#player-playlist");
+    var list_headline = $("#playlist-headline");
     var li = $(".player-playlist-item");
     var list_item =
         '<li class="player-playlist-item">' +
@@ -275,7 +275,7 @@ function addToPlaylist(self) {
     });
 
     if (!exists_in_playlist) {
-        ul.prepend(list_item);
+        list_headline.after(list_item);
     }
     showPlayer()
 }
