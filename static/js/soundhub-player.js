@@ -253,7 +253,7 @@ function addToPlaylist(self) {
     var target_audio_id = target_obj.find("audio").attr("id");
     var target_duration = target_obj.find(".track-duration-total").text();
 
-    var list_headline = $("#playlist-headline");
+    var ul = $("#player-playlist");
     var li = $(".player-playlist-item");
     var list_item =
         '<li class="player-playlist-item">' +
@@ -270,14 +270,16 @@ function addToPlaylist(self) {
 
     var exists_in_playlist = false;
 
+
     li.each(function(index, item) {
-        if (item.outerHTML === list_item) {
-            exists_in_playlist = item.outerHTML === list_item
+        if ($(item).find("a").data("target") === $(list_item).find("a").data("target")) {
+            exists_in_playlist = $(item).find("a").data("target") === $(list_item).find("a").data("target")
         }
     });
 
     if (!exists_in_playlist) {
-        list_headline.after(list_item);
+        ul.append(list_item);
+        togglePlaylistItem()
     }
     showPlayer()
 }
@@ -287,5 +289,25 @@ function playItem(self, e) {
     e.preventDefault();
     loadAudio(self);
     playAudio();
-    updatePlayerPostInfo()
+    updatePlayerPostInfo();
+    togglePlaylistItem()
+}
+
+function togglePlaylistItem() {
+    var audio = $("[loaded]");
+    var target_id = audio.data("target");
+    var target_obj_id = $("#" + target_id).find("audio").attr("id");
+    var playlist_lis = $(".player-playlist-item");
+
+
+
+    playlist_lis.each(function(index, item) {
+        if ($(item).find("a").data("target") === target_obj_id) {
+            $(item).addClass("playing");
+
+        }
+        else {
+            $(item).removeClass("playing")
+        }
+    })
 }

@@ -88,13 +88,14 @@ function playAudio() {
             audio[0].play();
             toggleBtn(audio, "on");
             toggleOpacity(audio, "on");
-            getCurrentVolume()
+            getCurrentVolume();
+            togglePlaylistItem()
         }
         else {
             // 로드된 오디오 일시정지
             audio[0].pause();
             toggleBtn(audio, "off");
-            toggleOpacity(audio, "off")
+            toggleOpacity(audio, "off");
         }
     }
 }
@@ -153,3 +154,4 @@ function toggleOpacity(audio, status) {
         }
     }
 }
+

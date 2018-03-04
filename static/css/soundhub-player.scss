@@ -33,7 +33,6 @@ $progress-bar-width: 85%;
             height: 50px;
             background-size: cover;
             float: left;
-            border: 1px solid #ddd;
             border-radius: 2px;
         }
 
@@ -234,6 +233,9 @@ $progress-bar-width: 85%;
             }
         }
     }
+
+    // 플레이리스트
+
     ul.playlist-popover {
         display: inline-block;
         position: absolute;
@@ -290,6 +292,10 @@ $progress-bar-width: 85%;
                     font-size: 13px;
                 }
             }
+        }
+
+        .playing {
+            box-shadow: inset 1px 1px 15px -5px;
         }
     }
 }

@@ -25,7 +25,6 @@
       height: 50px;
       background-size: cover;
       float: left;
-      border: 1px solid #ddd;
       border-radius: 2px; }
     .soundhub-player .player-body .player-post-info {
       display: inline-block;
@@ -226,3 +225,5 @@
           line-height: 50px;
           color: #777;
           font-size: 13px; }
+    .soundhub-player ul.playlist-popover .playing {
+      box-shadow: inset 1px 1px 15px -5px; }
