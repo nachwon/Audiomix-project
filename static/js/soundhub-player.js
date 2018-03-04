@@ -299,15 +299,20 @@ function togglePlaylistItem() {
     var target_obj_id = $("#" + target_id).find("audio").attr("id");
     var playlist_lis = $(".player-playlist-item");
 
-
-
     playlist_lis.each(function(index, item) {
         if ($(item).find("a").data("target") === target_obj_id) {
-            $(item).addClass("playing");
+            if (audio[0].paused) {
+                $(item).find(".player-post-duration").text("paused")
+            }
+            else {
+                $(item).find(".player-post-duration").text("playing")
+            }
 
         }
         else {
-            $(item).removeClass("playing")
+            var target_audio = $("#" + $(item).find("a").data("target"));
+            var duration = format_time(target_audio[0].duration);
+            $(item).find(".player-post-duration").text(duration)
         }
     })
 }

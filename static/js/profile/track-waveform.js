@@ -96,6 +96,7 @@ function playAudio() {
             audio[0].pause();
             toggleBtn(audio, "off");
             toggleOpacity(audio, "off");
+            togglePlaylistItem()
         }
     }
 }
