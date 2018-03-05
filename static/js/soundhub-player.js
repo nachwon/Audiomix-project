@@ -252,7 +252,7 @@ function togglePlaylist() {
 
 // 플레이 리스트에 추가함
 function addToPlaylist(self) {
-    var target_obj = $("#" + $(self).data("target"));
+    var target_obj = $("#" + $(self).attr("data-target"));
     var target_img = target_obj.find(".track-post-img").attr("style");
     var target_title = target_obj.find(".track-title").text();
     var target_author = target_obj.find(".track-author").text();
@@ -272,7 +272,7 @@ function addToPlaylist(self) {
         '</div>' +
         '<span class="player-post-duration">' + target_duration + '</span>' +
         '</a>' +
-        '<button class="playlist-item-more" onclick="showMoreActionMenu(this,' + target_obj.attr("data-pk") + ')"><i class="fas fa-ellipsis-v"></i></button>' +
+        '<button class="playlist-item-more" data-target="' + $(self).data("target") + '" onclick="showMoreActionMenu(this)"><i class="fas fa-ellipsis-v"></i></button>' +
         '</li>';
 
     var exists_in_playlist = false;
@@ -330,14 +330,27 @@ function togglePlaylistItem() {
 }
 
 // 플레이리스트 아이템 세부 메뉴 보이기
-function showMoreActionMenu(self, pk) {
-    $("#more-action-menu").remove();
-
+function showMoreActionMenu(self) {
+    var target_id = $(self).data("target");
+    var target_obj = $("#" + target_id);
+    var target_pk = target_obj.data("pk");
+    var current_more_action_menu = $("#more-action-menu");
     var more_action =
-        '<ul id="more-action-menu">' +
+        '<ul id="more-action-menu" data-target="' + target_id + '">' +
         '<li class="more-action-menu-item">More Actions</li>' +
-        '<li class="more-action-menu-item"><button class="more-action-like" onclick="like(' + pk + ')">like</button></li>' +
+        '<li class="more-action-menu-item"><button class="more-action-like" onclick="like(' + target_pk + ')">like</button></li>' +
         '</ul>';
 
-    $(self).parent().parent().append(more_action);
+    if (current_more_action_menu[0]) {
+        if (current_more_action_menu.data("target") === $(self).data("target")) {
+            current_more_action_menu.remove();
+        }
+        else {
+            current_more_action_menu.remove();
+            $(self).parent().parent().append(more_action);
+        }
+    }
+    else {
+        $(self).parent().parent().append(more_action);
+    }
 }
