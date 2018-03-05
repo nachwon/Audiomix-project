@@ -337,6 +337,7 @@ $progress-bar-width: 85%;
 
                 }
                 ul#more-action-menu {
+                    box-shadow: 0px 0px 10px -2px black;
                     position: absolute;
                     background: whitesmoke;
                     border: 1px solid #ddd;
@@ -349,8 +350,13 @@ $progress-bar-width: 85%;
 
                     li.more-action-menu-item {
                         width: 150px;
-                        line-height: 40px;
+                        line-height: 30px;
                         border-bottom: 1px solid #ddd;
+
+                        &:first-of-type {
+                            text-align: center;
+                            line-height: 40px !important;
+                        }
 
                         button.more-action-like {
                             width: 100%;
