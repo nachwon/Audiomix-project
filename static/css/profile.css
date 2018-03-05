@@ -225,7 +225,8 @@ div.follower-list {
       border-radius: 3px;
       float: left;
       margin-right: 2px;
-      margin-top: 2px; }
+      margin-top: 2px;
+      width: 49px; }
       div.follower-list div.follower-list-contents div.followers-list-wrapper div.followers-obj:nth-child(7) {
         margin-right: 0; }
       div.follower-list div.follower-list-contents div.followers-list-wrapper div.followers-obj:last-child {
