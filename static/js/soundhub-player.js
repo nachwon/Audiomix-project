@@ -335,22 +335,27 @@ function showMoreActionMenu(self) {
     var target_obj = $("#" + target_id);
     var target_pk = target_obj.data("pk");
     var current_more_action_menu = $("#more-action-menu");
-    var more_action =
-        '<ul id="more-action-menu" data-target="' + target_id + '">' +
-        '<li class="more-action-menu-item">More Actions</li>' +
-        '<li class="more-action-menu-item"><button class="more-action-like" onclick="like(' + target_pk + ')">like</button></li>' +
-        '</ul>';
 
-    if (current_more_action_menu[0]) {
-        if (current_more_action_menu.data("target") === $(self).data("target")) {
-            current_more_action_menu.remove();
+    // 메뉴가 나타난 상태인 경우
+    if (!current_more_action_menu.hasClass("hide-menu")) {
+
+        // 동일한 메뉴를 다시 부르면 닫기
+        if (current_more_action_menu.attr("data-target") === $(self).attr("data-target")) {
+            current_more_action_menu.addClass("hide-menu");
+            current_more_action_menu.attr("data-target", target_id);
+            current_more_action_menu.find("button").attr("onclick", "like(" + target_pk + ")");
         }
+        // 다른 메뉴를 호출하면 다른 메뉴로 교체
         else {
-            current_more_action_menu.remove();
-            $(self).parent().parent().append(more_action);
+            current_more_action_menu.removeClass("hide-menu");
+            current_more_action_menu.attr("data-target", target_id);
+            current_more_action_menu.find("button").attr("onclick", "like(" + target_pk + ")");
         }
     }
+    // 메뉴가 안보이는 상태인 경우
     else {
-        $(self).parent().parent().append(more_action);
+        current_more_action_menu.removeClass("hide-menu");
+        current_more_action_menu.attr("data-target", target_id);
+        current_more_action_menu.find("button").attr("onclick", "like(" + target_pk + ")");
     }
 }

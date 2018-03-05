@@ -185,6 +185,8 @@
           transform: rotate(45deg); }
   .soundhub-player .disappear {
     bottom: -500px !important; }
+  .soundhub-player .hide-menu {
+    display: none !important; }
   .soundhub-player div#playlist-wrapper {
     display: inline-block;
     position: absolute;

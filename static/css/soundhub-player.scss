@@ -241,6 +241,9 @@ $progress-bar-width: 85%;
     .disappear {
         bottom: -500px !important;
     }
+    .hide-menu {
+        display: none !important;
+    }
 
     div#playlist-wrapper {
         display: inline-block;
