@@ -248,7 +248,8 @@
               float: left;
               line-height: 50px;
               color: #777;
-              font-size: 13px; }
+              font-size: 13px;
+              max-width: 32px; }
           .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item button.playlist-item-more {
             float: right;
             line-height: 50px;
