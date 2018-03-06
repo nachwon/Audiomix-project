@@ -187,6 +187,8 @@
     bottom: -500px !important; }
   .soundhub-player .hide-menu {
     display: none !important; }
+  .soundhub-player .no-pointer-event {
+    pointer-events: none; }
   .soundhub-player div#playlist-wrapper {
     display: inline-block;
     position: absolute;

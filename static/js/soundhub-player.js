@@ -272,7 +272,9 @@ function addToPlaylist(self) {
         '</div>' +
         '<span class="player-post-duration">' + target_duration + '</span>' +
         '</a>' +
-        '<button class="playlist-item-more menu-item" data-target="' + $(self).data("target") + '" onclick="showMoreActionMenu(this)"><i class="fas fa-ellipsis-v"></i></button>' +
+        '<button class="playlist-item-more menu-item" data-target="' + $(self).data("target") + '" onclick="showMoreActionMenu(this)">' +
+        '<span class="no-pointer-event"><i class="fas fa-ellipsis-v"></i></span>' +
+        '</button>' +
         '</li>';
 
     var exists_in_playlist = false;
