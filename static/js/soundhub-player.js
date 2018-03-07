@@ -346,7 +346,6 @@ function togglePlaylistItem() {
             // 현재 재생중인 아이템 이전의 아이템인 경우
             if (!check_played) {
                 $(item).addClass("played-playlist-item");
-                console.log(index)
             }
             else {
                 $(item).removeClass("played-playlist-item")
