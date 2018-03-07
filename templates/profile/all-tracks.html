@@ -17,7 +17,7 @@
         <div class="track-obj" id="track-{{ track.pk }}" data-pk="{{ track.pk }}" data-type="track">
             <!--post image-->
             {% if track.post_img.name == '' %}
-                <div class="track-post-img" style="background-image: url({% static 'img/default-post-img.png' %});background-repeat: no-repeat;"></div>
+                <div class="track-post-img" style="background-image: url({% static 'img/default-post-img.png' %});"></div>
             {% else %}
                 <div class="track-post-img" style="background-image: url({{ track.post_img.url }});"></div>
             {% endif %}

@@ -49,4 +49,22 @@ div.contents {
   to {
     opacity: 1; } }
 
+#message-box {
+  position: fixed;
+  top: 109px;
+  right: 90px;
+  width: 250px;
+  height: 60px;
+  z-index: 10000;
+  background: whitesmoke;
+  border: 1px solid #ddd;
+  box-shadow: 5px 5px 10px -3px black;
+  border-radius: 3px; }
+  #message-box div.message-box-post-img {
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 100%; }
+
 /* general ends */

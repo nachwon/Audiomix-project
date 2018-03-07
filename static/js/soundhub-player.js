@@ -289,8 +289,12 @@ function addToPlaylist(self) {
     });
 
     if (!exists_in_playlist) {
+        var message =
+            '<div class="message-box-post-img" style="'+ target_img + '"></div>';
+        alertMessageBox(message);
+
         ul.append(list_item);
-        togglePlaylistItem()
+        togglePlaylistItem();
     }
     showPlayer();
 }
@@ -417,3 +421,9 @@ $(document).on("click", function(e) {
             .addClass("hide-menu")
     }
 });
+
+function alertMessageBox(message) {
+    var message_box = $("#message-box");
+    message_box.empty();
+    message_box.append(message)
+}

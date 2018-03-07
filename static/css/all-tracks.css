@@ -15,6 +15,7 @@ div.track-obj {
     border: 1px solid #ddd;
     margin: 10px 10px;
     background-size: cover;
+    background-repeat: no-repeat;
     background-position: center;
     border-radius: 5px; }
   div.track-obj p {
