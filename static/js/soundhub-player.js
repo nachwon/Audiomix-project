@@ -254,7 +254,7 @@ function togglePlaylist(action="toggle") {
         playlist.addClass("disappear")
     }
     else if (action === "toggle")
-    playlist.toggleClass("disappear")
+        playlist.toggleClass("disappear")
 }
 
 // 플레이 리스트에 추가함
@@ -303,12 +303,38 @@ function addToPlaylist(self) {
 }
 
 // 플레이리스트의 아이템 재생
-function playItem(self, e) {
-    e.preventDefault();
+function playItem(self, e=null) {
+    if (e) {
+        e.preventDefault();
+    }
     loadAudio(self);
     playAudio();
     updatePlayerPostInfo();
     togglePlaylistItem()
+}
+
+function playPrevNext(direction) {
+    var audio = $("[loaded]");
+    var target_id = audio.data("target");
+    var target_obj_id = $("#" + target_id).find("audio").attr("id");
+    var items = $(".player-playlist-item");
+    var next_item;
+
+    items.each(function(index, item) {
+        if ($(item).find("a").data("target") === target_obj_id) {
+            if (direction === 'next') {
+                next_item = $(items[index + 1]).find('a');
+            }
+            else if (direction === 'prev') {
+                next_item = $(items[index - 1]).find('a');
+            }
+
+            if (next_item.length) {
+                playItem(next_item[0])
+            }
+        }
+    });
+
 }
 
 // 재생 시 플레이리스트 아이템 상태 변경
@@ -317,7 +343,7 @@ function togglePlaylistItem() {
     var target_id = audio.data("target");
     var target_obj_id = $("#" + target_id).find("audio").attr("id");
     var playlist_lis = $(".player-playlist-item");
-    var check_played = false;
+    var check_played;
 
     playlist_lis.each(function(index, item) {
         // 모든 아이템들 초기화
@@ -345,9 +371,10 @@ function togglePlaylistItem() {
 
             // 현재 재생중인 아이템 이전의 아이템인 경우
             if (!check_played) {
+                check_played = false;
                 $(item).addClass("played-playlist-item");
             }
-            else {
+            else if (check_played) {
                 $(item).removeClass("played-playlist-item")
             }
         }
