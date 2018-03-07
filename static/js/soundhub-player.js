@@ -245,8 +245,15 @@ function muteVolumeToggle () {
 // 플레이 리스트 관련 함수들
 
 // 플레이 리스트 보이기/숨기기
-function togglePlaylist() {
+function togglePlaylist(action="toggle") {
     var playlist = $("#playlist-wrapper");
+    if (action === "show") {
+        playlist.removeClass("disappear")
+    }
+    else if (action === "hide") {
+        playlist.addClass("disappear")
+    }
+    else if (action === "toggle")
     playlist.toggleClass("disappear")
 }
 
@@ -292,7 +299,8 @@ function addToPlaylist(self) {
         ul.append(list_item);
         togglePlaylistItem()
     }
-    showPlayer()
+    showPlayer();
+    togglePlaylist('show')
 }
 
 // 플레이리스트의 아이템 재생
