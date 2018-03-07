@@ -226,7 +226,7 @@ function muteVolumeToggle () {
 
     // 뮤트 해제
     if (audio.attr("muted")) {
-        var current_volume = audio.attr("volume");
+        var current_volume = Number(audio.attr("volume"));
         audio[0].volume = current_volume;
         volume_level_cover.css("width", (current_volume * 100) + "px");
         audio.attr("muted", null);
@@ -313,6 +313,7 @@ function playItem(self, e=null) {
     togglePlaylistItem()
 }
 
+// 플레이리스트의 이전/다음 아이템 재생
 function playPrevNext(direction) {
     var audio = $("[loaded]");
     var target_id = audio.data("target");
@@ -334,7 +335,6 @@ function playPrevNext(direction) {
             }
         }
     });
-
 }
 
 // 재생 시 플레이리스트 아이템 상태 변경
