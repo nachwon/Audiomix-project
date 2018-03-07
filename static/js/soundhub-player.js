@@ -165,7 +165,7 @@ function playerVolumeControl(self, e) {
         current_volume = position / 100;
     }
     // 볼륨에 맞게 아이콘 변경
-
+    audio.attr("muted", null);
     audio[0].volume = current_volume;
     changeVolumeIcon(current_volume);
     // 오디오 태그에 볼륨 속성 설정
