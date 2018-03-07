@@ -290,7 +290,11 @@ function addToPlaylist(self) {
 
     if (!exists_in_playlist) {
         var message =
-            '<div class="message-box-post-img" style="'+ target_img + '"></div>';
+            '<div class="message-box-post-img" style="'+ target_img + '"></div>' +
+            '<div class="message-box-message-body">' +
+            '<div class="message-box-post-title">' + target_title + ' - ' + target_author + '</div>' +
+            '<div class="message-box-message">was added to playlist</div>' +
+            '</div>';
         alertMessageBox(message);
 
         ul.append(list_item);
