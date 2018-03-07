@@ -428,6 +428,8 @@ $(document).on("click", function(e) {
 
 function alertMessageBox(message) {
     var message_box = $("#message-box");
+    var message_close = '<div class="message-box-close">' + '<i class="far fa-times-circle"></i>' + '</div>';
     message_box.empty();
-    message_box.append(message)
+    message_box.append(message);
+    message_box.append(message_close)
 }

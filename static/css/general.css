@@ -60,7 +60,10 @@ div.contents {
   background: whitesmoke;
   border: 1px solid #ddd;
   box-shadow: 5px 5px 10px -3px black;
-  border-radius: 3px; }
+  border-radius: 3px;
+  box-sizing: content-box; }
+  #message-box:hover .message-box-close {
+    opacity: 0.5; }
   #message-box div.message-box-post-img {
     height: 60px;
     width: 60px;
@@ -73,5 +76,14 @@ div.contents {
     float: left;
     line-height: 28px;
     width: 150px; }
+  #message-box div.message-box-close {
+    float: right;
+    width: 28px;
+    height: 100%;
+    line-height: 60px;
+    text-align: center;
+    font-size: 20px;
+    opacity: 0;
+    transition-duration: 0.3s; }
 
 /* general ends */
