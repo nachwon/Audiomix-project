@@ -189,6 +189,8 @@
     display: none !important; }
   .soundhub-player .no-pointer-event {
     pointer-events: none; }
+  .soundhub-player .played-playlist-item {
+    opacity: 0.4; }
   .soundhub-player div#playlist-wrapper {
     display: inline-block;
     position: absolute;
@@ -235,7 +237,8 @@
           transition-duration: 0.3s;
           position: relative; }
           .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item:hover {
-            background-color: #f0f0f0; }
+            background-color: #f0f0f0;
+            opacity: 1; }
             .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item:hover .playlist-item-more {
               color: black; }
           .soundhub-player div#playlist-wrapper div.playlist-content ul.playlist-popover li.player-playlist-item .playlist-item-grab-handle {

@@ -247,6 +247,9 @@ $progress-bar-width: 85%;
     .no-pointer-event {
         pointer-events: none;
     }
+    .played-playlist-item {
+        opacity: 0.4;
+    }
 
     div#playlist-wrapper {
         display: inline-block;
@@ -303,6 +306,8 @@ $progress-bar-width: 85%;
                     position: relative;
                     &:hover {
                         background-color: #f0f0f0;
+                        opacity: 1;
+
                         .playlist-item-more {
                             color: black;
                         }

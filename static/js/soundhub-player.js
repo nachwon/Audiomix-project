@@ -300,7 +300,6 @@ function addToPlaylist(self) {
         togglePlaylistItem()
     }
     showPlayer();
-    togglePlaylist('show')
 }
 
 // 플레이리스트의 아이템 재생
@@ -318,9 +317,16 @@ function togglePlaylistItem() {
     var target_id = audio.data("target");
     var target_obj_id = $("#" + target_id).find("audio").attr("id");
     var playlist_lis = $(".player-playlist-item");
+    var check_played = false;
 
     playlist_lis.each(function(index, item) {
+        // 모든 아이템들 초기화
+        $(item).removeClass("played-playlist-item");
+
+        // 루프가 현재 재생중인 아이템에 도달하면
         if ($(item).find("a").data("target") === target_obj_id) {
+            check_played = true;
+
             $(item).addClass("playing");
             if (audio[0].paused) {
                 $(item).find(".player-post-duration").text("paused")
@@ -328,13 +334,23 @@ function togglePlaylistItem() {
             else {
                 $(item).find(".player-post-duration").text("playing")
             }
-
         }
+
+        // 현재 재생중이 아닌 아이템인 경우
         else {
             var target_audio = $("#" + $(item).find("a").data("target"));
             var duration = format_time(target_audio[0].duration);
             $(item).find(".player-post-duration").text(duration);
             $(item).removeClass("playing");
+
+            // 현재 재생중인 아이템 이전의 아이템인 경우
+            if (!check_played) {
+                $(item).addClass("played-playlist-item");
+                console.log(index)
+            }
+            else {
+                $(item).removeClass("played-playlist-item")
+            }
         }
     })
 }
