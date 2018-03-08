@@ -438,5 +438,9 @@ function alertMessageBox(message) {
     message_box.css('display', 'block');
     message_box.empty();
     message_box.append(message);
-    message_box.append(message_close)
+    message_box.append(message_close);
+
+    setTimeout(function() {
+        message_box.fadeOut()
+    }, 3000)
 }
