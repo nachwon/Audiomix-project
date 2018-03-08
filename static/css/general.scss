@@ -75,6 +75,7 @@ div.contents {
     box-shadow: 5px 5px 10px -3px black;
     border-radius: 3px;
     box-sizing: content-box;
+    display: none;
 
     &:hover {
         .message-box-close {
@@ -106,6 +107,11 @@ div.contents {
         font-size: 20px;
         opacity: 0;
         transition-duration: 0.3s;
+
+        button {
+            border: 0;
+            padding: 0;
+        }
     }
 }
 

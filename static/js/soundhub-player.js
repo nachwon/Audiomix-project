@@ -426,14 +426,16 @@ $(document).on("click", function(e) {
     }
 });
 
+// 메세지 박스 나타내기
 function alertMessageBox(message) {
     var message_box = $("#message-box");
     var message_close =
         '<div class="message-box-close">' +
-        '<a href="">' +
+        '<button onclick="$(\'#message-box\').fadeOut()">' +
         '<i class="far fa-times-circle"></i>' +
-        '</a>' +
+        '</button>' +
         '</div>';
+    message_box.css('display', 'block');
     message_box.empty();
     message_box.append(message);
     message_box.append(message_close)
