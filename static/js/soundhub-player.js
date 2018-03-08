@@ -290,11 +290,19 @@ function addToPlaylist(self) {
 
     if (!exists_in_playlist) {
         var message =
+            '<li class="message-list">' +
             '<div class="message-box-post-img" style="'+ target_img + '"></div>' +
             '<div class="message-box-message-body">' +
             '<div class="message-box-post-title">' + target_title + ' - ' + target_author + '</div>' +
             '<div class="message-box-message">was added to playlist</div>' +
-            '</div>';
+            '</div>' +
+            '<div class="message-box-close">' +
+            '<button onclick="$(this).parent().parent().fadeOut()">' +
+            '<i class="far fa-times-circle"></i>' +
+            '</button>' +
+            '</div>' +
+            '</li>';
+
         alertMessageBox(message);
 
         ul.append(list_item);
@@ -429,18 +437,27 @@ $(document).on("click", function(e) {
 // 메세지 박스 나타내기
 function alertMessageBox(message) {
     var message_box = $("#message-box");
-    var message_close =
-        '<div class="message-box-close">' +
-        '<button onclick="$(\'#message-box\').fadeOut()">' +
-        '<i class="far fa-times-circle"></i>' +
-        '</button>' +
-        '</div>';
-    message_box.css('display', 'block');
-    message_box.empty();
-    message_box.append(message);
-    message_box.append(message_close);
 
-    setTimeout(function() {
-        message_box.fadeOut()
-    }, 3000)
+    message_box.css('display', 'block');
+    message_box.append(message);
+
+    var all_messages = $(".message-list");
+    var fade_timeout;
+
+    all_messages.each(function(index, item) {
+        // 가만히 두면 3초 후 사라짐
+        fade_timeout = setTimeout(function() {
+            $(item).fadeOut("fast")
+        }, 3000);
+        // 마우스를 올리면 사라지지 않음
+        $(item).on("mouseenter", function() {
+            clearTimeout(fade_timeout)
+        });
+        // 마우스가 벗어나면 다시 3초 후 사라짐
+        $(item).on("mouseleave", function() {
+            setTimeout(function() {
+                $(item).fadeOut("fast")
+            }, 3000)
+        })
+    });
 }

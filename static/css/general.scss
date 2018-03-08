@@ -63,24 +63,29 @@ div.contents {
 // message box
 
 #message-box {
-    color: black;
     position: fixed;
     top: 109px;
     right: 90px;
-    width: 250px;
-    height: 60px;
-    z-index: 10000;
-    background: whitesmoke;
-    border: 1px solid #ddd;
-    box-shadow: 5px 5px 10px -3px black;
-    border-radius: 3px;
-    box-sizing: content-box;
-    display: none;
+    list-style: none;
+
 
     &:hover {
         .message-box-close {
             opacity: 0.5;
         }
+    }
+
+    li {
+        color: black;
+        width: 250px;
+        height: 60px;
+        z-index: 10000;
+        background: whitesmoke;
+        border: 1px solid #ddd;
+        box-shadow: 5px 5px 10px -3px black;
+        border-radius: 3px;
+        box-sizing: content-box;
+        padding: 0;
     }
 
     div.message-box-post-img {
