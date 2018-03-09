@@ -70,28 +70,54 @@ function loadAudio(self) {
 
 // 플레이 버튼 클릭시 아이콘 변경 및 오디오 재생
 // 오디오 재생 중 다른 오디오 클릭 시, 재생 중이던 오디오는 일시 정지됨.
-function playAudio() {
+function playAudio(action="toggle") {
     var audio = $("[loaded]");
     var audios = $(".audio-file");
 
     if (audio[0]) {
         showPlayer();
 
-        if (audio[0].paused) {
-            // 모든 오디오 일시정지
-            audios.each(function(index, item) {
-                toggleBtn($(item), "off");
-                toggleOpacity($(item), "off");
-                item.pause()
-            });
-            // 로드된 오디오 재생
-            audio[0].play();
-            toggleBtn(audio, "on");
-            toggleOpacity(audio, "on");
-            getCurrentVolume();
-            togglePlaylistItem()
+        if (action === "toggle") {
+            if (audio[0].paused) {
+                // 모든 오디오 일시정지
+                audios.each(function(index, item) {
+                    toggleBtn($(item), "off");
+                    toggleOpacity($(item), "off");
+                    item.pause()
+                });
+                // 로드된 오디오 재생
+                audio[0].play();
+                toggleBtn(audio, "on");
+                toggleOpacity(audio, "on");
+                getCurrentVolume();
+                togglePlaylistItem()
+            }
+            else {
+                // 로드된 오디오 일시정지
+                audio[0].pause();
+                toggleBtn(audio, "off");
+                toggleOpacity(audio, "off");
+                togglePlaylistItem()
+            }
         }
-        else {
+        else if (action === "play") {
+
+            if (audio[0].paused) {
+                // 모든 오디오 일시정지
+                audios.each(function(index, item) {
+                    toggleBtn($(item), "off");
+                    toggleOpacity($(item), "off");
+                    item.pause()
+                });
+                // 로드된 오디오 재생
+                audio[0].play();
+                toggleBtn(audio, "on");
+                toggleOpacity(audio, "on");
+                getCurrentVolume();
+                togglePlaylistItem()
+            }
+        }
+        else if (action === "pause") {
             // 로드된 오디오 일시정지
             audio[0].pause();
             toggleBtn(audio, "off");

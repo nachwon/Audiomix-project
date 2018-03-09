@@ -312,7 +312,8 @@ function addToPlaylist(self) {
     showPlayer();
 }
 
-function deleteFromPlaylist(target) {
+function deleteFromPlaylist() {
+    var audio = $("[loaded]");
     var current_more_action_menu = $("#more-action-menu");
     var target_id = current_more_action_menu.attr("data-target");
     var playlist = $(".player-playlist-item");
@@ -324,9 +325,12 @@ function deleteFromPlaylist(target) {
 
             setTimeout(function () {
                 $(item).remove();
-            }, 1000)
+            }, 1000);
 
-
+            if (!audio[0].paused) {
+                resetWaveform(audio);
+                playPrevNext("next")
+            }
         }
     })
 }
@@ -336,6 +340,12 @@ function playItem(self, e=null) {
     if (e) {
         e.preventDefault();
     }
+    var audios = $(".audio-file");
+
+    audios.each(function(index, item) {
+        resetWaveform(item)
+    });
+
     loadAudio(self);
     playAudio();
     updatePlayerPostInfo();
