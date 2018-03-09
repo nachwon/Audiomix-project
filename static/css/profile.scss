@@ -275,10 +275,16 @@ div.liked-post-obj {
 
         .liked-post-info-1 {
             float: left;
+            width: 250px;
 
             .obj-title {
                 color: #888;
                 font-size: 17px;
+                color: #888;
+                font-size: 17px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
             }
 
             .obj-author {

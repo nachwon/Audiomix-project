@@ -33,15 +33,28 @@
       width: 180px;
       height: 50px;
       margin-left: 10px; }
-      .soundhub-player .player-body .player-post-info span {
+      .soundhub-player .player-body .player-post-info a {
         line-height: 25px;
         display: inline-block; }
-        .soundhub-player .player-body .player-post-info span:hover {
+        .soundhub-player .player-body .player-post-info a:hover {
           color: black !important; }
-      .soundhub-player .player-body .player-post-info span.player-post-title {
-        color: #777; }
-      .soundhub-player .player-body .player-post-info span.player-post-author {
-        color: #aaa; }
+      .soundhub-player .player-body .player-post-info .player-post-title {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 95%;
+        color: #777;
+        float: left;
+        display: inline-block;
+        line-height: 25px; }
+      .soundhub-player .player-body .player-post-info .player-post-author {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 95%;
+        color: #aaa;
+        display: inline-block;
+        line-height: 25px; }
     .soundhub-player .player-body .player-controls {
       width: 110px;
       height: 50px;

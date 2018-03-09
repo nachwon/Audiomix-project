@@ -35,8 +35,12 @@ div.track-obj {
         position: absolute;
         top: 0;
         left: 240px;
+        width: 370px;
 
         .track-title {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
             margin-top: 7px;
             font-size: 25px;
         }

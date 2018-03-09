@@ -190,10 +190,16 @@ div.liked-post-obj {
     margin-left: 5px;
     width: 280px; }
     div.liked-post-obj div.liked-post-obj-contents .liked-post-info-1 {
-      float: left; }
+      float: left;
+      width: 250px; }
       div.liked-post-obj div.liked-post-obj-contents .liked-post-info-1 .obj-title {
         color: #888;
-        font-size: 17px; }
+        font-size: 17px;
+        color: #888;
+        font-size: 17px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis; }
       div.liked-post-obj div.liked-post-obj-contents .liked-post-info-1 .obj-author {
         font-size: 14px; }
     div.liked-post-obj div.liked-post-obj-contents .liked-post-info-2 {

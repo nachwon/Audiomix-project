@@ -44,7 +44,7 @@ $progress-bar-width: 85%;
             height: 50px;
             margin-left: 10px;
 
-            span {
+            a {
                 line-height: 25px;
                 display: inline-block;
                 &:hover {
@@ -52,11 +52,24 @@ $progress-bar-width: 85%;
                 }
             }
 
-            span.player-post-title {
+            .player-post-title {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                width: 95%;
                 color: #777;
+                float: left;
+                display: inline-block;
+                line-height: 25px;
             }
-            span.player-post-author {
+            .player-post-author {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                width: 95%;
                 color: #aaa;
+                display: inline-block;
+                line-height: 25px;
             }
         }
         .player-controls {

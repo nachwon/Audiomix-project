@@ -98,7 +98,6 @@ function updatePlayerPostInfo() {
     var player_post_img = $("#player-post-img");
     var player_post_title = $("#player-post-title");
     var player_post_author = $("#player-post-author");
-    var player_author_link = $("#player-author-link");
 
     var target_obj = audio.parent();
     var target_type = target_obj.data("type");
@@ -130,7 +129,7 @@ function updatePlayerPostInfo() {
         // 포스트 작성자
         player_post_author.text(author.text());
         // 작성자 프로필 링크
-        player_author_link.attr("href", author_link)
+        player_post_author.attr("href", author_link)
     }
     else if (target_type === "comment") {
         instrument = target_obj.find(".comment-post-title").text();
@@ -303,7 +302,7 @@ function addToPlaylist(self) {
         '<a data-target="' + target_audio_id + '" href="' + target_audio_id + '" onclick="playItem(this, ' + '\'toggle\'' +', event)">' +
         '<div class="player-post-img" style="'+ target_img +'"></div>' +
         '<div class="player-post-info">' +
-        '<span class="player-post-title">' + target_title + '</span>' + '<br>' +
+        '<span class="player-post-title">' + target_title + '</span>' +
         '<span class="player-post-author">' + target_author + '</span>' +
         '</div>' +
         '<span class="player-post-duration">' + target_duration + '</span>' +

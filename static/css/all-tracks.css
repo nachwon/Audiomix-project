@@ -27,8 +27,12 @@ div.track-obj {
     margin-left: 15px;
     position: absolute;
     top: 0;
-    left: 240px; }
+    left: 240px;
+    width: 370px; }
     div.track-obj div.title-author-wrapper .track-title {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
       margin-top: 7px;
       font-size: 25px; }
     div.track-obj div.title-author-wrapper .track-author {
