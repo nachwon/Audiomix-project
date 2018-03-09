@@ -350,7 +350,8 @@ function addToPlaylist(self) {
 
 // 플레이리스트 아이템 삭제
 function deleteFromPlaylist(self) {
-    var target_audio = $("#" + $(self).parent().parent().attr("data-target")).find("audio");
+    var target_obj = $("#" + $(self).parent().parent().attr("data-target"));
+    var target_audio = target_obj.find("audio");
     var audio = $("[loaded]");
     var current_more_action_menu = $("#more-action-menu");
     var target_id = current_more_action_menu.attr("data-target");
@@ -386,6 +387,28 @@ function deleteFromPlaylist(self) {
     if (playlist.length === 1) {
         resetPlayer()
     }
+
+
+    // 삭제 메세지
+    var target_img = target_obj.find(".track-post-img").attr("style");
+    var target_title = target_obj.find(".track-title").text();
+    var target_author = target_obj.find(".track-author").text();
+
+    var message =
+            '<li class="message-list">' +
+            '<div class="message-box-post-img" style="'+ target_img + '"></div>' +
+            '<div class="message-box-message-body">' +
+            '<div class="message-box-post-title">' + target_title + ' - ' + target_author + '</div>' +
+            '<div class="message-box-message">was deleted from playlist</div>' +
+            '</div>' +
+            '<div class="message-box-close">' +
+            '<button onclick="$(this).parent().parent().fadeOut()">' +
+            '<i class="far fa-times-circle"></i>' +
+            '</button>' +
+            '</div>' +
+            '</li>';
+
+     alertMessageBox(message);
 }
 
 // 플레이리스트의 아이템 재생
