@@ -81,6 +81,10 @@ div.contents {
     float: left;
     line-height: 28px;
     width: 150px; }
+    #message-box div.message-box-message-body .message-box-post-title {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis; }
   #message-box div.message-box-close {
     float: right;
     width: 28px;

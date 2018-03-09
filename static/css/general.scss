@@ -104,6 +104,12 @@ div.contents {
         float: left;
         line-height: 28px;
         width: 150px;
+
+        .message-box-post-title {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
     }
     div.message-box-close {
         float: right;

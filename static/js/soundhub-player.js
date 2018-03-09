@@ -325,12 +325,15 @@ function addToPlaylist(self) {
     });
 
     if (!exists_in_playlist) {
+
+        var target_title_author = target_title + '-' + target_author;
+
         // 메세지 박스에 띄울 메세지
         var message =
             '<li class="message-list">' +
             '<div class="message-box-post-img" style="'+ target_img + '"></div>' +
             '<div class="message-box-message-body">' +
-            '<div class="message-box-post-title">' + target_title + ' - ' + target_author + '</div>' +
+            '<div class="message-box-post-title">' + target_title_author + '</div>' +
             '<div class="message-box-message">was added to playlist</div>' +
             '</div>' +
             '<div class="message-box-close">' +
@@ -393,22 +396,23 @@ function deleteFromPlaylist(self) {
     var target_img = target_obj.find(".track-post-img").attr("style");
     var target_title = target_obj.find(".track-title").text();
     var target_author = target_obj.find(".track-author").text();
+    var target_title_author = target_title + '-' + target_author;
 
     var message =
-            '<li class="message-list">' +
-            '<div class="message-box-post-img" style="'+ target_img + '"></div>' +
-            '<div class="message-box-message-body">' +
-            '<div class="message-box-post-title">' + target_title + ' - ' + target_author + '</div>' +
-            '<div class="message-box-message">was deleted from playlist</div>' +
-            '</div>' +
-            '<div class="message-box-close">' +
-            '<button onclick="$(this).parent().parent().fadeOut()">' +
-            '<i class="far fa-times-circle"></i>' +
-            '</button>' +
-            '</div>' +
-            '</li>';
+        '<li class="message-list">' +
+        '<div class="message-box-post-img" style="'+ target_img + '"></div>' +
+        '<div class="message-box-message-body">' +
+        '<div class="message-box-post-title">' + target_title_author + '</div>' +
+        '<div class="message-box-message">was deleted from playlist</div>' +
+        '</div>' +
+        '<div class="message-box-close">' +
+        '<button onclick="$(this).parent().parent().fadeOut()">' +
+        '<i class="far fa-times-circle"></i>' +
+        '</button>' +
+        '</div>' +
+        '</li>';
 
-     alertMessageBox(message);
+    alertMessageBox(message);
 }
 
 // 플레이리스트의 아이템 재생
