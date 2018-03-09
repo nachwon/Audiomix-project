@@ -320,6 +320,7 @@ function deleteFromPlaylist() {
 
     playlist.each(function(index, item) {
         if ($(item).attr("data-target") === target_id) {
+            // 리스트에서 항목 삭제
             $(item).fadeOut("fast");
             current_more_action_menu.addClass("hide-menu");
 
@@ -327,6 +328,7 @@ function deleteFromPlaylist() {
                 $(item).remove();
             }, 1000);
 
+            // 재생 중이던 오디오 초기화하고 다음 리스트 아이템 재생
             if (!audio[0].paused) {
                 resetWaveform(audio);
                 playPrevNext("next")
