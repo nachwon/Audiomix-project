@@ -330,10 +330,6 @@ function deleteFromPlaylist(self) {
                 $(item).remove();
             }, 1000);
 
-            console.log(target_audio[0]);
-            console.log(audio[0]);
-            console.log(target_audio[0] === audio[0]);
-
             // 재생 중이던 오디오를 목록에서 삭제하는 경우
             if (target_audio[0] === audio[0]) {
                 // 재생 중이던 오디오 초기화하고 다음 리스트 아이템 재생
@@ -341,9 +337,16 @@ function deleteFromPlaylist(self) {
                     resetWaveform(audio);
                     playPrevNext("next")
                 }
+                else if (audio[0].paused) {
+                    resetWaveform(audio)
+                }
             }
         }
-    })
+    });
+
+    if (playlist.length === 0) {
+        console.log("end!")
+    }
 }
 
 // 플레이리스트의 아이템 재생
@@ -370,10 +373,15 @@ function playItem(self, e=null) {
 // 플레이리스트의 이전/다음 아이템 재생
 function playPrevNext(direction) {
     var audio = $("[loaded]");
+    var audios = $(".audio-file");
     var target_id = audio.data("target");
     var target_obj_id = $("#" + target_id).find("audio").attr("id");
     var items = $(".player-playlist-item");
     var next_item;
+
+    audios.each(function(index, item) {
+        resetWaveform(item)
+    });
 
     items.each(function(index, item) {
         // 현재 플레이중인 트랙에 대해서
