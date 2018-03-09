@@ -262,7 +262,7 @@ function addToPlaylist(self) {
     var ul = $("#player-playlist");
     var li = $(".player-playlist-item");
     var list_item =
-        '<li class="player-playlist-item">' +
+        '<li class="player-playlist-item" data-target="' + target_obj.attr("id") + '">' +
         '<div class="playlist-item-grab-handle"></div>' +
         '<a data-target="' + target_audio_id + '" href="' + target_audio_id + '" onclick="playItem(this, event)">' +
         '<div class="player-post-img" style="'+ target_img +'"></div>' +
@@ -312,8 +312,15 @@ function addToPlaylist(self) {
     showPlayer();
 }
 
-function deleteFromPlaylist() {
-    
+function deleteFromPlaylist(target) {
+    var target_id = $("#more-action-menu").attr("data-target");
+    var playlist = $(".player-playlist-item");
+
+    playlist.each(function(index, item) {
+        if ($(item).attr("data-target") === target_id) {
+           $(item).fadeOut("fast")
+        }
+    })
 }
 
 // 플레이리스트의 아이템 재생
