@@ -313,12 +313,20 @@ function addToPlaylist(self) {
 }
 
 function deleteFromPlaylist(target) {
-    var target_id = $("#more-action-menu").attr("data-target");
+    var current_more_action_menu = $("#more-action-menu");
+    var target_id = current_more_action_menu.attr("data-target");
     var playlist = $(".player-playlist-item");
 
     playlist.each(function(index, item) {
         if ($(item).attr("data-target") === target_id) {
-           $(item).fadeOut("fast")
+            $(item).fadeOut("fast");
+            current_more_action_menu.addClass("hide-menu");
+
+            setTimeout(function () {
+                $(item).remove();
+            }, 1000)
+
+
         }
     })
 }
