@@ -7,7 +7,7 @@
 // 플레이리스트 항목 삭제
 // 플레이리스트에서 플레이 중이던 항목을 삭제시 리스트의 다음 항목을 처음부터 재생
 // 플레이리스트에서 일시정지 중이던 항목을 삭제시 다음 항목을 로드만 함
-// 마지막 항목을 삭제한 경우 플레이어
+// 마지막 항목을 삭제한 경우 플레이어 초기화
 
 
 
@@ -50,6 +50,24 @@ $(".soundhub-player").ready(function () {
 
 });
 
+// 플레이어 초기화
+function resetPlayer() {
+    var player_post_img = $("#player-post-img");
+    var player_post_title = $("#player-post-title");
+    var player_post_author = $("#player-post-author");
+    var player_author_link = $("#player-author-link");
+    var player_current_time = $("#player-current-time");
+    var player_total_duration = $("#player-total-duration");
+
+    player_post_img.attr("style", "background-image: url(/static/img/default-post-img.png)");
+    player_post_title.text("Audio Track");
+    player_post_author.text("Not Loaded");
+    player_author_link.text("");
+    player_current_time.text("00:00");
+    player_total_duration.text("00:00")
+}
+
+// 플레이어 나타내기
 function showPlayer() {
     var player = $(".soundhub-player");
     player.removeClass("hide-player");
@@ -279,7 +297,7 @@ function addToPlaylist(self) {
     var list_item =
         '<li class="player-playlist-item" data-target="' + target_obj.attr("id") + '">' +
         '<div class="playlist-item-grab-handle"></div>' +
-        '<a data-target="' + target_audio_id + '" href="' + target_audio_id + '" onclick="playItem(this, event)">' +
+        '<a data-target="' + target_audio_id + '" href="' + target_audio_id + '" onclick="playItem(this, ' + '\'toggle\'' +', event)">' +
         '<div class="player-post-img" style="'+ target_img +'"></div>' +
         '<div class="player-post-info">' +
         '<span class="player-post-title">' + target_title + '</span>' + '<br>' +
@@ -361,8 +379,9 @@ function deleteFromPlaylist(self) {
         }
     });
 
-    if (playlist.length === 0) {
-        console.log("end!")
+    // 플레이리스트의 마지막 항목을 삭제한 경우
+    if (playlist.length === 1) {
+        resetPlayer()
     }
 }
 
@@ -374,9 +393,9 @@ function playItem(self, action="play", e=null) {
     var audio = $("#" + $(self).data("target"));
     var audios = $(".audio-file");
 
+    // 플레이리스트에서 아이탬 재생시 다른 모든 음원 초기화
     audios.each(function(index, item) {
         if (!(audio[0] === item)) {
-            console.log("hi");
             resetWaveform(item)
         }
     });
