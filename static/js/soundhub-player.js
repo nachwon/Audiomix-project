@@ -312,6 +312,7 @@ function addToPlaylist(self) {
     showPlayer();
 }
 
+// 플레이리스트 아이템 삭제
 function deleteFromPlaylist() {
     var audio = $("[loaded]");
     var current_more_action_menu = $("#more-action-menu");
