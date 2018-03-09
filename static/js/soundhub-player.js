@@ -313,7 +313,8 @@ function addToPlaylist(self) {
 }
 
 // 플레이리스트 아이템 삭제
-function deleteFromPlaylist() {
+function deleteFromPlaylist(self) {
+    var target_audio = $("#" + $(self).parent().parent().attr("data-target")).find("audio");
     var audio = $("[loaded]");
     var current_more_action_menu = $("#more-action-menu");
     var target_id = current_more_action_menu.attr("data-target");
@@ -329,10 +330,17 @@ function deleteFromPlaylist() {
                 $(item).remove();
             }, 1000);
 
-            // 재생 중이던 오디오 초기화하고 다음 리스트 아이템 재생
-            if (!audio[0].paused) {
-                resetWaveform(audio);
-                playPrevNext("next")
+            console.log(target_audio[0]);
+            console.log(audio[0]);
+            console.log(target_audio[0] === audio[0]);
+
+            // 재생 중이던 오디오를 목록에서 삭제하는 경우
+            if (target_audio[0] === audio[0]) {
+                // 재생 중이던 오디오 초기화하고 다음 리스트 아이템 재생
+                if (!audio[0].paused) {
+                    resetWaveform(audio);
+                    playPrevNext("next")
+                }
             }
         }
     })
@@ -343,10 +351,14 @@ function playItem(self, e=null) {
     if (e) {
         e.preventDefault();
     }
+    var audio = $("#" + $(self).data("target"));
     var audios = $(".audio-file");
 
     audios.each(function(index, item) {
-        resetWaveform(item)
+        if (!(audio[0] === item)) {
+            console.log("hi");
+            resetWaveform(item)
+        }
     });
 
     loadAudio(self);
