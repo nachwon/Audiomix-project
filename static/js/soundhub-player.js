@@ -289,6 +289,7 @@ function addToPlaylist(self) {
     });
 
     if (!exists_in_playlist) {
+        // 메세지 박스에 띄울 메세지
         var message =
             '<li class="message-list">' +
             '<div class="message-box-post-img" style="'+ target_img + '"></div>' +
@@ -311,6 +312,10 @@ function addToPlaylist(self) {
     showPlayer();
 }
 
+function deleteFromPlaylist() {
+    
+}
+
 // 플레이리스트의 아이템 재생
 function playItem(self, e=null) {
     if (e) {
@@ -331,10 +336,13 @@ function playPrevNext(direction) {
     var next_item;
 
     items.each(function(index, item) {
+        // 현재 플레이중인 트랙에 대해서
         if ($(item).find("a").data("target") === target_obj_id) {
+            // 다음 버튼은 index + 1 재생
             if (direction === 'next') {
                 next_item = $(items[index + 1]).find('a');
             }
+            // 이전 버튼은 index - 1 재생
             else if (direction === 'prev') {
                 next_item = $(items[index - 1]).find('a');
             }
@@ -352,7 +360,7 @@ function togglePlaylistItem() {
     var target_id = audio.data("target");
     var target_obj_id = $("#" + target_id).find("audio").attr("id");
     var playlist_lis = $(".player-playlist-item");
-    var check_played;
+    var check_played = false;  // 오디오가 현재 재생중인 아이템 이전인지 이후인지 판단
 
     playlist_lis.each(function(index, item) {
         // 모든 아이템들 초기화
@@ -380,7 +388,6 @@ function togglePlaylistItem() {
 
             // 현재 재생중인 아이템 이전의 아이템인 경우
             if (!check_played) {
-                check_played = false;
                 $(item).addClass("played-playlist-item");
             }
             else if (check_played) {
@@ -404,8 +411,6 @@ function showMoreActionMenu(self) {
         if (current_more_action_menu.attr("data-target") === $(self).attr("data-target")) {
             current_more_action_menu.fadeOut("fast")
                 .addClass("hide-menu")
-                .attr("data-target", target_id)
-                .find("button").attr("onclick", "like(" + target_pk + ")");
         }
         // 다른 메뉴를 호출하면 다른 메뉴로 교체
         else {
@@ -413,15 +418,16 @@ function showMoreActionMenu(self) {
                 .removeClass("hide-menu")
                 .attr("data-target", target_id)
                 .fadeIn("fast")
-                .find("button").attr("onclick", "like(" + target_pk + ")");
+                .find(".more-action-like").attr("onclick", "like(" + target_pk + ")");
         }
     }
     // 메뉴가 안보이는 상태인 경우
     else {
-        current_more_action_menu.removeClass("hide-menu")
+        current_more_action_menu
+            .removeClass("hide-menu")
             .attr("data-target", target_id)
             .fadeIn("fast")
-            .find("button").attr("onclick", "like(" + target_pk + ")");
+            .find(".more-action-like").attr("onclick", "like(" + target_pk + ")");
     }
 }
 
