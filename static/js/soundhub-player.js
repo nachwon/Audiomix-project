@@ -52,6 +52,7 @@ $(".soundhub-player").ready(function () {
 
 // 플레이어 초기화
 function resetPlayer() {
+    var audio = $("[loaded]");
     var player_post_img = $("#player-post-img");
     var player_post_title = $("#player-post-title");
     var player_post_author = $("#player-post-author");
@@ -62,9 +63,11 @@ function resetPlayer() {
     player_post_img.attr("style", "background-image: url(/static/img/default-post-img.png)");
     player_post_title.text("Audio Track");
     player_post_author.text("Not Loaded");
-    player_author_link.text("");
+    player_author_link.attr("href", "");
     player_current_time.text("00:00");
-    player_total_duration.text("00:00")
+    player_total_duration.text("00:00");
+
+    audio.attr("loaded", null)
 }
 
 // 플레이어 나타내기
