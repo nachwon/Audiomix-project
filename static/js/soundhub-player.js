@@ -1,3 +1,18 @@
+// 사운드허브 플레이어
+
+// 플레이어 재생
+// 플레이어에서 음원 재생 시 (이전/다음 트랙 재생, 플레이리스트에서 재생 등 일시정지 후 다시 재생을 제외한 모든 재생) 초기화 시킨 다음 처음부터 플레이 함.
+// 플레이어가 아닌 트랙 목록에서 직접 재생 시 서로 다른 트랙을 재생할 경우 각각의 트랙은 일시정지됨. 플레이어는 현재 플레이 중인 트랙을 표시하도록 업데이트 됨.
+
+// 플레이리스트 항목 삭제
+// 플레이리스트에서 플레이 중이던 항목을 삭제시 리스트의 다음 항목을 처음부터 재생
+// 플레이리스트에서 일시정지 중이던 항목을 삭제시 다음 항목을 로드만 함
+// 마지막 항목을 삭제한 경우 플레이어
+
+
+
+
+
 // 플레이어 정보 업데이트 관련 함수들
 
 // 플레이어 초기 설정
@@ -337,8 +352,10 @@ function deleteFromPlaylist(self) {
                     resetWaveform(audio);
                     playPrevNext("next")
                 }
+                // 일시정지 중이던 오디오
                 else if (audio[0].paused) {
-                    resetWaveform(audio)
+                    resetWaveform(audio);
+                    playPrevNext("next", "pause")
                 }
             }
         }
@@ -350,7 +367,7 @@ function deleteFromPlaylist(self) {
 }
 
 // 플레이리스트의 아이템 재생
-function playItem(self, e=null) {
+function playItem(self, action="play", e=null) {
     if (e) {
         e.preventDefault();
     }
@@ -365,13 +382,13 @@ function playItem(self, e=null) {
     });
 
     loadAudio(self);
-    playAudio();
+    playAudio(action);
     updatePlayerPostInfo();
     togglePlaylistItem()
 }
 
 // 플레이리스트의 이전/다음 아이템 재생
-function playPrevNext(direction) {
+function playPrevNext(direction, action="play") {
     var audio = $("[loaded]");
     var audios = $(".audio-file");
     var target_id = audio.data("target");
@@ -379,6 +396,7 @@ function playPrevNext(direction) {
     var items = $(".player-playlist-item");
     var next_item;
 
+    // 모든 음원 파일 초기화
     audios.each(function(index, item) {
         resetWaveform(item)
     });
@@ -396,7 +414,7 @@ function playPrevNext(direction) {
             }
 
             if (next_item.length) {
-                playItem(next_item[0])
+                playItem(next_item[0], action)
             }
         }
     });
