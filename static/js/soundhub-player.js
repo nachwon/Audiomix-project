@@ -563,20 +563,20 @@ function alertMessageBox(message) {
     var all_messages = $(".message-list");
     var fade_timeout;
 
-    all_messages.each(function(index, item) {
-        // 가만히 두면 3초 후 사라짐
-        fade_timeout = setTimeout(function() {
-            $(item).fadeOut("fast")
-        }, 3000);
-        // 마우스를 올리면 사라지지 않음
-        $(item).on("mouseenter", function() {
-            clearTimeout(fade_timeout);
-        });
-        // 마우스가 벗어나면 다시 3초 후 사라짐
-        $(item).on("mouseleave", function() {
-            fade_timeout = setTimeout(function() {
-                $(item).fadeOut("fast")
-            }, 3000)
-        })
-    });
+    // all_messages.each(function(index, item) {
+    //     // 가만히 두면 3초 후 사라짐
+    //     fade_timeout = setTimeout(function() {
+    //         $(item).fadeOut("fast")
+    //     }, 3000);
+    //     // 마우스를 올리면 사라지지 않음
+    //     $(item).on("mouseenter", function() {
+    //         clearTimeout(fade_timeout);
+    //     });
+    //     // 마우스가 벗어나면 다시 3초 후 사라짐
+    //     $(item).on("mouseleave", function() {
+    //         fade_timeout = setTimeout(function() {
+    //             $(item).fadeOut("fast")
+    //         }, 3000)
+    //     })
+    // });
 }
