@@ -528,6 +528,8 @@ $(document).on("click", function(e) {
     }
 });
 
+// 메세지 팝업 관련 함수
+
 // 메세지 박스 나타내기
 function alertMessageBox(message) {
     var message_box = $("#message-box");
