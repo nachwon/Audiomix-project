@@ -72,9 +72,6 @@ div.contents {
     &:hover {
         .message-box-close {
             opacity: 0.5;
-            button {
-                background-color: transparent;
-            }
         }
     }
 
@@ -125,6 +122,7 @@ div.contents {
         transition-duration: 0.3s;
 
         button {
+            background-color: transparent;
             border: 0;
             padding: 0;
         }

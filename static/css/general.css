@@ -56,8 +56,6 @@ div.contents {
   list-style: none; }
   #message-box:hover .message-box-close {
     opacity: 0.5; }
-    #message-box:hover .message-box-close button {
-      background-color: transparent; }
   #message-box li {
     color: black;
     width: 250px;
@@ -97,6 +95,7 @@ div.contents {
     opacity: 0;
     transition-duration: 0.3s; }
     #message-box div.message-box-close button {
+      background-color: transparent;
       border: 0;
       padding: 0; }
 
