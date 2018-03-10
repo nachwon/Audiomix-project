@@ -380,29 +380,34 @@ function deleteFromPlaylist(self) {
                 if (!audio[0].paused) {
                     resetWaveform(audio);
                     playPrevNext("next");
+                    // 재생중인 오디오가 마지막 아이템일 때 삭제한 경우
                     if (index === (playlist.length - 1)) {
-                        playPrevNext("prev")
+                        playPrevNext("prev");
+                        console.log("playing");
                     }
-                    // 일시정지 중이던 오디오
-                    else if (audio[0].paused) {
-                        resetWaveform(audio);
-                        playPrevNext("next", "pause");
-                        if (index === (playlist.length - 1)) {
-                            playPrevNext("prev", "pause")
-                        }
+                }
+                // 일시정지 중이던 오디오
+                else if (audio[0].paused) {
+                    resetWaveform(audio);
+                    playPrevNext("next", "pause");
+                    // 재생중인 오디오가 마지막 아이템일 때 삭제한 경우
+                    if (index === (playlist.length - 1)) {
+                        console.log("paused");
+                        playPrevNext("prev", "pause")
                     }
                 }
             }
         }
     });
 
-    // 플레이리스트의 마지막 항목을 삭제한 경우
+
+// 플레이리스트의 마지막 항목을 삭제한 경우
     if (playlist.length === 1) {
         resetPlayer()
     }
 
 
-    // 삭제 메세지
+// 삭제 메세지
     var target_img = target_obj.find(".track-post-img").attr("style");
     var target_title = target_obj.find(".track-title").text();
     var target_author = target_obj.find(".track-author").text();
