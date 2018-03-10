@@ -10,12 +10,13 @@
             <div class="post-obj">
                 <div class="post-img-wrapper">
                     <div class="post-img" style="background-image: url(
-                        {% if post.post_img.name == '' %}
-                            {% static 'img/default-post-img.png' %}
-                        {% else %}
-                            {{ post.post_img.url }}
-                        {% endif %}
-                        );"></div>
+                            {% if post.post_img.name == '' %}
+                                {% static 'img/default-post-img.png' %}
+                            {% else %}
+                                {{ post.post_img.url }}
+                            {% endif %}
+                            );">
+                    </div>
                     <div class="post-img-mask"></div>
                     <div class="play-icon-wrapper">
                         <i class="fas fa-play-circle fa-3x"></i>
