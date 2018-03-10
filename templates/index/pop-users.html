@@ -14,8 +14,8 @@
                             )">
                     </div>
                 </a>
-                <a href="{% url 'views:user:user-detail' pk=user.pk %}"><p class="post-title">{{ user.nickname }}</p></a>
-                <p class="post-author">{{ user.instrument.first }}</p>
+                <a href="{% url 'views:user:user-detail' pk=user.pk %}"><p class="track-title">{{ user.nickname }}</p></a>
+                <p class="track-author">{{ user.instrument.first }}</p>
             </div>
         {% endfor %}
         <div class="post-obj">
@@ -37,8 +37,8 @@
                             )">
                     </div>
                 </a>
-                <a href="{% url 'views:user:user-detail' pk=user.pk %}"><p class="post-title">{{ user.nickname }}</p></a>
-                <p class="post-author">{{ user.instrument.first }}</p>
+                <a href="{% url 'views:user:user-detail' pk=user.pk %}"><p class="track-title">{{ user.nickname }}</p></a>
+                <p class="track-author">{{ user.instrument.first }}</p>
             </div>
         {% endfor %}
     </div>

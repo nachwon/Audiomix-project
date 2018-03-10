@@ -203,14 +203,20 @@ div.post-list div.post-obj {
       color: #E2B026; }
       div.post-list div.post-obj div.post-img-wrapper .play-icon-wrapper button {
         border: 0;
-        background-color: transparent; }
-  div.post-list div.post-obj p.post-title {
+        background-color: transparent;
+        padding: 0; }
+  div.post-list div.post-obj p.track-title {
     text-align: left;
     font-size: 1.1em;
     margin: 0 5px;
     font-family: 'Catamaran', sans-serif;
-    color: black; }
-  div.post-list div.post-obj p.post-author {
+    color: black;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+    text-overflow: ellipsis; }
+  div.post-list div.post-obj p.track-author {
     text-align: left;
     color: #4c4c4c;
     margin: 0 5px;

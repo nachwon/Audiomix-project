@@ -53,7 +53,8 @@ div.contents {
   position: fixed;
   top: 109px;
   right: 90px;
-  list-style: none; }
+  list-style: none;
+  z-index: 10; }
   #message-box:hover .message-box-close {
     opacity: 0.5; }
   #message-box li {

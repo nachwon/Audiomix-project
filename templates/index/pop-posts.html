@@ -12,7 +12,7 @@
                     <source src="{{ post.author_track.url }}">
                 </audio>
                 <div class="post-img-wrapper">
-                    <div class="post-img" style="background-image: url(
+                    <div class="post-img track-post-img" style="background-image: url(
                             {% if post.post_img.name == '' %}
                                 {% static 'img/default-post-img.png' %}
                             {% else %}
@@ -25,8 +25,8 @@
                         <button data-target="track-audio-{{ post.pk }}" onclick="loadAudio(this);playAudio();updatePlayerPostInfo()"><i class="fas fa-play-circle fa-3x"></i></button>
                     </div>
                 </div>
-                <p class="post-title">{{ post.title|truncatechars:30 }}</p>
-                <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="post-author">{{ post.author }}</p></a>
+                <p class="track-title">{{ post.title|truncatechars:30 }}</p>
+                <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="track-author">{{ post.author }}</p></a>
             </div>
         {% endfor %}
         <div class="post-obj">

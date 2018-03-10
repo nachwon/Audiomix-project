@@ -18,8 +18,8 @@
                         <i class="fas fa-play-circle fa-3x"></i>
                     </div>
                 </div>
-                <p class="post-title">{{ post.title|truncatechars:30 }}</p>
-                <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="post-author">{{ post.author }}</p></a>
+                <p class="track-title">{{ post.title|truncatechars:30 }}</p>
+                <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="track-author">{{ post.author }}</p></a>
             </div>
         {% endfor %}
         <div class="post-obj title">
@@ -42,8 +42,8 @@
                         <i class="fas fa-play-circle fa-3x"></i>
                     </div>
                 </div>
-                <p class="post-title">{{ post.title|truncatechars:30 }}</p>
-                <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="post-author">{{ post.author }}</p></a>
+                <p class="track-title">{{ post.title|truncatechars:30 }}</p>
+                <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="track-author">{{ post.author }}</p></a>
             </div>
         {% endfor %}
         <div class="post-obj">
@@ -65,8 +65,8 @@
                         <i class="fas fa-play-circle fa-3x"></i>
                     </div>
                 </div>
-                <p class="post-title">{{ post.title|truncatechars:30 }}</p>
-                <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="post-author">{{ post.author }}</p></a>
+                <p class="track-title">{{ post.title|truncatechars:30 }}</p>
+                <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="track-author">{{ post.author }}</p></a>
             </div>
         {% endfor %}
     </div>

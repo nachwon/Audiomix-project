@@ -277,19 +277,25 @@ div.post-list div.post-obj {
             button {
                 border: 0;
                 background-color: transparent;
+                padding: 0;
             }
         }
     }
 
-    p.post-title {
+    p.track-title {
         text-align: left;
         font-size: 1.1em;
         margin: 0 5px;
         font-family: 'Catamaran', sans-serif;
         color: black;
+        white-space: nowrap;
+        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+        text-overflow: ellipsis;
     }
 
-    p.post-author {
+    p.track-author {
         text-align: left;
         color: #4c4c4c;
         margin: 0 5px;
