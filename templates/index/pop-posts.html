@@ -7,15 +7,22 @@
             <span class="pop-posts-p">Check out some of the most popular tracks in SoundHub community!</span>
         </div>
         {% for post in pop_posts %}
-        <div class="post-obj">
-            {% if post.post_img.name == '' %}
-            <div class="post-img" style="background-image: url({% static 'img/default-post-img.png' %}); background-size:unset;"></div>
-            {% else %}
-            <div class="post-img" style="background-image: url('{{ post.post_img.url }}')"></div>
-            {% endif %}
-            <p class="post-title">{{ post.title|truncatechars:30 }}</p>
-            <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="post-author">{{ post.author }}</p></a>
-        </div>
+            <div class="post-obj">
+                <div class="index-post-obj" style="background-image: url(
+                        {% if post.post_img.name == '' %}
+                            {% static 'img/default-post-img.png' %}
+                        {% else %}
+                            {{ post.post_img.url }}
+                        {% endif %}
+                        );">
+                    <div class="post-img-mask"></div>
+                    <div class="play-icon-wrapper">
+                        <i class="fas fa-play-circle fa-3x"></i>
+                    </div>
+                </div>
+                <p class="post-title">{{ post.title|truncatechars:30 }}</p>
+                <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="post-author">{{ post.author }}</p></a>
+            </div>
         {% endfor %}
         <div class="post-obj">
             <h3 class="pop-posts-title"><a href="">More<br>Popular Posts...</a></h3>

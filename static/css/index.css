@@ -162,7 +162,7 @@ div.post-list div.post-obj {
   margin-right: 25px; }
   div.post-list div.post-obj:nth-child(5n) {
     margin-right: 0px; }
-  div.post-list div.post-obj div.post-img {
+  div.post-list div.post-obj div.index-post-obj {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -172,7 +172,16 @@ div.post-list div.post-obj {
     margin-bottom: 5px;
     float: left;
     border: 1px solid #8a9791;
-    border-radius: 2px; }
+    border-radius: 2px;
+    position: relative; }
+    div.post-list div.post-obj div.index-post-obj:hover .play-icon-wrapper {
+      opacity: 1; }
+    div.post-list div.post-obj div.index-post-obj .play-icon-wrapper {
+      opacity: 0;
+      position: absolute;
+      bottom: calc(50% - 60px/2);
+      left: calc(50% - 60px/2);
+      font-size: 20px; }
   div.post-list div.post-obj p.post-title {
     text-align: left;
     font-size: 1.1em;

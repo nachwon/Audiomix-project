@@ -5,9 +5,9 @@
         {% for user in pop_users|slice:":4" %}
         <div class="post-obj">
             {% if user.profile_img.name == '' %}
-            <div class="post-img" style="background-image: url({% static 'img/default-profile.png' %});"></div>
+            <div class="index-post-obj" style="background-image: url({% static 'img/default-profile.png' %});"></div>
             {% else %}
-            <div class="post-img" style="background-image: url('{{ user.profile_img.url }}')"></div>
+            <div class="index-post-obj" style="background-image: url('{{ user.profile_img.url }}')"></div>
             {% endif %}
             <a href="{% url 'views:user:user-detail' pk=user.pk %}"><p class="post-title">{{ user.nickname }}</p></a>
             <p class="post-author">{{ user.instrument.first }}</p>
@@ -23,9 +23,9 @@
         {% for user in pop_users|slice:"4:8" %}
         <div class="post-obj">
             {% if user.profile_img.name == '' %}
-            <div class="post-img" style="background-image: url({% static 'img/default-profile.png' %});"></div>
+            <div class="index-post-obj" style="background-image: url({% static 'img/default-profile.png' %});"></div>
             {% else %}
-            <div class="post-img" style="background-image: url('{{ user.profile_img.url }}')"></div>
+            <div class="index-post-obj" style="background-image: url('{{ user.profile_img.url }}')"></div>
             {% endif %}
             <a href="{% url 'views:user:user-detail' pk=user.pk %}"><p class="post-title">{{ user.nickname }}</p></a>
             <p class="post-author">{{ user.instrument.first }}</p>
