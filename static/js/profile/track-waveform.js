@@ -66,6 +66,13 @@ function loadAudio(self) {
     audios.attr("loaded", null);
 
     audio.attr("loaded", true);
+
+    // 중복된 id가 혹시나 있을 경우 둘 다 로드 해줌
+    audios.each(function(index, item) {
+        if (audio.attr("id") === $(item).attr("id")) {
+            $(item).attr("loaded", true)
+        }
+    })
 }
 
 // 플레이 버튼 클릭시 아이콘 변경 및 오디오 재생

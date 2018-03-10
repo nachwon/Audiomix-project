@@ -3,9 +3,12 @@
 <div class="recent-posts post-list slide slide-fade" style="background-image: url({% static 'img/recent-posts.jpg' %});">
     <div class="obj-wrapper">
         {% for post in recent_posts|slice:":2" %}
-            <div class="post-obj">
+            <div class="post-obj" id="track-{{ post.pk }}" data-pk="{{ post.pk }}" data-type="track">
+                <audio preload="metadata" id="track-audio-{{ post.pk }}" class="post-track audio-file" data-target="track-{{ post.pk }}" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
+                    <source src="{{ post.author_track.url }}">
+                </audio>
                 <div class="post-img-wrapper">
-                    <div class="post-img" style="background-image: url(
+                    <div class="track-post-img" style="background-image: url(
                             {% if post.post_img.name == '' %}
                                 {% static 'img/default-post-img.png' %}
                             {% else %}
@@ -15,7 +18,7 @@
                     </div>
                     <div class="post-img-mask"></div>
                     <div class="play-icon-wrapper">
-                        <i class="fas fa-play-circle fa-3x"></i>
+                        <button class="play-btn" data-target="track-audio-{{ post.pk }}" onclick="loadAudio(this);playAudio();updatePlayerPostInfo()"><i class="fas fa-play-circle fa-3x"></i></button>
                     </div>
                 </div>
                 <p class="track-title">{{ post.title|truncatechars:30 }}</p>
@@ -27,9 +30,12 @@
             <span class="pop-posts-p">Check out some of the most recently uploaded tracks in SoundHub community!</span>
         </div>
         {% for post in recent_posts|slice:"2:6" %}
-            <div class="post-obj">
+            <div class="post-obj" id="track-{{ post.pk }}" data-pk="{{ post.pk }}" data-type="track">
+                <audio preload="metadata" id="track-audio-{{ post.pk }}" class="post-track audio-file" data-target="track-{{ post.pk }}" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
+                    <source src="{{ post.author_track.url }}">
+                </audio>
                 <div class="post-img-wrapper">
-                    <div class="post-img" style="background-image: url(
+                    <div class="track-post-img" style="background-image: url(
                             {% if post.post_img.name == '' %}
                                 {% static 'img/default-post-img.png' %}
                             {% else %}
@@ -39,7 +45,7 @@
                     </div>
                     <div class="post-img-mask"></div>
                     <div class="play-icon-wrapper">
-                        <i class="fas fa-play-circle fa-3x"></i>
+                        <button class="play-btn" data-target="track-audio-{{ post.pk }}" onclick="loadAudio(this);playAudio();updatePlayerPostInfo()"><i class="fas fa-play-circle fa-3x"></i></button>
                     </div>
                 </div>
                 <p class="track-title">{{ post.title|truncatechars:30 }}</p>
@@ -50,9 +56,12 @@
             <h3 class="pop-posts-title"><a href="">More<br>Recent Posts...</a></h3>
         </div>
         {% for post in recent_posts|slice:"6:8" %}
-            <div class="post-obj">
+            <div class="post-obj" id="track-{{ post.pk }}" data-pk="{{ post.pk }}" data-type="track">
+                <audio preload="metadata" id="track-audio-{{ post.pk }}" class="post-track audio-file" data-target="track-{{ post.pk }}" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
+                    <source src="{{ post.author_track.url }}">
+                </audio>
                 <div class="post-img-wrapper">
-                    <div class="post-img" style="background-image: url(
+                    <div class="track-post-img" style="background-image: url(
                             {% if post.post_img.name == '' %}
                                 {% static 'img/default-post-img.png' %}
                             {% else %}
@@ -62,7 +71,7 @@
                     </div>
                     <div class="post-img-mask"></div>
                     <div class="play-icon-wrapper">
-                        <i class="fas fa-play-circle fa-3x"></i>
+                        <button class="play-btn" data-target="track-audio-{{ post.pk }}" onclick="loadAudio(this);playAudio();updatePlayerPostInfo()"><i class="fas fa-play-circle fa-3x"></i></button>
                     </div>
                 </div>
                 <p class="track-title">{{ post.title|truncatechars:30 }}</p>
