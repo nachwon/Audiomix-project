@@ -125,9 +125,9 @@ function updatePlayerPostInfo() {
         // 포스트 이미지
         player_post_img.attr("style", post_img);
         // 포스트 제목
-        player_post_title.text(title.text());
+        player_post_title.text($(title[0]).text());
         // 포스트 작성자
-        player_post_author.text(author.text());
+        player_post_author.text($(author[0]).text());
         // 작성자 프로필 링크
         player_post_author.attr("href", author_link)
     }
