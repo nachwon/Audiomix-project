@@ -22,7 +22,7 @@
                     </div>
                     <div class="post-img-mask"></div>
                     <div class="play-icon-wrapper">
-                        <button data-target="track-audio-{{ post.pk }}" onclick="loadAudio(this);playAudio();updatePlayerPostInfo()"><i class="fas fa-play-circle fa-3x"></i></button>
+                        <button class="play-btn" data-target="track-audio-{{ post.pk }}" onclick="loadAudio(this);playAudio();updatePlayerPostInfo()"><i class="fas fa-play-circle fa-3x"></i></button>
                     </div>
                 </div>
                 <p class="track-title">{{ post.title|truncatechars:30 }}</p>
