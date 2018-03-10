@@ -374,12 +374,18 @@ function deleteFromPlaylist(self) {
                 // 재생 중이던 오디오 초기화하고 다음 리스트 아이템 재생
                 if (!audio[0].paused) {
                     resetWaveform(audio);
-                    playPrevNext("next")
-                }
-                // 일시정지 중이던 오디오
-                else if (audio[0].paused) {
-                    resetWaveform(audio);
-                    playPrevNext("next", "pause")
+                    playPrevNext("next");
+                    if (index === (playlist.length - 1)) {
+                        playPrevNext("prev")
+                    }
+                    // 일시정지 중이던 오디오
+                    else if (audio[0].paused) {
+                        resetWaveform(audio);
+                        playPrevNext("next", "pause");
+                        if (index === (playlist.length - 1)) {
+                            playPrevNext("prev", "pause")
+                        }
+                    }
                 }
             }
         }
