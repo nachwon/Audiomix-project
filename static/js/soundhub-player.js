@@ -346,6 +346,11 @@ function addToPlaylist(self) {
 
         ul.append(list_item);
         togglePlaylistItem();
+
+        if (li.length === 0) {
+            loadAudio($(list_item).find("a"));
+            updatePlayerPostInfo()
+        }
     }
     showPlayer();
 }
