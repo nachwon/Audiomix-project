@@ -176,7 +176,7 @@ div.post-list div.post-obj {
     position: relative; }
     div.post-list div.post-obj div.post-img-wrapper:hover .play-icon-wrapper {
       opacity: 1; }
-    div.post-list div.post-obj div.post-img-wrapper:hover .post-img {
+    div.post-list div.post-obj div.post-img-wrapper:hover .track-post-img {
       filter: blur(3px); }
     div.post-list div.post-obj div.post-img-wrapper:hover .post-img-mask {
       opacity: 0.7; }
