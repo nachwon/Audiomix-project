@@ -20,12 +20,14 @@
     <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
     <script src="{% static 'fontawesome/fontawesome-all.js' %}"></script>
 
+    <!-- Custom JS -->
     {% if request.user.is_authenticated %}
         <script src="{% static 'js/header.js' %}"></script>
     {% else %}
         <script src="{% static 'js/header-no-auth.js' %}"></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
     {% endif %}
+    <script src="{% static 'js/profile/track-waveform.js' %}"></script>
 
     {% block scripts %}
     {% endblock scripts %}

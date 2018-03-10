@@ -201,6 +201,9 @@ div.post-list div.post-obj {
       font-size: 20px;
       transition-duration: 0.3s;
       color: #E2B026; }
+      div.post-list div.post-obj div.post-img-wrapper .play-icon-wrapper button {
+        border: 0;
+        background-color: transparent; }
   div.post-list div.post-obj p.post-title {
     text-align: left;
     font-size: 1.1em;

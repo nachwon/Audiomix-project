@@ -7,7 +7,10 @@
             <span class="pop-posts-p">Check out some of the most popular tracks in SoundHub community!</span>
         </div>
         {% for post in pop_posts %}
-            <div class="post-obj">
+            <div class="post-obj" id="track-{{ post.pk }}" data-pk="{{ post.pk }}" data-type="track">
+                <audio preload="metadata" id="track-audio-{{ post.pk }}" class="post-track audio-file" data-target="track-{{ post.pk }}" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
+                    <source src="{{ post.author_track.url }}">
+                </audio>
                 <div class="post-img-wrapper">
                     <div class="post-img" style="background-image: url(
                             {% if post.post_img.name == '' %}
@@ -19,7 +22,7 @@
                     </div>
                     <div class="post-img-mask"></div>
                     <div class="play-icon-wrapper">
-                        <i class="fas fa-play-circle fa-3x"></i>
+                        <button data-target="track-audio-{{ post.pk }}" onclick="loadAudio(this);playAudio();updatePlayerPostInfo()"><i class="fas fa-play-circle fa-3x"></i></button>
                     </div>
                 </div>
                 <p class="post-title">{{ post.title|truncatechars:30 }}</p>

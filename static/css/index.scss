@@ -273,6 +273,11 @@ div.post-list div.post-obj {
             font-size: 20px;
             transition-duration: 0.3s;
             color: #E2B026;
+
+            button {
+                border: 0;
+                background-color: transparent;
+            }
         }
     }
 

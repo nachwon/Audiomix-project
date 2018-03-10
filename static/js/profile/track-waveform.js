@@ -66,7 +66,6 @@ function loadAudio(self) {
     audios.attr("loaded", null);
 
     audio.attr("loaded", true);
-    console.log(audio)
 }
 
 // 플레이 버튼 클릭시 아이콘 변경 및 오디오 재생
