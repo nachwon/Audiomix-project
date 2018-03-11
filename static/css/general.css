@@ -29,7 +29,8 @@ a:focus {
     box-shadow: inset 0 0 10px 0 black !important; }
 
 div.contents {
-  margin-top: 83px; }
+  margin-top: 83px;
+  margin-bottom: 60px; }
 
 .slide-fade {
   -webkit-animation-name: fade;
