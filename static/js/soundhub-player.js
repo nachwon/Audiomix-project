@@ -149,6 +149,15 @@ function updatePlayerPostInfo() {
         // 업로드된 포스트
         player_post_author.text(uploaded_post)
     }
+    else if (target_type === "cookie") {
+        title = target_obj.find(".player-post-title").text();
+        author = target_obj.find(".player-post-author").text();
+        post_img = target_obj.find(".player-post-img").attr("src");
+
+        player_post_title.text(title);
+        player_post_author.text(author);
+        player_post_img.attr("src", post_img)
+    }
 }
 
 // 플레이어 진행바 업데이트
@@ -631,7 +640,7 @@ function setPlaylistCookie(list_item) {
 function setPlaylistItem(track_id, audio_url, img_url, title, author) {
     var track_audio_id = track_id + '-audio';
     var list_item =
-        '<li class="player-playlist-item" data-target="' + track_id + '">' +
+        '<li class="player-playlist-item" data-target="' + track_id + '" data-type="cookie">' +
         '<audio src="' + audio_url + '" preload="metadata" id="' + track_audio_id + '" class="post-track audio-file" data-target="' + track_id + '" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)"></audio>' +
         '<div class="playlist-item-grab-handle"></div>' +
         '<a data-target="' + track_audio_id + '" href="' + track_audio_id + '" onclick="playItem(this, ' + '\'toggle\'' +', event)">' +
