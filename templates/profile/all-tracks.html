@@ -47,7 +47,7 @@
 
             <!-- play button -->
             <div class="play-btn-wrapper">
-                <div id="play-btn-{{ track.pk }}" class="play-btn" data-target="track-audio-{{ track.pk }}" onclick="loadAudio(this);playAudio();updatePlayerPostInfo();"><i class="fas fa-play-circle fa-3x"></i></div>
+                <div id="play-btn-{{ track.pk }}" class="play-btn" data-target="track-{{ track.pk }}-audio" onclick="loadAudio(this);playAudio();updatePlayerPostInfo();"><i class="fas fa-play-circle fa-3x"></i></div>
             </div>
             <!-- play button ends-->
 
@@ -66,7 +66,7 @@
             <!-- track duration ends -->
 
             <!-- waveform -->
-            <audio preload="metadata" id="track-audio-{{ track.pk }}" class="post-track audio-file" data-target="track-{{ track.pk }}" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
+            <audio preload="metadata" id="track-{{ track.pk }}-audio" class="post-track audio-file" data-target="track-{{ track.pk }}" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
                 <source src="{{ track.author_track.url }}">
             </audio>
             {% if track.author_track_waveform_base.name == '' %}
