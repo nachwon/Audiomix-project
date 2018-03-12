@@ -171,6 +171,16 @@ function toggleBtn(audio, status) {
             player_play_btn.find('[data-fa-processed]').addClass("fa-play");
         }
     }
+    else if (target_type === "cookie") {
+        if (status === "on") {
+            player_play_btn.find('[data-fa-processed]').removeClass("fa-play");
+            player_play_btn.find('[data-fa-processed]').addClass("fa-pause");
+        }
+        else if (status === "off") {
+            player_play_btn.find('[data-fa-processed]').removeClass("fa-pause");
+            player_play_btn.find('[data-fa-processed]').addClass("fa-play");
+        }
+    }
 }
 
 // waveform 투명도 토글

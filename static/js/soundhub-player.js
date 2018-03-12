@@ -685,9 +685,7 @@ function getPlaylistCookie() {
 
                 li.each(function(index, item) {
                     var existing_item = $(item).find("a").data("target");
-                    console.log(existing_item);
                     var to_be_added_item = $(list_item).find("a").data("target");
-                    console.log(to_be_added_item);
                     if (existing_item === to_be_added_item) {
                         exists_in_playlist = existing_item === to_be_added_item
                     }
