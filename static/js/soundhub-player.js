@@ -325,7 +325,9 @@ function addToPlaylist(self) {
 
     li.each(function(index, item) {
         var existing_item = $(item).find("a").data("target");
+        console.log(existing_item);
         var to_be_added_item = $(list_item).find("a").data("target");
+        console.log(to_be_added_item);
         if (existing_item === to_be_added_item) {
             exists_in_playlist = existing_item === to_be_added_item
         }
@@ -520,7 +522,9 @@ function togglePlaylistItem() {
 
         // 현재 재생중이 아닌 아이템인 경우
         else {
+            // console.log(item);
             var target_audio = $("#" + $(item).find("a").data("target"));
+            // console.log(target_audio);
             var duration = format_time(target_audio[0].duration);
             $(item).find(".player-post-duration").text(duration);
             $(item).removeClass("playing");
@@ -625,11 +629,12 @@ function setPlaylistCookie(list_item) {
 
 
 function setPlaylistItem(track_id, audio_url, img_url, title, author) {
+    var track_audio_id = track_id + '-audio';
     var list_item =
         '<li class="player-playlist-item" data-target="' + track_id + '">' +
-        '<audio src="' + audio_url + '" preload="metadata" id="' + track_id + '-audio' + '" class="post-track audio-file" data-target="' + track_id + '" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)"></audio>' +
+        '<audio src="' + audio_url + '" preload="metadata" id="' + track_audio_id + '" class="post-track audio-file" data-target="' + track_id + '" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)"></audio>' +
         '<div class="playlist-item-grab-handle"></div>' +
-        '<a data-target="' + track_id + '" href="' + track_id + '" onclick="playItem(this, ' + '\'toggle\'' +', event)">' +
+        '<a data-target="' + track_audio_id + '" href="' + track_audio_id + '" onclick="playItem(this, ' + '\'toggle\'' +', event)">' +
         '<img class="player-post-img" src="'+ img_url +'">' +
         '<div class="player-post-info">' +
         '<span class="player-post-title">' + title + '</span>' +
@@ -648,21 +653,42 @@ function getPlaylistCookie() {
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
     var pattern = /(track-.*)=(.*)/i;
+    var li = $(".player-playlist-item");
 
     $(ca).each(function(index, item) {
         if (index !== 0) {
-            var result = item.match(pattern);
-            var target_id = result[1];
+            if (item.indexOf("track") === 1) {
 
-            var info_list = item.match(pattern)[2].split(",");
-            var audio_url = info_list[0];
-            var post_img = info_list[1];
-            var title = info_list[2];
-            var author = info_list[3];
+                var result = item.match(pattern);
+                var target_id = result[1];
 
-            var ul = $("#player-playlist");
-            var list_item = setPlaylistItem(target_id, audio_url, post_img, title, author);
-            ul.append(list_item);
+                var info_list = item.match(pattern)[2].split(",");
+                var audio_url = info_list[0];
+                var post_img = info_list[1];
+                var title = info_list[2];
+                var author = info_list[3];
+
+                var ul = $("#player-playlist");
+                var list_item = setPlaylistItem(target_id, audio_url, post_img, title, author);
+
+                var exists_in_playlist = false;
+
+
+                li.each(function(index, item) {
+                    var existing_item = $(item).find("a").data("target");
+                    console.log(existing_item);
+                    var to_be_added_item = $(list_item).find("a").data("target");
+                    console.log(to_be_added_item);
+                    if (existing_item === to_be_added_item) {
+                        exists_in_playlist = existing_item === to_be_added_item
+                    }
+                });
+
+                if (!exists_in_playlist) {
+                    ul.append(list_item);
+                }
+            }
+
         }
 
     });
