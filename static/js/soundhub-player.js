@@ -633,7 +633,7 @@ function setPlaylistCookie(list_item) {
 
     var track_info = item_url + "," + post_img + "," + title + "," + author;
 
-    document.cookie = target_id + "=" + track_info
+    document.cookie = target_id + "=" + track_info + ";path=/"
 }
 
 
