@@ -465,6 +465,10 @@ function playItem(self, action="play", e=null) {
         }
     });
 
+    $(".player-playlist-item").attr("playing", null);
+
+    $(self).parent().attr("playing", true);
+
     loadAudio(self);
     playAudio(action);
     updatePlayerPostInfo();
@@ -507,8 +511,6 @@ function playPrevNext(direction, action="play") {
 // 재생 시 플레이리스트 아이템 상태 변경
 function togglePlaylistItem() {
     var audio = $("[loaded]");
-    var target_id = audio.data("target");
-    var target_obj_id = $("#" + target_id).find("audio").attr("id");
     var playlist_lis = $(".player-playlist-item");
     var check_played = false;  // 오디오가 현재 재생중인 아이템 이전인지 이후인지 판단
 
@@ -517,7 +519,7 @@ function togglePlaylistItem() {
         $(item).removeClass("played-playlist-item");
 
         // 루프가 현재 재생중인 아이템에 도달하면
-        if ($(item).find("a").data("target") === target_obj_id) {
+        if ($(item).attr("playing")) {
             check_played = true;
 
             $(item).addClass("playing");
@@ -693,6 +695,9 @@ function getPlaylistCookie() {
 
                 if (!exists_in_playlist) {
                     ul.append(list_item);
+                    $(".audio-file").on("loadedmetadata", function() {
+                        togglePlaylistItem();
+                    })
                 }
             }
 
