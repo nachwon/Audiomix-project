@@ -46,7 +46,9 @@ $(".soundhub-player").ready(function () {
     });
     volume_control_popup.on("mouseleave", function() {
         $(this).css("display", "none")
-    })
+    });
+
+    getPlaylistCookie();
 
 });
 
@@ -609,12 +611,29 @@ function setPlaylistCookie(list_item) {
     var title = target_obj.find(".track-title").text();
     var author = target_obj.find(".track-author").text();
     var post_img = target_obj.find(".track-post-img").attr("src");
-    console.log(post_img);
 
-    document.cookie = target_id + "=" + item_url;
-    document.cookie = target_id + "-title=" + title;
-    document.cookie = target_id + "-author=" + author;
-    document.cookie = target_id + "-img=" + post_img;
+    var track_info = item_url + "," + post_img + "," + title + "," + author;
+
+    document.cookie = target_id + "=" + track_info
+}
+
+function getPlaylistCookie() {
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    var pattern = /track-.*=(.*)/i;
+
+    $(ca).each(function(index, item) {
+        if (index !== 0) {
+            var result_list = item.match(pattern)[1].split(",");
+            var audio_url = result_list[0];
+            var post_img = result_list[1];
+            var title = result_list[2];
+            var author = result_list[3];
+
+
+        }
+
+    });
 }
 
 function deletePlaylistCookie() {
