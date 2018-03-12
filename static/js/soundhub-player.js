@@ -50,6 +50,10 @@ $(".soundhub-player").ready(function () {
 
     getPlaylistCookie();
 
+    if ($(".player-playlist-item").length) {
+        showPlayer()
+    }
+
 });
 
 // 플레이어 초기화
@@ -286,6 +290,8 @@ function togglePlaylist() {
     var playlist = $("#playlist-wrapper");
     playlist.toggleClass("disappear")
 }
+
+
 
 // 플레이 리스트에 추가함
 function addToPlaylist(self) {
@@ -617,20 +623,46 @@ function setPlaylistCookie(list_item) {
     document.cookie = target_id + "=" + track_info
 }
 
+
+function setPlaylistItem(track_id, audio_url, img_url, title, author) {
+    var list_item =
+        '<li class="player-playlist-item" data-target="' + track_id + '">' +
+        '<audio src="' + audio_url + '" preload="metadata" id="' + track_id + '-audio' + '" class="post-track audio-file" data-target="' + track_id + '" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)"></audio>' +
+        '<div class="playlist-item-grab-handle"></div>' +
+        '<a data-target="' + track_id + '" href="' + track_id + '" onclick="playItem(this, ' + '\'toggle\'' +', event)">' +
+        '<img class="player-post-img" src="'+ img_url +'">' +
+        '<div class="player-post-info">' +
+        '<span class="player-post-title">' + title + '</span>' +
+        '<span class="player-post-author">' + author + '</span>' +
+        '</div>' +
+        '<span class="player-post-duration"></span>' +
+        '</a>' +
+        '<button class="playlist-item-more menu-item" data-target="' + $(self).data("target") + '" onclick="showMoreActionMenu(this)">' +
+        '<span class="no-pointer-event"><i class="fas fa-ellipsis-v"></i></span>' +
+        '</button>' +
+        '</li>';
+    return list_item
+}
+
 function getPlaylistCookie() {
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
-    var pattern = /track-.*=(.*)/i;
+    var pattern = /(track-.*)=(.*)/i;
 
     $(ca).each(function(index, item) {
         if (index !== 0) {
-            var result_list = item.match(pattern)[1].split(",");
-            var audio_url = result_list[0];
-            var post_img = result_list[1];
-            var title = result_list[2];
-            var author = result_list[3];
+            var result = item.match(pattern);
+            var target_id = result[1];
 
+            var info_list = item.match(pattern)[2].split(",");
+            var audio_url = info_list[0];
+            var post_img = info_list[1];
+            var title = info_list[2];
+            var author = info_list[3];
 
+            var ul = $("#player-playlist");
+            var list_item = setPlaylistItem(target_id, audio_url, post_img, title, author);
+            ul.append(list_item);
         }
 
     });
