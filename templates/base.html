@@ -21,6 +21,7 @@
     <script src="{% static 'fontawesome/fontawesome-all.js' %}"></script>
 
     <!-- Custom JS -->
+    <script src="{% static 'js/base.js' %}"></script>
     {% if request.user.is_authenticated %}
         <script src="{% static 'js/header.js' %}"></script>
     {% else %}

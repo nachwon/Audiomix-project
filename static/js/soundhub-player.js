@@ -353,6 +353,7 @@ function addToPlaylist(self) {
         }
     }
     showPlayer();
+    setPlaylistCookie(list_item);
 }
 
 // 플레이리스트 아이템 삭제
@@ -598,4 +599,24 @@ function alertMessageBox(message) {
             }, 3000)
         })
     });
+}
+
+function setPlaylistCookie(list_item) {
+    var target_id = $(list_item).attr("data-target");
+
+    var target_obj = $("#" + target_id);
+    var item_url = target_obj.find("source").attr("src");
+    var title = target_obj.find(".track-title").text();
+    var author = target_obj.find(".track-author").text();
+    var post_img = target_obj.find(".track-post-img").attr("src");
+    console.log(post_img);
+
+    document.cookie = target_id + "=" + item_url;
+    document.cookie = target_id + "-title=" + title;
+    document.cookie = target_id + "-author=" + author;
+    document.cookie = target_id + "-img=" + post_img;
+}
+
+function deletePlaylistCookie() {
+
 }

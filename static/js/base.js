@@ -7,3 +7,10 @@ String.prototype.format = String.prototype.f = function() {
     }
     return s;
 };
+
+
+if (!String.prototype.trim) {
+  String.prototype.trim = function () {
+    return this.replace(new RegExp(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g), '');
+  };
+}

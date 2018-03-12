@@ -8,14 +8,11 @@
                     <source src="{{ post.author_track.url }}">
                 </audio>
                 <div class="post-img-wrapper">
-                    <div class="track-post-img" style="background-image: url(
-                            {% if post.post_img.name == '' %}
-                                {% static 'img/default-post-img.png' %}
-                            {% else %}
-                                {{ post.post_img.url }}
-                            {% endif %}
-                            )">
-                    </div>
+                    {% if post.post_img.name == '' %}
+                        <img class="track-post-img" src="{% static 'img/default-post-img.png' %}">
+                    {% else %}
+                        <img class="track-post-img" src="{{ post.post_img.url }}">
+                    {% endif %}
                     <div class="post-img-mask"></div>
                     <div class="play-icon-wrapper">
                         <button class="play-btn" data-target="track-audio-{{ post.pk }}" onclick="loadAudio(this);playAudio();updatePlayerPostInfo()"><i class="fas fa-play-circle fa-3x"></i></button>
@@ -35,14 +32,11 @@
                     <source src="{{ post.author_track.url }}">
                 </audio>
                 <div class="post-img-wrapper">
-                    <div class="track-post-img" style="background-image: url(
-                            {% if post.post_img.name == '' %}
-                                {% static 'img/default-post-img.png' %}
-                            {% else %}
-                                {{ post.post_img.url }}
-                            {% endif %}
-                            )">
-                    </div>
+                    {% if post.post_img.name == '' %}
+                        <img class="track-post-img" src="{% static 'img/default-post-img.png' %}">
+                    {% else %}
+                        <img class="track-post-img" src="{{ post.post_img.url }}">
+                    {% endif %}
                     <div class="post-img-mask"></div>
                     <div class="play-icon-wrapper">
                         <button class="play-btn" data-target="track-audio-{{ post.pk }}" onclick="loadAudio(this);playAudio();updatePlayerPostInfo()"><i class="fas fa-play-circle fa-3x"></i></button>
@@ -61,14 +55,11 @@
                     <source src="{{ post.author_track.url }}">
                 </audio>
                 <div class="post-img-wrapper">
-                    <div class="track-post-img" style="background-image: url(
-                            {% if post.post_img.name == '' %}
-                                {% static 'img/default-post-img.png' %}
-                            {% else %}
-                                {{ post.post_img.url }}
-                            {% endif %}
-                            )">
-                    </div>
+                    {% if post.post_img.name == '' %}
+                        <img class="track-post-img" src="{% static 'img/default-post-img.png' %}">
+                    {% else %}
+                        <img class="track-post-img" src="{{ post.post_img.url }}">
+                    {% endif %}
                     <div class="post-img-mask"></div>
                     <div class="play-icon-wrapper">
                         <button class="play-btn" data-target="track-audio-{{ post.pk }}" onclick="loadAudio(this);playAudio();updatePlayerPostInfo()"><i class="fas fa-play-circle fa-3x"></i></button>
