@@ -70,7 +70,7 @@ div.contents {
     box-sizing: content-box;
     padding: 0;
     margin-bottom: 5px; }
-  #message-box div.message-box-post-img {
+  #message-box .message-box-post-img {
     height: 60px;
     width: 60px;
     background-size: cover;

@@ -120,10 +120,10 @@ function updatePlayerPostInfo() {
         title = target_obj.find(".track-title");
         author = target_obj.find(".track-author");
         author_link = author.parent().attr("href");
-        post_img = target_obj.find(".track-post-img").attr("style");
+        post_img = target_obj.find(".track-post-img").attr("src");
 
         // 포스트 이미지
-        player_post_img.attr("style", post_img);
+        player_post_img.attr("src", post_img);
         // 포스트 제목
         player_post_title.text($(title[0]).text());
         // 포스트 작성자
@@ -137,7 +137,7 @@ function updatePlayerPostInfo() {
         post_img = target_obj.find(".comment-post-img").attr("style");
 
         // 커맨트 트랙이 업로드된 포스트 이미지
-        player_post_img.attr("style", post_img);
+        player_post_img.attr("src", post_img);
         // 악기
         player_post_title.text(instrument);
         // 업로드된 포스트
@@ -288,7 +288,7 @@ function togglePlaylist() {
 // 플레이 리스트에 추가함
 function addToPlaylist(self) {
     var target_obj = $("#" + $(self).attr("data-target"));
-    var target_img = target_obj.find(".track-post-img").attr("style");
+    var target_img = target_obj.find(".track-post-img").attr("src");
     var target_title = target_obj.find(".track-title").text();
     var target_author = target_obj.find(".track-author").text();
     var target_audio_id = target_obj.find("audio").attr("id");
@@ -300,7 +300,7 @@ function addToPlaylist(self) {
         '<li class="player-playlist-item" data-target="' + target_obj.attr("id") + '">' +
         '<div class="playlist-item-grab-handle"></div>' +
         '<a data-target="' + target_audio_id + '" href="' + target_audio_id + '" onclick="playItem(this, ' + '\'toggle\'' +', event)">' +
-        '<div class="player-post-img" style="'+ target_img +'"></div>' +
+        '<img class="player-post-img" src="'+ target_img +'">' +
         '<div class="player-post-info">' +
         '<span class="player-post-title">' + target_title + '</span>' +
         '<span class="player-post-author">' + target_author + '</span>' +
@@ -330,7 +330,7 @@ function addToPlaylist(self) {
         // 메세지 박스에 띄울 메세지
         var message =
             '<li class="message-list">' +
-            '<div class="message-box-post-img" style="'+ target_img + '"></div>' +
+            '<img class="message-box-post-img" src="'+ target_img + '">' +
             '<div class="message-box-message-body">' +
             '<div class="message-box-post-title">' + target_title_author + '</div>' +
             '<div class="message-box-message">was added to playlist</div>' +
@@ -409,14 +409,14 @@ function deleteFromPlaylist(self) {
 
 
 // 삭제 메세지
-    var target_img = target_obj.find(".track-post-img").attr("style");
+    var target_img = target_obj.find(".track-post-img").attr("src");
     var target_title = target_obj.find(".track-title").text();
     var target_author = target_obj.find(".track-author").text();
     var target_title_author = target_title + '-' + target_author;
 
     var message =
         '<li class="message-list">' +
-        '<div class="message-box-post-img" style="'+ target_img + '"></div>' +
+        '<img class="message-box-post-img" src="'+ target_img + '">' +
         '<div class="message-box-message-body">' +
         '<div class="message-box-post-title">' + target_title_author + '</div>' +
         '<div class="message-box-message">was deleted from playlist</div>' +
