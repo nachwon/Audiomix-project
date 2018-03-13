@@ -375,12 +375,35 @@ function addToPlaylist(self) {
 
 // 플레이리스트 아이템 삭제
 function deleteFromPlaylist(self) {
-    var target_obj = $("#" + $(self).parent().parent().attr("data-target"));
-    var target_audio = target_obj.find("audio");
     var audio = $("[loaded]");
     var current_more_action_menu = $("#more-action-menu");
     var target_id = current_more_action_menu.attr("data-target");
+    var target_obj = $("li[data-target='"+ target_id +"']");
+    var target_audio = target_obj.find("audio");
     var playlist = $(".player-playlist-item");
+
+    // 삭제 메세지
+    console.log(target_obj);
+    var target_img = target_obj.find(".player-post-img").attr("src");
+    var target_title = target_obj.find(".player-post-title").text();
+    var target_author = target_obj.find(".player-post-author").text();
+    var target_title_author = target_title + '-' + target_author;
+
+    var message =
+        '<li class="message-list">' +
+        '<img class="message-box-post-img" src="'+ target_img + '">' +
+        '<div class="message-box-message-body">' +
+        '<div class="message-box-post-title">' + target_title_author + '</div>' +
+        '<div class="message-box-message">was deleted from playlist</div>' +
+        '</div>' +
+        '<div class="message-box-close">' +
+        '<button onclick="$(this).parent().parent().fadeOut()">' +
+        '<i class="far fa-times-circle"></i>' +
+        '</button>' +
+        '</div>' +
+        '</li>';
+
+    alertMessageBox(message);
 
     playlist.each(function(index, item) {
         if ($(item).attr("data-target") === target_id) {
@@ -418,33 +441,6 @@ function deleteFromPlaylist(self) {
             }
         }
     });
-
-
-
-
-
-    // 삭제 메세지
-    console.log(target_obj);
-    var target_img = target_obj.find(".track-post-img").attr("src");
-    var target_title = target_obj.find(".track-title").text();
-    var target_author = target_obj.find(".track-author").text();
-    var target_title_author = target_title + '-' + target_author;
-
-    var message =
-        '<li class="message-list">' +
-        '<img class="message-box-post-img" src="'+ target_img + '">' +
-        '<div class="message-box-message-body">' +
-        '<div class="message-box-post-title">' + target_title_author + '</div>' +
-        '<div class="message-box-message">was deleted from playlist</div>' +
-        '</div>' +
-        '<div class="message-box-close">' +
-        '<button onclick="$(this).parent().parent().fadeOut()">' +
-        '<i class="far fa-times-circle"></i>' +
-        '</button>' +
-        '</div>' +
-        '</li>';
-
-    alertMessageBox(message);
 
     // 플레이리스트의 마지막 항목을 삭제한 경우
     if (playlist.length === 1) {
