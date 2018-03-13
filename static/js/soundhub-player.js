@@ -624,8 +624,8 @@ function alertMessageBox(message) {
 
 // 쿠키 관련 함수들
 
+// 플레이리스트 정보 쿠키로 저장
 function setPlaylistCookie(list_item) {
-    console.log(list_item);
     var target_id = $(list_item).attr("data-target");
 
     var target_obj = $("#" + target_id);
@@ -661,6 +661,7 @@ function setPlaylistItem(track_id, audio_url, img_url, title, author) {
     return list_item
 }
 
+// 현재 재생정보 쿠키에 저장
 function setCurrentTimeCookie(time, is_paused) {
     var audio = $("[loaded]");
     document.cookie = "currentTime=" + audio.attr("data-target") + "," + time + "," + is_paused + "; path=/;"
