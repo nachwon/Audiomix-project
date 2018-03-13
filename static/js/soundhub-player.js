@@ -65,13 +65,15 @@ function resetPlayer() {
     var player_author_link = $("#player-author-link");
     var player_current_time = $("#player-current-time");
     var player_total_duration = $("#player-total-duration");
+    var player_progress_cover = $(".player-progress-cover");
 
-    player_post_img.attr("style", "background-image: url(/static/img/default-post-img.png)");
+    player_post_img.attr("src", "/static/img/default-post-img.png");
     player_post_title.text("Audio Track");
     player_post_author.text("Not Loaded");
     player_author_link.attr("href", "");
     player_current_time.text("00:00");
     player_total_duration.text("00:00");
+    player_progress_cover.css("width", 0);
 
     audio.attr("loaded", null)
 }
@@ -668,6 +670,7 @@ function getPlaylistCookie() {
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
     var pattern = /(track-.*)=(.*)/i;
+    var pattern2 = /currentTime=(.*)/i;
     var li = $(".player-playlist-item");
 
     $(ca).each(function(index, item) {
@@ -704,9 +707,33 @@ function getPlaylistCookie() {
                     })
                 }
             }
+            else if (item.indexOf("currentTime") === 1) {
+                var result2 = item.match(pattern2)[1].split(",");
+                var current_target_id = result2[0];
+                var current_time = result2[1];
+                var is_paused = result2[2];
 
+                console.log(result2);
+
+                var target_obj = $("li[data-target='"+ current_target_id +"']");
+                var audio = target_obj.find("audio");
+
+                loadAudio(audio, "audio");
+
+                var loaded_audio = $("[loaded]");
+                loaded_audio[0].currentTime = current_time;
+
+                if (is_paused === "true") {
+                    playAudio("pause")
+                }
+                else if (is_paused === "false") {
+                    playAudio("play")
+                }
+                updatePlayerPostInfo();
+
+                updatePlayerProgress()
+            }
         }
-
     });
 }
 

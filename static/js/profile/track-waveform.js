@@ -61,8 +61,15 @@ function resetWaveform (self) {
 }
 
 // 플레이 누른 오디오에 loaded 속성 부여
-function loadAudio(self) {
-    var audio = $("#" + $(self).attr("data-target"));
+function loadAudio(self, input="container") {
+    var audio;
+    if (input === "container") {
+        audio = $("#" + $(self).attr("data-target"));
+    }
+    else if (input === "audio") {
+        audio = self
+    }
+
     var audios = $(".audio-file");
 
     audios.attr("loaded", null);
