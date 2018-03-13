@@ -401,7 +401,6 @@ function deleteFromPlaylist(self) {
                     // 재생중인 오디오가 마지막 아이템일 때 삭제한 경우
                     if (index === (playlist.length - 1)) {
                         playPrevNext("prev");
-                        console.log("playing");
                     }
                 }
                 // 일시정지 중이던 오디오
@@ -410,7 +409,6 @@ function deleteFromPlaylist(self) {
                     playPrevNext("next", "pause");
                     // 재생중인 오디오가 마지막 아이템일 때 삭제한 경우
                     if (index === (playlist.length - 1)) {
-                        console.log("paused");
                         playPrevNext("prev", "pause")
                     }
                 }
@@ -532,9 +530,7 @@ function togglePlaylistItem() {
 
         // 현재 재생중이 아닌 아이템인 경우
         else {
-            // console.log(item);
             var target_audio = $("#" + $(item).find("a").data("target"));
-            // console.log(target_audio);
             var duration = format_time(target_audio[0].duration);
             $(item).find(".player-post-duration").text(duration);
             $(item).removeClass("playing");
@@ -652,7 +648,7 @@ function setPlaylistItem(track_id, audio_url, img_url, title, author) {
         '</div>' +
         '<span class="player-post-duration"></span>' +
         '</a>' +
-        '<button class="playlist-item-more menu-item" data-target="' + $(self).data("target") + '" onclick="showMoreActionMenu(this)">' +
+        '<button class="playlist-item-more menu-item" data-target="' + track_id + '" onclick="showMoreActionMenu(this)">' +
         '<span class="no-pointer-event"><i class="fas fa-ellipsis-v"></i></span>' +
         '</button>' +
         '</li>';
