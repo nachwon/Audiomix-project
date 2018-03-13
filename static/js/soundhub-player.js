@@ -393,24 +393,26 @@ function deleteFromPlaylist(self) {
                 deletePlaylistCookie(item);
             }, 1000);
 
-            // 재생 중이던 오디오를 목록에서 삭제하는 경우
-            if (target_audio[0] === audio[0]) {
-                // 재생 중이던 오디오 초기화하고 다음 리스트 아이템 재생
-                if (!audio[0].paused) {
-                    resetWaveform(audio);
-                    playPrevNext("next");
-                    // 재생중인 오디오가 마지막 아이템일 때 삭제한 경우
-                    if (index === (playlist.length - 1)) {
-                        playPrevNext("prev");
+            if (audio.length) {
+                // 재생 중이던 오디오를 목록에서 삭제하는 경우
+                if (target_audio[0] === audio[0]) {
+                    // 재생 중이던 오디오 초기화하고 다음 리스트 아이템 재생
+                    if (!audio[0].paused) {
+                        resetWaveform(audio);
+                        playPrevNext("next");
+                        // 재생중인 오디오가 마지막 아이템일 때 삭제한 경우
+                        if (index === (playlist.length - 1)) {
+                            playPrevNext("prev");
+                        }
                     }
-                }
-                // 일시정지 중이던 오디오
-                else if (audio[0].paused) {
-                    resetWaveform(audio);
-                    playPrevNext("next", "pause");
-                    // 재생중인 오디오가 마지막 아이템일 때 삭제한 경우
-                    if (index === (playlist.length - 1)) {
-                        playPrevNext("prev", "pause")
+                    // 일시정지 중이던 오디오
+                    else if (audio[0].paused) {
+                        resetWaveform(audio);
+                        playPrevNext("next", "pause");
+                        // 재생중인 오디오가 마지막 아이템일 때 삭제한 경우
+                        if (index === (playlist.length - 1)) {
+                            playPrevNext("prev", "pause")
+                        }
                     }
                 }
             }
@@ -418,13 +420,11 @@ function deleteFromPlaylist(self) {
     });
 
 
-// 플레이리스트의 마지막 항목을 삭제한 경우
-    if (playlist.length === 1) {
-        resetPlayer()
-    }
 
 
-// 삭제 메세지
+
+    // 삭제 메세지
+    console.log(target_obj);
     var target_img = target_obj.find(".track-post-img").attr("src");
     var target_title = target_obj.find(".track-title").text();
     var target_author = target_obj.find(".track-author").text();
@@ -445,6 +445,11 @@ function deleteFromPlaylist(self) {
         '</li>';
 
     alertMessageBox(message);
+
+    // 플레이리스트의 마지막 항목을 삭제한 경우
+    if (playlist.length === 1) {
+        resetPlayer()
+    }
 }
 
 // 플레이리스트의 아이템 재생
