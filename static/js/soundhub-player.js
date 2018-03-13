@@ -495,12 +495,11 @@ function playPrevNext(direction, action="play") {
             else if (direction === 'prev') {
                 next_item = $(items[index - 1]).find('a');
             }
-
-            if (next_item.length) {
-                playItem(next_item[0], action)
-            }
         }
     });
+    if (next_item.length) {
+        playItem(next_item[0], action)
+    }
 }
 
 // 재생 시 플레이리스트 아이템 상태 변경
@@ -508,8 +507,6 @@ function togglePlaylistItem() {
     var audio = $("[loaded]");
     var playlist_lis = $(".player-playlist-item");
     var check_played = false;  // 오디오가 현재 재생중인 아이템 이전인지 이후인지 판단
-
-    console.log(playlist_lis);
 
     playlist_lis.each(function(index, item) {
         // 모든 아이템들 초기화
