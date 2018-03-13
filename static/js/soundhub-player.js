@@ -390,6 +390,7 @@ function deleteFromPlaylist(self) {
 
             setTimeout(function () {
                 $(item).remove();
+                deletePlaylistCookie(item);
             }, 1000);
 
             // 재생 중이던 오디오를 목록에서 삭제하는 경우
@@ -633,7 +634,7 @@ function setPlaylistCookie(list_item) {
     document.cookie = target_id + "=" + track_info + ";path=/"
 }
 
-
+// 쿠키 버전 플레이리스트 아이템
 function setPlaylistItem(track_id, audio_url, img_url, title, author) {
     var track_audio_id = track_id + '-audio';
     var list_item =
@@ -655,6 +656,7 @@ function setPlaylistItem(track_id, audio_url, img_url, title, author) {
     return list_item
 }
 
+// 쿠키에서 플레이리스트 아이템들 가져와서 플레이리스트에 바로 추가
 function getPlaylistCookie() {
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
@@ -701,6 +703,8 @@ function getPlaylistCookie() {
     });
 }
 
-function deletePlaylistCookie() {
-
+// 플레이리스트 쿠키 삭ㅈ
+function deletePlaylistCookie(item) {
+    var target_id = $(item).attr("data-target");
+    document.cookie = target_id + "=; ; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
 }
