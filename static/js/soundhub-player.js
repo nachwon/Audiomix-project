@@ -636,7 +636,8 @@ function setPlaylistCookie(list_item) {
 
     var track_info = item_url + "," + post_img + "," + title + "," + author;
 
-    document.cookie = target_id + "=" + track_info + ";path=/"
+    document.cookie = target_id + "=" + track_info + "; path=/;";
+    console.log(target_id + "=" + track_info + "; path=/;")
 }
 
 // 쿠키 버전 플레이리스트 아이템
@@ -664,7 +665,7 @@ function setPlaylistItem(track_id, audio_url, img_url, title, author) {
 // 현재 재생정보 쿠키에 저장
 function setCurrentTimeCookie(time, is_paused) {
     var audio = $("[loaded]");
-    document.cookie = "currentTime=" + audio.attr("data-target") + "," + time + "," + is_paused + "; path=/;"
+    document.cookie = "currentTime=" + audio.attr("data-target") + "," + time + "," + is_paused + "; expires=Thu, 01 Jan 2020 00:00:00 UTC; path=/;"
 }
 
 // 쿠키에서 플레이리스트 아이템들 가져와서 플레이리스트에 바로 추가
