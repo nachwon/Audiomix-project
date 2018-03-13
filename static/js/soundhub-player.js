@@ -383,7 +383,6 @@ function deleteFromPlaylist(self) {
     var playlist = $(".player-playlist-item");
 
     // 삭제 메세지
-    console.log(target_obj);
     var target_img = target_obj.find(".player-post-img").attr("src");
     var target_title = target_obj.find(".player-post-title").text();
     var target_author = target_obj.find(".player-post-author").text();
@@ -621,6 +620,8 @@ function alertMessageBox(message) {
     });
 }
 
+// 쿠키 관련 함수들
+
 function setPlaylistCookie(list_item) {
     var target_id = $(list_item).attr("data-target");
 
@@ -655,6 +656,11 @@ function setPlaylistItem(track_id, audio_url, img_url, title, author) {
         '</button>' +
         '</li>';
     return list_item
+}
+
+function setCurrentTimeCookie(time, is_paused) {
+    var audio = $("[loaded]");
+    document.cookie = "currentTime=" + audio.attr("data-target") + "," + time + "," + is_paused + "; path=/;"
 }
 
 // 쿠키에서 플레이리스트 아이템들 가져와서 플레이리스트에 바로 추가
@@ -704,7 +710,7 @@ function getPlaylistCookie() {
     });
 }
 
-// 플레이리스트 쿠키 삭ㅈ
+// 플레이리스트 쿠키 삭제
 function deletePlaylistCookie(item) {
     var target_id = $(item).attr("data-target");
     document.cookie = target_id + "=; ; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"

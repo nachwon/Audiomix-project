@@ -22,6 +22,8 @@ function updateAudioInfo (self) {
 
     track_current.text(format_time(current_time));
     cutter.css("width", rel_current + '%');
+
+    setCurrentTimeCookie(current_time, self.paused)
 }
 
 // 오디오 총 길이 표시
