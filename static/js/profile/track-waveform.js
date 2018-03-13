@@ -180,7 +180,7 @@ function toggleBtn(audio, status) {
             player_play_btn.find('[data-fa-processed]').addClass("fa-play");
         }
     }
-    else if (target_type === "cookie") {
+    else {
         if (status === "on") {
             player_play_btn.find('[data-fa-processed]').removeClass("fa-play");
             player_play_btn.find('[data-fa-processed]').addClass("fa-pause");

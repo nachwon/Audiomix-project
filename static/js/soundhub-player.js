@@ -625,6 +625,7 @@ function alertMessageBox(message) {
 // 쿠키 관련 함수들
 
 function setPlaylistCookie(list_item) {
+    console.log(list_item);
     var target_id = $(list_item).attr("data-target");
 
     var target_obj = $("#" + target_id);
