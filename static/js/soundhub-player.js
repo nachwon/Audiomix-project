@@ -334,9 +334,7 @@ function addToPlaylist(self) {
 
     li.each(function(index, item) {
         var existing_item = $(item).find("a").data("target");
-        console.log(existing_item);
         var to_be_added_item = $(list_item).find("a").data("target");
-        console.log(to_be_added_item);
         if (existing_item === to_be_added_item) {
             exists_in_playlist = existing_item === to_be_added_item
         }
@@ -477,10 +475,7 @@ function playItem(self, action="play", e=null) {
 
 // 플레이리스트의 이전/다음 아이템 재생
 function playPrevNext(direction, action="play") {
-    var audio = $("[loaded]");
     var audios = $(".audio-file");
-    var target_id = audio.data("target");
-    var target_obj_id = $("#" + target_id).find("audio").attr("id");
     var items = $(".player-playlist-item");
     var next_item;
 
@@ -491,7 +486,7 @@ function playPrevNext(direction, action="play") {
 
     items.each(function(index, item) {
         // 현재 플레이중인 트랙에 대해서
-        if ($(item).find("a").data("target") === target_obj_id) {
+        if ($(item).attr("playing")) {
             // 다음 버튼은 index + 1 재생
             if (direction === 'next') {
                 next_item = $(items[index + 1]).find('a');
@@ -514,13 +509,20 @@ function togglePlaylistItem() {
     var playlist_lis = $(".player-playlist-item");
     var check_played = false;  // 오디오가 현재 재생중인 아이템 이전인지 이후인지 판단
 
+    console.log(playlist_lis);
+
     playlist_lis.each(function(index, item) {
         // 모든 아이템들 초기화
         $(item).removeClass("played-playlist-item");
 
         // 루프가 현재 재생중인 아이템에 도달하면
-        if ($(item).attr("playing")) {
+
+        if (audio.data("target") === $(item).data("target")) {
             check_played = true;
+
+            $(".player-playlist-item").attr("playing", null);
+
+            $(item).attr("playing", true);
 
             $(item).addClass("playing");
             if (audio[0].paused) {
