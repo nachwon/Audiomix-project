@@ -376,12 +376,12 @@ function addToPlaylist(self) {
 }
 
 // 플레이리스트 아이템 삭제
-function deleteFromPlaylist(self) {
+function deleteFromPlaylist() {
     var audio = $("[loaded]");
     var current_more_action_menu = $("#more-action-menu");
     var target_id = current_more_action_menu.attr("data-target");
     var target_obj = $("li[data-target='"+ target_id +"']");
-    var target_audio = target_obj.find("audio");
+    var target_audio = $("#" + target_obj.find("a").data("target"));
     var playlist = $(".player-playlist-item");
 
     // 삭제 메세지
@@ -417,29 +417,31 @@ function deleteFromPlaylist(self) {
                 deletePlaylistCookie(item);
             }, 1000);
 
-            if (audio.length) {
-                // 재생 중이던 오디오를 목록에서 삭제하는 경우
-                if (target_audio[0] === audio[0]) {
-                    // 재생 중이던 오디오 초기화하고 다음 리스트 아이템 재생
-                    if (!audio[0].paused) {
-                        resetWaveform(audio);
-                        playPrevNext("next");
-                        // 재생중인 오디오가 마지막 아이템일 때 삭제한 경우
-                        if (index === (playlist.length - 1)) {
-                            playPrevNext("prev");
-                        }
+            // if (audio.length) {
+            // 재생 중이던 오디오를 목록에서 삭제하는 경우
+            console.log(target_obj);
+            console.log(audio);
+            if (target_audio[0] === audio[0]) {
+                // 재생 중이던 오디오 초기화하고 다음 리스트 아이템 재생
+                if (!audio[0].paused) {
+                    resetWaveform(audio);
+                    playPrevNext("next");
+                    // 재생중인 오디오가 마지막 아이템일 때 삭제한 경우
+                    if (index === (playlist.length - 1)) {
+                        playPrevNext("prev");
                     }
-                    // 일시정지 중이던 오디오
-                    else if (audio[0].paused) {
-                        resetWaveform(audio);
-                        playPrevNext("next", "pause");
-                        // 재생중인 오디오가 마지막 아이템일 때 삭제한 경우
-                        if (index === (playlist.length - 1)) {
-                            playPrevNext("prev", "pause")
-                        }
+                }
+                // 일시정지 중이던 오디오
+                else if (audio[0].paused) {
+                    resetWaveform(audio);
+                    playPrevNext("next", "pause");
+                    // 재생중인 오디오가 마지막 아이템일 때 삭제한 경우
+                    if (index === (playlist.length - 1)) {
+                        playPrevNext("prev", "pause")
                     }
                 }
             }
+            // }
         }
     });
 
@@ -634,7 +636,7 @@ function setPlaylistCookie(list_item) {
     var author = target_obj.find(".track-author").text();
     var post_img = target_obj.find(".track-post-img").attr("src");
 
-    var track_info = item_url + "," + post_img + "," + title + "," + author;
+    var track_info = item_url + ", " + post_img + ", " + title + ", " + author;
 
     document.cookie = target_id + "=" + track_info + "; path=/;";
     console.log(target_id + "=" + track_info + "; path=/;")
@@ -665,7 +667,7 @@ function setPlaylistItem(track_id, audio_url, img_url, title, author) {
 // 현재 재생정보 쿠키에 저장
 function setCurrentTimeCookie(time, is_paused) {
     var audio = $("[loaded]");
-    document.cookie = "currentTime=" + audio.attr("data-target") + "," + time + "," + is_paused + "; expires=Thu, 01 Jan 2020 00:00:00 UTC; path=/;"
+    document.cookie = "currentTime=" + audio.attr("data-target") + ", " + time + ", " + is_paused + "; expires=Thu, 01 Jan 2020 00:00:00 UTC; path=/;"
 }
 
 // 쿠키에서 플레이리스트 아이템들 가져와서 플레이리스트에 바로 추가
@@ -683,7 +685,7 @@ function getPlaylistCookie() {
                 var result = item.match(pattern);
                 var target_id = result[1];
 
-                var info_list = item.match(pattern)[2].split(",");
+                var info_list = item.match(pattern)[2].split(", ");
                 var audio_url = info_list[0];
                 var post_img = info_list[1];
                 var title = info_list[2];
@@ -711,7 +713,7 @@ function getPlaylistCookie() {
                 }
             }
             else if (item.indexOf("currentTime") === 1) {
-                var result2 = item.match(pattern2)[1].split(",");
+                var result2 = item.match(pattern2)[1].split(", ");
                 var current_target_id = result2[0];
                 var current_time = result2[1];
                 var is_paused = result2[2];
@@ -724,17 +726,22 @@ function getPlaylistCookie() {
                 loadAudio(audio, "audio");
 
                 var loaded_audio = $("[loaded]");
-                loaded_audio[0].currentTime = current_time;
 
-                if (is_paused === "true") {
-                    playAudio("pause")
-                }
-                else if (is_paused === "false") {
-                    playAudio("play")
-                }
-                updatePlayerPostInfo();
 
-                updatePlayerProgress()
+                loaded_audio.on("loadeddata", function () {
+                    loaded_audio[0].currentTime = current_time;
+                    if (is_paused === "true") {
+                        playAudio("pause")
+                    }
+                    else if (is_paused === "false") {
+                        playAudio("play")
+                    }
+                    updatePlayerPostInfo();
+
+                    updatePlayerProgress()
+                });
+
+
             }
         }
     });
@@ -743,5 +750,5 @@ function getPlaylistCookie() {
 // 플레이리스트 쿠키 삭제
 function deletePlaylistCookie(item) {
     var target_id = $(item).attr("data-target");
-    document.cookie = target_id + "=; ; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    document.cookie = target_id + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
 }
