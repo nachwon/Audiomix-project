@@ -674,7 +674,7 @@ function setCurrentTimeCookie(time, is_paused) {
 function getPlaylistCookie() {
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
-    var pattern = /(track-.*)=(.*)/i;
+    var pattern = /(track-\d+)=(.*)/i;
     var pattern2 = /currentTime=(.*)/i;
     var li = $(".player-playlist-item");
 
@@ -686,6 +686,7 @@ function getPlaylistCookie() {
                 var target_id = result[1];
 
                 var info_list = item.match(pattern)[2].split(", ");
+                console.log(result);
                 var audio_url = info_list[0];
                 var post_img = info_list[1];
                 var title = info_list[2];
