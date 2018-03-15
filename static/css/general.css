@@ -73,8 +73,7 @@ div.contents {
   #message-box .message-box-post-img {
     height: 60px;
     width: 60px;
-    background-size: cover;
-    background-repeat: no-repeat;
+    object-fit: cover;
     display: inline-block;
     float: left;
     margin-right: 10px; }
