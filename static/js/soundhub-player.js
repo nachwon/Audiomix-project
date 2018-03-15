@@ -686,7 +686,6 @@ function getPlaylistCookie() {
                 var target_id = result[1];
 
                 var info_list = item.match(pattern)[2].split(", ");
-                console.log(result);
                 var audio_url = info_list[0];
                 var post_img = info_list[1];
                 var title = info_list[2];
@@ -718,8 +717,6 @@ function getPlaylistCookie() {
                 var current_target_id = result2[0];
                 var current_time = result2[1];
                 var is_paused = result2[2];
-
-                console.log(result2);
 
                 var target_obj = $("li[data-target='"+ current_target_id +"']");
                 var audio = target_obj.find("audio");
