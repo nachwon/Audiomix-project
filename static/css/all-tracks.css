@@ -17,7 +17,8 @@ div.track-obj {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    border-radius: 5px; }
+    border-radius: 5px;
+    object-fit: cover; }
   div.track-obj p {
     margin: 0; }
   div.track-obj > a {
@@ -68,6 +69,9 @@ div.track-obj {
       font-size: 25px;
       display: inline;
       color: #333533; }
+      div.track-obj div.track-social-count .item .add-to-playlist {
+        border: 0;
+        background-color: transparent; }
       div.track-obj div.track-social-count .item .like-btn {
         cursor: pointer;
         transition: 0.3s; }

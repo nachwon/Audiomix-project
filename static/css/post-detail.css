@@ -14,7 +14,8 @@
     .post-master-track .master-track-info .track-author {
       font-family: 'Source Sans Pro', sans-serif;
       font-size: 3rem;
-      color: black; }
+      color: black;
+      display: inline-block; }
       .post-master-track .master-track-info .track-author:hover {
         color: #337ab7; }
   .post-master-track .track-img {

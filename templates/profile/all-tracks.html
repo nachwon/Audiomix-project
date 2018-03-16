@@ -26,9 +26,9 @@
             <!-- track likes, comment track count -->
             <div class="track-social-count">
                 <div class="item">
-                    <span onclick="addToPlaylist(this);" class="add-to-playlist" data-target="track-{{ track.pk }}">
+                    <button onclick="addToPlaylist(this);" class="add-to-playlist" data-target="track-{{ track.pk }}">
                         <i class="fas fa-plus"></i>
-                    </span>
+                    </button>
                 </div>
                 <div class="item">
                     {% if request.user in track.liked.all %}

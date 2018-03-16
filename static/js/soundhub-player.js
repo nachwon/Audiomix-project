@@ -417,38 +417,35 @@ function deleteFromPlaylist() {
                 deletePlaylistCookie(item);
             }, 1000);
 
-            // if (audio.length) {
-            // 재생 중이던 오디오를 목록에서 삭제하는 경우
-            console.log(target_obj);
-            console.log(audio);
-            if (target_audio[0] === audio[0]) {
-                // 재생 중이던 오디오 초기화하고 다음 리스트 아이템 재생
-                if (!audio[0].paused) {
-                    resetWaveform(audio);
-                    playPrevNext("next");
-                    // 재생중인 오디오가 마지막 아이템일 때 삭제한 경우
-                    if (index === (playlist.length - 1)) {
-                        playPrevNext("prev");
+            if (playlist.length !== 1) {
+                // 재생 중이던 오디오를 목록에서 삭제하는 경우
+                if (target_audio[0] === audio[0]) {
+                    // 재생 중이던 오디오 초기화하고 다음 리스트 아이템 재생
+                    if (!audio[0].paused) {
+                        resetWaveform(audio);
+                        playPrevNext("next");
+                        // 재생중인 오디오가 마지막 아이템일 때 삭제한 경우
+                        if (index === (playlist.length - 1)) {
+                            playPrevNext("prev");
+                        }
                     }
-                }
-                // 일시정지 중이던 오디오
-                else if (audio[0].paused) {
-                    resetWaveform(audio);
-                    playPrevNext("next", "pause");
-                    // 재생중인 오디오가 마지막 아이템일 때 삭제한 경우
-                    if (index === (playlist.length - 1)) {
-                        playPrevNext("prev", "pause")
+                    // 일시정지 중이던 오디오
+                    else if (audio[0].paused) {
+                        resetWaveform(audio);
+                        playPrevNext("next", "pause");
+                        // 일시정지 중인 오디오가 마지막 아이템일 때 삭제한 경우
+                        if (index === (playlist.length - 1)) {
+                            playPrevNext("prev", "pause")
+                        }
                     }
                 }
             }
-            // }
+            // 플레이리스트의 마지막 항목을 삭제한 경우
+            else if (playlist.length === 1) {
+                resetPlayer()
+            }
         }
     });
-
-    // 플레이리스트의 마지막 항목을 삭제한 경우
-    if (playlist.length === 1) {
-        resetPlayer()
-    }
 }
 
 // 플레이리스트의 아이템 재생
@@ -639,7 +636,6 @@ function setPlaylistCookie(list_item) {
     var track_info = item_url + ", " + post_img + ", " + title + ", " + author;
 
     document.cookie = target_id + "=" + track_info + "; path=/;";
-    console.log(target_id + "=" + track_info + "; path=/;")
 }
 
 // 쿠키 버전 플레이리스트 아이템

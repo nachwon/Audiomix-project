@@ -21,6 +21,7 @@ div.track-obj {
         background-repeat: no-repeat;
         background-position: center;
         border-radius: 5px;
+        object-fit: cover;
     }
 
     p {
@@ -95,6 +96,11 @@ div.track-obj {
             font-size: 25px;
             display: inline;
             color: #333533;
+
+            .add-to-playlist {
+                border: 0;
+                background-color: transparent;
+            }
 
             .like-btn {
                 cursor: pointer;
