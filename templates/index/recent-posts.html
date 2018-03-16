@@ -18,7 +18,7 @@
                         <button class="play-btn" data-target="track-{{ post.pk }}-audio" onclick="loadAudio(this);playAudio();updatePlayerPostInfo()"><i class="fas fa-play-circle fa-3x"></i></button>
                     </div>
                 </div>
-                <p class="track-title">{{ post.title|truncatechars:30 }}</p>
+                <a href="{% url 'views:post:post-detail' pk=post.pk %}"><p class="track-title">{{ post.title|truncatechars:30 }}</p></a>
                 <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="track-author">{{ post.author }}</p></a>
             </div>
         {% endfor %}
@@ -42,7 +42,7 @@
                         <button class="play-btn" data-target="track-{{ post.pk }}-audio" onclick="loadAudio(this);playAudio();updatePlayerPostInfo()"><i class="fas fa-play-circle fa-3x"></i></button>
                     </div>
                 </div>
-                <p class="track-title">{{ post.title|truncatechars:30 }}</p>
+                <a href="{% url 'views:post:post-detail' pk=post.pk %}"><p class="track-title">{{ post.title|truncatechars:30 }}</p></a>
                 <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="track-author">{{ post.author }}</p></a>
             </div>
         {% endfor %}
@@ -65,7 +65,7 @@
                         <button class="play-btn" data-target="track-{{ post.pk }}-audio" onclick="loadAudio(this);playAudio();updatePlayerPostInfo()"><i class="fas fa-play-circle fa-3x"></i></button>
                     </div>
                 </div>
-                <p class="track-title">{{ post.title|truncatechars:30 }}</p>
+                <a href="{% url 'views:post:post-detail' pk=post.pk %}"><p class="track-title">{{ post.title|truncatechars:30 }}</p></a>
                 <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="track-author">{{ post.author }}</p></a>
             </div>
         {% endfor %}
