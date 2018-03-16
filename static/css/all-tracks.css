@@ -20,7 +20,7 @@ div.track-obj {
     border-radius: 5px; }
   div.track-obj p {
     margin: 0; }
-  div.track-obj a {
+  div.track-obj > a {
     display: inline-block; }
   div.track-obj div.title-author-wrapper {
     display: inline-block;
@@ -34,12 +34,15 @@ div.track-obj {
       white-space: nowrap;
       text-overflow: ellipsis;
       margin-top: 7px;
-      font-size: 25px; }
+      font-size: 25px;
+      color: black; }
+      div.track-obj div.title-author-wrapper .track-title:hover {
+        color: #337ab7; }
     div.track-obj div.title-author-wrapper .track-author {
       font-size: 18px;
       color: black; }
       div.track-obj div.title-author-wrapper .track-author:hover {
-        font-weight: bold; }
+        color: #337ab7; }
   div.track-obj div.play-btn-wrapper {
     position: relative;
     display: inline-block; }

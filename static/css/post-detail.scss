@@ -2,41 +2,70 @@
     background: whitesmoke;
     color: black;
     padding: 20px;
-}
-
-.master-track-info {
-    .track-title {
-        font-size: 50px;
-    }
-    .track-author {
-        font-size: 2rem;
-    }
-}
-
-.master-track-waveform {
-    position: relative;
-    margin: 50px auto;
-    display: block;
     overflow: hidden;
 
-    .post-detail-waveform {
-        width: 1170px;
-        height: 150px;
+
+    .master-track-info {
+        display: inline-block;
+        width: 800px;
+        margin-left: 30px;
+
+        .track-title {
+            font-family: 'Fjalla One', sans-serif;
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        .track-author {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 3rem;
+            color: black;
+
+            &:hover {
+                color: #337ab7;
+            }
+        }
     }
 
-    .master-track-waveform-base {
+    .track-img {
+        width: 350px;
+        height: 350px;
         float: left;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 3px;
+        }
     }
 
-    .waveform-cover-cutter {
-        width: 100px;
+    .master-track-waveform {
+        position: relative;
+        margin: 0 auto;
+        display: block;
         overflow: hidden;
+        width: 800px;
         height: 150px;
-        position: absolute;
+        left: 10px;
 
-        .master-track-waveform-cover {
+        .post-detail-waveform {
+            width: 800px;
+            height: 150px;
+        }
+
+        .master-track-waveform-base {
+            float: left;
+        }
+
+        .waveform-cover-cutter {
+            width: 100px;
+            overflow: hidden;
+            height: 150px;
             position: absolute;
-            left: 0;
+
+            .master-track-waveform-cover {
+                position: absolute;
+                left: 0;
+            }
         }
     }
 }

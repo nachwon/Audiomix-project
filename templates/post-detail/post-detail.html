@@ -21,9 +21,16 @@
                 {% else %}
                     <audio src="{{ post.master_track.url }}"></audio>
                 {% endif %}
+                <div class="track-img">
+                    {% if post.post_img.name == '' %}
+                    <img src="{% static 'img/default-post-img.png' %}" alt="">
+                    {% else %}
+                    <img src="{{ post.post_img.url }}" alt="">
+                    {% endif %}
+                </div>
                 <div class="master-track-info">
                     <h1 class="track-title">{{ post.title }}</h1>
-                    <p class="track-author">{{ post.author }}</p>
+                    <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="track-author">{{ post.author }}</p></a>
                 </div>
                 <div class="master-track-waveform">
                     {% if post.master_track_waveform_base.name == "" %}

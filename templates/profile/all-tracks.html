@@ -53,7 +53,7 @@
 
             <!-- track author, title -->
             <div class="title-author-wrapper">
-                <p class="track-title">{{ track.title }}</p>
+                <a href="{% url 'views:post:post-detail' pk=track.pk %}"><p class="track-title">{{ track.title }}</p></a>
                 <a href="{% url 'views:user:user-detail' pk=track.author.pk %}"><p class="track-author">{{ track.author }}</p></a>
             </div>
             <!-- track author, title ends -->
