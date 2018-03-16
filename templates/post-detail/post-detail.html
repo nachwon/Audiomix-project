@@ -5,11 +5,39 @@
 {% endblock title %}
 
 {% block links %}
+    <link rel="stylesheet" href="{% static 'css/post-detail.css' %}">
 {% endblock links %}
 
 {% block scripts %}
 {% endblock scripts %}
 
 {% block content %}
+
+    <div class="container contents">
+        <div class="post-detail-contents">
+            <div class="post-master-track">
+                {% if post.master_track.name == '' %}
+                    <audio src="{{ post.author_track.url }}"></audio>
+                {% else %}
+                    <audio src="{{ post.master_track.url }}"></audio>
+                {% endif %}
+                <div class="master-track-info">
+                    <h1 class="track-title">{{ post.title }}</h1>
+                    <p class="track-author">{{ post.author }}</p>
+                </div>
+                <div class="master-track-waveform">
+                    {% if post.master_track_waveform_base.name == "" %}
+                        <img class="master-track-waveform-base post-detail-waveform" src="{{ post.author_track_waveform_base.url }}">
+                        <div class="waveform-cover-cutter">
+                            <img class="master-track-waveform-cover post-detail-waveform" src="{{ post.author_track_waveform_cover.url }}" alt="">
+                        </div>
+                    {% else %}
+                        <img class="master-track-waveform-base post-detail-waveform" src="{{ post.master_track_waveform_base.url }}">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 {% endblock content %}

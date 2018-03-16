@@ -2,10 +2,17 @@ import json
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_POST
 
 from posts.models import Post, PostLike
+
+
+def post_detail(request, pk):
+    context = {
+        'post': Post.objects.get(pk=pk),
+    }
+    return render(request, 'post-detail/post-detail.html', context=context)
 
 
 @login_required

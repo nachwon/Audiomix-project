@@ -1,0 +1,29 @@
+.post-master-track {
+  background: whitesmoke;
+  color: black;
+  padding: 20px; }
+
+.master-track-info .track-title {
+  font-size: 50px; }
+
+.master-track-info .track-author {
+  font-size: 2rem; }
+
+.master-track-waveform {
+  position: relative;
+  margin: 50px auto;
+  display: block;
+  overflow: hidden; }
+  .master-track-waveform .post-detail-waveform {
+    width: 1170px;
+    height: 150px; }
+  .master-track-waveform .master-track-waveform-base {
+    float: left; }
+  .master-track-waveform .waveform-cover-cutter {
+    width: 100px;
+    overflow: hidden;
+    height: 150px;
+    position: absolute; }
+    .master-track-waveform .waveform-cover-cutter .master-track-waveform-cover {
+      position: absolute;
+      left: 0; }

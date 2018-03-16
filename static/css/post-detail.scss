@@ -1,0 +1,42 @@
+.post-master-track {
+    background: whitesmoke;
+    color: black;
+    padding: 20px;
+}
+
+.master-track-info {
+    .track-title {
+        font-size: 50px;
+    }
+    .track-author {
+        font-size: 2rem;
+    }
+}
+
+.master-track-waveform {
+    position: relative;
+    margin: 50px auto;
+    display: block;
+    overflow: hidden;
+
+    .post-detail-waveform {
+        width: 1170px;
+        height: 150px;
+    }
+
+    .master-track-waveform-base {
+        float: left;
+    }
+
+    .waveform-cover-cutter {
+        width: 100px;
+        overflow: hidden;
+        height: 150px;
+        position: absolute;
+
+        .master-track-waveform-cover {
+            position: absolute;
+            left: 0;
+        }
+    }
+}
