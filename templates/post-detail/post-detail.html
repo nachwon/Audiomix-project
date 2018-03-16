@@ -15,23 +15,29 @@
 
     <div class="container contents">
         <div class="post-detail-contents">
+
+            <!-- master track -->
             <div class="post-master-track">
+                <!-- master track audio -->
                 {% if post.master_track.name == '' %}
                     <audio src="{{ post.author_track.url }}"></audio>
                 {% else %}
                     <audio src="{{ post.master_track.url }}"></audio>
                 {% endif %}
+                <!-- master track post image-->
                 <div class="track-img">
                     {% if post.post_img.name == '' %}
-                    <img src="{% static 'img/default-post-img.png' %}" alt="">
+                        <img src="{% static 'img/soundhub-logo.png' %}" alt="" style="width: 80%;height: 100%;object-fit: contain;text-align: center;">
                     {% else %}
-                    <img src="{{ post.post_img.url }}" alt="">
+                        <img src="{{ post.post_img.url }}" alt="">
                     {% endif %}
                 </div>
+                <!-- post title & author -->
                 <div class="master-track-info">
-                    <h1 class="track-title">{{ post.title }}</h1>
+                    <h1 class="track-title">{{ post.title|truncatechars:35 }}</h1>
                     <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="track-author">{{ post.author }}</p></a>
                 </div>
+                <!-- master track waveform-->
                 <div class="master-track-waveform">
                     {% if post.master_track_waveform_base.name == "" %}
                         <img class="master-track-waveform-base post-detail-waveform" src="{{ post.author_track_waveform_base.url }}">
@@ -41,6 +47,9 @@
                     {% else %}
                         <img class="master-track-waveform-base post-detail-waveform" src="{{ post.master_track_waveform_base.url }}">
                     {% endif %}
+                </div>
+                <div class="master-track-console">
+                    <div draggable="false" id="play-btn-{{ post.pk }}" class="master-track-play-btn play-btn" data-target="track-{{ post.pk }}-audio" onclick="loadAudio(this);playAudio();updatePlayerPostInfo();"><i class="fas fa-play-circle fa-3x"></i></div>
                 </div>
             </div>
         </div>

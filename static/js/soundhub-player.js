@@ -442,6 +442,7 @@ function deleteFromPlaylist() {
             }
             // 플레이리스트의 마지막 항목을 삭제한 경우
             else if (playlist.length === 1) {
+                playAudio("pause");
                 resetPlayer()
             }
         }
