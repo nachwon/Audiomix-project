@@ -8,7 +8,6 @@ from django.template import loader
 from django.views.decorators.http import require_GET, require_POST
 
 from posts.models import PostLike
-from users.forms import SignInForm
 from users.models import Relationship
 
 
@@ -30,8 +29,6 @@ def user_detail(request, pk):
     followings = Relationship.objects.filter(from_user=user)[:14]
 
     context = {
-        # 빈 로그인 폼
-        "sign_in": SignInForm,
         "user": user,
         "liked_posts": liked_posts,
         "followers": followers,
