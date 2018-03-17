@@ -14,13 +14,11 @@
         .track-title {
             font-family: 'Fjalla One', sans-serif;
             font-size: 50px;
-            margin-bottom: 20px;
         }
         .track-author {
             font-family: 'Source Sans Pro', sans-serif;
             font-size: 3rem;
             color: black;
-            display: inline-block;
 
             &:hover {
                 color: #337ab7;
@@ -75,14 +73,13 @@
         }
     }
 
-    .master-track-console {
-        width: 100%;
-        height: 100%;
-        position: relative;
-
-        .master-track-play-btn {
-            font-size: 30px;
-            display: inline-block;
-        }
+    .master-track-play-btn {
+        display: inline-block;
+        font-size: 30px;
+        height: 150px;
+        float: left;
+        padding: 30px 0;
+        vertical-align: middle;
+        margin-right: 30px;
     }
 }

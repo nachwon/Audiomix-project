@@ -735,8 +735,6 @@ function getPlaylistCookie() {
 
                     updatePlayerProgress()
                 });
-
-
             }
         }
     });
