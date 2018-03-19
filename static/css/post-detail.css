@@ -18,6 +18,15 @@
       display: inline-block; }
       .post-master-track .master-track-info .track-author:hover {
         color: #337ab7; }
+    .post-master-track .master-track-info .playtime {
+      display: inline-block;
+      float: right;
+      position: relative;
+      top: 20px;
+      font-size: 25px;
+      font-family: 'Source Sans Pro', sans-serif; }
+      .post-master-track .master-track-info .playtime span {
+        vertical-align: text-top; }
   .post-master-track .track-img {
     width: 350px;
     height: 350px;
@@ -42,6 +51,7 @@
       width: 800px;
       height: 150px; }
     .post-master-track .master-track-waveform .master-track-waveform-base {
+      cursor: pointer;
       float: left; }
     .post-master-track .master-track-waveform .waveform-cover-cutter {
       pointer-events: none;

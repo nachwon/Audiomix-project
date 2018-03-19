@@ -25,6 +25,17 @@
                 color: #337ab7;
             }
         }
+        .playtime {
+            display: inline-block;
+            float: right;
+            position: relative;
+            top: 20px;
+            font-size: 25px;
+            font-family: 'Source Sans Pro', sans-serif;
+            span {
+                vertical-align: text-top;
+            }
+        }
     }
 
     .track-img {
@@ -58,6 +69,7 @@
         }
 
         .master-track-waveform-base {
+            cursor: pointer;
             float: left;
         }
 
