@@ -17,7 +17,7 @@
         <div class="post-detail-contents">
 
             <!-- master track -->
-            <div class="post-master-track">
+            <div class="post-master-track" id="track-{{ post.pk }}" data-pk="{{ post.pk }}" data-type="track">
                 <!-- master track audio -->
                 {% if post.master_track.name == '' %}
                     <audio preload="metadata" id="track-{{ post.pk }}-audio" class="post-track audio-file" data-target="track-{{ post.pk }}" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
