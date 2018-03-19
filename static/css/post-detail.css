@@ -44,7 +44,7 @@
     .post-master-track .master-track-waveform .master-track-waveform-base {
       float: left; }
     .post-master-track .master-track-waveform .waveform-cover-cutter {
-      width: 100px;
+      pointer-events: none;
       overflow: hidden;
       height: 150px;
       position: absolute; }

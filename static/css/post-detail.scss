@@ -62,7 +62,7 @@
         }
 
         .waveform-cover-cutter {
-            width: 100px;
+            pointer-events: none;
             overflow: hidden;
             height: 150px;
             position: absolute;

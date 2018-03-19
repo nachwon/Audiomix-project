@@ -47,8 +47,8 @@
                 <!-- master track waveform-->
                 <div class="master-track-waveform">
                     {% if post.master_track_waveform_base.name == "" %}
-                        <img class="master-track-waveform-base post-detail-waveform" src="{{ post.author_track_waveform_base.url }}">
-                        <div class="waveform-cover-cutter">
+                        <img class="master-track-waveform-base post-detail-waveform back-image" onclick="seekTrack(event)" src="{{ post.author_track_waveform_base.url }}">
+                        <div class="waveform-cover-cutter cutter">
                             <img class="master-track-waveform-cover post-detail-waveform" src="{{ post.author_track_waveform_cover.url }}" alt="">
                         </div>
                     {% else %}
