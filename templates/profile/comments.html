@@ -16,9 +16,9 @@
                 <source src="{{ comment.comment_track.url }}">
             </audio>
             {% if comment.post.post_img.name == "" %}
-                <div class="comment-post-img" style="background-image: url({% static 'img/default-post-img.png' %});"></div>
+                <img class="comment-post-img" src="{% static 'img/default-post-img.png' %}">
             {% else %}
-                <div class="comment-post-img" style="background-image: url({{ comment.post.post_img.url }});"></div>
+                <img class="comment-post-img" src="{{ comment.post.post_img.url }}">
             {% endif %}
             <span class="uploaded-post">
                 <span class="comment-post-title">{{ comment.instrument }} Track</span>

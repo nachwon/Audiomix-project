@@ -142,7 +142,7 @@ function updatePlayerPostInfo() {
     else if (target_type === "comment") {
         instrument = target_obj.find(".comment-post-title").text();
         uploaded_post = target_obj.find(".comment-instrument").find("a.comment-uploaded-post").text();
-        post_img = target_obj.find(".comment-post-img").attr("style");
+        post_img = target_obj.find(".comment-post-img").attr("src");
 
         // 커맨트 트랙이 업로드된 포스트 이미지
         player_post_img.attr("src", post_img);

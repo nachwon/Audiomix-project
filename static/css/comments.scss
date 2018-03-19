@@ -8,8 +8,7 @@
     .comment-post-img {
         width: 120px;
         height: 120px;
-        background-size: cover;
-        background-repeat: no-repeat;
+        object-fit: cover;
         display: inline-block;
         float: left;
     }

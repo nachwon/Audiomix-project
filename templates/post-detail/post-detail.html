@@ -17,7 +17,7 @@
         <div class="post-detail-contents">
 
             <!-- master track -->
-            <div class="post-master-track" id="track-{{ post.pk }}" data-pk="{{ post.pk }}" data-type="track">
+            <div class="post-master-track" id="track-{{ post.pk }}-master" data-pk="{{ post.pk }}" data-type="track">
                 <!-- master track audio -->
                 {% if post.master_track.name == '' %}
                 {% else %}
@@ -61,7 +61,10 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="post-author-track">
+            <div class="post-author-track" id="track-{{ post.pk }}" data-pk="{{ post.pk }}" data-type="track">
+                <audio preload="metadata" id="track-{{ post.pk }}-audio" class="post-track audio-file" data-target="track-{{ post.pk }}" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
+                    <source src="{{ post.author_track.url }}">
+                </audio>
 
                 <div class="author-track-info">
                     <div draggable="false" id="play-btn-{{ post.pk }}" class="author-track-play-btn play-btn" data-target="track-{{ post.pk }}-audio" onclick="loadAudio(this);playAudio();updatePlayerPostInfo();"><i class="fas fa-play-circle fa-3x"></i></div>
@@ -78,7 +81,7 @@
                 {% if post.author_track_waveform_base.name == "" %}
                 {% else %}
                     <div class="author-track-waveform">
-                        <img class="author-track-waveform-base post-detail-author-waveform back-image" onclick="seekTrack(event)" src="{{ post.author_track_waveform_base.url }}">
+                        <img class="author-track-waveform-base post-detail-author-waveform back-image" draggable="false" onclick="seekTrack(event)" src="{{ post.author_track_waveform_base.url }}">
                         <div class="author-waveform-cover-cutter cutter">
                             <img class="author-track-waveform-cover post-detail-author-waveform" src="{{ post.author_track_waveform_cover.url }}" alt="">
                         </div>

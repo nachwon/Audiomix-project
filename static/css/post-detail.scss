@@ -120,6 +120,8 @@
 .post-author-track {
 
     .author-track-info {
+        margin-left: 20px;
+
         .author-track-play-btn {
             display: inline-block;
         }
@@ -143,6 +145,13 @@
 
     }
     .author-track-waveform {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        width: 1000px;
+        height: 150px;
+        left: 20px;
+        margin: 30px auto;
 
         .post-detail-author-waveform {
             width: 1000px;
