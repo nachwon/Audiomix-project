@@ -86,7 +86,7 @@
             float: left;
         }
 
-        .waveform-cover-cutter {
+        .master-waveform-cover-cutter {
             pointer-events: none;
             overflow: hidden;
             height: 150px;
@@ -114,5 +114,59 @@
         &:hover {
             color: #E2B026;
         }
+    }
+}
+
+.post-author-track {
+
+    .author-track-info {
+        .author-track-play-btn {
+            display: inline-block;
+        }
+        .track-title {
+            margin-left: 20px;
+            font-family: 'Fjalla One', sans-serif;
+            display: inline-block;
+        }
+        .track-author {
+            margin-left: 10px;
+            display: inline-block;
+        }
+
+        .playtime {
+            display: inline-block;
+            float: right;
+            position: relative;
+            top: 40px;
+            right: 20px;
+        }
+
+    }
+    .author-track-waveform {
+
+        .post-detail-author-waveform {
+            width: 1000px;
+            height: 150px;
+        }
+
+        .author-track-waveform-base {
+            filter: brightness(350%);
+            cursor: pointer;
+            float: left;
+        }
+
+        .author-waveform-cover-cutter {
+            pointer-events: none;
+            overflow: hidden;
+            height: 150px;
+            position: absolute;
+            transition-duration: 0.3s;
+
+            .author-track-waveform-cover {
+                position: absolute;
+                left: 0;
+            }
+        }
+
     }
 }
