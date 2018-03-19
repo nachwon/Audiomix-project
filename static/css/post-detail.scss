@@ -19,6 +19,7 @@
             font-family: 'Source Sans Pro', sans-serif;
             font-size: 3rem;
             color: black;
+            display: inline-block;
 
             &:hover {
                 color: #337ab7;
@@ -74,6 +75,7 @@
     }
 
     .master-track-play-btn {
+        cursor: pointer;
         display: inline-block;
         font-size: 30px;
         height: 150px;
