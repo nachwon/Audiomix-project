@@ -63,6 +63,19 @@
         left: 20px;
         margin: 30px auto;
 
+        .no-master-track {
+            text-align: center;
+            .line1 {
+                font-size: 5rem;
+                font-family: 'Fjalla One', sans-serif;
+                margin-bottom: 25px;
+            }
+            .line2 {
+                font-family: 'Source Sans Pro', sans-serif;
+                font-size: 3rem;
+            }
+        }
+
         .post-detail-waveform {
             width: 800px;
             height: 150px;
@@ -96,5 +109,10 @@
         padding: 30px 0;
         vertical-align: middle;
         margin-right: 30px;
+        transition-duration: 0.1s;
+
+        &:hover {
+            color: #E2B026;
+        }
     }
 }

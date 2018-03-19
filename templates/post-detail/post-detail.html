@@ -20,9 +20,6 @@
             <div class="post-master-track" id="track-{{ post.pk }}" data-pk="{{ post.pk }}" data-type="track">
                 <!-- master track audio -->
                 {% if post.master_track.name == '' %}
-                    <audio preload="metadata" id="track-{{ post.pk }}-audio" class="post-track audio-file" data-target="track-{{ post.pk }}" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
-                        <source src="{{ post.author_track.url }}">
-                    </audio>
                 {% else %}
                     <audio preload="metadata" id="track-{{ post.pk }}-audio" class="post-track audio-file" data-target="track-{{ post.pk }}" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
                         <source src="{{ post.master_track.url }}">
@@ -45,19 +42,22 @@
                     <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="track-author">{{ post.author }}</p></a>
                     <!-- track duration -->
                     <div class="playtime">
-                        <span id="playtime-current-{{ track.pk }}" class="track-duration-current">00:00</span> |
-                        <span id="playtime-total-{{ track.pk }}" class="track-duration-total">00:00</span>
+                        <span id="playtime-current-{{ track.pk }}" class="track-duration-current">- - : - - </span> |
+                        <span id="playtime-total-{{ track.pk }}" class="track-duration-total"> - - : - - </span>
                     </div>
                 </div>
                 <!-- master track waveform-->
                 <div class="master-track-waveform">
                     {% if post.master_track_waveform_base.name == "" %}
-                        <img class="master-track-waveform-base post-detail-waveform back-image" onclick="seekTrack(event)" src="{{ post.author_track_waveform_base.url }}">
-                        <div class="waveform-cover-cutter cutter">
-                            <img class="master-track-waveform-cover post-detail-waveform" src="{{ post.author_track_waveform_cover.url }}" alt="">
+                        <div class="no-master-track">
+                            <p class="line1">No master track</p>
+                            <p class="line2">Mix tracks to create master track</p>
                         </div>
                     {% else %}
-                        <img class="master-track-waveform-base post-detail-waveform" src="{{ post.master_track_waveform_base.url }}">
+                        <img class="master-track-waveform-base post-detail-waveform back-image" onclick="seekTrack(event)" src="{{ post.master_track_waveform_base.url }}">
+                        <div class="waveform-cover-cutter cutter">
+                            <img class="master-track-waveform-cover post-detail-waveform" src="{{ post.master_track_waveform_cover.url }}" alt="">
+                        </div>
                     {% endif %}
                 </div>
             </div>
