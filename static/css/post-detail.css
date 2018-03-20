@@ -84,45 +84,61 @@
     .post-master-track .master-track-play-btn:hover {
       color: #E2B026; }
 
-.post-author-track .author-track-info {
-  margin-left: 20px; }
-  .post-author-track .author-track-info .author-track-play-btn {
-    display: inline-block; }
-  .post-author-track .author-track-info .track-title {
-    margin-left: 20px;
-    font-family: 'Fjalla One', sans-serif;
-    display: inline-block; }
-  .post-author-track .author-track-info .track-author {
-    margin-left: 10px;
-    display: inline-block; }
-  .post-author-track .author-track-info .playtime {
-    display: inline-block;
-    float: right;
-    position: relative;
-    top: 40px;
-    right: 20px; }
-
-.post-author-track .author-track-waveform {
+.post-author-track {
+  height: 250px;
   position: relative;
-  display: block;
-  overflow: hidden;
-  width: 1000px;
-  height: 150px;
-  left: 20px;
-  margin: 30px auto; }
-  .post-author-track .author-track-waveform .post-detail-author-waveform {
-    width: 1000px;
-    height: 150px; }
-  .post-author-track .author-track-waveform .author-track-waveform-base {
-    filter: brightness(350%);
-    cursor: pointer;
-    float: left; }
-  .post-author-track .author-track-waveform .author-waveform-cover-cutter {
-    pointer-events: none;
+  box-shadow: inset 0px 0px 10px 0px black; }
+  .post-author-track .author-track-instrument {
+    display: inline-block;
+    width: 150px;
+    height: 250px;
+    float: left;
+    text-align: center;
+    font-size: 35px;
+    font-family: 'Fjalla One', sans-serif; }
+    .post-author-track .author-track-instrument .instrument-wrapper {
+      position: relative;
+      top: calc(50% - 110px/2); }
+  .post-author-track .author-track-info {
+    margin-left: 20px;
+    display: inline-block;
+    width: 1030px; }
+    .post-author-track .author-track-info .author-track-play-btn {
+      display: inline-block; }
+    .post-author-track .author-track-info .track-title {
+      margin-left: 20px;
+      font-family: 'Fjalla One', sans-serif;
+      display: inline-block; }
+    .post-author-track .author-track-info .track-author {
+      margin-left: 10px;
+      display: inline-block; }
+    .post-author-track .author-track-info .playtime {
+      display: inline-block;
+      float: right;
+      position: relative;
+      top: 40px;
+      right: 20px; }
+  .post-author-track .author-track-waveform {
+    position: relative;
+    display: block;
     overflow: hidden;
-    height: 150px;
-    position: absolute;
-    transition-duration: 0.3s; }
-    .post-author-track .author-track-waveform .author-waveform-cover-cutter .author-track-waveform-cover {
+    width: 1000px;
+    height: 120px;
+    left: 20px;
+    margin: 15px auto; }
+    .post-author-track .author-track-waveform .post-detail-author-waveform {
+      width: 1000px;
+      height: 120px; }
+    .post-author-track .author-track-waveform .author-track-waveform-base {
+      filter: brightness(350%);
+      cursor: pointer;
+      float: left; }
+    .post-author-track .author-track-waveform .author-waveform-cover-cutter {
+      pointer-events: none;
+      overflow: hidden;
+      height: 120px;
       position: absolute;
-      left: 0; }
+      transition-duration: 0.3s; }
+      .post-author-track .author-track-waveform .author-waveform-cover-cutter .author-track-waveform-cover {
+        position: absolute;
+        left: 0; }

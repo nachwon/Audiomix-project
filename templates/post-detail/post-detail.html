@@ -68,9 +68,12 @@
                     <source src="{{ post.author_track.url }}">
                 </audio>
 
-{#                <div class="track-img">#}
-{#                    <img src="/static/img/instruments/{{ post.instrument.first }}.png" alt="">#}
-{#                </div>#}
+                <div class="author-track-instrument">
+                    <div class="instrument-wrapper">
+                        <p class="track-instrument">{{ post.instrument.first }}</p>
+                        <p>Track</p>
+                    </div>
+                </div>
 
                 <div class="author-track-info">
                     <div draggable="false" id="play-btn-{{ post.pk }}" class="author-track-play-btn play-btn" data-target="track-{{ post.pk }}-audio" onclick="loadAudio(this);playAudio();updatePlayerPostInfo();"><i class="fas fa-play-circle fa-3x"></i></div>
@@ -96,6 +99,14 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            var inst = $(".track-instrument").text();
+            var inst_dir = "url({% static 'img/instruments' %}/" + inst + ".jpg)";
+            $(".post-author-track").css("background-image", inst_dir);
+        });
+    </script>
 
 
 {% endblock content %}

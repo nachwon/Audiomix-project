@@ -118,9 +118,30 @@
 }
 
 .post-author-track {
+    height: 250px;
+    position: relative;
+    box-shadow: inset 0px 0px 10px 0px black;
+
+
+    .author-track-instrument {
+        display: inline-block;
+        width: 150px;
+        height: 250px;
+        float: left;
+        text-align: center;
+        font-size: 35px;
+        font-family: 'Fjalla One', sans-serif;
+
+        .instrument-wrapper {
+            position: relative;
+            top: calc(50% - 110px/2);
+        }
+    }
 
     .author-track-info {
         margin-left: 20px;
+        display: inline-block;
+        width: 1030px;
 
         .author-track-play-btn {
             display: inline-block;
@@ -149,13 +170,13 @@
         display: block;
         overflow: hidden;
         width: 1000px;
-        height: 150px;
+        height: 120px;
         left: 20px;
-        margin: 30px auto;
+        margin: 15px auto;
 
         .post-detail-author-waveform {
             width: 1000px;
-            height: 150px;
+            height: 120px;
         }
 
         .author-track-waveform-base {
@@ -167,7 +188,7 @@
         .author-waveform-cover-cutter {
             pointer-events: none;
             overflow: hidden;
-            height: 150px;
+            height: 120px;
             position: absolute;
             transition-duration: 0.3s;
 
