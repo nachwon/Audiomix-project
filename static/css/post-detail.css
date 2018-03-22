@@ -106,7 +106,8 @@
   height: 250px;
   position: absolute;
   background-color: black;
-  opacity: 0.6; }
+  opacity: 0.6;
+  pointer-events: none; }
 
 .post-author-track {
   height: 250px;
@@ -116,17 +117,14 @@
   overflow: hidden;
   background-size: cover;
   background-position: center; }
-  .post-author-track .author-track-instrument {
+  .post-author-track .author-track-profile-img {
     display: inline-block;
+    position: relative;
     width: 150px;
     height: 250px;
     float: left;
-    text-align: center;
-    font-size: 35px;
-    font-family: 'Fjalla One', sans-serif; }
-    .post-author-track .author-track-instrument .instrument-wrapper {
-      position: relative;
-      top: calc(50% - 110px/2); }
+    background-size: cover;
+    background-position: center; }
   .post-author-track .author-track-info {
     position: relative;
     margin-left: 20px;
@@ -134,7 +132,8 @@
     display: inline-block;
     width: 1030px; }
     .post-author-track .author-track-info .author-track-play-btn {
-      display: inline-block; }
+      display: inline-block;
+      cursor: pointer; }
     .post-author-track .author-track-info .track-title {
       margin-left: 20px;
       font-family: 'Fjalla One', sans-serif;
@@ -183,17 +182,14 @@
   background-size: cover;
   background-position: center; }
 
-.post-mixed-tracks .mixed-track-instrument {
+.post-mixed-tracks .mixed-track-profile-img {
   display: inline-block;
+  position: relative;
   width: 150px;
   height: 250px;
   float: left;
-  text-align: center;
-  font-size: 35px;
-  font-family: 'Fjalla One', sans-serif; }
-  .post-mixed-tracks .mixed-track-instrument .instrument-wrapper {
-    position: relative;
-    top: calc(50% - 110px/2); }
+  background-size: cover;
+  background-position: center; }
 
 .post-mixed-tracks .mixed-track-info {
   position: relative;
@@ -202,7 +198,8 @@
   display: inline-block;
   width: 1030px; }
   .post-mixed-tracks .mixed-track-info .mixed-track-play-btn {
-    display: inline-block; }
+    display: inline-block;
+    cursor: pointer; }
   .post-mixed-tracks .mixed-track-info .track-title {
     margin-left: 20px;
     font-family: 'Fjalla One', sans-serif;

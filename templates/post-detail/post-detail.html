@@ -67,19 +67,18 @@
             </div>
 
             <!-- author track -->
-            <div class="post-author-track" id="track-{{ post.pk }}" data-pk="{{ post.pk }}" data-type="track">
+            <div class="post-author-track post-track" data-instrument="{{ post.instrument.first }}" id="track-{{ post.pk }}" data-pk="{{ post.pk }}" data-type="track">
 
                 <audio preload="metadata" id="track-{{ post.pk }}-audio" class="post-track audio-file" data-target="track-{{ post.pk }}" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
                     <source src="{{ post.author_track.url }}">
                 </audio>
 
                 <div class="instrument-img-mask"></div>
-                <div class="author-track-instrument">
-                    <div class="instrument-wrapper">
-                        <p class="track-instrument">{{ post.instrument.first }}</p>
-                        <p>Track</p>
-                    </div>
-                </div>
+                {% if post.author.profile_img.name == "" %}
+                    <div class="author-track-profile-img" style="background-image:url({% static 'img/default-profile.png' %})"></div>
+                {% else %}
+                    <div class="author-track-profile-img" style="background-image:url({{ post.author.profile_img.url }})"></div>
+                {% endif %}
 
                 <div class="author-track-info">
                     <div draggable="false" id="play-btn-{{ post.pk }}" class="author-track-play-btn play-btn" data-target="track-{{ post.pk }}-audio" onclick="loadAudio(this);playAudio();updatePlayerPostInfo();"><i class="fas fa-play-circle fa-3x"></i></div>
@@ -111,19 +110,18 @@
             <!-- mixed tracks -->
             <div class="post-mixed-tracks">
                 {% for comment in mixed %}
-                    <div class="post-mixed-track" id="comment-{{ comment.pk }}" data-pk="{{ comment.pk }}" data-type="track">
+                    <div class="post-mixed-track post-track" data-instrument="{{ comment.instrument }}" id="comment-{{ comment.pk }}" data-pk="{{ comment.pk }}" data-type="track">
 
                         <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
                             <source src="{{ comment.comment_track.url }}">
                         </audio>
 
                         <div class="instrument-img-mask"></div>
-                        <div class="mixed-track-instrument">
-                            <div class="instrument-wrapper">
-                                <p class="track-instrument">{{ comment.instrument }}</p>
-                                <p>Track</p>
-                            </div>
-                        </div>
+                        {% if comment.author.profile_img.name == "" %}
+                            <div class="mixed-track-profile-img" style="background-image:url({% static 'img/default-profile.png' %})"></div>
+                        {% else %}
+                            <div class="mixed-track-profile-img" style="background-image:url({{ comment.author.profile_img.url }})"></div>
+                        {% endif %}
 
                         <div class="mixed-track-info">
                             <!-- PLAY BTN -->
@@ -157,11 +155,11 @@
 
     <script>
         $(document).ready(function() {
-            var inst = $(".track-instrument");
+            var inst = $(".post-track");
 
             inst.each(function(index, item) {
-                var inst_dir = "url({% static 'img/instruments' %}/" + $(item).text() + ".jpg)";
-                $(item).parent().parent().parent().css("background-image", inst_dir);
+                var inst_dir = "url({% static 'img/instruments' %}/" + $(item).data("instrument") + ".jpg)";
+                $(item).css("background-image", inst_dir);
             });
         });
 

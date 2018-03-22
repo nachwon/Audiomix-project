@@ -145,6 +145,7 @@
     position: absolute;
     background-color: black;
     opacity: 0.6;
+    pointer-events: none;
 }
 
 .post-author-track {
@@ -157,19 +158,14 @@
     background-position: center;
 
 
-    .author-track-instrument {
+    .author-track-profile-img {
         display: inline-block;
+        position: relative;
         width: 150px;
         height: 250px;
         float: left;
-        text-align: center;
-        font-size: 35px;
-        font-family: 'Fjalla One', sans-serif;
-
-        .instrument-wrapper {
-            position: relative;
-            top: calc(50% - 110px/2);
-        }
+        background-size: cover;
+        background-position: center;
     }
 
     .author-track-info {
@@ -181,6 +177,7 @@
 
         .author-track-play-btn {
             display: inline-block;
+            cursor: pointer;
         }
         .track-title {
             margin-left: 20px;
@@ -249,19 +246,14 @@
         background-position: center;
     }
 
-    .mixed-track-instrument {
+    .mixed-track-profile-img {
         display: inline-block;
+        position: relative;
         width: 150px;
         height: 250px;
         float: left;
-        text-align: center;
-        font-size: 35px;
-        font-family: 'Fjalla One', sans-serif;
-
-        .instrument-wrapper {
-            position: relative;
-            top: calc(50% - 110px/2);
-        }
+        background-size: cover;
+        background-position: center;
     }
     .mixed-track-info {
         position: relative;
@@ -272,6 +264,7 @@
 
         .mixed-track-play-btn {
             display: inline-block;
+            cursor: pointer;
         }
         .track-title {
             margin-left: 20px;
