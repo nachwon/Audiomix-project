@@ -10,9 +10,12 @@ from posts.models import Post, PostLike
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
+
     context = {
         'post': post,
-        'mixed': post.mixed_tracks.all()
+        'mixed': post.mixed_tracks.all(),
+        'comments': post.comment_tracks.filter(is_mixed=False)
+
     }
     return render(request, 'post-detail/post-detail.html', context=context)
 

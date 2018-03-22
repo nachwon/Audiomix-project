@@ -157,6 +157,16 @@
                     </div>
                 {% endif %}
             </div>
+
+            <div class="mixed-track-header track-collapse">
+                <span>Comment Tracks <span class="collapse-icon" onclick="collapseTrack(this, $('.post-comment-tracks'))"><i class="far fa-minus-square"></i></span></span>
+            </div>
+
+            <div class="post-comment-tracks">
+                {% for comment in comments %}
+                    {% include 'post-detail/comments.html' with instrument="Guitar" %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 
