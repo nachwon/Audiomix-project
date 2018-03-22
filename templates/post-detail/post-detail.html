@@ -73,6 +73,7 @@
                     <source src="{{ post.author_track.url }}">
                 </audio>
 
+                <div class="instrument-img-mask"></div>
                 <div class="author-track-instrument">
                     <div class="instrument-wrapper">
                         <p class="track-instrument">{{ post.instrument.first }}</p>
@@ -116,6 +117,7 @@
                             <source src="{{ comment.comment_track.url }}">
                         </audio>
 
+                        <div class="instrument-img-mask"></div>
                         <div class="mixed-track-instrument">
                             <div class="instrument-wrapper">
                                 <p class="track-instrument">{{ comment.instrument }}</p>
@@ -155,9 +157,12 @@
 
     <script>
         $(document).ready(function() {
-            var inst = $(".track-instrument").text();
-            var inst_dir = "url({% static 'img/instruments' %}/" + inst + ".jpg)";
-            $(".post-author-track").css("background-image", inst_dir);
+            var inst = $(".track-instrument");
+
+            inst.each(function(index, item) {
+                var inst_dir = "url({% static 'img/instruments' %}/" + $(item).text() + ".jpg)";
+                $(item).parent().parent().parent().css("background-image", inst_dir);
+            });
         });
 
         function collapseTrack(self, div) {
