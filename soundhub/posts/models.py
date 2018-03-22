@@ -12,7 +12,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     post_img = models.ImageField(upload_to=post_img_directory_path, blank=True)
-    instrument = models.ManyToManyField(Instrument, related_name='post_instrument', blank=True)
+    instrument = models.ForeignKey(Instrument, related_name='post_instrument', blank=True, null=True, on_delete=models.SET_NULL)
     genre = models.ManyToManyField(Genre, related_name='post_genre', blank=True)
 
     master_track = models.FileField(upload_to=master_track_directory_path, blank=True, null=True)
