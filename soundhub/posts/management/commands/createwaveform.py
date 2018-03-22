@@ -1,7 +1,6 @@
 import re
-
 import os
-from django.conf import settings
+
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 from django.core.files.storage import default_storage as storage
