@@ -11,10 +11,23 @@ from posts.models import Post, PostLike
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
+    guitar = post.comment_tracks.filter(is_mixed=False).filter(instrument__name="Guitar")
+    bass = post.comment_tracks.filter(is_mixed=False).filter(instrument__name="Bass")
+    drums = post.comment_tracks.filter(is_mixed=False).filter(instrument__name="Drums")
+    keys = post.comment_tracks.filter(is_mixed=False).filter(instrument__name="Keyboard")
+    vocal = post.comment_tracks.filter(is_mixed=False).filter(instrument__name="Vocal")
+    others = post.comment_tracks.filter(is_mixed=False).filter(instrument__name="Others")
+
     context = {
         'post': post,
         'mixed': post.mixed_tracks.all(),
-        'comments': post.comment_tracks.filter(is_mixed=False)
+        'comments': post.comment_tracks.filter(is_mixed=False),
+        'guitar': guitar,
+        'bass': bass,
+        'drums': drums,
+        'keys': keys,
+        'vocal': vocal,
+        'others': others
 
     }
     return render(request, 'post-detail/post-detail.html', context=context)
