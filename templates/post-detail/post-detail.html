@@ -67,22 +67,23 @@
             </div>
 
             <!-- author track -->
-            <div class="post-author-track post-track" data-instrument="{{ post.instrument.first }}" id="track-{{ post.pk }}" data-pk="{{ post.pk }}" data-type="track">
+            <div class="post-author-track post-track" data-instrument="{{ post.instrument }}" id="track-{{ post.pk }}" data-pk="{{ post.pk }}" data-type="track">
 
                 <audio preload="metadata" id="track-{{ post.pk }}-audio" class="post-track audio-file" data-target="track-{{ post.pk }}" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
                     <source src="{{ post.author_track.url }}">
                 </audio>
 
                 <div class="instrument-img-mask"></div>
-                {% if post.author.profile_img.name == "" %}
-                    <div class="author-track-profile-img" style="background-image:url({% static 'img/default-profile.png' %})"></div>
-                {% else %}
-                    <div class="author-track-profile-img" style="background-image:url({{ post.author.profile_img.url }})"></div>
-                {% endif %}
-
+                <a href="{% url 'views:user:user-detail' pk=post.author.pk %}">
+                    {% if post.author.profile_img.name == "" %}
+                        <div class="author-track-profile-img" style="background-image:url({% static 'img/default-profile.png' %})"></div>
+                    {% else %}
+                        <div class="author-track-profile-img" style="background-image:url({{ post.author.profile_img.url }})"></div>
+                    {% endif %}
+                </a>
                 <div class="author-track-info">
                     <div draggable="false" id="play-btn-{{ post.pk }}" class="author-track-play-btn play-btn" data-target="track-{{ post.pk }}-audio" onclick="loadAudio(this);playAudio();updatePlayerPostInfo();"><i class="fas fa-play-circle fa-3x"></i></div>
-                    <h1 class="track-title">Original Track</h1>
+                    <h1 class="track-title">{{ post.instrument }} Track</h1>
                     <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="track-author">by {{ post.author }}</p></a>
                     <!-- track duration -->
                     <div class="playtime">
@@ -117,11 +118,13 @@
                         </audio>
 
                         <div class="instrument-img-mask"></div>
-                        {% if comment.author.profile_img.name == "" %}
-                            <div class="mixed-track-profile-img" style="background-image:url({% static 'img/default-profile.png' %})"></div>
-                        {% else %}
-                            <div class="mixed-track-profile-img" style="background-image:url({{ comment.author.profile_img.url }})"></div>
-                        {% endif %}
+                        <a href="{% url 'views:user:user-detail' pk=comment.author.pk %}">
+                            {% if comment.author.profile_img.name == "" %}
+                                <div class="mixed-track-profile-img" style="background-image:url({% static 'img/default-profile.png' %})"></div>
+                            {% else %}
+                                <div class="mixed-track-profile-img" style="background-image:url({{ comment.author.profile_img.url }})"></div>
+                            {% endif %}
+                        </a>
 
                         <div class="mixed-track-info">
                             <!-- PLAY BTN -->
