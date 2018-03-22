@@ -84,10 +84,29 @@
     .post-master-track .master-track-play-btn:hover {
       color: #E2B026; }
 
+.collapse {
+  height: 0 !important; }
+
+.author-track-header {
+  background-color: whitesmoke;
+  line-height: 30px;
+  padding: 10px 20px;
+  border-top: 1px solid #ddd;
+  box-sizing: content-box; }
+  .author-track-header span {
+    font-family: 'Fjalla One', sans-serif;
+    font-size: 20px;
+    color: #888; }
+  .author-track-header span.collapse-icon {
+    cursor: pointer;
+    float: right; }
+
 .post-author-track {
   height: 250px;
   position: relative;
-  box-shadow: inset 0 0 10px 0 black; }
+  box-shadow: inset 0 0 10px 0 black;
+  transition-duration: 0.3s;
+  overflow: hidden; }
   .post-author-track .author-track-instrument {
     display: inline-block;
     width: 150px;
@@ -101,6 +120,7 @@
       top: calc(50% - 110px/2); }
   .post-author-track .author-track-info {
     margin-left: 20px;
+    margin-top: 10px;
     display: inline-block;
     width: 1030px; }
     .post-author-track .author-track-info .author-track-play-btn {

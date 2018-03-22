@@ -62,8 +62,13 @@
                 </div>
             </div>
 
+            <div class="author-track-header">
+                <span>Original Track <span class="collapse-icon" onclick="toggleAuthorTrack(this)"><i class="far fa-minus-square"></i></span></span>
+            </div>
+
             <!-- author track -->
             <div class="post-author-track" id="track-{{ post.pk }}" data-pk="{{ post.pk }}" data-type="track">
+
                 <audio preload="metadata" id="track-{{ post.pk }}-audio" class="post-track audio-file" data-target="track-{{ post.pk }}" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
                     <source src="{{ post.author_track.url }}">
                 </audio>
@@ -97,6 +102,13 @@
                     </div>
                 {% endif %}
             </div>
+
+            <!-- mixed tracks -->
+            <div class="post-mixed-tracks">
+                <div class="header"></div>
+            </div>
+
+
         </div>
     </div>
 
@@ -106,6 +118,15 @@
             var inst_dir = "url({% static 'img/instruments' %}/" + inst + ".jpg)";
             $(".post-author-track").css("background-image", inst_dir);
         });
+
+        function toggleAuthorTrack(self) {
+            var div = $(".post-author-track");
+            var icon = $(self).find("[data-fa-processed]");
+
+            icon.toggleClass("fa-minus-square fa-plus-square");
+            div.toggleClass("collapse")
+
+        }
     </script>
 
 
