@@ -163,21 +163,7 @@
             </div>
 
             <div class="post-comment-tracks">
-                {% for comment in comments %}
-                    {% if guitar.exists %}
-                        {% include 'post-detail/comment-tracks.html' with instrument="Guitar" %}
-                    {% elif bass.exists %}
-                        {% include 'post-detail/comment-tracks.html' with instrument="Bass" %}
-                    {% elif drums.exists %}
-                        {% include 'post-detail/comment-tracks.html' with instrument="Drums" %}
-                    {% elif keys.exists %}
-                        {% include 'post-detail/comment-tracks.html' with instrument="Keyboard" %}
-                    {% elif vocal.exists %}
-                        {% include 'post-detail/comment-tracks.html' with instrument="Vocal" %}
-                    {% elif others.exists %}
-                        {% include 'post-detail/comment-tracks.html' with instrument="Others" %}
-                    {% endif %}
-                {% endfor %}
+
             </div>
         </div>
     </div>

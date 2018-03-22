@@ -22,10 +22,11 @@ def post_detail(request, pk):
         'post': post,
         'mixed': post.mixed_tracks.all(),
         'comments': post.comment_tracks.filter(is_mixed=False),
+
         'guitar': guitar,
         'bass': bass,
         'drums': drums,
-        'keys': keys,
+        'keyboard': keys,
         'vocal': vocal,
         'others': others
 
