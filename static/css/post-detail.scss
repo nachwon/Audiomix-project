@@ -263,6 +263,15 @@
 
 
 .post-comment-tracks {
+
+    a {
+        color: black;
+
+        &:hover {
+            color: #23527c;
+        }
+    }
+
     background-color: whitesmoke;
     overflow: hidden;
 
@@ -271,6 +280,7 @@
         float: left;
 
         .tab-btns {
+            box-sizing: content-box;
             font-family: 'Fjalla One', sans-serif;
             color: #888;
             width: 140px;
@@ -281,11 +291,16 @@
             border-right: 1px solid #ddd;
         }
     }
+
+    .no-tracks {
+        border: 0;
+    }
 }
 
 .instrument-comment-track {
     float: left;
     width: 100%;
+    display: none;
 
     .comment-track {
         color: black;
@@ -305,5 +320,9 @@
     background-color: #ddd;
     box-shadow: inset 0px 0px 10px -2px black;
     color: black !important;
+}
+
+.tab-opened {
+    display: block !important;
 }
 
