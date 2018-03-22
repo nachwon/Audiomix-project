@@ -110,9 +110,9 @@
             <!-- mixed tracks -->
             <div class="post-mixed-tracks">
                 {% for comment in mixed %}
-                    <div class="post-mixed-track" id="comment-{{ comment.pk }}" data-pk="{{ comment.pk }}" data-type="comment">
+                    <div class="post-mixed-track" id="comment-{{ comment.pk }}" data-pk="{{ comment.pk }}" data-type="track">
 
-                        <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" onloadedmetadata="setCommentTrackTotalDuration(event)" ontimeupdate="updateCommentTrack(event);updatePlayerProgress()" onended="resetWaveform(this)">
+                        <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
                             <source src="{{ comment.comment_track.url }}">
                         </audio>
 
@@ -124,8 +124,9 @@
                         </div>
 
                         <div class="mixed-track-info">
-                            <div draggable="false" id="play-btn-{{ post.pk }}" class="mixed-track-play-btn play-btn" data-target="comment-track-{{ comment.pk }}" onclick="loadAudio(this);playAudio();updatePlayerPostInfo();"><i class="fas fa-play-circle fa-3x"></i></div>
-                            <h1 class="track-title">Original Track</h1>
+                            <!-- PLAY BTN -->
+                            <div draggable="false" id="comment-play-btn-{{ comment.pk }}" data-target="comment-track-{{ comment.pk }}" class="mixed-track-play-btn play-btn" onclick="loadAudio(this);playAudio();updatePlayerPostInfo();"><i class="fas fa-play-circle fa-3x"></i></div>
+                            <h1 class="track-title">{{ comment.instrument }} Track</h1>
                             <a href="{% url 'views:user:user-detail' pk=comment.author.pk %}"><p class="track-author">by {{ comment.author }}</p></a>
                             <!-- track duration -->
                             <div class="playtime">
@@ -134,7 +135,7 @@
                             </div>
                         </div>
 
-                        <!-- author track waveform -->
+                        <!-- mixed track waveform -->
                         {% if comment.comment_track_waveform_base.name == "" %}
                         {% else %}
                             <div class="mixed-track-waveform">
