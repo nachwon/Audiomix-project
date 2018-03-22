@@ -164,7 +164,7 @@
 
             <div class="post-comment-tracks">
                 <div class="instruments-tabs">
-                    <button class="guitar-tab tab-btns">Guitar</button>
+                    <button class="guitar-tab tab-btns tab-clicked">Guitar</button>
                     <button class="bass-tab tab-btns">Bass</button>
                     <button class="drums-tab tab-btns">Drums</button>
                     <button class="keys-tab tab-btns">Keyboard</button>
@@ -231,6 +231,23 @@
 
             icon.toggleClass("fa-minus-square fa-plus-square");
             div.toggleClass("collapse")
+
+        }
+
+        $(".tab-btns").on("click", function() {
+            showInstrumentTracks($(this).text())
+        });
+
+        function showInstrumentTracks (instrument) {
+            var tabs = $(".tab-btns");
+
+            tabs.removeClass("tab-clicked");
+
+            tabs.each(function(index, item) {
+                if ($(item).text() === instrument) {
+                    $(item).addClass("tab-clicked")
+                }
+            })
 
         }
     </script>
