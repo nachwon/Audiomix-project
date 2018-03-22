@@ -127,6 +127,9 @@
     padding: 10px 20px;
     border-top: 1px solid #ddd;
     box-sizing: content-box;
+    box-shadow: 0 0 9px -2px black;
+    position: relative;
+    z-index: 1;
 
     span {
         font-family: 'Fjalla One', sans-serif;
@@ -231,6 +234,21 @@
             }
         }
 
+    }
+}
+
+.no-mixed-tracks {
+    border: 0;
+
+    span {
+        display: inline-block;
+        width: 100%;
+        line-height: 250px;
+        text-align: center;
+        font-size: 40px;
+        color: #333533;
+        background-color: whitesmoke;
+        font-family: 'Fjalla One', sans-serif;
     }
 }
 

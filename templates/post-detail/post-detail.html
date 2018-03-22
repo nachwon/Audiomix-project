@@ -110,49 +110,53 @@
 
             <!-- mixed tracks -->
             <div class="post-mixed-tracks">
-                {% for comment in mixed %}
-                    <div class="post-mixed-track post-track" data-instrument="{{ comment.instrument }}" id="comment-{{ comment.pk }}" data-pk="{{ comment.pk }}" data-type="track">
+                {% if mixed %}
+                    {% for comment in mixed %}
+                        <div class="post-mixed-track post-track" data-instrument="{{ comment.instrument }}" id="comment-{{ comment.pk }}" data-pk="{{ comment.pk }}" data-type="track">
 
-                        <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
-                            <source src="{{ comment.comment_track.url }}">
-                        </audio>
+                            <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
+                                <source src="{{ comment.comment_track.url }}">
+                            </audio>
 
-                        <div class="instrument-img-mask"></div>
-                        <a href="{% url 'views:user:user-detail' pk=comment.author.pk %}">
-                            {% if comment.author.profile_img.name == "" %}
-                                <div class="mixed-track-profile-img" style="background-image:url({% static 'img/default-profile.png' %})"></div>
-                            {% else %}
-                                <div class="mixed-track-profile-img" style="background-image:url({{ comment.author.profile_img.url }})"></div>
-                            {% endif %}
-                        </a>
+                            <div class="instrument-img-mask"></div>
+                            <a href="{% url 'views:user:user-detail' pk=comment.author.pk %}">
+                                {% if comment.author.profile_img.name == "" %}
+                                    <div class="mixed-track-profile-img" style="background-image:url({% static 'img/default-profile.png' %})"></div>
+                                {% else %}
+                                    <div class="mixed-track-profile-img" style="background-image:url({{ comment.author.profile_img.url }})"></div>
+                                {% endif %}
+                            </a>
 
-                        <div class="mixed-track-info">
-                            <!-- PLAY BTN -->
-                            <div draggable="false" id="comment-play-btn-{{ comment.pk }}" data-target="comment-track-{{ comment.pk }}" class="mixed-track-play-btn play-btn" onclick="loadAudio(this);playAudio();updatePlayerPostInfo();"><i class="fas fa-play-circle fa-3x"></i></div>
-                            <h1 class="track-title">{{ comment.instrument }} Track</h1>
-                            <a href="{% url 'views:user:user-detail' pk=comment.author.pk %}"><p class="track-author">by {{ comment.author }}</p></a>
-                            <!-- track duration -->
-                            <div class="playtime">
-                                <span id="playtime-current-{{ track.pk }}" class="track-duration-current">- - : - - </span> |
-                                <span id="playtime-total-{{ track.pk }}" class="track-duration-total"> - - : - - </span>
-                            </div>
-                        </div>
-
-                        <!-- mixed track waveform -->
-                        {% if comment.comment_track_waveform_base.name == "" %}
-                        {% else %}
-                            <div class="mixed-track-waveform">
-                                <img class="mixed-track-waveform-base post-detail-mixed-waveform back-image" draggable="false" onclick="seekTrack(event)" src="{{ comment.comment_track_waveform_base.url }}">
-                                <div class="mixed-waveform-cover-cutter cutter">
-                                    <img class="mixed-track-waveform-cover post-detail-mixed-waveform" src="{{ comment.comment_track_waveform_cover.url }}" alt="">
+                            <div class="mixed-track-info">
+                                <!-- PLAY BTN -->
+                                <div draggable="false" id="comment-play-btn-{{ comment.pk }}" data-target="comment-track-{{ comment.pk }}" class="mixed-track-play-btn play-btn" onclick="loadAudio(this);playAudio();updatePlayerPostInfo();"><i class="fas fa-play-circle fa-3x"></i></div>
+                                <h1 class="track-title">{{ comment.instrument }} Track</h1>
+                                <a href="{% url 'views:user:user-detail' pk=comment.author.pk %}"><p class="track-author">by {{ comment.author }}</p></a>
+                                <!-- track duration -->
+                                <div class="playtime">
+                                    <span id="playtime-current-{{ track.pk }}" class="track-duration-current">- - : - - </span> |
+                                    <span id="playtime-total-{{ track.pk }}" class="track-duration-total"> - - : - - </span>
                                 </div>
                             </div>
-                        {% endif %}
+
+                            <!-- mixed track waveform -->
+                            {% if comment.comment_track_waveform_base.name == "" %}
+                            {% else %}
+                                <div class="mixed-track-waveform">
+                                    <img class="mixed-track-waveform-base post-detail-mixed-waveform back-image" draggable="false" onclick="seekTrack(event)" src="{{ comment.comment_track_waveform_base.url }}">
+                                    <div class="mixed-waveform-cover-cutter cutter">
+                                        <img class="mixed-track-waveform-cover post-detail-mixed-waveform" src="{{ comment.comment_track_waveform_cover.url }}" alt="">
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="no-mixed-tracks post-mixed-track post-track">
+                        <span>No Mixed Tracks</span>
                     </div>
-                {% endfor %}
+                {% endif %}
             </div>
-
-
         </div>
     </div>
 
