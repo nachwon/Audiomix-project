@@ -641,8 +641,12 @@ function setPlaylistCookie(list_item) {
 }
 
 // 쿠키 버전 플레이리스트 아이템
-function setPlaylistItem(track_id, audio_url, img_url, title, author) {
+function setPlaylistItem(track_id, is_master, audio_url, img_url, title, author) {
     var track_audio_id = track_id + "-audio";
+
+    if (is_master) {
+        track_audio_id += "-master";
+    }
 
     var list_item =
         '<li class="player-playlist-item" data-target="' + track_id + '" data-type="cookie">' +
@@ -682,12 +686,11 @@ function getPlaylistCookie() {
             if (item.indexOf("track") === 1) {
 
                 var result = item.match(pattern);
-                var target_id;
+                var target_id = result[1];
+                var is_master = false;
+
                 if (result[2]) {
-                    target_id = result[1] + result[2];
-                }
-                else {
-                    target_id = result[1]
+                    is_master = true;
                 }
 
                 var info_list = item.match(pattern)[3].split(", ");
@@ -697,7 +700,7 @@ function getPlaylistCookie() {
                 var author = info_list[3];
 
                 var ul = $("#player-playlist");
-                var list_item = setPlaylistItem(target_id, audio_url, post_img, title, author);
+                var list_item = setPlaylistItem(target_id, is_master, audio_url, post_img, title, author);
 
                 var exists_in_playlist = false;
 
