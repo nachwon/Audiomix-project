@@ -307,6 +307,7 @@ function togglePlaylist() {
 // 플레이 리스트에 추가함
 function addToPlaylist(self) {
     var target_obj = $("#" + $(self).attr("data-target"));
+    console.log(target_obj);
     var target_img = target_obj.find(".track-post-img").attr("src");
     var target_title = target_obj.find(".track-title").text();
     var target_author = target_obj.find(".track-author").text();
@@ -641,7 +642,8 @@ function setPlaylistCookie(list_item) {
 
 // 쿠키 버전 플레이리스트 아이템
 function setPlaylistItem(track_id, audio_url, img_url, title, author) {
-    var track_audio_id = track_id + '-audio';
+    var track_audio_id = track_id + "-audio";
+
     var list_item =
         '<li class="player-playlist-item" data-target="' + track_id + '" data-type="cookie">' +
         '<audio src="' + audio_url + '" preload="metadata" id="' + track_audio_id + '" class="post-track audio-file" data-target="' + track_id + '" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)"></audio>' +
@@ -669,9 +671,9 @@ function setCurrentTimeCookie(time, is_paused) {
 
 // 쿠키에서 플레이리스트 아이템들 가져와서 플레이리스트에 바로 추가
 function getPlaylistCookie() {
-    var decodedCookie = decodeURIComponent(document.cookie);
+    var decodedCookie = document.cookie;
     var ca = decodedCookie.split(';');
-    var pattern = /(track-\d+)=(.*)/i;
+    var pattern = /(track-\d+)(-master)?=(.*)/i;
     var pattern2 = /currentTime=(.*)/i;
     var li = $(".player-playlist-item");
 
@@ -680,9 +682,15 @@ function getPlaylistCookie() {
             if (item.indexOf("track") === 1) {
 
                 var result = item.match(pattern);
-                var target_id = result[1];
+                var target_id;
+                if (result[2]) {
+                    target_id = result[1] + result[2];
+                }
+                else {
+                    target_id = result[1]
+                }
 
-                var info_list = item.match(pattern)[2].split(", ");
+                var info_list = item.match(pattern)[3].split(", ");
                 var audio_url = info_list[0];
                 var post_img = info_list[1];
                 var title = info_list[2];

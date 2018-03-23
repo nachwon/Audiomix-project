@@ -21,7 +21,7 @@
                 <!-- master track audio -->
                 {% if post.master_track.name == '' %}
                 {% else %}
-                    <audio preload="metadata" id="track-{{ post.pk }}-audio-master" class="audio-file" data-target="track-{{ post.pk }}" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
+                    <audio preload="metadata" id="track-{{ post.pk }}-audio-master" class="audio-file" data-target="track-{{ post.pk }}-master" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
                         <source src="{{ post.master_track.url }}">
                     </audio>
                 {% endif %}
@@ -253,7 +253,6 @@
 
                 var inst_dir = "url(" + img_url + ")";
 
-                console.log(inst_dir);
                 $(item).css("background-image", inst_dir);
             });
         });
