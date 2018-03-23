@@ -229,8 +229,11 @@
     height: 250px;
     position: relative;
     border: 0;
+    border-bottom: 1px solid #ddd;
     transition-duration: 0.3s;
     overflow: hidden; }
+    .instrument-comment-track .comment-track:hover {
+      box-shadow: 0 0 10px 0 black; }
 
 .no-filter {
   filter: none !important; }
