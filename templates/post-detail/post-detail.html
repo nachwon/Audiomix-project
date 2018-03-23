@@ -42,8 +42,8 @@
                     <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="track-author">{{ post.author }}</p></a>
                     <!-- track duration -->
                     <div class="playtime">
-                        <span id="playtime-current-{{ track.pk }}" class="track-duration-current">- - : - - </span> |
-                        <span id="playtime-total-{{ track.pk }}" class="track-duration-total"> - - : - - </span>
+                        <span id="playtime-current-{{ track.pk }}" class="track-duration-current">00:00</span> |
+                        <span id="playtime-total-{{ track.pk }}" class="track-duration-total">00:00</span>
                     </div>
                 </div>
                 <!-- master track waveform-->
@@ -87,8 +87,8 @@
                     <a href="{% url 'views:user:user-detail' pk=post.author.pk %}"><p class="track-author">by {{ post.author }}</p></a>
                     <!-- track duration -->
                     <div class="playtime">
-                        <span id="playtime-current-{{ track.pk }}" class="track-duration-current">- - : - - </span> |
-                        <span id="playtime-total-{{ track.pk }}" class="track-duration-total"> - - : - - </span>
+                        <span id="playtime-current-{{ track.pk }}" class="track-duration-current">00:00</span> |
+                        <span id="playtime-total-{{ track.pk }}" class="track-duration-total">00:00</span>
                     </div>
                 </div>
 
@@ -134,8 +134,8 @@
                                 <a href="{% url 'views:user:user-detail' pk=comment.author.pk %}"><p class="track-author">by {{ comment.author }}</p></a>
                                 <!-- track duration -->
                                 <div class="playtime">
-                                    <span id="playtime-current-{{ track.pk }}" class="track-duration-current">- - : - - </span> |
-                                    <span id="playtime-total-{{ track.pk }}" class="track-duration-total"> - - : - - </span>
+                                    <span id="playtime-current-{{ track.pk }}" class="track-duration-current">00:00</span> |
+                                    <span id="playtime-total-{{ track.pk }}" class="track-duration-total">00:00</span>
                                 </div>
                             </div>
 
