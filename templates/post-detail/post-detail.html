@@ -21,7 +21,7 @@
                 <!-- master track audio -->
                 {% if post.master_track.name == '' %}
                 {% else %}
-                    <audio preload="metadata" id="track-{{ post.pk }}-audio-master" class="post-track audio-file" data-target="track-{{ post.pk }}" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
+                    <audio preload="metadata" id="track-{{ post.pk }}-audio-master" class="audio-file" data-target="track-{{ post.pk }}" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
                         <source src="{{ post.master_track.url }}">
                     </audio>
                 {% endif %}
@@ -152,7 +152,7 @@
                         </div>
                     {% endfor %}
                 {% else %}
-                    <div class="no-tracks post-track post-track">
+                    <div class="no-tracks">
                         <span>No Mixed Tracks</span>
                     </div>
                 {% endif %}
@@ -246,7 +246,14 @@
             var inst = $(".post-track");
 
             inst.each(function(index, item) {
-                var inst_dir = "url({% static 'img/instruments' %}/" + $(item).data("instrument") + ".jpg)";
+                var static_dir = "{% static 'img/instruments' %}";
+                var pattern = /(.*[/]img[/]instruments)/i;
+
+                var img_url = static_dir.match(pattern)[1] + "/" + $(item).data("instrument") + ".jpg";
+
+                var inst_dir = "url(" + img_url + ")";
+
+                console.log(inst_dir);
                 $(item).css("background-image", inst_dir);
             });
         });
