@@ -18,6 +18,8 @@ class Command(BaseCommand):
                             help='draws waveform of post audio tracks')
         parser.add_argument('--comment', dest='comment', action='store_true',
                             help='draws waveform of comment audio tracks')
+        parser.add_argument('--master', dest='master', action='store_true',
+                            help='draws waveform of master audio tracks')
 
     def handle(self, *args, **options):
 
@@ -106,6 +108,57 @@ class Command(BaseCommand):
                 os.remove(waveform_cover)
 
                 print(f'{waveform_base} saved')
+
+        elif options['master']:
+            posts = Post.objects.all()
+            for post in posts:
+                try:
+                    audio_dir = post.master_track.url
+                except ValueError:
+                    error_obj = f'user_{post.author.pk}/Post_{post.pk}'
+                    print(f'user_{post.author.pk}/Post_{post.pk} has no master track')
+                    error_count += 1
+                    error_list.append(error_obj)
+                    continue
+
+                audio_file = url_parser.search(audio_dir).group(1)
+                try:
+                    cover_png = post.master_track_waveform_cover.url
+                    cover_png_parsed = url_parser.search(cover_png).group(1)
+                    print(f'{cover_png_parsed} exists')
+                    continue
+                except ValueError:
+                    audio_track = storage.open(audio_file, 'r')
+
+                try:
+                    waveform = Waveform(audio_track, audio_track.name)
+                except CouldntDecodeError:
+                    error_obj = f'user_{post.author.pk}/Post_{post.pk}'
+                    print(f'CoudntDecodeError raised!: ' + error_obj)
+                    error_count += 1
+                    error_list.append(error_obj)
+                    continue
+
+                waveform_base = waveform.save()
+                waveform_cover = waveform.change_color(waveform_base)
+
+                with open(waveform_base, 'rb') as f1:
+                    base = ContentFile(f1.read())
+
+                with open(waveform_cover, 'rb') as f2:
+                    cover = ContentFile(f2.read())
+
+                post.master_track_waveform_base.save('author_track.png', base)
+                post.master_track_waveform_cover.save('author_track_cover.png', cover)
+
+                post.save()
+
+                os.remove(waveform_base)
+                os.remove(waveform_cover)
+
+                print(f'{waveform_base} saved')
+
+
         print('')
         print('Creating waveforms task finished')
         print('Errors occurred: ' + str(error_count))
