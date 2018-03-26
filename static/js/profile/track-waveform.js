@@ -53,10 +53,19 @@ function seekTrack (e) {
 function resetWaveform (self) {
     var audio = $(self);
 
+    // 볼륨 리셋
     audio[0].volume = 1;
+    audio.attr("volume", 1);
+    // 뮤트 해제
+    audio.attr("muted", null);
+
+    // 처음 시작지점으로
     audio[0].currentTime = 0;
+
+    // 재생 정지
     audio[0].pause();
 
+    // 재생 버튼 변경
     toggleBtn(audio, "off");
     toggleOpacity(audio, "off")
 
