@@ -640,12 +640,8 @@ function setPlaylistCookie(list_item) {
 }
 
 // 쿠키 버전 플레이리스트 아이템
-function setPlaylistItem(track_id, is_master, audio_url, img_url, title, author) {
+function setPlaylistItem(track_id, audio_url, img_url, title, author) {
     var track_audio_id = track_id + "-audio";
-
-    if (is_master) {
-        track_audio_id += "-master";
-    }
 
     var list_item =
         '<li class="player-playlist-item" data-target="' + track_id + '" data-type="cookie">' +
@@ -669,37 +665,38 @@ function setPlaylistItem(track_id, is_master, audio_url, img_url, title, author)
 // 현재 재생정보 쿠키에 저장
 function setCurrentTimeCookie(time, is_paused) {
     var audio = $("[loaded]");
-    document.cookie = "currentTime=" + audio.attr("data-target") + ", " + time + ", " + is_paused + "; expires=Thu, 01 Jan 2020 00:00:00 UTC; path=/;"
+
+    // audio 태그에 loaded 속성을 붙이는 속도가 재생중이던 오디오의 마지막 timeupdate 이벤트 발생 속도보다 빨라서
+    // 쿠키에 저장되지 않는 음원을 재생한 경우 마지막 setCurrentTimeCookie의 타겟 트랙 값이 undefined 로 저장되는 것을 막아주기 위해
+    // 아래와 같이 if 문으로 감싸줌
+    if (audio.attr("data-target")) {
+        document.cookie = "currentTime=" + audio.attr("data-target") + ", " + time + ", " + is_paused + "; expires=Thu, 01 Jan 2020 00:00:00 UTC; path=/;"
+    }
 }
 
 // 쿠키에서 플레이리스트 아이템들 가져와서 플레이리스트에 바로 추가
 function getPlaylistCookie() {
     var decodedCookie = document.cookie;
-    var ca = decodedCookie.split(';');
-    var pattern = /(track-\d+)(-master)?=(.*)/i;
+    var ca = decodedCookie.split('; ');
+    var pattern = /(track-\d+)=(.*)/i;
     var pattern2 = /currentTime=(.*)/i;
     var li = $(".player-playlist-item");
 
     $(ca).each(function(index, item) {
         if (index !== 0) {
-            if (item.indexOf("track") === 1) {
+            if (item.indexOf("track") === 0) {
 
                 var result = item.match(pattern);
                 var target_id = result[1];
-                var is_master = false;
 
-                if (result[2]) {
-                    is_master = true;
-                }
-
-                var info_list = item.match(pattern)[3].split(", ");
+                var info_list = result[2].split(", ");
                 var audio_url = info_list[0];
                 var post_img = info_list[1];
                 var title = info_list[2];
                 var author = info_list[3];
 
                 var ul = $("#player-playlist");
-                var list_item = setPlaylistItem(target_id, is_master, audio_url, post_img, title, author);
+                var list_item = setPlaylistItem(target_id, audio_url, post_img, title, author);
 
                 var exists_in_playlist = false;
 
@@ -719,7 +716,7 @@ function getPlaylistCookie() {
                     })
                 }
             }
-            else if (item.indexOf("currentTime") === 1) {
+            else if (item.indexOf("currentTime") === 0) {
                 var result2 = item.match(pattern2)[1].split(", ");
                 var current_target_id = result2[0];
                 var current_time = result2[1];
