@@ -17,11 +17,21 @@ class Command(BaseCommand):
         url_parser = re.compile(r".*?/media/(.*)[?].*")
         saved_count = 0
         skipped_count = 0
+        error_count = 0
 
         if options['default']:
             posts = Post.objects.all()
 
             for post in posts:
+                try:
+                    post.author_track_waveform_base.url
+                    post.author_track_waveform_cover.url
+                except ValueError:
+                    print(f'Post_{post.pk}: Author track waveform is not saved. '
+                          f'It seems that there is something wrong with the author track.')
+                    error_count += 1
+                    continue
+
                 try:
                     post.master_track.url
                     print(f'Post_{post.pk}: Master track already exists. Skipping the process.')
@@ -46,3 +56,7 @@ class Command(BaseCommand):
 
                     print(f'Post_{post.pk}: Successfully saved author track to master track.')
                     saved_count += 1
+
+            print(f'Master track saved: {saved_count}')
+            print(f'Process skipped: {skipped_count}')
+            print(f'Error: {error_count}')
