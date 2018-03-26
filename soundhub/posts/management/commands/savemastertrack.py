@@ -15,6 +15,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         url_parser = re.compile(r".*?/media/(.*)[?].*")
+        saved_count = 0
+        skipped_count = 0
 
         if options['default']:
             posts = Post.objects.all()
@@ -23,6 +25,7 @@ class Command(BaseCommand):
                 try:
                     post.master_track.url
                     print(f'Post_{post.pk}: Master track already exists. Skipping the process.')
+                    skipped_count += 1
 
                 except ValueError:
                     author_track_dir = post.author_track.url
@@ -42,4 +45,4 @@ class Command(BaseCommand):
                     post.master_track_waveform_cover.save('master_track_waveform_cover.png', waveform_cover)
 
                     print(f'Post_{post.pk}: Successfully saved author track to master track.')
-                break
+                    saved_count += 1
