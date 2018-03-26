@@ -67,7 +67,7 @@
             <!-- author track -->
             <div class="post-author-track post-track" data-instrument="{{ post.instrument }}" id="track-{{ post.pk }}" data-pk="{{ post.pk }}" data-type="track">
 
-                <audio preload="metadata" id="track-{{ post.pk }}-audio" class="audio-file" data-target="track-{{ post.pk }}" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
+                <audio preload="metadata" id="track-{{ post.pk }}-audio" class="audio-file" data-target="track-{{ post.pk }}" ontimeupdate="updateAudioInfo(this, false);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
                     <source src="{{ post.author_track.url }}">
                 </audio>
 
@@ -112,7 +112,7 @@
                     {% for comment in mixed %}
                         <div class="post-track" data-instrument="{{ comment.instrument }}" id="comment-{{ comment.pk }}" data-pk="{{ comment.pk }}" data-type="track">
 
-                            <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
+                            <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" ontimeupdate="updateAudioInfo(this, false);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
                                 <source src="{{ comment.comment_track.url }}">
                             </audio>
 

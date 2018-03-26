@@ -12,7 +12,7 @@ function format_time (duration) {
 }
 
 // 오디오 정보 실시간 업데이트
-function updateAudioInfo (self) {
+function updateAudioInfo (self, save_cookie=true) {
     var target_obj = $(self).parent();
     var current_time = self.currentTime;
     var total_time = self.duration;
@@ -23,7 +23,9 @@ function updateAudioInfo (self) {
     track_current.text(format_time(current_time));
     cutter.css("width", rel_current + '%');
 
-    setCurrentTimeCookie(current_time, self.paused)
+    if (save_cookie) {
+        setCurrentTimeCookie(current_time, self.paused)
+    }
 }
 
 // 오디오 총 길이 표시

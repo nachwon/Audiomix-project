@@ -2,7 +2,7 @@
 
 <div class="comment-track" data-instrument="{{ comment.instrument }}" id="comment-{{ comment.pk }}" data-pk="{{ comment.pk }}" data-type="track">
 
-    <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
+    <audio id="comment-track-{{ comment.pk }}" class="comment-track audio-file" preload="metadata" ontimeupdate="updateAudioInfo(this, false);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
         <source src="{{ comment.comment_track.url }}">
     </audio>
 
