@@ -119,9 +119,9 @@
                             <div class="instrument-img-mask"></div>
                             <a href="{% url 'views:user:user-detail' pk=comment.author.pk %}">
                                 {% if comment.author.profile_img.name == "" %}
-                                    <div class="track-profile-img" style="background-image:url({% static 'img/default-profile.png' %})"></div>
+                                    <img class="track-post-img track-profile-img" src="{% static 'img/default-profile.png' %}">
                                 {% else %}
-                                    <div class="track-profile-img" style="background-image:url({{ comment.author.profile_img.url }})"></div>
+                                    <img class="track-post-img track-profile-img" src="{{ comment.author.profile_img.url }}">
                                 {% endif %}
                             </a>
 
