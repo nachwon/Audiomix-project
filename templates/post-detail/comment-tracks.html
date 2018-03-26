@@ -29,7 +29,7 @@
     <!-- track waveform -->
     {% if comment.comment_track_waveform_base.name == "" %}
     {% else %}
-        <div class="track-waveform">
+        <div class="track-waveform waveform-wrapper">
             <img class="track-waveform-base post-detail-waveform back-image no-filter" draggable="false" onclick="seekTrack(event)" src="{{ comment.comment_track_waveform_base.url }}">
             <div class="waveform-cover-cutter cutter">
                 <img class="track-waveform-cover post-detail-waveform" src="{{ comment.comment_track_waveform_cover.url }}" alt="">

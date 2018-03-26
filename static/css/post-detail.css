@@ -173,6 +173,12 @@
     top: 40px;
     right: 20px; }
 
+.waveform-wrapper {
+  opacity: 0.5;
+  transition-duration: 0.3s; }
+  .waveform-wrapper:hover {
+    opacity: 1; }
+
 .track-waveform {
   position: relative;
   display: block;

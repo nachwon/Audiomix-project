@@ -34,7 +34,7 @@
     <!-- author track waveform -->
     {% if post.author_track_waveform_base.name == "" %}
     {% else %}
-        <div class="track-waveform">
+        <div class="track-waveform waveform-wrapper">
             <img class="track-waveform-base post-detail-waveform back-image" draggable="false" onclick="seekTrack(event)" src="{{ post.author_track_waveform_base.url }}">
             <div class="waveform-cover-cutter cutter">
                 <img class="track-waveform-cover post-detail-waveform" src="{{ post.author_track_waveform_cover.url }}" alt="">
