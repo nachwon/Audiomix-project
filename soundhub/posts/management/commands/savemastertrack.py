@@ -27,7 +27,7 @@ class Command(BaseCommand):
                     post.author_track_waveform_base.url
                     post.author_track_waveform_cover.url
                 except ValueError:
-                    print(f'Post_{post.pk}: Author track waveform is not saved. '
+                    print(f'Post_{post.pk}: There is no author track waveform files. '
                           f'It seems that there is something wrong with the author track.')
                     error_count += 1
                     continue
