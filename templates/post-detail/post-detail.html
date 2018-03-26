@@ -19,7 +19,7 @@
             <!-- master track -->
             <div class="post-master-track" id="track-{{ post.pk }}-master" data-pk="{{ post.pk }}" data-type="track">
                 <!-- master track audio -->
-                {% if post.master_track.name == '' %}
+                {% if post.master_track.name == "" %}
                 {% else %}
                     <audio preload="metadata" id="track-{{ post.pk }}-audio-master" class="audio-file" data-target="track-{{ post.pk }}-master" onplay="addToPlaylist(this)" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
                         <source src="{{ post.master_track.url }}">
@@ -33,8 +33,6 @@
                         <img class="track-post-img" src="{{ post.post_img.url }}" alt="">
                     {% endif %}
                 </div>
-                <!-- play btn -->
-
                 <!-- post title & author -->
                 <div class="master-track-info">
                     <div draggable="false" id="play-btn-{{ post.pk }}" class="master-track-play-btn play-btn" data-target="track-{{ post.pk }}-audio-master" onclick="loadAudio(this);playAudio();updatePlayerPostInfo();"><i class="fas fa-play-circle fa-3x"></i></div>
@@ -69,7 +67,7 @@
             <!-- author track -->
             <div class="post-author-track post-track" data-instrument="{{ post.instrument }}" id="track-{{ post.pk }}" data-pk="{{ post.pk }}" data-type="track">
 
-                <audio preload="metadata" id="track-{{ post.pk }}-audio" class="post-track audio-file" data-target="track-{{ post.pk }}" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
+                <audio preload="metadata" id="track-{{ post.pk }}-audio" class="audio-file" data-target="track-{{ post.pk }}" ontimeupdate="updateAudioInfo(this);updatePlayerProgress(this)" onended="resetWaveform(this)" onloadedmetadata="setTotalDuration(this)">
                     <source src="{{ post.author_track.url }}">
                 </audio>
 

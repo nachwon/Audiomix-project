@@ -307,7 +307,6 @@ function togglePlaylist() {
 // 플레이 리스트에 추가함
 function addToPlaylist(self) {
     var target_obj = $("#" + $(self).attr("data-target"));
-    console.log(target_obj);
     var target_img = target_obj.find(".track-post-img").attr("src");
     var target_title = target_obj.find(".track-title").text();
     var target_author = target_obj.find(".track-author").text();
