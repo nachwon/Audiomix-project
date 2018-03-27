@@ -67,7 +67,7 @@ function resetPlayer() {
     var player_total_duration = $("#player-total-duration");
     var player_progress_cover = $(".player-progress-cover");
 
-    player_post_img.attr("src", "/static/img/default-post-img.png");
+    player_post_img.attr("src", $("[data-default-profile]").data("default-profile"));
     player_post_title.text("Audio Track");
     player_post_author.text("Not Loaded");
     player_author_link.attr("href", "");
