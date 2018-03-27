@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block links %}
-    <link rel="stylesheet" href="{% static 'css/post-detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/post-detail/post-detail.css' %}">
 {% endblock links %}
 
 {% block scripts %}
@@ -105,7 +105,10 @@
         </div>
     </div>
 
+    {% include 'post-detail/mixer.html' %}
+
     <script>
+        // 트랙 배경 이미지 설정
         $(document).ready(function() {
             var inst = $(".post-track");
 
@@ -121,6 +124,7 @@
             });
         });
 
+        // 트랙 접기 버튼
         function collapseTrack(self, div) {
             var icon = $(self).find("[data-fa-processed]");
 
@@ -133,6 +137,7 @@
             showInstrumentTracks($(this).text())
         });
 
+        // 커맨트 트랙 악기별 활성화
         function showInstrumentTracks (instrument) {
             var tabs = $(".tab-btns");
             var comments = $(".instrument-comment-track");
