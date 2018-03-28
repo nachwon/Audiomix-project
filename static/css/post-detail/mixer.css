@@ -71,7 +71,7 @@
         height: 55px;
         position: absolute;
         left: -10px;
-        top: 250px;
+        top: 50px;
         border-radius: 3px;
         background: linear-gradient(to bottom, #737373 0%, #ddd 10%, #ddd 50%, #aaa 65%, #ddd 75%, #ddd 85%, #737373 100%);
         background: -moz-linear-gradient(to bottom, #737373 0%, #ddd 10%, #ddd 50%, #aaa 65%, #ddd 75%, #ddd 85%, #737373 100%);

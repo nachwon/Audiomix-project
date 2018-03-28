@@ -1,8 +1,7 @@
 var position_data;
 
 $(document).ready(function() {
-    // loadMixer();
-    connectFader();
+    loadMixer();
 });
 
 function loadMixer() {
@@ -14,10 +13,18 @@ function loadMixer() {
 
         var source = audioCtx.createMediaElementSource(audio);
 
+        connectFader(source, audioCtx);
+
     })
 }
 
-function connectFader() {
+// 페이더 동작 설정
+function connectFader(source, audioCtx) {
+    var gainNode = audioCtx.createGain();
+
+    source.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+
     var fader = $(".fader");
     var fader_chrome = document.getElementsByClassName("fader");
 
@@ -40,7 +47,8 @@ function connectFader() {
             if (data === "") {
                 data = position_data;
             }
-            setFaderPosition(e, fader_chrome[i], data)
+            var volume = setFaderPosition(e, fader_chrome[i], data);
+            gainNode.gain.value = 1.25 - volume / 200
         }
     });
 
@@ -51,6 +59,7 @@ function connectFader() {
     });
 }
 
+// 페이더 드래그 시 위치 변경
 function setFaderPosition(e, fader, data) {
     var meter_position = $(fader).parent();
 
@@ -62,5 +71,7 @@ function setFaderPosition(e, fader, data) {
     else if (position < 0) {
         position = 0
     }
-    $(fader).css("top", position + "px")
+    $(fader).css("top", position + "px");
+
+    return position
 }
