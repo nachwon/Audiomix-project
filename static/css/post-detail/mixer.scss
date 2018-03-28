@@ -2,7 +2,7 @@
     position: fixed;
     top: 25%;
     right: 50%;
-    background-color: red;
+    background-color: #333533;
     z-index: 10;
 }
 
@@ -10,13 +10,16 @@
     width: 100px;
     height: 500px;
 
-
     .channel-wrapper {
         position: relative;
         width: 70px;
         height: 450px;
         margin: 0 auto;
         top: 25px;
+        padding: 3px;
+        box-sizing: content-box;
+        background-color: #3c3c3c;
+        box-shadow: inset 0 0 20px -8px black;
 
         .mute-solo {
             button {
@@ -36,25 +39,27 @@
         .panner {
             width: 60px;
             height: 7px;
-            background-color: green;
+            background-color: #242424;;
             position: relative;
             left: calc(50% - 60px/2);
             top: 15px;
 
+
             .pan-slider {
                 width: 7px;
                 height: 24px;
-                background-color: yellow;
+                background-color: #ddd;
                 position: absolute;
                 top: -8px;
                 left: 26px;
+                border-radius: 3px;
             }
         }
 
         .meter {
             width: 10px;
             height: 300px;
-            background-color: blue;
+            background-color: #242424;;
             left: calc(50% - 10px/2);
             position: absolute;
             bottom: 60px;
@@ -62,19 +67,21 @@
             .fader {
                 width: 30px;
                 height: 50px;
-                background-color: yellow;
+                background-color: #ddd;
                 position: absolute;
                 left: -10px;
                 top: 250px;
+                border-radius: 3px;
             }
         }
 
         .channel-info {
             width: 100%;
             height: 40px;
-            background-color: purple;
+            background-color: #242424;
             position: absolute;
             bottom: 0;
+            left: 0;
             text-align: center;
         }
     }
