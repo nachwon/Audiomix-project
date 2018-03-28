@@ -27,6 +27,10 @@ function connectFader() {
             e.dataTransfer.setData('text', e.offsetY);
             position_data = e.offsetY;
             $(fader_chrome[i]).css("pointer-events", "none");
+
+            var crt = document.getElementById("ghost");
+            crt.style.display = "none";
+            e.dataTransfer.setDragImage(crt, 10000, 10000);
         });
     }
 
