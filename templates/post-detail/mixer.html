@@ -1,5 +1,7 @@
+{% load static %}
+
 <div class="mixer">
-    <div class="channel">
+    <div class="channel" id="channel-1" data-target-audio="track-{{ post.pk }}-author-audio">
         <div class="channel-wrapper">
             <div class="mute-solo">
                 <button class="mute">M</button>
@@ -8,8 +10,9 @@
             <div class="panner">
                 <div class="pan-slider"></div>
             </div>
+            <div class="meter-position-getter"></div>
             <div class="meter">
-                <div class="fader"></div>
+                <div class="fader" draggable="true"></div>
             </div>
             <div class="channel-info">
                 <span>Guitar</span>
@@ -18,3 +21,5 @@
         </div>
     </div>
 </div>
+
+<script src="{% static 'js/post-detail/mixer.js' %}"></script>
