@@ -15,12 +15,12 @@ function loadMixer() {
         var source = audioCtx.createMediaElementSource(audio);
 
         connectFader(source, audioCtx, index);
-        connectPanner(source, audioCtx);
+        connectPanner(source, audioCtx, index);
 
     })
 }
 
-function connectPanner(source, audioCtx) {
+function connectPanner(source, audioCtx, index) {
 
     var panner = audioCtx.createPanner();
     panner.panningModel = 'HRTF';
@@ -54,36 +54,24 @@ function connectPanner(source, audioCtx) {
     }
 
 
-    var pan_slider = $(".pan-slider");
+    var pan_slider = document.getElementsByClassName("pan-slider");
 
-    for (var i = 0; i < pan_slider.length; i++) {
-        pan_slider[i].addEventListener("dragstart", function(e) {
-            $(this).attr("drag", "panner");
-            e.dataTransfer.setData("text", e.offsetX);
-            panner_X_position = e.offsetX;
-            $(this). css("pointer-events", "none");
-        });
+    $(pan_slider[index]).on("mousedown", function(e) {
+        var offsetX = e.offsetX;
+        $(this).css("pointer-events", "none");
 
-        pan_slider[i].addEventListener("dragend", function() {
-            $(this).css("pointer-events", "visible");
-            $(this).attr("drag", null);
-        })
-    }
+        $(document)
+            .on("mousemove", function(e) {
+                setPannerPosition(e, pan_slider[index], offsetX);
+            })
+            .on("mouseup", function() {
+                $(this).off("mousemove");
+                $(pan_slider[index]).css("pointer-events", "visible");
+            })
 
-    document.addEventListener("dragover", function(e) {
-        if ($("[drag='panner']").length === 1) {
-            for (var i = 0; i < pan_slider.length; i++) {
-                // 파이어폭스의 경우 getData로 X축 좌표 가져옴.
-                var offsetX = e.dataTransfer.getData('text');
-                // 크롬의 경우 전역변수에서 가져옴.
-                if (offsetX === "") {
-                    offsetX = panner_X_position;
-                }
-                var panner_value = setPannerPosition(e, pan_slider[i], offsetX);
+    })
 
-            }
-        }
-    });
+
 }
 
 function setPannerPosition(e, pan_slider, offsetX) {
@@ -118,7 +106,7 @@ function connectFader(source, audioCtx, index) {
         var offsetY = e.offsetY;
 
         // 포인터 이벤트 없애줌
-        $(fader[index]).css("pointer-events", "none");
+        $(this).css("pointer-events", "none");
 
         // 페이지 전체에 대해
         $(document)
@@ -142,7 +130,7 @@ function connectFader(source, audioCtx, index) {
             })
             // 마우스를 떼면 movsemove 이벤트 제거하고 페이더의 포인터 이벤트 원상복구
             .on("mouseup", function() {
-                $(document).off("mousemove");
+                $(this).off("mousemove");
                 $(fader[index]).css("pointer-events", "visible");
             });
     });
