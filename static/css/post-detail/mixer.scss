@@ -55,11 +55,11 @@
 
 
             .pan-slider {
-                width: 7px;
+                width: 6px;
                 height: 24px;
                 position: absolute;
                 top: -8px;
-                left: 26px;
+                left: calc(50% - 6px / 2);
                 border-radius: 2px;
                 background: linear-gradient(to right,
                         #737373 0%,
