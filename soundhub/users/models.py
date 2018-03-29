@@ -107,7 +107,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     # 이메일
-    email = models.EmailField( verbose_name='이메일 주소', max_length=255, unique=True,)
+    email = models.EmailField(verbose_name='이메일 주소', max_length=255, unique=True,)
     # 닉네임
     nickname = models.CharField(max_length=50, unique=True)
     # 프로필 이미지
