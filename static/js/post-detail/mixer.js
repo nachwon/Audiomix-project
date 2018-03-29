@@ -112,12 +112,17 @@ function connectFader(source, audioCtx, index) {
 
     var fader = document.getElementsByClassName("fader");
 
-
+    // 페이더에서 마우스 다운 시
     $(fader[index]).on("mousedown", function(e) {
+        // 요소내에서 마우스 다운된 위치의 Y축 좌표 값 저장
         var offsetY = e.offsetY;
 
+        // 포인터 이벤트 없애줌
         $(fader[index]).css("pointer-events", "none");
+
+        // 페이지 전체에 대해
         $(document)
+            // mousemove 이벤트 등록해서 Y 축 좌표값에 따라 페이더 이동 및 gainNode gain값 조절
             .on("mousemove", function(e) {
                 var volume = setFaderPosition(e, fader[index], offsetY);
                 var gain_value = 1.25 - volume / 200;
@@ -135,6 +140,7 @@ function connectFader(source, audioCtx, index) {
 
                 fader_value_display.text(fader_value);
             })
+            // 마우스를 떼면 movsemove 이벤트 제거하고 페이더의 포인터 이벤트 원상복구
             .on("mouseup", function() {
                 $(document).off("mousemove");
                 $(fader[index]).css("pointer-events", "visible");
