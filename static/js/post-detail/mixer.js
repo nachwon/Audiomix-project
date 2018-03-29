@@ -13,30 +13,42 @@ function loadMixer() {
         var audioCtx = new AudioContext();
 
         var source = audioCtx.createMediaElementSource(audio);
+        var gainNode = audioCtx.createGain();
+        connectFader(gainNode, audioCtx, index);
 
-        connectFader(source, audioCtx, index);
-        connectPanner(source, audioCtx, index);
+        var pannerNode = audioCtx.createPanner();
+        connectPanner(pannerNode, audioCtx, index);
+
+        var gain_connected = source.connect(gainNode);
+        var gain_panner_connected = gain_connected.connect(pannerNode);
+        gain_panner_connected.connect(audioCtx.destination);
 
     })
 }
 
-function connectPanner(source, audioCtx, index) {
-    var panner = audioCtx.createPanner();
-    panner.panningModel = 'HRTF';
-    panner.distanceModel = 'linear';
-    panner.refDistance = 1;
-    panner.maxDistance = 10000;
-    panner.rolloffFactor = 1;
-    panner.coneInnerAngle = 360;
-    panner.coneOuterAngle = 0;
-    panner.coneOuterGain = 0;
+function connectPanner(pannerNode, audioCtx, index) {
+    var WIDTH = window.innerWidth;
+    var HEIGHT = window.innerHeight;
 
-    if(panner.orientationX) {
-        panner.orientationX.value = 1;
-        panner.orientationY.value = 0;
-        panner.orientationZ.value = 0;
+    var xPos = Math.floor(WIDTH/2);
+    var yPos = Math.floor(HEIGHT/2);
+    var zPos = 300;
+
+    pannerNode.panningModel = 'HRTF';
+    pannerNode.distanceModel = 'linear';
+    pannerNode.refDistance = 1;
+    pannerNode.maxDistance = 10000;
+    pannerNode.rolloffFactor = 1;
+    pannerNode.coneInnerAngle = 360;
+    pannerNode.coneOuterAngle = 0;
+    pannerNode.coneOuterGain = 0;
+
+    if(pannerNode.orientationX) {
+        pannerNode.orientationX.value = 1;
+        pannerNode.orientationY.value = 0;
+        pannerNode.orientationZ.value = 0;
     } else {
-        panner.setOrientation(1,0,0);
+        pannerNode.setOrientation(1,0,0);
     }
 
     var listener = audioCtx.listener;
@@ -52,6 +64,11 @@ function connectPanner(source, audioCtx, index) {
         listener.setOrientation(0,0,-1,0,1,0);
     }
 
+    listener.setPosition(xPos, yPos, zPos);
+    pannerNode.setPosition(xPos, yPos, zPos + 30);
+
+
+
 
     var pan_slider = document.getElementsByClassName("pan-slider");
 
@@ -61,7 +78,9 @@ function connectPanner(source, audioCtx, index) {
 
         $(document)
             .on("mousemove", function(e) {
-                setPannerPosition(e, pan_slider[index], offsetX);
+                var panner_position = setPannerPosition(e, pan_slider[index], offsetX) - 30;
+                console.log(panner_position, xPos);
+                pannerNode.setPosition(xPos + (panner_position * 2), yPos, zPos + 30);
             })
             .on("mouseup", function() {
                 $(this).off("mousemove");
@@ -85,18 +104,15 @@ function setPannerPosition(e, pan_slider, offsetX) {
         position = 60;
     }
 
+    position -= $(pan_slider).width() / 2;
+
     $(pan_slider).css("left", position + "px");
 
-    return position
+    return position + 3
 }
 
 // 페이더 동작 설정
-function connectFader(source, audioCtx, index) {
-    var gainNode = audioCtx.createGain();
-
-    source.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-
+function connectFader(gainNode, audioCtx, index) {
     var fader = document.getElementsByClassName("fader");
 
     // 페이더에서 마우스 다운 시
@@ -109,7 +125,7 @@ function connectFader(source, audioCtx, index) {
 
         // 페이지 전체에 대해
         $(document)
-            // mousemove 이벤트 등록해서 Y 축 좌표값에 따라 페이더 이동 및 gainNode gain값 조절
+        // mousemove 이벤트 등록해서 Y 축 좌표값에 따라 페이더 이동 및 gainNode gain값 조절
             .on("mousemove", function(e) {
                 var volume = setFaderPosition(e, fader[index], offsetY);
                 var gain_value = 1.25 - volume / 200;
