@@ -1,6 +1,3 @@
-var fader_Y_position;
-var panner_X_position;
-
 $(document).ready(function() {
     loadMixer();
 });
@@ -12,21 +9,28 @@ function loadMixer() {
         var AudioContext = window.AudioContext || window.webkitAudioContext;
         var audioCtx = new AudioContext();
 
+        // 오디오 소스 생성
         var source = audioCtx.createMediaElementSource(audio);
+
+        // 게인 노드 생성 및 설정
         var gainNode = audioCtx.createGain();
         connectFader(gainNode, audioCtx, index);
 
+        // 패너 노드 생성 및 설정
         var pannerNode = audioCtx.createPanner();
         connectPanner(pannerNode, audioCtx, index);
 
+        // 소스 -> 노드 연결
         var gain_connected = source.connect(gainNode);
         var gain_panner_connected = gain_connected.connect(pannerNode);
-        gain_panner_connected.connect(audioCtx.destination);
 
+        // 노드 -> 데스티네이션으로 연결
+        gain_panner_connected.connect(audioCtx.destination);
     })
 }
 
 function connectPanner(pannerNode, audioCtx, index) {
+    // 화면 가운데 위치 좌표값 저장
     var WIDTH = window.innerWidth;
     var HEIGHT = window.innerHeight;
 
@@ -34,6 +38,7 @@ function connectPanner(pannerNode, audioCtx, index) {
     var yPos = Math.floor(HEIGHT/2);
     var zPos = 300;
 
+    // 패너 노드 초기 세팅
     pannerNode.panningModel = 'HRTF';
     pannerNode.distanceModel = 'linear';
     pannerNode.refDistance = 1;
@@ -51,6 +56,7 @@ function connectPanner(pannerNode, audioCtx, index) {
         pannerNode.setOrientation(1,0,0);
     }
 
+    // 리스너 세팅
     var listener = audioCtx.listener;
 
     if(listener.forwardX) {
@@ -64,32 +70,26 @@ function connectPanner(pannerNode, audioCtx, index) {
         listener.setOrientation(0,0,-1,0,1,0);
     }
 
+    // 리스너 위치 세팅
     listener.setPosition(xPos, yPos, zPos);
+    // 패너 위치 세팅
     pannerNode.setPosition(xPos, yPos, zPos + 30);
-
-
-
 
     var pan_slider = document.getElementsByClassName("pan-slider");
 
     $(pan_slider[index]).on("mousedown", function(e) {
         var offsetX = e.offsetX;
         $(this).css("pointer-events", "none");
-
         $(document)
             .on("mousemove", function(e) {
                 var panner_position = setPannerPosition(e, pan_slider[index], offsetX) - 30;
-                console.log(panner_position, xPos);
                 pannerNode.setPosition(xPos + (panner_position * 2), yPos, zPos + 30);
             })
             .on("mouseup", function() {
                 $(this).off("mousemove");
                 $(pan_slider[index]).css("pointer-events", "visible");
             })
-
     })
-
-
 }
 
 function setPannerPosition(e, pan_slider, offsetX) {
