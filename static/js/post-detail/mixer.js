@@ -84,6 +84,22 @@ function connectPanner(pannerNode, audioCtx, index) {
             .on("mousemove", function(e) {
                 var panner_position = setPannerPosition(e, pan_slider[index], offsetX) - 30;
                 pannerNode.setPosition(xPos + (panner_position * 2), yPos, zPos + 30);
+
+                var panner_value = Math.floor(panner_position / 30 * 100);
+
+                if (panner_value === 0) {
+                    panner_value = "C"
+                }
+                else if (panner_value < 0) {
+                    panner_value = "L" + Math.abs(panner_value)
+                }
+                else if (panner_value > 0) {
+                    panner_value = "R" + Math.abs(panner_value)
+                }
+
+                var panner_value_display = $(".panner").parents(".channel-wrapper").find(".panner-value");
+                panner_value_display.text(panner_value);
+
             })
             .on("mouseup", function() {
                 $(this).off("mousemove");
