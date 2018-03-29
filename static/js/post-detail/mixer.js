@@ -48,7 +48,15 @@ function connectFader(source, audioCtx) {
                 data = position_data;
             }
             var volume = setFaderPosition(e, fader_chrome[i], data);
-            gainNode.gain.value = 1.25 - volume / 200
+            var gain_value = 1.25 - volume / 200;
+            var fader_value = Math.round((gain_value - 1) * 100) / 10;
+
+            if (fader_value === -10) {
+                fader_value = "-\u221E";
+            }
+
+            gainNode.gain.value = gain_value;
+            $(".fader-value").text(fader_value);
         }
     });
 
