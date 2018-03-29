@@ -72,7 +72,8 @@
             position: relative;
             left: calc(50% - 60px/2);
             top: 40px;
-            box-shadow: inset 0px 2px 4px 0 black;
+            box-shadow: inset 0 2px 4px 0 black;
+            border-radius: 5px;
 
             .panner-fill {
                 height: 7px;
@@ -85,12 +86,14 @@
                 float:left;
                 left: 0;
                 width: 50%;
+                border-radius: 2px 0 0 2px;
             }
 
             .fill-right {
                 float: right;
                 right: 0;
                 width: 50%;
+                border-radius: 0 2px 2px 0;
             }
 
             .pan-slider {
