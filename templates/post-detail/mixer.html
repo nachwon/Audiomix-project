@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="mixer">
-    <div class="channel" id="channel-1" data-target-audio="track-{{ post.pk }}-author-audio">
+    <div class="channel author-track-channel" id="channel-1" data-target-audio="track-{{ post.pk }}-author-audio">
         <div class="channel-wrapper">
             <div class="mute-solo">
                 <button class="mute">M</button>
@@ -18,8 +18,8 @@
                 <span>0</span>
             </div>
             <div class="channel-info">
-                <span>Guitar</span>
-                <span>Testuser</span>
+                <span>{{ post.instrument }}</span>
+                <span>{{ post.author }}</span>
             </div>
         </div>
     </div>

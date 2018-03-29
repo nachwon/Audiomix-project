@@ -21,7 +21,6 @@ function loadMixer() {
 }
 
 function connectPanner(source, audioCtx, index) {
-
     var panner = audioCtx.createPanner();
     panner.panningModel = 'HRTF';
     panner.distanceModel = 'linear';
