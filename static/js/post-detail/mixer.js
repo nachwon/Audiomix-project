@@ -86,15 +86,22 @@ function connectPanner(pannerNode, audioCtx, index) {
                 pannerNode.setPosition(xPos + (panner_position * 2), yPos, zPos + 30);
 
                 var panner_value = Math.floor(panner_position / 30 * 100);
+                var abs_value = Math.abs(panner_value);
+
 
                 if (panner_value === 0) {
                     panner_value = "C"
                 }
                 else if (panner_value < 0) {
-                    panner_value = "L" + Math.abs(panner_value)
+                    panner_value = "L" + abs_value;
+                    $(pan_slider[index]).siblings(".fill-left").css("width", 50 - (abs_value / 2) + "%");
+                    $(pan_slider[index]).siblings(".fill-right").css("width", "50%");
+
                 }
                 else if (panner_value > 0) {
-                    panner_value = "R" + Math.abs(panner_value)
+                    panner_value = "R" + abs_value;
+                    $(pan_slider[index]).siblings(".fill-left").css("width", "50%");
+                    $(pan_slider[index]).siblings(".fill-right").css("width", 50 - (abs_value / 2) + "%");
                 }
 
                 var panner_value_display = $(".panner").parents(".channel-wrapper").find(".panner-value");

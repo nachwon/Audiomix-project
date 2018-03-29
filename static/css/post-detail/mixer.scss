@@ -68,10 +68,30 @@
         .panner {
             width: 60px;
             height: 7px;
-            background-color: #242424;;
+            background-color: #E2B026;
             position: relative;
             left: calc(50% - 60px/2);
             top: 40px;
+            box-shadow: inset 0px 2px 4px 0 black;
+
+            .panner-fill {
+                height: 7px;
+                position: relative;
+                background-color: #444;
+                box-shadow: inset 2px 3px 7px 0 black;
+            }
+
+            .fill-left {
+                float:left;
+                left: 0;
+                width: 50%;
+            }
+
+            .fill-right {
+                float: right;
+                right: 0;
+                width: 50%;
+            }
 
             .pan-slider {
                 width: 6px;
