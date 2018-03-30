@@ -12,6 +12,8 @@ function loadMixer() {
         // 오디오 소스 생성
         var source = audioCtx.createMediaElementSource(audio);
 
+        var analyzer = audioCtx.createAnalyser();
+
         // 게인 노드 생성 및 설정
         var gainNode = audioCtx.createGain();
         connectFader(gainNode, audioCtx, index);
@@ -19,13 +21,22 @@ function loadMixer() {
         // 패너 노드 생성 및 설정
         var pannerNode = audioCtx.createPanner();
         connectPanner(pannerNode, audioCtx, index);
+        pannerBackgroundDraw();
 
         // 소스 -> 노드 연결
-        var gain_connected = source.connect(gainNode);
+        source.connect(analyzer);
+
+        var gain_connected = analyzer.connect(gainNode);
         var gain_panner_connected = gain_connected.connect(pannerNode);
 
         // 노드 -> 데스티네이션으로 연결
         gain_panner_connected.connect(audioCtx.destination);
+
+        analyzer.fftSize = 2048;
+        var bufferLength = analyzer.frequencyBinCount;
+        var dataArray = new Uint8Array(bufferLength);
+
+        console.log(dataArray);
     })
 }
 
@@ -132,6 +143,20 @@ function setPannerPosition(e, pan_slider, offsetX) {
     $(pan_slider).css("left", position + "px");
 
     return position + 3
+}
+
+function pannerBackgroundDraw() {
+    var canvas = document.getElementById("panner-background");
+    var width = $(canvas).width();
+
+    if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+
+        for (var i = 0; i < width/3; i++) {
+            ctx.fillStyle = "rgb(226, 176, 38, 0.9)";
+            ctx.fillRect(i * 3 + 1, 1, 2, 5);
+        }
+    }
 }
 
 // 페이더 동작 설정
