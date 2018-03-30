@@ -11,6 +11,7 @@ function loadMixer() {
 
         // 오디오 소스 생성
         var source = audioCtx.createMediaElementSource(audio);
+        console.log(source);
 
         var analyzer = audioCtx.createAnalyser();
 
@@ -29,21 +30,12 @@ function loadMixer() {
         drawFaderBackgroundBase(index);
 
         var meterCover = document.getElementsByClassName("meter-cover")[index];
-        if (meterCover.getContext) {
-            var ctx = meterCover.getContext('2d');
-            ctx.fillStyle = "#242424";
-            ctx.fillRect(0, 0, 10, 300);
-        }
-
         function faderBackgroundDraw() {
             var animationRequest;
             var barHeight;
 
             if (!audio.paused) {
                 animationRequest = requestAnimationFrame(faderBackgroundDraw);
-            }
-            if (audio.paused) {
-                cancelAnimationFrame(animationRequest);
             }
 
             analyzer.getByteTimeDomainData(dataArray);
@@ -52,12 +44,14 @@ function loadMixer() {
                 return previous > current ? previous:current;
             });
 
-            var meterCoverHeight = $(meterCover).height();
-            barHeight = (maxData - 128);
+            barHeight = 300 - ((maxData - 128) * 4);
 
-            ctx.fillStyle = "#242424";
-            ctx.clearRect(0, 0, 10, 300);
-            ctx.fillRect(0, 0, 10, 300 - barHeight);
+            if (audio.paused) {
+                cancelAnimationFrame(animationRequest);
+                barHeight = 300;
+            }
+
+            $(meterCover).css("height", barHeight);
             console.log(barHeight)
         }
 
