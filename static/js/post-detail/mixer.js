@@ -14,9 +14,36 @@ function loadMixer() {
 
         var analyzer = audioCtx.createAnalyser();
 
+        analyzer.fftSize = 256;
+        var bufferLength = analyzer.frequencyBinCount;
+        const dataArray = new Float32Array(bufferLength);
+
         // 게인 노드 생성 및 설정
         var gainNode = audioCtx.createGain();
         connectFader(gainNode, audioCtx, index);
+
+        $(audio).on("play", function() {
+            faderBackgroundDraw();
+        });
+
+        function faderBackgroundDraw() {
+            var animationRequest;
+
+            if (!audio.paused) {
+                animationRequest = requestAnimationFrame(faderBackgroundDraw);
+            }
+
+            if (audio.paused) {
+                cancelAnimationFrame(animationRequest)
+            }
+
+            analyzer.getFloatTimeDomainData(dataArray);
+
+            var max = dataArray.reduce(function(previous, current) {
+                return previous > current ? previous:current;
+            });
+            console.log(max)
+        }
 
         // 패너 노드 생성 및 설정
         var pannerNode = audioCtx.createPanner();
@@ -24,19 +51,22 @@ function loadMixer() {
         pannerBackgroundDraw();
 
         // 소스 -> 노드 연결
-        source.connect(analyzer);
-
-        var gain_connected = analyzer.connect(gainNode);
+        var gain_connected = source.connect(gainNode);
         var gain_panner_connected = gain_connected.connect(pannerNode);
 
         // 노드 -> 데스티네이션으로 연결
-        gain_panner_connected.connect(audioCtx.destination);
+        gain_panner_connected.connect(analyzer);
+        analyzer.connect(audioCtx.destination);
 
-        analyzer.fftSize = 2048;
-        var bufferLength = analyzer.frequencyBinCount;
-        var dataArray = new Uint8Array(bufferLength);
 
-        console.log(dataArray);
+
+        // $(audio).on("timeupdate", function() {
+        //     analyzer.getFloatTimeDomainData(dataArray);
+        //     var dataArray2 = dataArray.map(function(value) {
+        //         return value * 100;
+        //     });
+        //     console.log(Math.max(dataArray2));
+        // });
     })
 }
 
@@ -216,3 +246,4 @@ function setFaderPosition(e, fader, offsetY) {
 
     return position
 }
+
