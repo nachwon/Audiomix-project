@@ -26,48 +26,68 @@ function loadMixer() {
             faderBackgroundDraw();
         });
 
+        drawFaderBackgroundBase(index);
+
+        var meterCover = document.getElementsByClassName("meter-cover")[index];
+        if (meterCover.getContext) {
+            var ctx = meterCover.getContext('2d');
+            ctx.fillStyle = "#242424";
+            ctx.fillRect(0, 0, 10, 300);
+        }
+
         function faderBackgroundDraw() {
             var animationRequest;
+            var barHeight = 0;
 
             if (!audio.paused) {
                 animationRequest = requestAnimationFrame(faderBackgroundDraw);
             }
-
             if (audio.paused) {
-                cancelAnimationFrame(animationRequest)
+                cancelAnimationFrame(animationRequest);
             }
 
             analyzer.getFloatTimeDomainData(dataArray);
 
-            var max = dataArray.reduce(function(previous, current) {
+            var maxData = dataArray.reduce(function(previous, current) {
                 return previous > current ? previous:current;
             });
-            console.log(max)
+
+            var meterCoverHeight = $(meterCover).height();
+            barHeight = maxData * 300;
+
+            ctx.fillStyle = "#242424";
+            ctx.clearRect(0, 0, 10, 300);
+            ctx.fillRect(0, 0, 10, 300 - barHeight);
         }
 
         // 패너 노드 생성 및 설정
         var pannerNode = audioCtx.createPanner();
         connectPanner(pannerNode, audioCtx, index);
-        pannerBackgroundDraw();
+        pannerBackgroundDraw(index);
 
         // 소스 -> 노드 연결
         var gain_connected = source.connect(gainNode);
         var gain_panner_connected = gain_connected.connect(pannerNode);
 
-        // 노드 -> 데스티네이션으로 연결
+        // 노드 -> 애널라이저 -> 데스티네이션으로 연결
         gain_panner_connected.connect(analyzer);
         analyzer.connect(audioCtx.destination);
-
-
-
-        // $(audio).on("timeupdate", function() {
-        //     analyzer.getFloatTimeDomainData(dataArray);
-        //     var dataArray2 = dataArray.map(function(value) {
-        //         return value * 100;
-        //     });
-        //     console.log(Math.max(dataArray2));
-        // });
     })
+}
+
+function drawFaderBackgroundBase(index) {
+    var meterBase = document.getElementsByClassName("meter-base")[index];
+    if (meterBase.getContext) {
+        var meterBaseCtx = meterBase.getContext('2d');
+        meterBaseCtx.fillStyle = "#242424";
+        meterBaseCtx.clearRect(0, 0, 10, 300);
+        var meterHeight = $(meterBase).height();
+
+        for (var i = 0; i < meterHeight/3; i++) {
+            meterBaseCtx.fillStyle = "rgb(226, 176, 38)";
+            meterBaseCtx.fillRect(1, i * 3 + 1, 8, 2)
+        }
+    }
 }
 
 function connectPanner(pannerNode, audioCtx, index) {
@@ -176,8 +196,8 @@ function setPannerPosition(e, pan_slider, offsetX) {
 }
 
 // 패너 뒷 바탕 채우기
-function pannerBackgroundDraw() {
-    var canvas = document.getElementById("panner-background");
+function pannerBackgroundDraw(index) {
+    var canvas = document.getElementsByClassName("panner-background")[index];
     var width = $(canvas).width();
 
     if (canvas.getContext) {
