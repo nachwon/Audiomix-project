@@ -16,7 +16,7 @@ function loadMixer() {
 
         analyzer.fftSize = 256;
         var bufferLength = analyzer.frequencyBinCount;
-        const dataArray = new Float32Array(bufferLength);
+        const dataArray = new Uint8Array(bufferLength);
 
         // 게인 노드 생성 및 설정
         var gainNode = audioCtx.createGain();
@@ -37,7 +37,7 @@ function loadMixer() {
 
         function faderBackgroundDraw() {
             var animationRequest;
-            var barHeight = 0;
+            var barHeight;
 
             if (!audio.paused) {
                 animationRequest = requestAnimationFrame(faderBackgroundDraw);
@@ -46,18 +46,19 @@ function loadMixer() {
                 cancelAnimationFrame(animationRequest);
             }
 
-            analyzer.getFloatTimeDomainData(dataArray);
+            analyzer.getByteTimeDomainData(dataArray);
 
             var maxData = dataArray.reduce(function(previous, current) {
                 return previous > current ? previous:current;
             });
 
             var meterCoverHeight = $(meterCover).height();
-            barHeight = maxData * 300;
+            barHeight = (maxData - 128);
 
             ctx.fillStyle = "#242424";
             ctx.clearRect(0, 0, 10, 300);
             ctx.fillRect(0, 0, 10, 300 - barHeight);
+            console.log(barHeight)
         }
 
         // 패너 노드 생성 및 설정
