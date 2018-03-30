@@ -145,6 +145,7 @@ function setPannerPosition(e, pan_slider, offsetX) {
     return position + 3
 }
 
+// 패너 뒷 바탕 채우기
 function pannerBackgroundDraw() {
     var canvas = document.getElementById("panner-background");
     var width = $(canvas).width();
