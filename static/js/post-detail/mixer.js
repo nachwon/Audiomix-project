@@ -23,17 +23,32 @@ function loadMixer() {
         var gainNode = audioCtx.createGain();
         connectFader(gainNode, audioCtx, index);
 
+        // 피크 관련 변수
+        var peak;
+        var peakOpacity;
+        var peakTime;
+
+        // 오디오 트랙이 재생될 때
         $(audio).on("play", function() {
+            // 피크 값, 투명도 초기화
+            peak = 0;
+            peakOpacity = 1;
+            // 미터 그리기 함수 실행
             faderBackgroundDraw();
         });
 
+        // 미터 뒷 배경 캔버스 엘리먼트
         var meterBase = drawFaderBackgroundBase();
 
+        // 미터 뒷 배경을 가져와 그려줄 캔버스 엘리먼트
         var meter = document.getElementsByClassName("meter-base")[index];
+
         function faderBackgroundDraw() {
+            // 반복 실행
             var animationRequest= requestAnimationFrame(faderBackgroundDraw);
             var barHeight;
 
+            // 실시간 프리퀀시 바이트 데이터를 어레이에 저장
             analyzer.getByteFrequencyData(dataArray);
 
             // 페이더 미터 표시 설정
@@ -48,27 +63,54 @@ function loadMixer() {
             var threshold = 250 - parseFloat(faderHeight.match(extractNum)[1]);
             barHeight = threshold * (avg / 70);
 
-            // 재생이 멈추면 에니메이션프레임 정지
+            // 피크 값 갱신 설정
+            // 막대 높이 보다 피크값이 작으면 막대 높이를 피크 값에 할당
+            // 피크 값이 갱신되는 경우 피크 타임 초기화, 피크 투명도 초기화
+            if (peak < barHeight) {
+                peak = barHeight;
+                peakTime = 80;
+                peakOpacity = 1;
+            }
+
+            // 재생이 멈추면
             if (audio.paused) {
                 // 미터 높이를 1 씩 줄여주어 천천히 줄어드는 효과 적용
                 barHeight -= 1;
+                peakOpacity -= 0.01;
 
                 // 다 줄어들면 반복 정지
-                if (barHeight < 0) {
+                if (barHeight < 0 && peakOpacity < 0) {
                     cancelAnimationFrame(animationRequest);
                 }
             }
 
-            // barHeight 값에 따라 미터를 그려줌
+            // barHeight 값에 따라 미터와 피크값을 그려줌
             if (meter.getContext) {
                 var meterCtx = meter.getContext('2d');
                 var width = 10;
                 var height = 300;
+                // 캔버스 초기화
                 meterCtx.clearRect(0, 0, width, height);
+                // 피크 타임이 10 이하로 내려온 경우 Opacity 1씩 빼줌
+                if (peakTime < 10 && peakTime > 0) {
+                    peakOpacity -= 0.1;
+                }
+                // 피크 타임이 0 이하로 내려간 경우 피크 관련 값들 리셋해주어 새로운 피크가 표시되도록 함
+                else if (peakTime < 0) {
+                    peak = 0;
+                    peakOpacity = 1;
+                    peakTime = 80;
+                }
+                // 피크 그리기
+                meterCtx.fillStyle = "rgb(219, 47, 47, " + peakOpacity + ")";
+                meterCtx.fillRect(1, height - peak, 8, 2);
+                // 피크 타임 줄여줌
+                peakTime -= 1;
+                // 미터 그리기
                 meterCtx.drawImage(meterBase,
-                    0, height - barHeight,
+                    1, height - barHeight,
                     width, height,
-                    0, height - barHeight,
+                    1, height - barHeight,
                     width, height)
             }
         }
@@ -88,8 +130,12 @@ function loadMixer() {
     })
 }
 
+// 미터 뒷 배경 캔버스 함수
 function drawFaderBackgroundBase() {
     var meterBase = document.createElement("canvas");
+    var r = 266;
+    var g = 176;
+    var b = 38;
     meterBase.width = 10;
     meterBase.height = 300;
 
@@ -100,8 +146,10 @@ function drawFaderBackgroundBase() {
         meterBaseCtx.clearRect(0, 0, 10, 300);
         var meterHeight = meterBase.height;
 
+        // 미터 한 칸 두깨 2px, 사이 공간 1px 총 3px이 필요함
+        // 미터 전체 높이를 3으로 나눈 뒤 3px 씩 그려줌
         for (var i = 0; i < meterHeight/3; i++) {
-            meterBaseCtx.fillStyle = "rgb(226, 176, 38)";
+            meterBaseCtx.fillStyle = "rgb("+ r +", " + g + ", " + b + ")";
             meterBaseCtx.fillRect(1, i * 3 + 1, 8, 2)
         }
     }
