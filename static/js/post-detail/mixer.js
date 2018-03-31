@@ -40,11 +40,13 @@ function loadMixer() {
 
             analyzer.getByteTimeDomainData(dataArray);
 
-            var maxData = dataArray.reduce(function(previous, current) {
-                return previous > current ? previous:current;
-            });
+            var sum = dataArray.reduce(function(a, b) { return a + b; });
+            var avg = sum / dataArray.length;
+            // var maxData = dataArray.reduce(function(previous, current) {
+            //     return previous > current ? previous:current;
+            // });
 
-            barHeight = 300 - ((maxData - 128) * 4);
+            barHeight = 300 - ((avg - 128) * 4);
 
             if (audio.paused) {
                 cancelAnimationFrame(animationRequest);
