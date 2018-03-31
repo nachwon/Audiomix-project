@@ -11,13 +11,13 @@ function loadMixer() {
 
         // 오디오 소스 생성
         var source = audioCtx.createMediaElementSource(audio);
-        console.log(source);
 
         var analyzer = audioCtx.createAnalyser();
+        analyzer.maxDecibels = -10;
 
         analyzer.fftSize = 256;
         var bufferLength = analyzer.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
+        var dataArray = new Uint8Array(bufferLength);
 
         // 게인 노드 생성 및 설정
         var gainNode = audioCtx.createGain();
@@ -27,9 +27,9 @@ function loadMixer() {
             faderBackgroundDraw();
         });
 
-        drawFaderBackgroundBase(index);
+        var meterBase = drawFaderBackgroundBase();
 
-        var meterCover = document.getElementsByClassName("meter-cover")[index];
+        var meter = document.getElementsByClassName("meter-base")[index];
         function faderBackgroundDraw() {
             var animationRequest;
             var barHeight;
@@ -38,23 +38,30 @@ function loadMixer() {
                 animationRequest = requestAnimationFrame(faderBackgroundDraw);
             }
 
-            analyzer.getByteTimeDomainData(dataArray);
+            analyzer.getByteFrequencyData(dataArray);
 
-            var sum = dataArray.reduce(function(a, b) { return a + b; });
-            var avg = sum / dataArray.length;
-            // var maxData = dataArray.reduce(function(previous, current) {
-            //     return previous > current ? previous:current;
-            // });
+            // var sum = dataArray.reduce(function(a, b) { return a + b; });
+            // var avg = sum / dataArray.length;
+            var maxData = dataArray.reduce(function(previous, current) {
+                return previous > current ? previous:current;
+            });
 
-            barHeight = 300 - ((avg - 128) * 4);
+            barHeight = 300 * (maxData / 255);
+            console.log(maxData / 255);
 
             if (audio.paused) {
                 cancelAnimationFrame(animationRequest);
-                barHeight = 300;
+                barHeight = 0;
             }
 
-            $(meterCover).css("height", barHeight);
-            console.log(barHeight)
+            if (meter.getContext) {
+                // console.log(meterBase);
+                var meterCtx = meter.getContext('2d');
+                var h = 300;
+
+                meterCtx.clearRect(0, 0, 10, 300);
+                meterCtx.drawImage(meterBase, 0, 300 - barHeight, 10, h, 0, 300 - barHeight, 10, h)
+            }
         }
 
         // 패너 노드 생성 및 설정
@@ -72,19 +79,25 @@ function loadMixer() {
     })
 }
 
-function drawFaderBackgroundBase(index) {
-    var meterBase = document.getElementsByClassName("meter-base")[index];
+function drawFaderBackgroundBase() {
+    var meterBase = document.createElement("canvas");
+    meterBase.width = 10;
+    meterBase.height = 300;
+
     if (meterBase.getContext) {
+
         var meterBaseCtx = meterBase.getContext('2d');
         meterBaseCtx.fillStyle = "#242424";
         meterBaseCtx.clearRect(0, 0, 10, 300);
-        var meterHeight = $(meterBase).height();
+        var meterHeight = meterBase.height;
 
         for (var i = 0; i < meterHeight/3; i++) {
             meterBaseCtx.fillStyle = "rgb(226, 176, 38)";
             meterBaseCtx.fillRect(1, i * 3 + 1, 8, 2)
         }
     }
+
+    return meterBase;
 }
 
 function connectPanner(pannerNode, audioCtx, index) {
@@ -225,6 +238,7 @@ function connectFader(gainNode, audioCtx, index) {
             .on("mousemove", function(e) {
                 var volume = setFaderPosition(e, fader[index], offsetY);
                 var gain_value = 1.25 - volume / 200;
+                console.log(gain_value);
 
                 gainNode.gain.value = gain_value;
 
