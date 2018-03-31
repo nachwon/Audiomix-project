@@ -47,31 +47,30 @@ function loadMixer() {
             var extractNum = /([\d+.]*)px/i;
             var threshold = 250 - parseFloat(faderHeight.match(extractNum)[1]);
             barHeight = threshold * (avg / 70);
-            console.log(dataArray);
-
-            if (meter.getContext) {
-                // console.log(meterBase);
-                var meterCtx = meter.getContext('2d');
-                var h = 300;
-                meterCtx.clearRect(0, 0, 10, 300);
-                meterCtx.drawImage(meterBase, 0, 300 - barHeight, 10, h, 0, 300 - barHeight, 10, h)
-            }
 
             // 재생이 멈추면 에니메이션프레임 정지
             if (audio.paused) {
+                // 미터 높이를 1 씩 줄여주어 천천히 줄어드는 효과 적용
                 barHeight -= 1;
-                meterCtx.clearRect(0, 0, 10, 300);
-                meterCtx.drawImage(meterBase, 0, 300 - barHeight, 10, h, 0, 300 - barHeight, 10, h);
 
-
-                console.log(barHeight);
-
+                // 다 줄어들면 반복 정지
                 if (barHeight < 0) {
                     cancelAnimationFrame(animationRequest);
                 }
             }
 
-
+            // barHeight 값에 따라 미터를 그려줌
+            if (meter.getContext) {
+                var meterCtx = meter.getContext('2d');
+                var width = 10;
+                var height = 300;
+                meterCtx.clearRect(0, 0, width, height);
+                meterCtx.drawImage(meterBase,
+                    0, height - barHeight,
+                    width, height,
+                    0, height - barHeight,
+                    width, height)
+            }
         }
 
         // 패너 노드 생성 및 설정
