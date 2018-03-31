@@ -31,37 +31,47 @@ function loadMixer() {
 
         var meter = document.getElementsByClassName("meter-base")[index];
         function faderBackgroundDraw() {
-            var animationRequest;
+            var animationRequest= requestAnimationFrame(faderBackgroundDraw);
             var barHeight;
-
-            if (!audio.paused) {
-                animationRequest = requestAnimationFrame(faderBackgroundDraw);
-            }
 
             analyzer.getByteFrequencyData(dataArray);
 
-            // var sum = dataArray.reduce(function(a, b) { return a + b; });
-            // var avg = sum / dataArray.length;
-            var maxData = dataArray.reduce(function(previous, current) {
-                return previous > current ? previous:current;
-            });
+            // 페이더 미터 표시 설정
+            // dataArray의 평균값을 구한 다음 페이더의 높이에 비례하게 설정
+            // 그럴싸하게 표시되도록 때려맞춘 값이기 때문에 실제 피크 미터가 작동하는 방식과는 차이가 있을 듯...
+            var sum = dataArray.reduce(function(a, b) { return a + b; });
+            var avg = sum / dataArray.length;
 
-            barHeight = 300 * (maxData / 255);
-            console.log(maxData / 255);
-
-            if (audio.paused) {
-                cancelAnimationFrame(animationRequest);
-                barHeight = 0;
-            }
+            var fader = document.getElementsByClassName("fader")[index];
+            var faderHeight = $(fader).css("top");
+            var extractNum = /([\d+.]*)px/i;
+            var threshold = 250 - parseFloat(faderHeight.match(extractNum)[1]);
+            barHeight = threshold * (avg / 70);
+            console.log(dataArray);
 
             if (meter.getContext) {
                 // console.log(meterBase);
                 var meterCtx = meter.getContext('2d');
                 var h = 300;
-
                 meterCtx.clearRect(0, 0, 10, 300);
                 meterCtx.drawImage(meterBase, 0, 300 - barHeight, 10, h, 0, 300 - barHeight, 10, h)
             }
+
+            // 재생이 멈추면 에니메이션프레임 정지
+            if (audio.paused) {
+                barHeight -= 1;
+                meterCtx.clearRect(0, 0, 10, 300);
+                meterCtx.drawImage(meterBase, 0, 300 - barHeight, 10, h, 0, 300 - barHeight, 10, h);
+
+
+                console.log(barHeight);
+
+                if (barHeight < 0) {
+                    cancelAnimationFrame(animationRequest);
+                }
+            }
+
+
         }
 
         // 패너 노드 생성 및 설정
@@ -238,7 +248,6 @@ function connectFader(gainNode, audioCtx, index) {
             .on("mousemove", function(e) {
                 var volume = setFaderPosition(e, fader[index], offsetY);
                 var gain_value = 1.25 - volume / 200;
-                console.log(gain_value);
 
                 gainNode.gain.value = gain_value;
 
