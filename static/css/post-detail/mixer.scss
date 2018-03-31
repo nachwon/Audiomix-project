@@ -14,8 +14,9 @@
 }
 
 .channel {
-    width: 100px;
     height: 540px;
+    float: right;
+    padding: 0 5px;
 
     .channel-wrapper {
         position: relative;

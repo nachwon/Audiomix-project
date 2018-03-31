@@ -10,8 +10,9 @@
   text-shadow: 0 1px 1px black !important; }
 
 .channel {
-  width: 100px;
-  height: 540px; }
+  height: 540px;
+  float: right;
+  padding: 0 5px; }
   .channel .channel-wrapper {
     position: relative;
     width: 70px;

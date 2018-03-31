@@ -233,7 +233,7 @@ function connectPanner(pannerNode, audioCtx, index) {
                     $(pan_slider[index]).siblings(".fill-right").css("width", 50 - (abs_value / 2) + "%");
                 }
 
-                var panner_value_display = $(".panner").parents(".channel-wrapper").find(".panner-value");
+                var panner_value_display = $(pan_slider[index]).parents(".channel-wrapper").find(".panner-value");
                 panner_value_display.text(panner_value);
 
             })
@@ -306,7 +306,7 @@ function connectFader(gainNode, audioCtx, index) {
                 else if (fader_value === -10) {
                     fader_value = "-\u221E"
                 }
-                var fader_value_display = $(".fader").parents(".channel-wrapper").find(".fader-value");
+                var fader_value_display = $(fader[index]).parents(".channel-wrapper").find(".fader-value");
 
                 fader_value_display.text(fader_value);
             })
