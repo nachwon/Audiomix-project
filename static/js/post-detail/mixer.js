@@ -133,9 +133,9 @@ function loadMixer() {
 // 미터 뒷 배경 캔버스 함수
 function drawFaderBackgroundBase() {
     var meterBase = document.createElement("canvas");
-    var r = 266;
-    var g = 176;
-    var b = 38;
+    var h = 38;
+    var s = 100;
+    var l = 45;
     meterBase.width = 10;
     meterBase.height = 300;
 
@@ -149,8 +149,9 @@ function drawFaderBackgroundBase() {
         // 미터 한 칸 두깨 2px, 사이 공간 1px 총 3px이 필요함
         // 미터 전체 높이를 3으로 나눈 뒤 3px 씩 그려줌
         for (var i = 0; i < meterHeight/3; i++) {
-            meterBaseCtx.fillStyle = "rgb("+ r +", " + g + ", " + b + ")";
-            meterBaseCtx.fillRect(1, i * 3 + 1, 8, 2)
+            l += 0.5;
+            meterBaseCtx.fillStyle = "hsl("+ h +", " + s + "% , " + l + "%)";
+            meterBaseCtx.fillRect(1, meterHeight - (i * 3 + 1), 8, 2)
         }
     }
 
