@@ -1,5 +1,8 @@
 var loadMixerBtn = $(".load-mixer-btn");
 var mixerLoaded = false;
+var sourceArray = [];
+
+var AudioContext = window.AudioContext || window.webkitAudioContext;
 
 loadMixerBtn.on("click", function () {
     if (!mixerLoaded) {
@@ -7,7 +10,7 @@ loadMixerBtn.on("click", function () {
         mixerLoaded = true;
     }
     else if (mixerLoaded) {
-        loadMixer(true);
+        loadMixer();
         mixerLoaded = false;
     }
 });
@@ -30,14 +33,30 @@ function toggleMixer() {
     }
 }
 
-function loadMixer(unload=false) {
+function loadMixer() {
     toggleMixer();
 
     var channels = $(".channel");
     channels.each(function(index, item) {
-        var audio = $("#" + $(item).attr("data-target-audio"))[0];
-        var AudioContext = window.AudioContext || window.webkitAudioContext;
-        var audioCtx = new AudioContext();
+        var targetId = $(item).attr("data-target-audio");
+        var audio = $("#" + targetId)[0];
+        var audioCtx = false;
+        var isLoaded = false;
+
+        sourceArray.forEach(function (item, index, array) {
+            if (item.includes(targetId)) {
+                isLoaded = true;
+            }
+        });
+
+        if (isLoaded) {
+            return
+        }
+
+        if (!audioCtx) {
+            audioCtx = new AudioContext();
+            sourceArray.push([targetId, audioCtx]);
+        }
 
         // 오디오 소스 생성
         var source = audioCtx.createMediaElementSource(audio);
