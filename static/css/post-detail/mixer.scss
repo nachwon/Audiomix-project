@@ -5,6 +5,21 @@
     z-index: 10;
 }
 
+.load-mixer-btn {
+    div {
+        position: fixed;
+    bottom: 50px;
+    right: 100px;
+    width: 100px;
+    height: 100px;
+    background-position: center center;
+    background-size: 100px;
+    background-repeat: no-repeat;
+    background-color: whitesmoke;
+    border-radius: 15px;
+    }
+}
+
 .author-track-channel {
     .channel-info {
         color: #E2B026 !important;
