@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="mixer">
+<div id="mixer">
     <div class="channel author-track-channel" id="channel-1" data-target-audio="track-{{ post.pk }}-author-audio">
         <div class="channel-wrapper">
             <div class="mute-solo">
@@ -30,6 +30,34 @@
         </div>
     </div>
     <div class="channel" id="channel-2" data-target-audio="comment-track-2">
+        <div class="channel-wrapper">
+            <div class="mute-solo">
+                <button class="mute">M</button>
+                <button class="solo">S</button>
+            </div>
+            <div class="panner-value">
+                <span>C</span>
+            </div>
+            <div class="panner">
+                <canvas class="panner-background" width="60px" height="7px"></canvas>
+                <div class="panner-fill fill-left"></div>
+                <div class="panner-fill fill-right"></div>
+                <div class="pan-slider" draggable="true"></div>
+            </div>
+            <div class="meter">
+                <canvas class="meter-base" width="10px" height="300px"></canvas>
+                <div class="fader" draggable="true"></div>
+            </div>
+            <div class="fader-value">
+                <span>0</span>
+            </div>
+            <div class="channel-info">
+                <span>{{ post.instrument }}</span>
+                <span>{{ post.author }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="channel" id="channel-2" data-target-audio="comment-track-1">
         <div class="channel-wrapper">
             <div class="mute-solo">
                 <button class="mute">M</button>

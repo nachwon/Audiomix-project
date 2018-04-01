@@ -3,6 +3,11 @@ $(document).ready(function() {
 });
 
 function loadMixer() {
+    var mixer = $("#mixer");
+    var mixerWidth = mixer.width();
+    // 믹서 가운데 배치
+    mixer.css("left", "calc(50% - " + mixerWidth / 2 + "px)");
+
     var channels = $(".channel");
     channels.each(function(index, item) {
         var audio = $("#" + $(item).attr("data-target-audio"))[0];
