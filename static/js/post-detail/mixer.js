@@ -4,13 +4,15 @@ var sourceArray = [];
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 
+// 믹서 버튼 클릭 시
 loadMixerBtn.on("click", function () {
     if (!mixerLoaded) {
         loadMixer();
+        toggleMixer();
         mixerLoaded = true;
     }
     else if (mixerLoaded) {
-        loadMixer();
+        toggleMixer();
         mixerLoaded = false;
     }
 });
@@ -34,8 +36,6 @@ function toggleMixer() {
 }
 
 function loadMixer() {
-    toggleMixer();
-
     var channels = $(".channel");
     channels.each(function(index, item) {
         var targetId = $(item).attr("data-target-audio");
