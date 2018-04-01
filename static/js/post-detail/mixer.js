@@ -1,6 +1,15 @@
 var loadMixerBtn = $(".load-mixer-btn");
+var mixerLoaded = false;
+
 loadMixerBtn.on("click", function () {
-    loadMixer()
+    if (!mixerLoaded) {
+        loadMixer();
+        mixerLoaded = true;
+    }
+    else if (mixerLoaded) {
+        loadMixer(true);
+        mixerLoaded = false;
+    }
 });
 
 function toggleMixer() {
@@ -10,20 +19,18 @@ function toggleMixer() {
 
     if (!mixer.attr("mixer-loaded")) {
         // 믹서 가운데 배치
-        mixer.fadeIn("fast");
         mixer.css("left", "calc(50% - " + mixerWidth / 2 + "px)");
         mixer.css("top", "calc(50% - " + mixerHeight / 2 + "px)");
 
         mixer.attr("mixer-loaded", true)
     }
     else {
-        mixer.fadeOut("fast");
         mixer.css("top", "-1000px");
         mixer.attr("mixer-loaded", null)
     }
 }
 
-function loadMixer() {
+function loadMixer(unload=false) {
     toggleMixer();
 
     var channels = $(".channel");
@@ -191,7 +198,7 @@ function connectPanner(pannerNode, audioCtx, index) {
     var zPos = 300;
 
     // 패너 노드 초기 세팅
-    pannerNode.panningModel = 'HRTF';
+    pannerNode.panningModel = 'equalpower';
     pannerNode.distanceModel = 'linear';
     pannerNode.refDistance = 1;
     pannerNode.maxDistance = 10000;
