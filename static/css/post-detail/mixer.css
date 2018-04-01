@@ -1,8 +1,9 @@
 #mixer {
   position: fixed;
-  top: 25%;
+  top: -1000px;
   background-color: #333533;
-  z-index: 10; }
+  z-index: 10;
+  transition-duration: 0.5s; }
 
 .load-mixer-btn div {
   position: fixed;

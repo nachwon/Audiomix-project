@@ -1,12 +1,30 @@
-$(document).ready(function() {
-    loadMixer();
+var loadMixerBtn = $(".load-mixer-btn");
+loadMixerBtn.on("click", function () {
+    loadMixer()
 });
 
-function loadMixer() {
+function toggleMixer() {
     var mixer = $("#mixer");
     var mixerWidth = mixer.width();
-    // 믹서 가운데 배치
-    mixer.css("left", "calc(50% - " + mixerWidth / 2 + "px)");
+    var mixerHeight = mixer.height();
+
+    if (!mixer.attr("mixer-loaded")) {
+        // 믹서 가운데 배치
+        mixer.fadeIn("fast");
+        mixer.css("left", "calc(50% - " + mixerWidth / 2 + "px)");
+        mixer.css("top", "calc(50% - " + mixerHeight / 2 + "px)");
+
+        mixer.attr("mixer-loaded", true)
+    }
+    else {
+        mixer.fadeOut("fast");
+        mixer.css("top", "-1000px");
+        mixer.attr("mixer-loaded", null)
+    }
+}
+
+function loadMixer() {
+    toggleMixer();
 
     var channels = $(".channel");
     channels.each(function(index, item) {
