@@ -198,3 +198,34 @@
       text-shadow: 0 1px 1px #777; }
       .channel .channel-wrapper .channel-info span {
         display: block; }
+
+.mixer-player {
+  text-align: center;
+  display: inline-block;
+  width: 740px;
+  left: calc(50% - 740px / 2);
+  height: 80px;
+  position: absolute;
+  bottom: -90px;
+  background-color: #333533;
+  border-radius: 10px;
+  border: 1px solid silver;
+  box-shadow: 1px 1px 9px 1px black; }
+  .mixer-player .mixer-player-progress {
+    margin: 0 auto;
+    width: 600px; }
+    .mixer-player .mixer-player-progress .progress-base {
+      height: 1px;
+      width: 100%;
+      background-color: #555;
+      margin: 10px 0;
+      box-shadow: 1px 1px 0 0 black; }
+    .mixer-player .mixer-player-progress .progress-cover {
+      width: 50%;
+      height: 1px;
+      background-color: #E2B026; }
+  .mixer-player .mixer-play-btn {
+    line-height: 50px;
+    font-size: 30px;
+    border: 0;
+    background-color: transparent; }
