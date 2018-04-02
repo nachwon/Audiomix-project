@@ -1,4 +1,5 @@
 var addToMixerBtn = $(".add-to-mixer-btn");
+var contextArray = [];
 var sourceArray = [];
 
 addToMixerBtn.on("click", function() {
@@ -26,8 +27,10 @@ addToMixerBtn.on("click", function() {
         instrument.text("Not");
         author.text("Loaded");
         sourceArray.forEach(function(item, index, array) {
-            if (item.includes(targetId)) {
-                sourceArray.splice(index, 1);
+            if (item.audioId === targetId) {
+                item.disconnect();
+                item.connect(item.context.destination);
+                // sourceArray.splice(index, 1);
             }
         })
     }
@@ -47,6 +50,8 @@ addToMixerBtn.on("click", function() {
 
 var loadMixerBtn = $(".load-mixer-btn");
 var mixerLoaded = false;
+var ctxLoaded = false;
+var authorSourceLoaded = false;
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -55,7 +60,7 @@ loadMixerBtn.on("click", function () {
     // 믹서 로딩이 안되어있으면
     if (!mixerLoaded) {
         // 오디오 콘텍스트 연결
-        loadMixer();
+        loadMixer(true);
         // 믹서 내려오기
         toggleMixer();
         // 마스크 페이드 인
@@ -65,6 +70,7 @@ loadMixerBtn.on("click", function () {
     }
     // 믹서 로딩이 되어있으면
     else if (mixerLoaded) {
+        loadMixer(false);
         // 믹서 올리기
         toggleMixer();
         // 마스크 페이드 아웃
@@ -93,11 +99,24 @@ function toggleMixer() {
     }
 }
 
+function createAudioCtx(channels) {
+    channels.each(function(index, item) {
+        var audioCtx = new AudioContext();
+        contextArray.push([index, audioCtx])
+    });
+    ctxLoaded = true;
+}
+
 // sourceArray와 .channel 요소들을 비교하여 오디오 컨텍스트 로딩
 // channel의 타겟 오디오가 sourceArray에 있으면 Audio Context를 새로 생성하지 않고 어레이에서 꺼내온 다음 함수 실행 종료
 // 없으면 새로 생성하고 노드 연결까지 수행
-function loadMixer() {
+function loadMixer(connect=true) {
     var channels = $(".channel");
+
+    if (!ctxLoaded) {
+        createAudioCtx(channels);
+    }
+
     channels.each(function(index, item) {
         var targetId = $(item).attr("data-target-audio");
 
@@ -106,33 +125,15 @@ function loadMixer() {
         }
 
         var audio = $("#" + targetId)[0];
-        var isLoaded = false;
 
         // 배열 내의 각 요소들에 대해서
         // 배열의 각 요소 = ['오디오 태그 id', '이 오디오 태그가 연결된 audioCtx']
-        sourceArray.forEach(function (item, index, array) {
-            // 각 요소 내에 타겟 id가 있으면
-            if (item.includes(targetId)) {
-                // isLoaded 에 true 값을 저장
-                isLoaded = true;
-            }
-        });
 
-        // isLoaded 가 true 이면 노드 연결 작업을 수행하지 않고 함수 종료
-        if (isLoaded) {
-            return
-        }
-
-        // isLoaded 가 false 이면, 즉, 채널에 로딩된 오디오가 sourceArray 내에 없으면,
-        // 새로운 AudioContext 객체 생성하고 id 값과 함께 묶어서 sourceArray 배열에 추가
-        var audioCtx = new AudioContext();
-        sourceArray.push([targetId, audioCtx]);
+        var audioCtx = contextArray[index][1];
+        var source;
 
         // 새로 생성된 경우에는 노드들과 연결이 안되어있기 때문에 아래의 연결작업 수행
 
-        // 오디오 소스 생성
-        var source = audioCtx.createMediaElementSource(audio);
-        console.log(sourceArray);
         // 분석 노드 생성
         var analyzer = audioCtx.createAnalyser();
 
@@ -244,14 +245,36 @@ function loadMixer() {
         connectPanner(pannerNode, audioCtx, index);
         pannerBackgroundDraw(index);
 
-        // 소스 -> 패너 노드 -> 게인 노드 연결
-        var panner_connected = source.connect(pannerNode);
-        var gain_panner_connected = panner_connected.connect(gainNode);
+        if (connect) {
+            if (audioCtx.connected) {
+                audioCtx.connected.disconnect();
+            }
+            source = audioCtx.createMediaElementSource(audio);
 
-        // 게인 노드 -> 분석 노드 -> 데스티네이션(스피커)으로 연결
-        // 분석노드는 루트의 어느 곳에 연결되든 상관 없음
-        gain_panner_connected.connect(analyzer);
-        analyzer.connect(audioCtx.destination);
+            // 소스 -> 패너 노드 -> 게인 노드 연결
+            var panner_connected = source.connect(pannerNode);
+            var gain_panner_connected = panner_connected.connect(gainNode);
+
+            // 게인 노드 -> 분석 노드 -> 데스티네이션(스피커)으로 연결
+            // 분석노드는 루트의 어느 곳에 연결되든 상관 없음
+            gain_panner_connected.connect(analyzer);
+            analyzer.connect(audioCtx.destination);
+            audioCtx.connected = source;
+
+            if (!audio.paused) {
+                audio.pause();
+                audio.play();
+            }
+
+            console.log(index + " connected")
+        }
+        else {
+            audioCtx.connected.disconnect();
+            source = audioCtx.createMediaElementSource(audio);
+            source.connect(audioCtx.destination);
+            audioCtx.connected = source;
+            console.log(index + " disconnected");
+        }
     })
 }
 
@@ -392,7 +415,6 @@ function connectPanner(pannerNode, audioCtx, index) {
     $(pan_slider[index]).on("mousedown", function(e) {
         // 마우스 클릭 한 부분 그대로에서부터 이동시키도록 해주기 위한 값
         var offsetX = e.offsetX;
-        console.log(offsetX);
 
         // 오작동 방지를 위한 포인터이벤트 제거
         $(this).css("pointer-events", "none");
