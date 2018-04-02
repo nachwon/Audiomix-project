@@ -84,6 +84,12 @@ function showPlayer() {
     player.removeClass("hide-player");
 }
 
+// 플레이어 숨기기
+function hidePlayer() {
+    var player = $(".soundhub-player");
+    player.addClass("hide-player");
+}
+
 // 현재 재생중인 트랙 총 길이 업데이트
 function playerDuration() {
     var audio = $("[loaded]");
