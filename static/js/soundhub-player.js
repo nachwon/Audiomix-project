@@ -353,21 +353,7 @@ function addToPlaylist(self) {
         var target_title_author = target_title + '-' + target_author;
 
         // 메세지 박스에 띄울 메세지
-        var message =
-            '<li class="message-list">' +
-            '<img class="message-box-post-img" src="'+ target_img + '">' +
-            '<div class="message-box-message-body">' +
-            '<div class="message-box-post-title">' + target_title_author + '</div>' +
-            '<div class="message-box-message">was added to playlist</div>' +
-            '</div>' +
-            '<div class="message-box-close">' +
-            '<button onclick="$(this).parent().parent().fadeOut()">' +
-            '<i class="far fa-times-circle"></i>' +
-            '</button>' +
-            '</div>' +
-            '</li>';
-
-        alertMessageBox(message);
+        alertMessageBox(target_img, target_title_author, "was added to playlist");
 
         ul.append(list_item);
         togglePlaylistItem();
@@ -396,21 +382,7 @@ function deleteFromPlaylist() {
     var target_author = target_obj.find(".player-post-author").text();
     var target_title_author = target_title + '-' + target_author;
 
-    var message =
-        '<li class="message-list">' +
-        '<img class="message-box-post-img" src="'+ target_img + '">' +
-        '<div class="message-box-message-body">' +
-        '<div class="message-box-post-title">' + target_title_author + '</div>' +
-        '<div class="message-box-message">was deleted from playlist</div>' +
-        '</div>' +
-        '<div class="message-box-close">' +
-        '<button onclick="$(this).parent().parent().fadeOut()">' +
-        '<i class="far fa-times-circle"></i>' +
-        '</button>' +
-        '</div>' +
-        '</li>';
-
-    alertMessageBox(message);
+    alertMessageBox(target_img, target_title_author, "was deleted from playlist");
 
     playlist.each(function(index, item) {
         if ($(item).attr("data-target") === target_id) {
@@ -601,8 +573,22 @@ $(document).on("click", function(e) {
 // 메세지 팝업 관련 함수
 
 // 메세지 박스 나타내기
-function alertMessageBox(message) {
+function alertMessageBox(img_url, titleAuthor, text) {
     var message_box = $("#message-box");
+
+    var message =
+            '<li class="message-list">' +
+            '<img class="message-box-post-img" src="'+ img_url + '">' +
+            '<div class="message-box-message-body">' +
+            '<div class="message-box-post-title">' + titleAuthor + '</div>' +
+            '<div class="message-box-message">' + text + '</div>' +
+            '</div>' +
+            '<div class="message-box-close">' +
+            '<button onclick="$(this).parent().parent().fadeOut()">' +
+            '<i class="far fa-times-circle"></i>' +
+            '</button>' +
+            '</div>' +
+            '</li>';
 
     message_box.css('display', 'block');
     message_box.append(message);

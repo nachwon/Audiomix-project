@@ -32,7 +32,9 @@ addToMixerBtn.on("click", function() {
         channel.removeClass("channel-loaded");
         icon.removeClass("glyphicon-minus-sign");
         icon.addClass("glyphicon-plus-sign");
-        text.text("Add to Mixer")
+        text.text("Add to Mixer");
+
+        alertMessageBox("", targetInst + " track by " + targetAuthor, "was removed to mixer")
     }
     else {
         channel = $(channels[emptyChannel.min()]);
@@ -45,7 +47,9 @@ addToMixerBtn.on("click", function() {
         channel.addClass("channel-loaded");
         icon.addClass("glyphicon-minus-sign");
         icon.removeClass("glyphicon-plus-sign");
-        text.text("Remove from Mixer")
+        text.text("Remove from Mixer");
+
+        alertMessageBox("", targetInst + " track by " + targetAuthor, "was added to mixer")
     }
 });
 
@@ -265,15 +269,12 @@ function loadMixer(connect=true) {
                 audio.pause();
                 audio.play();
             }
-
-            console.log(index + " connected")
         }
         else {
             audioCtx.connected.disconnect();
             source = audioCtx.createMediaElementSource(audio);
             source.connect(audioCtx.destination);
             audioCtx.connected = source;
-            console.log(index + " disconnected");
         }
     })
 }
