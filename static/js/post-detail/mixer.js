@@ -6,17 +6,23 @@ var AudioContext = window.AudioContext || window.webkitAudioContext;
 
 // 믹서 버튼 클릭 시
 loadMixerBtn.on("click", function () {
+    // 믹서 로딩이 안되어있으면
     if (!mixerLoaded) {
+        // 오디오 콘텍스트 연결
         loadMixer();
+        // 믹서 내려오기
         toggleMixer();
         mixerLoaded = true;
     }
+    // 믹서 로딩이 되어있으면
     else if (mixerLoaded) {
+        // 믹서 올리기
         toggleMixer();
         mixerLoaded = false;
     }
 });
 
+// 믹서 올리기/내리기 토글 함수
 function toggleMixer() {
     var mixer = $("#mixer");
     var mixerWidth = mixer.width();
@@ -35,35 +41,46 @@ function toggleMixer() {
     }
 }
 
+// sourceArray와 .channel 요소들을 비교하여 오디오 컨텍스트 로딩
+// channel의 타겟 오디오가 sourceArray에 있으면 Audio Context를 새로 생성하지 않고 어레이에서 꺼내온 다음 함수 실행 종료
+// 없으면 새로 생성하고 노드 연결까지 수행
 function loadMixer() {
     var channels = $(".channel");
     channels.each(function(index, item) {
         var targetId = $(item).attr("data-target-audio");
         var audio = $("#" + targetId)[0];
-        var audioCtx = false;
         var isLoaded = false;
 
+        // 배열 내의 각 요소들에 대해서
+        // 배열의 각 요소 = ['오디오 태그 id', '이 오디오 태그가 연결된 audioCtx']
         sourceArray.forEach(function (item, index, array) {
+            // 각 요소 내에 타겟 id가 있으면
             if (item.includes(targetId)) {
+                // isLoaded 에 true 값을 저장
                 isLoaded = true;
             }
         });
 
+        // isLoaded 가 true 이면 노드 연결 작업을 수행하지 않고 함수 종료
         if (isLoaded) {
             return
         }
 
-        if (!audioCtx) {
-            audioCtx = new AudioContext();
-            sourceArray.push([targetId, audioCtx]);
-        }
+        // isLoaded 가 false 이면, 즉, 채널에 로딩된 오디오가 sourceArray 내에 없으면,
+        // 새로운 AudioContext 객체 생성하고 id 값과 함께 묶어서 sourceArray 배열에 추가
+        var audioCtx = new AudioContext();
+        sourceArray.push([targetId, audioCtx]);
+
+        // 새로 생성된 경우에는 노드들과 연결이 안되어있기 때문에 아래의 연결작업 수행
 
         // 오디오 소스 생성
         var source = audioCtx.createMediaElementSource(audio);
 
+        // 분석 노드 생성
         var analyzer = audioCtx.createAnalyser();
-        analyzer.maxDecibels = -10;
 
+        // 분석 노드 설정
+        analyzer.maxDecibels = -10;
         analyzer.fftSize = 256;
         var bufferLength = analyzer.frequencyBinCount;
         var dataArray = new Uint8Array(bufferLength);
@@ -92,6 +109,7 @@ function loadMixer() {
         // 미터 뒷 배경을 가져와 그려줄 캔버스 엘리먼트
         var meter = document.getElementsByClassName("meter-base")[index];
 
+        // 미터 막대 그리기 함수
         function faderBackgroundDraw() {
             // 반복 실행
             var animationRequest= requestAnimationFrame(faderBackgroundDraw);
@@ -169,11 +187,12 @@ function loadMixer() {
         connectPanner(pannerNode, audioCtx, index);
         pannerBackgroundDraw(index);
 
-        // 소스 -> 노드 연결
-        var gain_connected = source.connect(gainNode);
-        var gain_panner_connected = gain_connected.connect(pannerNode);
+        // 소스 -> 패너 노드 -> 게인 노드 연결
+        var panner_connected = source.connect(pannerNode);
+        var gain_panner_connected = panner_connected.connect(gainNode);
 
-        // 노드 -> 애널라이저 -> 데스티네이션으로 연결
+        // 게인 노드 -> 분석 노드 -> 데스티네이션(스피커)으로 연결
+        // 분석노드는 루트의 어느 곳에 연결되든 상관 없음
         gain_panner_connected.connect(analyzer);
         analyzer.connect(audioCtx.destination);
     })
@@ -205,126 +224,6 @@ function drawFaderBackgroundBase() {
     }
 
     return meterBase;
-}
-
-function connectPanner(pannerNode, audioCtx, index) {
-    // 화면 가운데 위치 좌표값 저장
-    var WIDTH = window.innerWidth;
-    var HEIGHT = window.innerHeight;
-
-    var xPos = Math.floor(WIDTH/2);
-    var yPos = Math.floor(HEIGHT/2);
-    var zPos = 300;
-
-    // 패너 노드 초기 세팅
-    pannerNode.panningModel = 'equalpower';
-    pannerNode.distanceModel = 'linear';
-    pannerNode.refDistance = 1;
-    pannerNode.maxDistance = 10000;
-    pannerNode.rolloffFactor = 1;
-    pannerNode.coneInnerAngle = 360;
-    pannerNode.coneOuterAngle = 0;
-    pannerNode.coneOuterGain = 0;
-
-    if(pannerNode.orientationX) {
-        pannerNode.orientationX.value = 1;
-        pannerNode.orientationY.value = 0;
-        pannerNode.orientationZ.value = 0;
-    } else {
-        pannerNode.setOrientation(1,0,0);
-    }
-
-    // 리스너 세팅
-    var listener = audioCtx.listener;
-
-    if(listener.forwardX) {
-        listener.forwardX.value = 0;
-        listener.forwardY.value = 0;
-        listener.forwardZ.value = -1;
-        listener.upX.value = 0;
-        listener.upY.value = 1;
-        listener.upZ.value = 0;
-    } else {
-        listener.setOrientation(0,0,-1,0,1,0);
-    }
-
-    // 리스너 위치 세팅
-    listener.setPosition(xPos, yPos, zPos);
-    // 패너 위치 세팅
-    pannerNode.setPosition(xPos, yPos, zPos + 30);
-
-    var pan_slider = document.getElementsByClassName("pan-slider");
-
-    $(pan_slider[index]).on("mousedown", function(e) {
-        var offsetX = e.offsetX;
-        $(this).css("pointer-events", "none");
-        $(document)
-            .on("mousemove", function(e) {
-                var panner_position = setPannerPosition(e, pan_slider[index], offsetX) - 30;
-                pannerNode.setPosition(xPos + (panner_position * 2), yPos, zPos + 30);
-
-                var panner_value = Math.floor(panner_position / 30 * 100);
-                var abs_value = Math.abs(panner_value);
-
-
-                if (panner_value === 0) {
-                    panner_value = "C"
-                }
-                else if (panner_value < 0) {
-                    panner_value = "L" + abs_value;
-                    $(pan_slider[index]).siblings(".fill-left").css("width", 50 - (abs_value / 2) + "%");
-                    $(pan_slider[index]).siblings(".fill-right").css("width", "50%");
-
-                }
-                else if (panner_value > 0) {
-                    panner_value = "R" + abs_value;
-                    $(pan_slider[index]).siblings(".fill-left").css("width", "50%");
-                    $(pan_slider[index]).siblings(".fill-right").css("width", 50 - (abs_value / 2) + "%");
-                }
-
-                var panner_value_display = $(pan_slider[index]).parents(".channel-wrapper").find(".panner-value");
-                panner_value_display.text(panner_value);
-
-            })
-            .on("mouseup", function() {
-                $(this).off("mousemove");
-                $(pan_slider[index]).css("pointer-events", "visible");
-            })
-    })
-}
-
-function setPannerPosition(e, pan_slider, offsetX) {
-    var panner = $(pan_slider).parent();
-
-    var position = parseFloat(e.pageX) - parseFloat(panner.offset().left) - parseFloat(offsetX);
-
-    if (position < 0) {
-        position = 0;
-    }
-    else if (position > 60) {
-        position = 60;
-    }
-
-    position -= $(pan_slider).width() / 2;
-
-    $(pan_slider).css("left", position + "px");
-
-    return position + 3
-}
-
-// 패너 뒷 바탕 채우기
-function pannerBackgroundDraw(index) {
-    var canvas = document.getElementsByClassName("panner-background")[index];
-    var width = $(canvas).width();
-
-    if (canvas.getContext) {
-        var ctx = canvas.getContext('2d');
-
-        for (var i = 0; i < width/3; i++) {
-            ctx.fillStyle = "rgb(226, 176, 38, 0.9)";
-            ctx.fillRect(i * 3 + 1, 1, 2, 5);
-        }
-    }
 }
 
 // 페이더 동작 설정
@@ -384,3 +283,156 @@ function setFaderPosition(e, fader, offsetY) {
     return position
 }
 
+function connectPanner(pannerNode, audioCtx, index) {
+    // 화면 가운데 위치 좌표값 저장
+    var WIDTH = window.innerWidth;
+    var HEIGHT = window.innerHeight;
+
+    var xPos = Math.floor(WIDTH/2);
+    var yPos = Math.floor(HEIGHT/2);
+    var zPos = 300;
+
+    // 패너 노드 초기 세팅
+    pannerNode.panningModel = 'equalpower';
+    pannerNode.distanceModel = 'linear';
+    pannerNode.refDistance = 1;
+    pannerNode.maxDistance = 10000;
+    pannerNode.rolloffFactor = 1;
+    pannerNode.coneInnerAngle = 360;
+    pannerNode.coneOuterAngle = 0;
+    pannerNode.coneOuterGain = 0;
+
+    if(pannerNode.orientationX) {
+        pannerNode.orientationX.value = 1;
+        pannerNode.orientationY.value = 0;
+        pannerNode.orientationZ.value = 0;
+    } else {
+        pannerNode.setOrientation(1,0,0);
+    }
+
+    // 리스너 세팅
+    var listener = audioCtx.listener;
+
+    if(listener.forwardX) {
+        listener.forwardX.value = 0;
+        listener.forwardY.value = 0;
+        listener.forwardZ.value = -1;
+        listener.upX.value = 0;
+        listener.upY.value = 1;
+        listener.upZ.value = 0;
+    } else {
+        listener.setOrientation(0,0,-1,0,1,0);
+    }
+
+    // 리스너 위치 세팅
+    listener.setPosition(xPos, yPos, zPos);
+    // 패너 위치 세팅
+    pannerNode.setPosition(xPos, yPos, zPos + 30);
+
+    var pan_slider = document.getElementsByClassName("pan-slider");
+
+    // 팬 슬라이더에 마우스 다운 시
+    $(pan_slider[index]).on("mousedown", function(e) {
+        // 마우스 클릭 한 부분 그대로에서부터 이동시키도록 해주기 위한 값
+        var offsetX = e.offsetX;
+        console.log(offsetX);
+
+        // 오작동 방지를 위한 포인터이벤트 제거
+        $(this).css("pointer-events", "none");
+
+        $(document)
+            // 팬 슬라이더 클릭 후 누르고 있는 상태 유지시(=마우스 다운) 문서 전체에서 마우스 움직임 감지
+            .on("mousemove", function(e) {
+                // 팬 슬라이더 위치 값 0 ~ 60 에서
+                // 가운데를 0으로 하기 위해서 30을 빼줌: -30 ~ 30
+                var panner_position = setPannerPosition(e, pan_slider[index], offsetX) - 30;
+
+                // 팬 슬라이더 위치에 따라 패너 노드 위치값 변경
+                pannerNode.setPosition(xPos + (panner_position * 2), yPos, zPos + 30);
+
+                // 팬 슬라이더 위치 값을 % 단위로 변경 -100 ~ 100
+                var panner_value = Math.floor(panner_position / 30 * 100);
+                // % 단위 값을 절대값으로 변경
+                var abs_value = Math.abs(panner_value);
+
+                // 슬라이더가 가운데에 있을 때는 C 표시
+                if (panner_value === 0) {
+                    panner_value = "C"
+                }
+                // 0 보다 작을 경우, 즉, 왼쪽으로 패닝 할 경우 L + % 단위 절대값 표시
+                else if (panner_value < 0) {
+                    panner_value = "L" + abs_value;
+                    // 배경을 가리고 있는 div 넓이 왼쪽으로 줄여줌
+                    $(pan_slider[index]).siblings(".fill-left").css("width", 50 - (abs_value / 2) + "%");
+                    $(pan_slider[index]).siblings(".fill-right").css("width", "50%");
+
+                }
+                // 0 보다 클 경우, 즉, 오른쪽으로 패닝 할 경우 R + % 단위 절대값 표시
+                else if (panner_value > 0) {
+                    panner_value = "R" + abs_value;
+                    // 배경을 가리고 있는 div 넓이 오른쪽으로 줄여줌
+                    $(pan_slider[index]).siblings(".fill-left").css("width", "50%");
+                    $(pan_slider[index]).siblings(".fill-right").css("width", 50 - (abs_value / 2) + "%");
+                }
+
+                // panner_value 를 패너 디스플레이에 표시
+                var panner_value_display = $(pan_slider[index]).parents(".channel-wrapper").find(".panner-value");
+                panner_value_display.text(panner_value);
+
+            })
+
+            // 전체 창 위에서 마우스 때면
+            .on("mouseup", function() {
+                // 마우스무프 이벤트 제거
+                $(this).off("mousemove");
+                // 슬라이더 포인터 이벤트 원상복구
+                $(pan_slider[index]).css("pointer-events", "visible");
+            })
+    })
+}
+
+// 마우스 움직임에 따라 팬 슬라이더 위치값 변경해주는 함수
+function setPannerPosition(e, pan_slider, offsetX) {
+    var panner = $(pan_slider).parent();
+    var pannerCenter = $(pan_slider).width() / 2;
+
+
+
+    // 전체 페이지에 대하여 계산한 이벤트 발생 위치 X축 값
+    // - 패너 요소의 왼쪽 부분이 전체 페이지의 가장 왼쪽으로부터 떨어진 거리
+    // - 팬 슬라이더 가장 왼쪽부터 잰 마우스 다운 이벤트 발생 위치 X축 값 (한 이벤트 사이클 내에서는 고정 된 값)
+    var position = parseFloat(e.pageX) - parseFloat(panner.offset().left) - parseFloat(offsetX);
+
+    // 슬라이더가 양쪽 끝으로 움직였을 때 양쪽 모두에서 슬라이더의 가운데 까지만 밖으로 나가도록 설정
+    // 즉 슬라이더의 가운데를 기준으로 포지션 설정
+    // 최소값 0
+    if (position < 0 - pannerCenter) {
+        position = 0 - pannerCenter;
+    }
+    // 최대값 60
+    else if (position > 60 - pannerCenter ) {
+        position = 60 - pannerCenter;
+    }
+
+    // 슬라이더 위치 지정
+    $(pan_slider).css("left", position + "px");
+
+    // 패너 값에 넘겨줄 포지션 값 리턴
+    // 슬라이더의 가운데를 기준으로 패너 값 설정하기 위해 슬라이더 넓이의 반 만큼을 더해줌
+    return position + $(pan_slider).width() / 2;
+}
+
+// 패너 뒷 바탕 채우기
+function pannerBackgroundDraw(index) {
+    var canvas = document.getElementsByClassName("panner-background")[index];
+    var width = $(canvas).width();
+
+    if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+
+        for (var i = 0; i < width/3; i++) {
+            ctx.fillStyle = "rgb(226, 176, 38, 0.9)";
+            ctx.fillRect(i * 3 + 1, 1, 2, 5);
+        }
+    }
+}
