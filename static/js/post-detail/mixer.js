@@ -9,6 +9,8 @@ addToMixerBtn.on("click", function() {
     var channels = $(".channel");
     var emptyChannel = [];
     var channel, instrument, author;
+    var icon = $(this).find(".glyphicon");
+    var text = $(this).find(".to-mixer-text");
 
     channels.each(function (index, item) {
         if (!$(item).attr("data-target-audio")) {
@@ -28,6 +30,9 @@ addToMixerBtn.on("click", function() {
         author.text("Loaded");
 
         channel.removeClass("channel-loaded");
+        icon.removeClass("glyphicon-minus-sign");
+        icon.addClass("glyphicon-plus-sign");
+        text.text("Add to Mixer")
     }
     else {
         channel = $(channels[emptyChannel.min()]);
@@ -38,6 +43,9 @@ addToMixerBtn.on("click", function() {
         author.text(targetAuthor);
 
         channel.addClass("channel-loaded");
+        icon.addClass("glyphicon-minus-sign");
+        icon.removeClass("glyphicon-plus-sign");
+        text.text("Remove from Mixer")
     }
 });
 
