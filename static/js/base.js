@@ -66,3 +66,13 @@ if (!Array.prototype.includes) {
     }
   });
 }
+
+// 배열 최대값
+Array.prototype.max = function() {
+  return Math.max.apply(null, this);
+};
+
+// 배열 최소값
+Array.prototype.min = function() {
+  return Math.min.apply(null, this);
+};
