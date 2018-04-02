@@ -231,6 +231,10 @@
             box-shadow: 0 0 6px 0 black;
             color: #ddd;
             text-shadow: 0 1px 1px #777;
+
+            span {
+                display: block;
+            }
         }
     }
 }

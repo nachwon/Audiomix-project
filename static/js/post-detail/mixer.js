@@ -54,6 +54,11 @@ function loadMixer() {
     var channels = $(".channel");
     channels.each(function(index, item) {
         var targetId = $(item).attr("data-target-audio");
+
+        if (!targetId) {
+            return
+        }
+
         var audio = $("#" + targetId)[0];
         var isLoaded = false;
 
