@@ -1,3 +1,9 @@
+
+
+
+
+// ------- Mixer -------
+
 var loadMixerBtn = $(".load-mixer-btn");
 var mixerLoaded = false;
 var sourceArray = [];
