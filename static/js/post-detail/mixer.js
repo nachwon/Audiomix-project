@@ -8,6 +8,7 @@ var loadMixerBtn = $(".load-mixer-btn");
 var mixerLoaded = false;
 var sourceArray = [];
 
+
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 
 // 믹서 버튼 클릭 시
@@ -20,6 +21,7 @@ loadMixerBtn.on("click", function () {
         toggleMixer();
         // 마스크 페이드 인
         $(".mixer-mask").fadeIn("fast");
+
         mixerLoaded = true;
     }
     // 믹서 로딩이 되어있으면
@@ -28,6 +30,7 @@ loadMixerBtn.on("click", function () {
         toggleMixer();
         // 마스크 페이드 아웃
         $(".mixer-mask").fadeOut("fast");
+
         mixerLoaded = false;
     }
 });

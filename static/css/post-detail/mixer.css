@@ -56,7 +56,8 @@
     background-color: #3c3c3c;
     box-shadow: inset 0 0 20px -3px black;
     overflow: hidden;
-    border-radius: 5px; }
+    border-radius: 5px;
+    border: 1px solid #242424; }
     .channel .channel-wrapper .mute-solo button {
       width: 35px;
       padding: 0;
