@@ -18,12 +18,16 @@ loadMixerBtn.on("click", function () {
         loadMixer();
         // 믹서 내려오기
         toggleMixer();
+        // 마스크 페이드 인
+        $(".mixer-mask").fadeIn("fast");
         mixerLoaded = true;
     }
     // 믹서 로딩이 되어있으면
     else if (mixerLoaded) {
         // 믹서 올리기
         toggleMixer();
+        // 마스크 페이드 아웃
+        $(".mixer-mask").fadeOut("fast");
         mixerLoaded = false;
     }
 });

@@ -5,20 +5,33 @@
   z-index: 10;
   transition-duration: 0.5s; }
 
-.load-mixer-btn div {
+.mixer-mask {
+  position: fixed;
+  background-color: #ddd;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  opacity: 0.7;
+  display: none; }
+
+.load-mixer-btn {
   position: fixed;
   bottom: 80px;
   right: 100px;
-  width: 100px;
-  height: 100px;
-  background-position: center center;
-  background-size: 100px;
-  background-repeat: no-repeat;
-  background-color: whitesmoke;
-  border-radius: 15px;
-  border: 1px solid black;
-  box-shadow: 1px 1px 10px 0px black;
-  cursor: pointer; }
+  z-index: 1; }
+  .load-mixer-btn div {
+    width: 100px;
+    height: 100px;
+    background-position: center center;
+    background-size: 100px;
+    background-repeat: no-repeat;
+    background-color: whitesmoke;
+    border-radius: 15px;
+    border: 1px solid black;
+    box-shadow: 1px 1px 10px 0px black;
+    cursor: pointer; }
 
 .author-track-channel .channel-info {
   color: #E2B026 !important;
