@@ -1,10 +1,14 @@
 var addToMixerBtn = $(".add-to-mixer-btn");
+var sourceArray = [];
 
 addToMixerBtn.on("click", function() {
     var targetId = $(this).data("target");
+    var targetInst = $(this).data("instrument");
+    var targetAuthor = $(this).data("author");
     var isLoaded = false;
     var channels = $(".channel");
     var emptyChannel = [];
+    var channel, instrument, author;
 
     channels.each(function (index, item) {
         if (!$(item).attr("data-target-audio")) {
@@ -15,10 +19,25 @@ addToMixerBtn.on("click", function() {
         }
     });
     if (isLoaded) {
-        $(channels[isLoaded]).attr("data-target-audio", "")
+        channel = $(channels[isLoaded]);
+        channel.attr("data-target-audio", "");
+        instrument = channel.find(".channel-instrument");
+        author = channel.find(".channel-author");
+        instrument.text("Not");
+        author.text("Loaded");
+        sourceArray.forEach(function(item, index, array) {
+            if (item.includes(targetId)) {
+                sourceArray.splice(index, 1);
+            }
+        })
     }
     else {
-        $(channels[emptyChannel.min()]).attr("data-target-audio", targetId)
+        channel = $(channels[emptyChannel.min()]);
+        channel.attr("data-target-audio", targetId);
+        instrument = channel.find(".channel-instrument");
+        author = channel.find(".channel-author");
+        instrument.text(targetInst);
+        author.text(targetAuthor);
     }
 });
 
@@ -28,8 +47,6 @@ addToMixerBtn.on("click", function() {
 
 var loadMixerBtn = $(".load-mixer-btn");
 var mixerLoaded = false;
-var sourceArray = [];
-
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -115,7 +132,7 @@ function loadMixer() {
 
         // 오디오 소스 생성
         var source = audioCtx.createMediaElementSource(audio);
-
+        console.log(sourceArray);
         // 분석 노드 생성
         var analyzer = audioCtx.createAnalyser();
 

@@ -20,7 +20,7 @@
         <h1 class="track-title">{{ comment.instrument }} Track</h1>
         <a href="{% url 'views:user:user-detail' pk=comment.author.pk %}"><p class="track-author">by {{ comment.author }}</p></a>
 
-        <button class="add-to-mixer-btn" data-target="comment-track-{{ comment.pk }}">
+        <button class="add-to-mixer-btn" data-target="comment-track-{{ comment.pk }}" data-instrument="{{ comment.instrument }}" data-author="{{ comment.author }}">
             <span class="glyphicon glyphicon-plus-sign"></span>
             <span class="to-mixer-text">Add to Mixer</span>
         </button>
