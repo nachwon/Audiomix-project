@@ -1,6 +1,5 @@
 var addToMixerBtn = $(".add-to-mixer-btn");
 var contextArray = [];
-var sourceArray = [];
 
 addToMixerBtn.on("click", function() {
     var targetId = $(this).data("target");
@@ -19,6 +18,7 @@ addToMixerBtn.on("click", function() {
             isLoaded = index;
         }
     });
+
     if (isLoaded) {
         channel = $(channels[isLoaded]);
         channel.attr("data-target-audio", "");
@@ -26,13 +26,8 @@ addToMixerBtn.on("click", function() {
         author = channel.find(".channel-author");
         instrument.text("Not");
         author.text("Loaded");
-        sourceArray.forEach(function(item, index, array) {
-            if (item.audioId === targetId) {
-                item.disconnect();
-                item.connect(item.context.destination);
-                // sourceArray.splice(index, 1);
-            }
-        })
+
+        channel.removeClass("channel-loaded");
     }
     else {
         channel = $(channels[emptyChannel.min()]);
@@ -41,17 +36,16 @@ addToMixerBtn.on("click", function() {
         author = channel.find(".channel-author");
         instrument.text(targetInst);
         author.text(targetAuthor);
+
+        channel.addClass("channel-loaded");
     }
 });
 
-
-
-// ------- Mixer -------
+// ------- Mixer ------- //
 
 var loadMixerBtn = $(".load-mixer-btn");
 var mixerLoaded = false;
 var ctxLoaded = false;
-var authorSourceLoaded = false;
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -126,9 +120,7 @@ function loadMixer(connect=true) {
 
         var audio = $("#" + targetId)[0];
 
-        // 배열 내의 각 요소들에 대해서
-        // 배열의 각 요소 = ['오디오 태그 id', '이 오디오 태그가 연결된 audioCtx']
-
+        // contextArray 에서 audioCtx 꺼내옴
         var audioCtx = contextArray[index][1];
         var source;
 
