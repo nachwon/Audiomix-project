@@ -8,6 +8,11 @@
   border-radius: 20px;
   border: 1px solid silver;
   box-shadow: 3px 3px 10px 1px black; }
+  #mixer .mixer-title {
+    text-align: center;
+    font-size: 30px;
+    margin-top: 15px;
+    font-family: 'Fjalla One', sans-serif; }
 
 .mixer-mask {
   position: fixed;
