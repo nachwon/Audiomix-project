@@ -173,6 +173,11 @@
     position: relative;
     top: 40px;
     right: 20px; }
+  .track-info .add-to-mixer-btn {
+    display: inline-block;
+    position: absolute;
+    right: 15px;
+    font-size: 17px; }
 
 .waveform-wrapper {
   opacity: 0.5;

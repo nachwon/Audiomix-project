@@ -19,6 +19,12 @@
         <div draggable="false" id="comment-play-btn-{{ comment.pk }}" data-target="comment-track-{{ comment.pk }}" class="track-play-btn play-btn" onclick="loadAudio(this);playAudio();updatePlayerPostInfo();"><i class="fas fa-play-circle fa-3x"></i></div>
         <h1 class="track-title">{{ comment.instrument }} Track</h1>
         <a href="{% url 'views:user:user-detail' pk=comment.author.pk %}"><p class="track-author">by {{ comment.author }}</p></a>
+
+        <button class="add-to-mixer-btn">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            <span class="to-mixer-text">Add to Mixer</span>
+        </button>
+
         <!-- track duration -->
         <div class="playtime">
             <span id="playtime-current-{{ track.pk }}" class="track-duration-current">00:00</span> |
