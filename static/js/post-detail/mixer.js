@@ -1,4 +1,26 @@
+var addToMixerBtn = $(".add-to-mixer-btn");
 
+addToMixerBtn.on("click", function() {
+    var targetId = $(this).data("target");
+    var isLoaded = false;
+    var channels = $(".channel");
+    var emptyChannel = [];
+
+    channels.each(function (index, item) {
+        if (!$(item).attr("data-target-audio")) {
+            emptyChannel.push(index);
+        }
+        if ($(item).attr("data-target-audio") === targetId) {
+            isLoaded = index;
+        }
+    });
+    if (isLoaded) {
+        $(channels[isLoaded]).attr("data-target-audio", "")
+    }
+    else {
+        $(channels[emptyChannel.min()]).attr("data-target-audio", targetId)
+    }
+});
 
 
 
@@ -359,7 +381,7 @@ function connectPanner(pannerNode, audioCtx, index) {
         $(this).css("pointer-events", "none");
 
         $(document)
-            // 팬 슬라이더 클릭 후 누르고 있는 상태 유지시(=마우스 다운) 문서 전체에서 마우스 움직임 감지
+        // 팬 슬라이더 클릭 후 누르고 있는 상태 유지시(=마우스 다운) 문서 전체에서 마우스 움직임 감지
             .on("mousemove", function(e) {
                 // 팬 슬라이더 위치 값 0 ~ 60 에서
                 // 가운데를 0으로 하기 위해서 30을 빼줌: -30 ~ 30
