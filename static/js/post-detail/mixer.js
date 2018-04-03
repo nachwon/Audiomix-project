@@ -58,6 +58,7 @@ addToMixerBtn.on("click", function() {
 var loadMixerBtn = $(".load-mixer-btn");
 var mixerLoaded = false;
 var ctxLoaded = false;
+var animationArray = new Array(8);
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -106,6 +107,7 @@ function toggleMixer() {
 }
 
 function createAudioCtx(channels) {
+    contextArray = [];
     channels.each(function(index, item) {
         var audioCtx = new AudioContext();
         contextArray.push([index, audioCtx])
@@ -132,19 +134,25 @@ function loadMixer(connect=true) {
 
         var audio = $("#" + targetId)[0];
 
+        if (!connect) {
+            $(contextArray).each(function (index, item) {
+                item[1].close();
+                ctxLoaded = false;
+            });
+        }
+
         // contextArray 에서 audioCtx 꺼내옴
         var audioCtx = contextArray[index][1];
-        var source;
-
-        // 새로 생성된 경우에는 노드들과 연결이 안되어있기 때문에 아래의 연결작업 수행
+        var source = getAudioData(targetId, audioCtx);
+        audioCtx.connected = source;
 
         // 분석 노드 생성
-        var analyzer = audioCtx.createAnalyser();
+        var analyser = audioCtx.createAnalyser();
 
         // 분석 노드 설정
-        analyzer.maxDecibels = -10;
-        analyzer.fftSize = 256;
-        var bufferLength = analyzer.frequencyBinCount;
+        analyser.maxDecibels = -10;
+        analyser.fftSize = 256;
+        var bufferLength = analyser.frequencyBinCount;
         var dataArray = new Uint8Array(bufferLength);
 
         // 게인 노드 생성 및 설정
@@ -152,18 +160,9 @@ function loadMixer(connect=true) {
         connectFader(gainNode, audioCtx, index);
 
         // 피크 관련 변수
-        var peak;
-        var peakOpacity;
+        var peak = 0;
+        var peakOpacity = 1;
         var peakTime;
-
-        // 오디오 트랙이 재생될 때
-        $(audio).on("play", function() {
-            // 피크 값, 투명도 초기화
-            peak = 0;
-            peakOpacity = 1;
-            // 미터 그리기 함수 실행
-            faderBackgroundDraw();
-        });
 
         // 미터 뒷 배경 캔버스 엘리먼트
         var meterBase = drawFaderBackgroundBase();
@@ -173,12 +172,12 @@ function loadMixer(connect=true) {
 
         // 미터 막대 그리기 함수
         function faderBackgroundDraw() {
-            // 반복 실행
-            var animationRequest= requestAnimationFrame(faderBackgroundDraw);
+            animationArray[index] = requestAnimationFrame(faderBackgroundDraw);
+
             var barHeight;
 
             // 실시간 프리퀀시 바이트 데이터를 어레이에 저장
-            analyzer.getByteFrequencyData(dataArray);
+            analyser.getByteFrequencyData(dataArray);
 
             // 페이더 미터 표시 설정
             // dataArray의 평균값을 구한 다음 페이더의 높이에 비례하게 설정
@@ -199,18 +198,6 @@ function loadMixer(connect=true) {
                 peak = barHeight;
                 peakTime = 80;
                 peakOpacity = 1;
-            }
-
-            // 재생이 멈추면
-            if (audio.paused) {
-                // 미터 높이를 1 씩 줄여주어 천천히 줄어드는 효과 적용
-                barHeight -= 1;
-                peakOpacity -= 0.01;
-
-                // 다 줄어들면 반복 정지
-                if (barHeight < 0 && peakOpacity < 0) {
-                    cancelAnimationFrame(animationRequest);
-                }
             }
 
             // barHeight 값에 따라 미터와 피크값을 그려줌
@@ -244,37 +231,86 @@ function loadMixer(connect=true) {
             }
         }
 
+        var mixerPlayBtn = $(".mixer-play-btn");
+
+        mixerPlayBtn.on("click", function() {
+            playLoadedChannels();
+        });
+
         // 패너 노드 생성 및 설정
         var pannerNode = audioCtx.createPanner();
         connectPanner(pannerNode, audioCtx, index);
         pannerBackgroundDraw(index);
 
-        if (connect) {
-            if (audioCtx.connected) {
-                audioCtx.connected.disconnect();
-            }
-            source = audioCtx.createMediaElementSource(audio);
+        // 소스 -> 패너 노드 -> 게인 노드 연결
+        var panner_connected = source.connect(pannerNode);
+        var gain_panner_connected = panner_connected.connect(gainNode);
 
-            // 소스 -> 패너 노드 -> 게인 노드 연결
-            var panner_connected = source.connect(pannerNode);
-            var gain_panner_connected = panner_connected.connect(gainNode);
+        // 게인 노드 -> 분석 노드 -> 데스티네이션(스피커)으로 연결
+        // 분석노드는 루트의 어느 곳에 연결되든 상관 없음
+        gain_panner_connected.connect(analyser);
 
-            // 게인 노드 -> 분석 노드 -> 데스티네이션(스피커)으로 연결
-            // 분석노드는 루트의 어느 곳에 연결되든 상관 없음
-            gain_panner_connected.connect(analyzer);
-            analyzer.connect(audioCtx.destination);
-            audioCtx.connected = source;
-
-            if (!audio.paused) {
-                audio.pause();
-                audio.play();
-            }
+        analyser.connect(audioCtx.destination);
+        if (!audio.paused) {
+            audio.pause();
         }
-        else {
-            audioCtx.connected.disconnect();
-            source = audioCtx.createMediaElementSource(audio);
-            source.connect(audioCtx.destination);
-            audioCtx.connected = source;
+
+        if (connect) {
+            // 미터 그리기 함수 실행
+            faderBackgroundDraw();
+        }
+    });
+    if (!connect) {
+        $(animationArray).each(function(index, item) {
+            cancelAnimationFrame(item)
+        });
+    }
+}
+
+function getAudioData(commentPk, audioCtx) {
+    console.log(commentPk);
+    var source = audioCtx.createBufferSource();
+
+    var request = new XMLHttpRequest();
+    var csrf_token = $('[name=csrfmiddlewaretoken]').val();
+
+    var commentPattern = /comment-track-(\d+)/i;
+    var authorPattern = /track-(\d+)-author-audio/i;
+
+    var pk = commentPk.match(commentPattern);
+    var requestUrl;
+
+    if (pk) {
+        pk = pk[1];
+        requestUrl = "/post/comment/" + pk + "/";
+    }
+    else {
+        pk = commentPk.match(authorPattern)[1];
+        requestUrl = "/post/" + pk + "/author-track/"
+    }
+
+    request.open("POST", requestUrl);
+
+    request.setRequestHeader('X-CSRFToken', csrf_token);
+    request.responseType = 'arraybuffer';
+
+    request.onload = function () {
+        var audioData = request.response;
+        audioCtx.decodeAudioData(audioData, function (buffer) {
+            source.buffer = buffer;
+        });
+    };
+
+    request.send();
+
+    return source
+}
+
+
+function playLoadedChannels(func, stop=false,) {
+    $(contextArray).each(function(index, item) {
+        if (item[1].connected) {
+            item[1].connected.start(0);
         }
     })
 }
@@ -516,3 +552,7 @@ function pannerBackgroundDraw(index) {
         }
     }
 }
+
+
+
+
