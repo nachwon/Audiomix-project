@@ -60,8 +60,6 @@ var mixerLoaded = false;
 var ctxLoaded = false;
 var animationArray = new Array(8);
 
-var AudioContext = window.AudioContext || window.webkitAudioContext;
-
 // 믹서 버튼 클릭 시
 loadMixerBtn.on("click", function () {
     // 믹서 로딩이 안되어있으면
@@ -109,6 +107,7 @@ function toggleMixer() {
 function createAudioCtx(channels) {
     contextArray = [];
     channels.each(function(index, item) {
+        var AudioContext = window.AudioContext || window.webkitAudioContext;
         var audioCtx = new AudioContext();
         contextArray.push([index, audioCtx])
     });
@@ -137,8 +136,11 @@ function loadMixer(connect=true) {
         if (!connect) {
             $(contextArray).each(function (index, item) {
                 item[1].close();
-                ctxLoaded = false;
             });
+            $(animationArray).each(function(index, item) {
+                cancelAnimationFrame(item)
+            });
+            return
         }
 
         // contextArray 에서 audioCtx 꺼내옴
@@ -231,11 +233,7 @@ function loadMixer(connect=true) {
             }
         }
 
-        var mixerPlayBtn = $(".mixer-play-btn");
 
-        mixerPlayBtn.on("click", function() {
-            playLoadedChannels();
-        });
 
         // 패너 노드 생성 및 설정
         var pannerNode = audioCtx.createPanner();
@@ -260,15 +258,13 @@ function loadMixer(connect=true) {
             faderBackgroundDraw();
         }
     });
+
     if (!connect) {
-        $(animationArray).each(function(index, item) {
-            cancelAnimationFrame(item)
-        });
+        ctxLoaded = false;
     }
 }
 
 function getAudioData(commentPk, audioCtx) {
-    console.log(commentPk);
     var source = audioCtx.createBufferSource();
 
     var request = new XMLHttpRequest();
@@ -306,10 +302,17 @@ function getAudioData(commentPk, audioCtx) {
     return source
 }
 
+var mixerPlayBtn = $(".mixer-play-btn");
 
-function playLoadedChannels(func, stop=false,) {
+mixerPlayBtn.on("click", function() {
+    playLoadedChannels();
+});
+
+
+function playLoadedChannels() {
     $(contextArray).each(function(index, item) {
         if (item[1].connected) {
+            console.log(item[0]);
             item[1].connected.start(0);
         }
     })

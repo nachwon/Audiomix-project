@@ -176,6 +176,8 @@
             </div>
         </div>
     </div>
+    {% if user_agent == 'Chrome' %}
+    {% else %}
     <div class="channel" id="channel-7" data-target-audio="">
         <div class="channel-wrapper">
             <div class="mute-solo">
@@ -232,6 +234,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
 
     <div class="mixer-player">
         <div class="mixer-player-progress">
