@@ -1,5 +1,4 @@
 var addToMixerBtn = $(".add-to-mixer-btn");
-var contextArray = [];
 
 addToMixerBtn.on("click", function() {
     var targetId = $(this).data("target");
@@ -60,6 +59,10 @@ var mixerLoaded = false;
 var ctxLoaded = false;
 var animationArray = new Array(8);
 
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+var audioCtx = new AudioContext();
+audioCtx.connected = [];
+
 // 믹서 버튼 클릭 시
 loadMixerBtn.on("click", function () {
     // 믹서 로딩이 안되어있으면
@@ -104,14 +107,10 @@ function toggleMixer() {
     }
 }
 
-function createAudioCtx(channels) {
-    contextArray = [];
-    channels.each(function(index, item) {
-        var AudioContext = window.AudioContext || window.webkitAudioContext;
-        var audioCtx = new AudioContext();
-        contextArray.push([index, audioCtx])
-    });
-    ctxLoaded = true;
+function createAudioCtx() {
+    var AudioContext = window.AudioContext || window.webkitAudioContext;
+    audioCtx = new AudioContext();
+    audioCtx.connected = [];
 }
 
 // sourceArray와 .channel 요소들을 비교하여 오디오 컨텍스트 로딩
@@ -120,8 +119,12 @@ function createAudioCtx(channels) {
 function loadMixer(connect=true) {
     var channels = $(".channel");
 
-    if (!ctxLoaded) {
+    if (audioCtx.state === "closed") {
         createAudioCtx(channels);
+    }
+
+    if (!connect) {
+        audioCtx.close();
     }
 
     channels.each(function(index, item) {
@@ -134,19 +137,14 @@ function loadMixer(connect=true) {
         var audio = $("#" + targetId)[0];
 
         if (!connect) {
-            $(contextArray).each(function (index, item) {
-                item[1].close();
-            });
             $(animationArray).each(function(index, item) {
                 cancelAnimationFrame(item)
             });
             return
         }
 
-        // contextArray 에서 audioCtx 꺼내옴
-        var audioCtx = contextArray[index][1];
         var source = getAudioData(targetId, audioCtx);
-        audioCtx.connected = source;
+        audioCtx.connected.push(source);
 
         // 분석 노드 생성
         var analyser = audioCtx.createAnalyser();
@@ -310,11 +308,8 @@ mixerPlayBtn.on("click", function() {
 
 
 function playLoadedChannels() {
-    $(contextArray).each(function(index, item) {
-        if (item[1].connected) {
-            console.log(item[0]);
-            item[1].connected.start(0);
-        }
+    $(audioCtx.connected).each(function (index, item) {
+        item.start(0)
     })
 }
 
