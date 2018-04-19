@@ -189,7 +189,9 @@ function loadMixer(connect=true) {
             var faderHeight = $(fader).css("top");
             var extractNum = /([\d+.]*)px/i;
             var threshold = 250 - parseFloat(faderHeight.match(extractNum)[1]);
-            barHeight = threshold * (avg / 70);
+            var rel_threshold = threshold * (avg / 70);
+
+            barHeight = (threshold < rel_threshold) ? threshold : rel_threshold;
 
             // 피크 값 갱신 설정
             // 막대 높이 보다 피크값이 작으면 막대 높이를 피크 값에 할당

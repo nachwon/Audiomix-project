@@ -147,7 +147,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'config.context_processors.user_agent.http_user_agent',
+                # 'config.context_processors.user_agent.http_user_agent',
                 'config.context_processors.signin_form.signin_form',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
