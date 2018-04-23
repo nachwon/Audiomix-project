@@ -311,7 +311,7 @@ mixerPlayBtn.on("click", function() {
 
 function playLoadedChannels() {
     $(audioCtx.connected).each(function (index, item) {
-        item.start(0)
+        item.start(3)
     })
 }
 
