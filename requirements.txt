@@ -57,7 +57,7 @@ pyasn1==0.4.2
 pyasn1-modules==0.2.1
 pycrypto==2.6.1
 pydub==0.20.0
-Pygments==2.2.0
+Pygments==2.7.4
 python-dateutil==2.7.0
 pytz==2017.2
 PyYAML==3.12
